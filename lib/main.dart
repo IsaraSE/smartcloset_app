@@ -145,7 +145,7 @@ ThemeData _buildTheme() {
       hintStyle: GoogleFonts.poppins(fontSize: 14, color: C.g400),
       labelStyle: GoogleFonts.poppins(fontSize: 14, color: C.g600),
     ),
-    cardTheme: CardTheme(
+    cardTheme: CardThemeData(
       color: C.white, elevation: 0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       margin: EdgeInsets.zero,
@@ -165,7 +165,7 @@ ThemeData _buildTheme() {
     ),
     sliderTheme: const SliderThemeData(activeTrackColor: C.secondary, thumbColor: C.secondary, inactiveTrackColor: C.g300),
     progressIndicatorTheme: const ProgressIndicatorThemeData(color: C.secondary),
-    tabBarTheme: TabBarTheme(
+    tabBarTheme: TabBarThemeData(
       labelStyle: GoogleFonts.poppins(fontSize: 13, fontWeight: FontWeight.w600),
       unselectedLabelStyle: GoogleFonts.poppins(fontSize: 13),
       labelColor: C.secondary,
@@ -776,7 +776,7 @@ class Btn extends StatelessWidget {
       onPressed: loading ? null : onPressed,
       style: ElevatedButton.styleFrom(backgroundColor:bg??C.secondary, disabledBackgroundColor:C.g300),
       child: loading
-        ? const SizedBox(w:20,h:20, child:_SmallLoader())
+        ? const SizedBox(width:20,height:20, child:_SmallLoader())
         : Row(mainAxisAlignment:MainAxisAlignment.center, children:[
             if(icon!=null)...[Icon(icon,size:18),const SizedBox(width:8)],
             Text(text),
@@ -1263,7 +1263,7 @@ class _BSState extends State<_BannerSlider> {
                 child:Text(b.actionLabel,style:GoogleFonts.poppins(fontSize:12,fontWeight:FontWeight.w600,color:C.white))),
             ])),
           ]))),
-      ),
+      );},
     )),
     const SizedBox(height:10),
     AnimatedSmoothIndicator(activeIndex:_cur, count:kBanners.length,
