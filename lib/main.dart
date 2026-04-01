@@ -578,6 +578,53 @@ const kRackNames = <String, String>{
   'rack_accessories':  'Accessories Section',
 };
 
+const _colorMap = <String, Color>{
+  'White': Color(0xFFFFFFFF),
+  'Black': Color(0xFF1A1A1A),
+  'Blue': Color(0xFF2962FF),
+  'Light Blue': Color(0xFF64B5F6),
+  'Navy': Color(0xFF0D47A1),
+  'Charcoal': Color(0xFF424242),
+  'Khaki': Color(0xFFC8AD7F),
+  'Olive': Color(0xFF6B8E23),
+  'Stone': Color(0xFFBDB5A9),
+  'Cream': Color(0xFFFFFDD0),
+  'Forest Green': Color(0xFF228B22),
+  'Burgundy': Color(0xFF800020),
+  'Dark Green': Color(0xFF006400),
+  'Floral Blue': Color(0xFF6495ED),
+  'Floral Pink': Color(0xFFF8A4B8),
+  'Floral Green': Color(0xFF77DD77),
+  'Ivory': Color(0xFFFFFFF0),
+  'Deep Red': Color(0xFFB71C1C),
+  'Light Wash': Color(0xFFB3C7E6),
+  'Dark Wash': Color(0xFF3A5A8C),
+  'Light Denim': Color(0xFF7BA3D4),
+  'Dark Denim': Color(0xFF3B5998),
+  'Tan': Color(0xFFD2B48C),
+  'Champagne': Color(0xFFF7E7CE),
+  'Dusty Rose': Color(0xFFDCB2A8),
+  'Sage Green': Color(0xFFB2AC88),
+  'Red': Color(0xFFE53935),
+  'Yellow': Color(0xFFFFEB3B),
+  'Green': Color(0xFF4CAF50),
+  'Camel': Color(0xFFC19A6B),
+  'Cognac': Color(0xFF9A463D),
+  'Grey': Color(0xFF9E9E9E),
+  'Pink': Color(0xFFE91E63),
+  'Beige': Color(0xFFF5F5DC),
+  'Rust': Color(0xFFB7410E),
+  'Lavender': Color(0xFFB39CD0),
+  'Mocha': Color(0xFF967969),
+  'Teal': Color(0xFF008080),
+  'Coral': Color(0xFFFF7F50),
+  'Mint': Color(0xFF98FF98),
+  'Silver': Color(0xFFC0C0C0),
+  'Rose Gold': Color(0xFFB76E79),
+  'Slate Blue': Color(0xFF6A5ACD),
+  'Heather Grey': Color(0xFFB6B6B4),
+};
+
 // ╔══════════════════════════════════════════════════════════╗
 // ║                  5 · PROVIDERS (Riverpod)               ║
 // ╚══════════════════════════════════════════════════════════╝
@@ -1586,6 +1633,7 @@ class ProductDetailScreen extends ConsumerStatefulWidget {
 class _PDState extends ConsumerState<ProductDetailScreen> {
   int _imgIdx=0;
   String? _selSize;
+  String? _selColor;
   late PageController _pc;
 
   @override void initState(){super.initState(); _pc=PageController();}
@@ -1652,9 +1700,38 @@ class _PDState extends ConsumerState<ProductDetailScreen> {
         Wrap(spacing:10,runSpacing:10,children:p.sizes.map((s)=>SizeChip(size:s,selected:_selSize==s,available:true,onTap:()=>setState(()=>_selSize=s))).toList()),
         const SizedBox(height:20),
         // Colors
-        Text('Available Colors',style:Theme.of(ctx).textTheme.titleMedium),
-        const SizedBox(height:8),
-        Wrap(spacing:8,children:p.colors.map((c)=>Chip(label:Text(c),backgroundColor:C.g100,labelStyle:GoogleFonts.poppins(fontSize:12))).toList()),
+        Text('Select Color',style:Theme.of(ctx).textTheme.titleMedium),
+        const SizedBox(height:12),
+        Wrap(spacing:14, runSpacing:10, children:p.colors.map((c){
+          final isSelected = _selColor == c;
+          final color = _colorMap[c] ?? C.g400;
+          final isLight = color.computeLuminance() > 0.7;
+          return GestureDetector(
+            onTap: () => setState(() => _selColor = c),
+            child: Column(mainAxisSize:MainAxisSize.min, children:[
+              AnimatedContainer(
+                duration: 200.ms,
+                width: 42, height: 42,
+                decoration: BoxDecoration(
+                  color: color,
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                    color: isSelected ? C.secondary : (isLight ? C.g300 : Colors.transparent),
+                    width: isSelected ? 2.5 : 1,
+                  ),
+                  boxShadow: isSelected
+                    ? [BoxShadow(color: color.withOpacity(0.4), blurRadius: 8, spreadRadius: 1)]
+                    : [BoxShadow(color: C.shadow, blurRadius: 4)],
+                ),
+                child: isSelected
+                  ? Icon(Icons.check_rounded, color: isLight ? C.primary : C.white, size: 20)
+                  : null,
+              ),
+              const SizedBox(height: 4),
+              Text(c, style: GoogleFonts.poppins(fontSize: 10, fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400, color: isSelected ? C.primary : C.g500)),
+            ]),
+          );
+        }).toList()),
         const SizedBox(height:20),
         const Divider(),
         const SizedBox(height:16),
@@ -1699,7 +1776,7 @@ class _PDState extends ConsumerState<ProductDetailScreen> {
       const SizedBox(width:12),
       Expanded(flex:2,child:Btn(text:'Add to Cart',icon:Icons.shopping_bag_outlined,onPressed:(){
         if(_selSize==null){snack(context,'Please select a size',err:true);return;}
-        ref.read(cartProvider.notifier).add(p,_selSize!,p.colors.first);
+        ref.read(cartProvider.notifier).add(p,_selSize!,_selColor ?? p.colors.first);
         snack(context,'${p.name} added to cart',action:'View Cart',onAction:()=>context.go('/cart'));
       })),
     ]))),
