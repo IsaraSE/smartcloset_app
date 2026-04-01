@@ -1110,13 +1110,18 @@ class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
   @override ConsumerState<LoginScreen> createState() => _LoginState();
 }
-class _LoginState extends ConsumerState<LoginScreen> {
+class _LoginState extends ConsumerState<LoginScreen> with TickerProviderStateMixin {
   final _fk = GlobalKey<FormState>();
   final _ec = TextEditingController();
   final _pc = TextEditingController();
   bool _hide = true, _loading = false;
+  late AnimationController _floatCtrl;
 
-  @override void dispose() { _ec.dispose(); _pc.dispose(); super.dispose(); }
+  @override void initState() {
+    super.initState();
+    _floatCtrl = AnimationController(vsync: this, duration: const Duration(seconds: 6))..repeat(reverse: true);
+  }
+  @override void dispose() { _ec.dispose(); _pc.dispose(); _floatCtrl.dispose(); super.dispose(); }
 
   Future<void> _login() async {
     if (!_fk.currentState!.validate()) return;
@@ -1129,69 +1134,199 @@ class _LoginState extends ConsumerState<LoginScreen> {
   @override
   Widget build(BuildContext ctx) {
     final h = MediaQuery.of(ctx).size.height;
-    return Scaffold(body:Stack(children:[
-      // ── hero background ──
-      Container(height:h*.44, decoration:const BoxDecoration(color:C.primary), child:Stack(children:[
+    final w = MediaQuery.of(ctx).size.width;
+    return Scaffold(body:SizedBox.expand(child:Stack(children:[
+      // ── gradient hero background ──
+      Container(width:double.infinity, height:h*.46, decoration:const BoxDecoration(
+        gradient: LinearGradient(begin:Alignment.topLeft, end:Alignment.bottomRight,
+          colors:[Color(0xFF0f0c29), Color(0xFF302b63), Color(0xFF24243e)]),
+      ), child:Stack(children:[
+        // Diagonal lines pattern
         Positioned.fill(child:CustomPaint(painter:_DiagPainter())),
-        Padding(padding:EdgeInsets.fromLTRB(28,MediaQuery.of(ctx).padding.top+44,28,0), child:Column(crossAxisAlignment:CrossAxisAlignment.start,children:[
-          Container(padding:const EdgeInsets.symmetric(horizontal:12,vertical:6),
-            decoration:BoxDecoration(color:C.secondary,borderRadius:BorderRadius.circular(7)),
-            child:const Text('SS',style:TextStyle(color:C.white,fontSize:18,fontWeight:FontWeight.w800)),
-          ).animate().fadeIn(duration:400.ms).slideY(begin:-.3,end:0),
-          const SizedBox(height:18),
-          Text('StyleSphere', style:GoogleFonts.poppins(fontSize:36,fontWeight:FontWeight.w800,color:C.white,letterSpacing:-1))
-            .animate().fadeIn(delay:100.ms).slideX(begin:-.2,end:0),
+        // Animated floating circles
+        ..._buildFloatingCircles(w, h),
+        // Content
+        Padding(padding:EdgeInsets.fromLTRB(28,MediaQuery.of(ctx).padding.top+36,28,0), child:Column(crossAxisAlignment:CrossAxisAlignment.start,children:[
+          Row(children:[
+            Container(padding:const EdgeInsets.symmetric(horizontal:14,vertical:8),
+              decoration:BoxDecoration(
+                gradient:const LinearGradient(colors:[Color(0xFFE94560), Color(0xFFFF6B6B)]),
+                borderRadius:BorderRadius.circular(10),
+                boxShadow:[BoxShadow(color:const Color(0xFFE94560).withOpacity(.4), blurRadius:12, offset:const Offset(0,4))],
+              ),
+              child:const Text('SS',style:TextStyle(color:C.white,fontSize:20,fontWeight:FontWeight.w900,letterSpacing:1)),
+            ).animate().fadeIn(duration:500.ms).scale(begin:const Offset(.5,.5),end:const Offset(1,1),curve:Curves.elasticOut),
+            const SizedBox(width:12),
+            Container(padding:const EdgeInsets.symmetric(horizontal:10,vertical:4),
+              decoration:BoxDecoration(color:Colors.white.withOpacity(.1),borderRadius:BorderRadius.circular(20)),
+              child:Text('Premium',style:GoogleFonts.poppins(fontSize:11,color:Colors.white.withOpacity(.8),fontWeight:FontWeight.w500)),
+            ).animate().fadeIn(delay:300.ms),
+          ]),
+          const SizedBox(height:22),
+          Text('StyleSphere', style:GoogleFonts.poppins(fontSize:38,fontWeight:FontWeight.w800,color:C.white,letterSpacing:-1.5,height:1.1))
+            .animate().fadeIn(delay:100.ms).slideX(begin:-.15,end:0,curve:Curves.easeOutCubic),
           const SizedBox(height:6),
-          Text('Dress Your World', style:GoogleFonts.poppins(fontSize:15,color:C.white.withOpacity(.6),fontWeight:FontWeight.w300,letterSpacing:2))
-            .animate().fadeIn(delay:200.ms).slideX(begin:-.2,end:0),
+          ShaderMask(
+            shaderCallback:(bounds) => const LinearGradient(colors:[Color(0xFFE94560), Color(0xFFFF6B6B), Color(0xFFFFC371)]).createShader(bounds),
+            child:Text('Dress Your World', style:GoogleFonts.poppins(fontSize:16,color:C.white,fontWeight:FontWeight.w500,letterSpacing:3)),
+          ).animate().fadeIn(delay:250.ms).slideX(begin:-.15,end:0),
+          const SizedBox(height:16),
+          // Feature pills
+          Wrap(spacing:8, children:[
+            _FeaturePill(Icons.checkroom_rounded, 'Virtual Try-On'),
+            _FeaturePill(Icons.qr_code_scanner_rounded, 'Smart Racks'),
+            _FeaturePill(Icons.local_shipping_outlined, 'Free Shipping'),
+          ]),
         ])),
       ])),
       // ── white card ──
-      Positioned(top:h*.32,left:0,right:0,bottom:0,child:Container(
-        decoration:const BoxDecoration(color:C.white,borderRadius:BorderRadius.vertical(top:Radius.circular(30))),
-        child:SingleChildScrollView(padding:const EdgeInsets.fromLTRB(28,30,28,30),child:Form(key:_fk,child:Column(crossAxisAlignment:CrossAxisAlignment.start,children:[
-          Text('Welcome back',style:Theme.of(ctx).textTheme.headlineMedium).animate().fadeIn(delay:300.ms),
-          const SizedBox(height:4),
-          Text('Sign in to continue',style:Theme.of(ctx).textTheme.bodyMedium?.copyWith(color:C.g500)).animate().fadeIn(delay:350.ms),
-          const SizedBox(height:26),
-          TextFormField(controller:_ec, keyboardType:TextInputType.emailAddress, textInputAction:TextInputAction.next,
-            decoration:const InputDecoration(labelText:'Email',prefixIcon:Icon(Icons.email_outlined)),
-            validator:(v){if(v==null||v.isEmpty)return 'Email required';if(!v.contains('@'))return 'Invalid email';return null;},
-          ).animate().fadeIn(delay:400.ms).slideY(begin:.2,end:0),
+      Positioned(top:h*.34,left:0,right:0,bottom:0,child:Container(
+        decoration:BoxDecoration(
+          color:C.white,
+          borderRadius:const BorderRadius.vertical(top:Radius.circular(32)),
+          boxShadow:[BoxShadow(color:Colors.black.withOpacity(.15),blurRadius:30,offset:const Offset(0,-8))],
+        ),
+        child:SingleChildScrollView(padding:const EdgeInsets.fromLTRB(28,28,28,30),child:Form(key:_fk,child:Column(crossAxisAlignment:CrossAxisAlignment.start,children:[
+          Row(mainAxisAlignment:MainAxisAlignment.spaceBetween,children:[
+            Column(crossAxisAlignment:CrossAxisAlignment.start,children:[
+              Text('Welcome back',style:Theme.of(ctx).textTheme.headlineMedium?.copyWith(fontSize:24,fontWeight:FontWeight.w800)),
+              const SizedBox(height:4),
+              Text('Sign in to your account',style:Theme.of(ctx).textTheme.bodyMedium?.copyWith(color:C.g500)),
+            ]),
+            Container(padding:const EdgeInsets.all(10),
+              decoration:BoxDecoration(color:C.secondary.withOpacity(.08),borderRadius:BorderRadius.circular(12)),
+              child:const Icon(Icons.login_rounded,color:C.secondary,size:22)),
+          ]).animate().fadeIn(delay:300.ms),
+          const SizedBox(height:24),
+          // Email
+          Container(
+            decoration:BoxDecoration(borderRadius:BorderRadius.circular(14),
+              boxShadow:[BoxShadow(color:C.shadow,blurRadius:8,offset:const Offset(0,2))]),
+            child:TextFormField(controller:_ec, keyboardType:TextInputType.emailAddress, textInputAction:TextInputAction.next,
+              decoration:InputDecoration(labelText:'Email Address',prefixIcon:const Icon(Icons.email_outlined,size:20),
+                filled:true,fillColor:C.white,
+                border:OutlineInputBorder(borderRadius:BorderRadius.circular(14),borderSide:BorderSide.none),
+                enabledBorder:OutlineInputBorder(borderRadius:BorderRadius.circular(14),borderSide:const BorderSide(color:C.g200)),
+                focusedBorder:OutlineInputBorder(borderRadius:BorderRadius.circular(14),borderSide:const BorderSide(color:C.secondary,width:1.5)),
+              ),
+              validator:(v){if(v==null||v.isEmpty)return 'Email required';if(!v.contains('@'))return 'Invalid email';return null;},
+            ),
+          ).animate().fadeIn(delay:400.ms).slideY(begin:.15,end:0),
           const SizedBox(height:14),
-          TextFormField(controller:_pc, obscureText:_hide, textInputAction:TextInputAction.done, onFieldSubmitted:(_)=>_login(),
-            decoration:InputDecoration(labelText:'Password',prefixIcon:const Icon(Icons.lock_outline),
-              suffixIcon:IconButton(icon:Icon(_hide?Icons.visibility_off_outlined:Icons.visibility_outlined,color:C.g400),onPressed:()=>setState(()=>_hide=!_hide))),
-            validator:(v){if(v==null||v.isEmpty)return 'Password required';if(v.length<6)return 'Min 6 characters';return null;},
-          ).animate().fadeIn(delay:450.ms).slideY(begin:.2,end:0),
-          Align(alignment:Alignment.centerRight,child:TextButton(onPressed:(){},child:const Text('Forgot Password?'))),
+          // Password
+          Container(
+            decoration:BoxDecoration(borderRadius:BorderRadius.circular(14),
+              boxShadow:[BoxShadow(color:C.shadow,blurRadius:8,offset:const Offset(0,2))]),
+            child:TextFormField(controller:_pc, obscureText:_hide, textInputAction:TextInputAction.done, onFieldSubmitted:(_)=>_login(),
+              decoration:InputDecoration(labelText:'Password',prefixIcon:const Icon(Icons.lock_outline,size:20),
+                filled:true,fillColor:C.white,
+                border:OutlineInputBorder(borderRadius:BorderRadius.circular(14),borderSide:BorderSide.none),
+                enabledBorder:OutlineInputBorder(borderRadius:BorderRadius.circular(14),borderSide:const BorderSide(color:C.g200)),
+                focusedBorder:OutlineInputBorder(borderRadius:BorderRadius.circular(14),borderSide:const BorderSide(color:C.secondary,width:1.5)),
+                suffixIcon:IconButton(icon:Icon(_hide?Icons.visibility_off_outlined:Icons.visibility_outlined,color:C.g400,size:20),onPressed:()=>setState(()=>_hide=!_hide))),
+              validator:(v){if(v==null||v.isEmpty)return 'Password required';if(v.length<6)return 'Min 6 characters';return null;},
+            ),
+          ).animate().fadeIn(delay:450.ms).slideY(begin:.15,end:0),
+          Align(alignment:Alignment.centerRight,child:TextButton(
+            onPressed:(){},
+            style:TextButton.styleFrom(foregroundColor:C.secondary),
+            child:Text('Forgot Password?',style:GoogleFonts.poppins(fontSize:13,fontWeight:FontWeight.w500)))),
           const SizedBox(height:6),
-          Btn(text:'Sign In',loading:_loading,onPressed:_login).animate().fadeIn(delay:500.ms),
-          const SizedBox(height:22),
-          Row(children:[const Expanded(child:Divider()),
-            Padding(padding:const EdgeInsets.symmetric(horizontal:14),child:Text('or sign in with',style:Theme.of(ctx).textTheme.bodySmall?.copyWith(color:C.g400))),
-            const Expanded(child:Divider())]),
-          const SizedBox(height:22),
+          // Sign In button with gradient
+          Container(
+            width:double.infinity, height:54,
+            decoration:BoxDecoration(
+              gradient:const LinearGradient(colors:[Color(0xFFE94560), Color(0xFFFF6B6B)]),
+              borderRadius:BorderRadius.circular(14),
+              boxShadow:[BoxShadow(color:const Color(0xFFE94560).withOpacity(.35),blurRadius:16,offset:const Offset(0,6))],
+            ),
+            child:ElevatedButton(
+              onPressed:_loading?null:_login,
+              style:ElevatedButton.styleFrom(backgroundColor:Colors.transparent,shadowColor:Colors.transparent,
+                shape:RoundedRectangleBorder(borderRadius:BorderRadius.circular(14))),
+              child:_loading
+                ? const SizedBox(width:22,height:22,child:CircularProgressIndicator(strokeWidth:2.5,color:C.white))
+                : Row(mainAxisAlignment:MainAxisAlignment.center,children:[
+                    Text('Sign In',style:GoogleFonts.poppins(fontSize:15,fontWeight:FontWeight.w600,color:C.white)),
+                    const SizedBox(width:8),
+                    const Icon(Icons.arrow_forward_rounded,color:C.white,size:20),
+                  ]),
+            ),
+          ).animate().fadeIn(delay:500.ms).slideY(begin:.1,end:0),
+          const SizedBox(height:24),
+          Row(children:[
+            Expanded(child:Container(height:1,decoration:BoxDecoration(gradient:LinearGradient(colors:[C.g200,C.g300])))),
+            Padding(padding:const EdgeInsets.symmetric(horizontal:16),child:Text('or continue with',style:GoogleFonts.poppins(fontSize:12,color:C.g400,fontWeight:FontWeight.w500))),
+            Expanded(child:Container(height:1,decoration:BoxDecoration(gradient:LinearGradient(colors:[C.g300,C.g200])))),
+          ]),
+          const SizedBox(height:24),
           _GoogleBtn(onPressed:ref.read(authProvider.notifier).signInWithGoogle, loading:_loading).animate().fadeIn(delay:550.ms),
-          const SizedBox(height:28),
-          Center(child:RichText(text:TextSpan(text:"Don't have an account? ",style:Theme.of(ctx).textTheme.bodyMedium?.copyWith(color:C.g500),
-            children:[WidgetSpan(child:GestureDetector(onTap:()=>ctx.push('/register'),child:Text('Sign Up',style:Theme.of(ctx).textTheme.bodyMedium?.copyWith(color:C.secondary,fontWeight:FontWeight.w700))))]))),
+          const SizedBox(height:30),
+          Center(child:RichText(text:TextSpan(text:"Don't have an account? ",style:GoogleFonts.poppins(fontSize:14,color:C.g500),
+            children:[WidgetSpan(child:GestureDetector(onTap:()=>ctx.push('/register'),child:Text('Sign Up',style:GoogleFonts.poppins(fontSize:14,color:C.secondary,fontWeight:FontWeight.w700))))]))),
         ])))),
       ),
-    ]));
+    ])));
   }
+
+  List<Widget> _buildFloatingCircles(double w, double h) {
+    return [
+      _FloatingCircle(ctrl:_floatCtrl, left:w*0.1, top:h*0.08, size:70, color:const Color(0xFFE94560).withOpacity(.12), delay:0),
+      _FloatingCircle(ctrl:_floatCtrl, left:w*0.7, top:h*0.04, size:50, color:const Color(0xFF6C63FF).withOpacity(.10), delay:0.3),
+      _FloatingCircle(ctrl:_floatCtrl, left:w*0.5, top:h*0.18, size:35, color:const Color(0xFFFFC371).withOpacity(.12), delay:0.6),
+      _FloatingCircle(ctrl:_floatCtrl, left:w*0.85, top:h*0.15, size:25, color:Colors.white.withOpacity(.08), delay:0.2),
+      _FloatingCircle(ctrl:_floatCtrl, left:w*0.25, top:h*0.25, size:20, color:const Color(0xFFE94560).withOpacity(.08), delay:0.5),
+    ];
+  }
+}
+
+class _FloatingCircle extends AnimatedWidget {
+  final double left, top, size;
+  final Color color;
+  final double delay;
+  const _FloatingCircle({required AnimationController ctrl, required this.left, required this.top, required this.size, required this.color, required this.delay})
+    : super(listenable: ctrl);
+  @override Widget build(BuildContext ctx) {
+    final anim = listenable as AnimationController;
+    final offset = math.sin((anim.value + delay) * math.pi * 2) * 12;
+    return Positioned(left:left, top:top + offset, child:Container(width:size,height:size,
+      decoration:BoxDecoration(shape:BoxShape.circle, color:color,
+        boxShadow:[BoxShadow(color:color.withOpacity(.3),blurRadius:20)])));
+  }
+}
+
+class _FeaturePill extends StatelessWidget {
+  final IconData icon; final String label;
+  const _FeaturePill(this.icon, this.label);
+  @override Widget build(BuildContext ctx) => Container(
+    padding:const EdgeInsets.symmetric(horizontal:10,vertical:6),
+    decoration:BoxDecoration(color:Colors.white.withOpacity(.1),borderRadius:BorderRadius.circular(20),
+      border:Border.all(color:Colors.white.withOpacity(.15))),
+    child:Row(mainAxisSize:MainAxisSize.min,children:[
+      Icon(icon,color:Colors.white.withOpacity(.9),size:13),
+      const SizedBox(width:5),
+      Text(label,style:GoogleFonts.poppins(color:Colors.white.withOpacity(.85),fontSize:10,fontWeight:FontWeight.w500)),
+    ]),
+  ).animate().fadeIn(delay:350.ms).slideY(begin:.3,end:0);
 }
 
 class _GoogleBtn extends StatelessWidget {
   final Future<void> Function() onPressed; final bool loading;
   const _GoogleBtn({required this.onPressed, required this.loading});
-  @override Widget build(BuildContext ctx) => SizedBox(width:double.infinity,height:52,
+  @override Widget build(BuildContext ctx) => SizedBox(width:double.infinity,height:54,
     child:OutlinedButton(
       onPressed:loading?null:onPressed,
-      style:OutlinedButton.styleFrom(side:const BorderSide(color:C.g300),shape:RoundedRectangleBorder(borderRadius:BorderRadius.circular(12))),
+      style:OutlinedButton.styleFrom(
+        side:const BorderSide(color:C.g200),
+        shape:RoundedRectangleBorder(borderRadius:BorderRadius.circular(14)),
+        backgroundColor:C.g100,
+      ),
       child:Row(mainAxisAlignment:MainAxisAlignment.center,children:[
-        const Text('G',style:TextStyle(color:C.secondary,fontWeight:FontWeight.w800,fontSize:17)),
-        const SizedBox(width:10),
+        Container(width:24,height:24,decoration:BoxDecoration(
+          gradient:const LinearGradient(begin:Alignment.topLeft,end:Alignment.bottomRight,colors:[Color(0xFF4285F4),Color(0xFF34A853),Color(0xFFFBBC05),Color(0xFFEA4335)]),
+          shape:BoxShape.circle),
+          child:const Center(child:Text('G',style:TextStyle(color:C.white,fontWeight:FontWeight.w800,fontSize:13)))),
+        const SizedBox(width:12),
         Text('Continue with Google',style:GoogleFonts.poppins(color:C.primary,fontWeight:FontWeight.w500,fontSize:14)),
       ]),
     ),
@@ -1200,9 +1335,12 @@ class _GoogleBtn extends StatelessWidget {
 
 class _DiagPainter extends CustomPainter {
   @override void paint(Canvas canvas, Size size) {
-    final p = Paint()..color=Colors.white.withOpacity(.04)..strokeWidth=1;
-    for(double i=-size.height;i<size.width;i+=40)
+    final p = Paint()..color=Colors.white.withOpacity(.03)..strokeWidth=0.8;
+    for(double i=-size.height;i<size.width+size.height;i+=30)
       canvas.drawLine(Offset(i,0), Offset(i+size.height,size.height), p);
+    // Subtle horizontal lines
+    for(double y=0;y<size.height;y+=60)
+      canvas.drawLine(Offset(0,y), Offset(size.width,y), Paint()..color=Colors.white.withOpacity(.02)..strokeWidth=0.5);
   }
   @override bool shouldRepaint(_DiagPainter o) => false;
 }
