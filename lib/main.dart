@@ -1370,13 +1370,15 @@ class _RegState extends ConsumerState<RegisterScreen> {
   @override Widget build(BuildContext ctx) => Scaffold(backgroundColor:C.white,body:CustomScrollView(slivers:[
     SliverAppBar(backgroundColor:C.white,leading:IconButton(icon:const Icon(Icons.arrow_back_ios_new_rounded,size:20),onPressed:()=>ctx.pop())),
     SliverToBoxAdapter(child:Padding(padding:const EdgeInsets.fromLTRB(28,0,28,40),child:Form(key:_fk,child:Column(crossAxisAlignment:CrossAxisAlignment.start,children:[
-      Container(padding:const EdgeInsets.symmetric(horizontal:11,vertical:5),
-        decoration:BoxDecoration(color:C.secondary.withOpacity(.1),borderRadius:BorderRadius.circular(6)),
-        child:const Text('StyleSphere',style:TextStyle(color:C.secondary,fontWeight:FontWeight.w700,fontSize:12,letterSpacing:1))),
-      const SizedBox(height:14),
-      Text('Create\nAccount',style:Theme.of(ctx).textTheme.displaySmall?.copyWith(height:1.2)).animate().fadeIn().slideX(begin:-.2,end:0),
+      Container(padding:const EdgeInsets.symmetric(horizontal:12,vertical:6),
+        decoration:BoxDecoration(
+          gradient:const LinearGradient(colors:[Color(0xFFE94560), Color(0xFFFF6B6B)]),
+          borderRadius:BorderRadius.circular(8)),
+        child:const Text('StyleSphere',style:TextStyle(color:C.white,fontWeight:FontWeight.w700,fontSize:12,letterSpacing:1))),
+      const SizedBox(height:16),
+      Text('Create\nAccount',style:Theme.of(ctx).textTheme.displaySmall?.copyWith(height:1.1,fontWeight:FontWeight.w800)).animate().fadeIn().slideX(begin:-.2,end:0),
       const SizedBox(height:8),
-      Text('Join StyleSphere and discover your style',style:Theme.of(ctx).textTheme.bodyMedium?.copyWith(color:C.g500)).animate().fadeIn(delay:100.ms),
+      Text('Join StyleSphere and discover your personal style ✨',style:Theme.of(ctx).textTheme.bodyMedium?.copyWith(color:C.g500)).animate().fadeIn(delay:100.ms),
       const SizedBox(height:32),
       TextFormField(controller:_nc,textCapitalization:TextCapitalization.words,textInputAction:TextInputAction.next,
         decoration:const InputDecoration(labelText:'Full Name',prefixIcon:Icon(Icons.person_outline)),
@@ -1414,6 +1416,13 @@ class _RegState extends ConsumerState<RegisterScreen> {
   ]));
 }
 
+String _greeting() {
+  final h = DateTime.now().hour;
+  if (h < 12) return 'Good Morning ☀️';
+  if (h < 17) return 'Good Afternoon 🌤️';
+  return 'Good Evening 🌙';
+}
+
 // ╔══════════════════════════════════════════════════════════╗
 // ║                 12 · HOME SCREEN                        ║
 // ╚══════════════════════════════════════════════════════════╝
@@ -1447,8 +1456,18 @@ class HomeScreen extends ConsumerWidget {
       ),
 
       SliverToBoxAdapter(child:Column(children:[
+        // — Greeting —
+        Padding(padding:const EdgeInsets.fromLTRB(16,16,16,0),child:Row(children:[
+          Expanded(child:Column(crossAxisAlignment:CrossAxisAlignment.start,children:[
+            Text(_greeting(), style:GoogleFonts.poppins(fontSize:22,fontWeight:FontWeight.w700,color:C.primary)),
+            Text(user?.name ?? 'Guest', style:GoogleFonts.poppins(fontSize:14,color:C.g500)),
+          ])),
+          Container(width:44,height:44,
+            decoration:BoxDecoration(gradient:const LinearGradient(colors:[Color(0xFFE94560),Color(0xFFFF6B6B)]),shape:BoxShape.circle),
+            child:Center(child:Text(user?.name.isNotEmpty==true?user!.name[0].toUpperCase():'?',style:GoogleFonts.poppins(fontSize:18,fontWeight:FontWeight.w700,color:C.white)))),
+        ])),
         // — Search bar —
-        Padding(padding:const EdgeInsets.fromLTRB(16,16,16,0),child:GestureDetector(
+        Padding(padding:const EdgeInsets.fromLTRB(16,14,16,0),child:GestureDetector(
           onTap:()=>ctx.go('/explore'),
           child:Container(
             padding:const EdgeInsets.symmetric(horizontal:16,vertical:14),
@@ -2178,26 +2197,56 @@ class _COState extends ConsumerState<CheckoutScreen> {
 class OrderSuccessScreen extends StatelessWidget {
   final AppOrder order;
   const OrderSuccessScreen({super.key, required this.order});
-  @override Widget build(BuildContext ctx) => Scaffold(backgroundColor:C.white,body:SafeArea(child:Padding(padding:const EdgeInsets.all(32),child:Column(mainAxisAlignment:MainAxisAlignment.center,children:[
-    Container(width:100,height:100,decoration:const BoxDecoration(color:Color(0xFFE8F5E9),shape:BoxShape.circle),
-      child:const Icon(Icons.check_circle_rounded,color:C.success,size:60)).animate().scale(delay:200.ms,duration:500.ms,curve:Curves.elasticOut),
-    const SizedBox(height:24),
-    Text('Order Placed!',style:Theme.of(ctx).textTheme.displaySmall).animate().fadeIn(delay:400.ms),
-    const SizedBox(height:8),
-    Text('Your order ${order.orderNumber} has been placed successfully.',style:Theme.of(ctx).textTheme.bodyMedium?.copyWith(color:C.g600,height:1.5),textAlign:TextAlign.center).animate().fadeIn(delay:500.ms),
-    const SizedBox(height:32),
-    Container(padding:const EdgeInsets.all(20),decoration:BoxDecoration(color:C.g100,borderRadius:BorderRadius.circular(16)),child:Column(children:[
-      _Row('Order No.',order.orderNumber),
-      _Row('Payment',order.paymentMethod),
-      _Row('Estimated Delivery','${order.estimatedDelivery?.day}/${order.estimatedDelivery?.month}/${order.estimatedDelivery?.year}'),
-      const Divider(height:16),
-      _Row('Total','\$${order.total.toStringAsFixed(2)}',bold:true),
-    ])).animate().fadeIn(delay:600.ms),
-    const SizedBox(height:32),
-    Btn(text:'Track My Order',onPressed:()=>ctx.pushReplacement('/orders')).animate().fadeIn(delay:700.ms),
-    const SizedBox(height:12),
-    OutBtn(text:'Continue Shopping',onPressed:()=>ctx.go('/')).animate().fadeIn(delay:800.ms),
-  ])));
+
+  @override
+  Widget build(BuildContext ctx) {
+    return Scaffold(
+      backgroundColor: C.white,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(32),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: 100, height: 100,
+                decoration: const BoxDecoration(color: Color(0xFFE8F5E9), shape: BoxShape.circle),
+                child: const Icon(Icons.check_circle_rounded, color: C.success, size: 60),
+              ).animate().scale(delay: 200.ms, duration: 500.ms, curve: Curves.elasticOut),
+              const SizedBox(height: 24),
+              Text('Order Placed!', style: Theme.of(ctx).textTheme.displaySmall)
+                  .animate().fadeIn(delay: 400.ms),
+              const SizedBox(height: 8),
+              Text(
+                'Your order ${order.orderNumber} has been placed successfully.',
+                style: Theme.of(ctx).textTheme.bodyMedium?.copyWith(color: C.g600, height: 1.5),
+                textAlign: TextAlign.center,
+              ).animate().fadeIn(delay: 500.ms),
+              const SizedBox(height: 32),
+              Container(
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(color: C.g100, borderRadius: BorderRadius.circular(16)),
+                child: Column(children: [
+                  _Row('Order No.', order.orderNumber),
+                  _Row('Payment', order.paymentMethod),
+                  _Row('Estimated Delivery',
+                      '${order.estimatedDelivery?.day}/${order.estimatedDelivery?.month}/${order.estimatedDelivery?.year}'),
+                  const Divider(height: 16),
+                  _Row('Total', '\$${order.total.toStringAsFixed(2)}', bold: true),
+                ]),
+              ).animate().fadeIn(delay: 600.ms),
+              const SizedBox(height: 32),
+              Btn(text: 'Track My Order', onPressed: () => ctx.pushReplacement('/orders'))
+                  .animate().fadeIn(delay: 700.ms),
+              const SizedBox(height: 12),
+              OutBtn(text: 'Continue Shopping', onPressed: () => ctx.go('/'))
+                  .animate().fadeIn(delay: 800.ms),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 }
 
 // ╔══════════════════════════════════════════════════════════╗
