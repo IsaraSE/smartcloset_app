@@ -1,6 +1,6 @@
 // ============================================================
-//  STYLESPHERE — Complete Flutter App (Single File)
-//  Premium Fashion Retail · AR Try-On · QR Rack Scanner
+//  STYLESPHERE — Redesigned Flutter App (Single File)
+//  Clean Professional UI · Blue & White Theme
 // ============================================================
 
 import 'dart:async';
@@ -21,10 +21,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown,
-  ]);
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
     statusBarIconBrightness: Brightness.dark,
@@ -38,136 +35,120 @@ void main() {
 
 class C {
   C._();
-  static const primary      = Color(0xFF2D0A16);
-  static const secondary    = Color(0xFFC8415B);
-  static const accent       = Color(0xFFF5E6EA);
-  static const primaryLight = Color(0xFF4A1526);
-  static const wine         = Color(0xFF6B1D2A);
-  static const roseGold     = Color(0xFFD4A0A8);
+  // Primary palette — clean blue & white
+  static const primary      = Color(0xFF0F172A);   // Dark navy (main text)
+  static const blue         = Color(0xFF2563EB);   // Main blue accent
+  static const blueDark     = Color(0xFF1E3A8A);   // Dark blue (buy now btn)
+  static const blueLight    = Color(0xFFEFF6FF);   // Light blue surface
+  static const blueMid      = Color(0xFF3B82F6);   // Medium blue
+  static const secondary    = Color(0xFF2563EB);   // Alias for compat
+  static const red          = Color(0xFFEF4444);   // Sale badge
   static const white        = Color(0xFFFFFFFF);
   static const black        = Color(0xFF000000);
-  static const g100 = Color(0xFFFAF7F8);
-  static const g200 = Color(0xFFF0EAEC);
-  static const g300 = Color(0xFFE0D6D9);
-  static const g400 = Color(0xFFBDB0B5);
-  static const g500 = Color(0xFF9E8F94);
-  static const g600 = Color(0xFF756A6E);
-  static const g700 = Color(0xFF5C5255);
-  static const g800 = Color(0xFF3D3436);
-  static const success  = Color(0xFF2E7D32);
-  static const warning  = Color(0xFFF9A825);
-  static const error    = Color(0xFFD32F2F);
-  static const shadow   = Color(0x14000000);
-  static const divider  = Color(0xFFF0EAEC);
+  static const bg           = Color(0xFFF8FAFC);   // App background
+  static const cardBg       = Color(0xFFFFFFFF);   // Card background
+  static const g50          = Color(0xFFF8FAFC);
+  static const g100         = Color(0xFFF1F5F9);
+  static const g200         = Color(0xFFE2E8F0);
+  static const g300         = Color(0xFFCBD5E1);
+  static const g400         = Color(0xFF94A3B8);
+  static const g500         = Color(0xFF64748B);
+  static const g600         = Color(0xFF475569);
+  static const g700         = Color(0xFF334155);
+  static const g800         = Color(0xFF1E293B);
+  static const success      = Color(0xFF22C55E);
+  static const warning      = Color(0xFFF59E0B);
+  static const error        = Color(0xFFEF4444);
+  static const shadow       = Color(0x0A000000);
+  static const shadowMd     = Color(0x14000000);
+  static const divider      = Color(0xFFE2E8F0);
 
+  static const LinearGradient blueGrad = LinearGradient(
+    begin: Alignment.topLeft, end: Alignment.bottomRight,
+    colors: [Color(0xFF1D4ED8), Color(0xFF3B82F6)],
+  );
   static const LinearGradient heroGrad = LinearGradient(
-    begin: Alignment.topCenter,
-    end: Alignment.bottomCenter,
-    colors: [Colors.transparent, Color(0xDD2D0A16)],
+    begin: Alignment.topCenter, end: Alignment.bottomCenter,
+    colors: [Colors.transparent, Color(0xCC0F172A)],
   );
-  static const LinearGradient primaryGrad = LinearGradient(
-    begin: Alignment.topLeft,
-    end: Alignment.bottomRight,
-    colors: [primary, primaryLight],
-  );
-  static const LinearGradient wineGrad = LinearGradient(
-    begin: Alignment.topLeft,
-    end: Alignment.bottomRight,
-    colors: [Color(0xFF6B1D2A), Color(0xFF4A1526), Color(0xFF2D0A16)],
-  );
-  static const LinearGradient roseAccentGrad = LinearGradient(
-    begin: Alignment.topLeft,
-    end: Alignment.bottomRight,
-    colors: [Color(0xFFC8415B), Color(0xFFE06B7F)],
+  static const LinearGradient navyGrad = LinearGradient(
+    begin: Alignment.topLeft, end: Alignment.bottomRight,
+    colors: [Color(0xFF0F172A), Color(0xFF1E293B)],
   );
 }
 
 ThemeData _buildTheme() {
-  final base = GoogleFonts.poppinsTextTheme();
-  TextStyle p(double sz, FontWeight w, Color col, {double ls = 0}) =>
-      GoogleFonts.poppins(fontSize: sz, fontWeight: w, color: col, letterSpacing: ls);
+  TextStyle p(double sz, FontWeight w, Color col, {double ls = 0, double? h}) =>
+      GoogleFonts.poppins(fontSize: sz, fontWeight: w, color: col, letterSpacing: ls, height: h);
 
   return ThemeData(
     useMaterial3: true,
     colorScheme: ColorScheme.fromSeed(
-      seedColor: C.primary,
-      primary: C.primary,
-      secondary: C.secondary,
+      seedColor: C.blue,
+      primary: C.blue,
+      secondary: C.blueDark,
       surface: C.white,
       error: C.error,
       onPrimary: C.white,
       onSecondary: C.white,
       onSurface: C.primary,
     ),
-    scaffoldBackgroundColor: C.g100,
-    textTheme: base.copyWith(
-      displayLarge:  p(32, FontWeight.w800, C.primary, ls: -1),
-      displayMedium: p(26, FontWeight.w700, C.primary),
-      displaySmall:  p(22, FontWeight.w700, C.primary),
-      headlineLarge: p(20, FontWeight.w700, C.primary),
-      headlineMedium:p(18, FontWeight.w600, C.primary),
-      headlineSmall: p(16, FontWeight.w600, C.primary),
-      titleLarge:    p(16, FontWeight.w600, C.primary),
-      titleMedium:   p(14, FontWeight.w500, C.primary),
-      titleSmall:    p(12, FontWeight.w500, C.g700),
-      bodyLarge:     p(16, FontWeight.w400, C.g800),
-      bodyMedium:    p(14, FontWeight.w400, C.g700),
-      bodySmall:     p(12, FontWeight.w400, C.g500),
-      labelLarge:    p(14, FontWeight.w600, C.white, ls: 0.5),
-      labelMedium:   p(12, FontWeight.w500, C.g600),
-      labelSmall:    p(10, FontWeight.w400, C.g500),
+    scaffoldBackgroundColor: C.bg,
+    textTheme: TextTheme(
+      displayLarge:   p(32, FontWeight.w800, C.primary, ls: -1),
+      displayMedium:  p(26, FontWeight.w700, C.primary),
+      displaySmall:   p(22, FontWeight.w700, C.primary),
+      headlineLarge:  p(20, FontWeight.w700, C.primary),
+      headlineMedium: p(18, FontWeight.w600, C.primary),
+      headlineSmall:  p(16, FontWeight.w600, C.primary),
+      titleLarge:     p(16, FontWeight.w600, C.primary),
+      titleMedium:    p(14, FontWeight.w500, C.primary),
+      titleSmall:     p(12, FontWeight.w500, C.g700),
+      bodyLarge:      p(16, FontWeight.w400, C.g800),
+      bodyMedium:     p(14, FontWeight.w400, C.g700),
+      bodySmall:      p(12, FontWeight.w400, C.g500),
+      labelLarge:     p(14, FontWeight.w600, C.white, ls: 0.3),
+      labelMedium:    p(12, FontWeight.w500, C.g600),
+      labelSmall:     p(10, FontWeight.w400, C.g500),
     ),
     appBarTheme: AppBarTheme(
-      backgroundColor: C.white,
-      elevation: 0,
+      backgroundColor: C.white, elevation: 0,
       scrolledUnderElevation: 0.5,
       iconTheme: const IconThemeData(color: C.primary),
-      titleTextStyle: GoogleFonts.poppins(
-          fontSize: 18, fontWeight: FontWeight.w700, color: C.primary),
+      titleTextStyle: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w700, color: C.primary),
       systemOverlayStyle: SystemUiOverlayStyle.dark,
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
-        backgroundColor: C.secondary,
-        foregroundColor: C.white,
-        elevation: 0,
-        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+        backgroundColor: C.blue, foregroundColor: C.white, elevation: 0,
+        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 24),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        textStyle: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w600, letterSpacing: 0.5),
+        textStyle: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w600),
       ),
     ),
     outlinedButtonTheme: OutlinedButtonThemeData(
       style: OutlinedButton.styleFrom(
         foregroundColor: C.primary,
-        side: const BorderSide(color: C.primary, width: 1.5),
-        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
+        side: const BorderSide(color: C.g300, width: 1.5),
+        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 24),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         textStyle: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w600),
       ),
     ),
     inputDecorationTheme: InputDecorationTheme(
-      filled: true,
-      fillColor: C.g100,
-      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+      filled: true, fillColor: C.g100,
+      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
       border: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: BorderSide.none),
       enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: const BorderSide(color: C.g200)),
-      focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: const BorderSide(color: C.secondary, width: 1.5)),
+      focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: const BorderSide(color: C.blue, width: 1.5)),
       errorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: const BorderSide(color: C.error)),
-      focusedErrorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: const BorderSide(color: C.error, width: 1.5)),
       hintStyle: GoogleFonts.poppins(fontSize: 14, color: C.g400),
-      labelStyle: GoogleFonts.poppins(fontSize: 14, color: C.g600),
+      labelStyle: GoogleFonts.poppins(fontSize: 14, color: C.g500),
     ),
     cardTheme: CardThemeData(
       color: C.white, elevation: 0,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       margin: EdgeInsets.zero,
-    ),
-    chipTheme: ChipThemeData(
-      backgroundColor: C.g100,
-      selectedColor: C.primary,
-      labelStyle: GoogleFonts.poppins(fontSize: 12, fontWeight: FontWeight.w500),
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
     ),
     snackBarTheme: SnackBarThemeData(
       backgroundColor: C.primary,
@@ -175,18 +156,11 @@ ThemeData _buildTheme() {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       behavior: SnackBarBehavior.floating,
     ),
-    sliderTheme: const SliderThemeData(activeTrackColor: C.secondary, thumbColor: C.secondary, inactiveTrackColor: C.g300),
-    progressIndicatorTheme: const ProgressIndicatorThemeData(color: C.secondary),
-    tabBarTheme: TabBarThemeData(
-      labelStyle: GoogleFonts.poppins(fontSize: 13, fontWeight: FontWeight.w600),
-      unselectedLabelStyle: GoogleFonts.poppins(fontSize: 13),
-      labelColor: C.secondary,
-      unselectedLabelColor: C.g500,
-      indicatorColor: C.secondary,
-    ),
+    sliderTheme: const SliderThemeData(activeTrackColor: C.blue, thumbColor: C.blue, inactiveTrackColor: C.g200),
+    progressIndicatorTheme: const ProgressIndicatorThemeData(color: C.blue),
     dividerTheme: const DividerThemeData(color: C.divider, thickness: 1, space: 1),
     checkboxTheme: CheckboxThemeData(
-      fillColor: MaterialStateProperty.resolveWith((s) => s.contains(MaterialState.selected) ? C.secondary : C.g300),
+      fillColor: WidgetStateProperty.resolveWith((s) => s.contains(WidgetState.selected) ? C.blue : C.g200),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
     ),
   );
@@ -202,7 +176,7 @@ class Product {
   final double? originalPrice;
   final List<String> images, sizes, colors;
   final double rating;
-  final int reviewCount;
+  final int reviewCount, soldCount;
   final bool isNew, isFeatured, isInStock;
   final String? rackId, rackName;
   final Map<String, String> details;
@@ -212,15 +186,13 @@ class Product {
     required this.description, required this.category, required this.subCategory,
     required this.price, this.originalPrice,
     required this.images, required this.sizes, required this.colors,
-    required this.rating, required this.reviewCount,
+    required this.rating, required this.reviewCount, this.soldCount = 0,
     this.isNew = false, this.isFeatured = false, this.isInStock = true,
     this.rackId, this.rackName, this.details = const {},
   });
 
-  double get discount =>
-      (originalPrice != null && originalPrice! > price)
-          ? ((originalPrice! - price) / originalPrice! * 100).roundToDouble()
-          : 0;
+  double get discount => (originalPrice != null && originalPrice! > price)
+      ? ((originalPrice! - price) / originalPrice! * 100).roundToDouble() : 0;
   bool get hasDiscount => discount > 0;
 }
 
@@ -228,28 +200,22 @@ class CartItem {
   final String id, selectedSize, selectedColor;
   final Product product;
   final int quantity;
-  const CartItem({
-    required this.id, required this.product, required this.quantity,
-    required this.selectedSize, required this.selectedColor,
-  });
+  const CartItem({required this.id, required this.product, required this.quantity,
+    required this.selectedSize, required this.selectedColor});
   double get total => product.price * quantity;
-  CartItem copyWith({int? quantity}) => CartItem(
-    id: id, product: product, selectedSize: selectedSize,
-    selectedColor: selectedColor, quantity: quantity ?? this.quantity,
-  );
+  CartItem copyWith({int? quantity}) => CartItem(id: id, product: product,
+    selectedSize: selectedSize, selectedColor: selectedColor, quantity: quantity ?? this.quantity);
 }
 
 class Address {
   final String id, name, phone, line1, city, state, zip, country;
   final String? line2;
   final bool isDefault;
-  const Address({
-    required this.id, required this.name, required this.phone,
+  const Address({required this.id, required this.name, required this.phone,
     required this.line1, this.line2, required this.city,
-    required this.state, required this.zip, required this.country,
-    this.isDefault = false,
-  });
+    required this.state, required this.zip, required this.country, this.isDefault = false});
   String get full => '$line1${line2 != null ? ', $line2' : ''}, $city, $state $zip, $country';
+  String get short => '$line1, $city';
 }
 
 class AppUser {
@@ -274,7 +240,7 @@ extension OrderStatusX on OrderStatus {
     OrderStatus.shipped: 2, OrderStatus.delivered: 3, OrderStatus.cancelled: -1,
   }[this]!;
   Color get color => this == OrderStatus.delivered ? C.success
-      : this == OrderStatus.cancelled ? C.error : C.secondary;
+      : this == OrderStatus.cancelled ? C.error : C.blue;
 }
 
 class AppOrder {
@@ -285,299 +251,306 @@ class AppOrder {
   final OrderStatus status;
   final DateTime createdAt;
   final DateTime? estimatedDelivery;
-  const AppOrder({
-    required this.id, required this.orderNumber, required this.items,
+  const AppOrder({required this.id, required this.orderNumber, required this.items,
     required this.subtotal, required this.shipping, required this.total,
     required this.address, required this.paymentMethod, required this.status,
-    required this.createdAt, this.estimatedDelivery, this.discount = 0,
-  });
+    required this.createdAt, this.estimatedDelivery, this.discount = 0});
   int get itemCount => items.fold(0, (s, i) => s + i.quantity);
 }
 
 class BannerData {
-  final String id, imageUrl, title, subtitle, actionLabel, route;
+  final String id, imageUrl, title, subtitle, actionLabel, route, tag;
   const BannerData({required this.id, required this.imageUrl, required this.title,
-    required this.subtitle, required this.actionLabel, required this.route});
+    required this.subtitle, required this.actionLabel, required this.route, this.tag = ''});
 }
 
 class CategoryData {
-  final String id, name, imageUrl, emoji;
-  final Color color;
-  const CategoryData({required this.id, required this.name, required this.imageUrl,
-    required this.emoji, required this.color});
+  final String id, name, emoji;
+  final Color color, bgColor;
+  const CategoryData({required this.id, required this.name,
+    required this.emoji, required this.color, required this.bgColor});
+}
+
+class BrandData {
+  final String id, name, logoUrl;
+  const BrandData({required this.id, required this.name, required this.logoUrl});
 }
 
 // ╔══════════════════════════════════════════════════════════╗
 // ║                  4 · MOCK DATA                          ║
 // ╚══════════════════════════════════════════════════════════╝
 
-const _u = 'https://images.unsplash.com';
-
+// Using reliable Unsplash photos with known-good IDs
 final kProducts = <Product>[
   Product(
-    id: 'p01', name: 'Slim Fit Oxford Shirt', brand: 'StyleSphere',
-    description: 'A timeless oxford shirt crafted from premium 100% cotton. Features a button-down collar, tailored slim fit, and subtle texture that elevates any formal or smart-casual look. Perfect for the boardroom or an evening out.',
+    id: 'p01', name: 'Slim Fit Oxford Shirt', brand: 'Ralph Lauren',
+    description: 'A timeless oxford shirt crafted from premium 100% cotton. Features a button-down collar, tailored slim fit, and subtle texture that elevates any formal or smart-casual look.',
     price: 79.99, originalPrice: 120.00, category: 'Men', subCategory: 'Formal',
-    images: ['$_u/photo-1602810318383-e386cc2a3ccf?w=800&q=80', '$_u/photo-1596755094514-f87e34085b2c?w=800&q=80', '$_u/photo-1620012253295-c15cc3e65df4?w=800&q=80'],
-    sizes: ['S','M','L','XL','XXL'], colors: ['White','Blue','Light Blue'],
-    rating: 4.7, reviewCount: 324, isFeatured: true,
-    rackId: 'rack_men_formal', rackName: "Men's Formal Section",
-    details: {'Material':'100% Premium Cotton','Fit':'Slim Fit','Care':'Machine Wash Cold','Origin':'Made in Portugal'},
+    images: [
+      'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&q=80',
+      'https://images.unsplash.com/photo-1596755094514-f87e34085b2c?w=600&q=80',
+    ],
+    sizes: ['S','M','L','XL','XXL'], colors: ['White','Blue','Navy'],
+    rating: 4.7, reviewCount: 324, soldCount: 890, isFeatured: true,
+    rackId: 'rack_men_formal', rackName: "Men's Formal",
+    details: {'Material':'100% Cotton','Fit':'Slim Fit','Care':'Machine Wash','Origin':'Portugal'},
   ),
   Product(
-    id: 'p02', name: 'Classic Wool Blazer', brand: 'StyleSphere',
-    description: 'Elevate your wardrobe with this sophisticated wool-blend blazer. Features a single-button closure, notch lapels, and structured shoulders. The slim silhouette creates a sharp, professional look.',
+    id: 'p02', name: 'Classic Wool Blazer', brand: 'Tommy Hilfiger',
+    description: 'Elevate your wardrobe with this sophisticated wool-blend blazer. Features a single-button closure, notch lapels, and structured shoulders for a sharp professional look.',
     price: 249.99, originalPrice: 380.00, category: 'Men', subCategory: 'Formal',
-    images: ['$_u/photo-1507679799987-c73779587ccf?w=800&q=80', '$_u/photo-1593030761757-71fae45fa0e7?w=800&q=80'],
+    images: [
+      'https://images.unsplash.com/photo-1594938298603-c8148c4b2f8e?w=600&q=80',
+      'https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=600&q=80',
+    ],
     sizes: ['S','M','L','XL'], colors: ['Charcoal','Navy','Black'],
-    rating: 4.9, reviewCount: 187, isFeatured: true,
-    rackId: 'rack_men_formal', rackName: "Men's Formal Section",
-    details: {'Material':'70% Wool, 30% Polyester','Fit':'Slim Fit','Care':'Dry Clean Only','Lining':'Full Lining'},
+    rating: 4.9, reviewCount: 187, soldCount: 420, isFeatured: true,
+    rackId: 'rack_men_formal', rackName: "Men's Formal",
+    details: {'Material':'70% Wool, 30% Poly','Fit':'Slim Fit','Care':'Dry Clean Only','Lining':'Full'},
   ),
   Product(
-    id: 'p03', name: 'Slim Chino Trousers', brand: 'StyleSphere',
-    description: 'Versatile chino trousers that seamlessly blend comfort and style. Crafted from a lightweight cotton-stretch blend with a clean, tailored silhouette.',
+    id: 'p03', name: 'Slim Chino Trousers', brand: 'Dior',
+    description: 'Versatile chino trousers that seamlessly blend comfort and style. Crafted from a lightweight cotton-stretch blend.',
     price: 89.99, category: 'Men', subCategory: 'Casual',
-    images: ['$_u/photo-1473966968600-fa801b869a1a?w=800&q=80', '$_u/photo-1624378439575-d8705ad7ae80?w=800&q=80'],
-    sizes: ['28','30','32','34','36'], colors: ['Khaki','Navy','Olive','Stone'],
-    rating: 4.5, reviewCount: 458, isNew: true,
-    rackId: 'rack_men_casual', rackName: "Men's Casual Section",
-    details: {'Material':'97% Cotton, 3% Elastane','Fit':'Slim Fit','Rise':'Mid Rise','Care':'Machine Wash'},
+    images: [
+      'https://images.unsplash.com/photo-1624378439575-d8705ad7ae80?w=600&q=80',
+      'https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=600&q=80',
+    ],
+    sizes: ['28','30','32','34','36'], colors: ['Khaki','Navy','Olive'],
+    rating: 4.5, reviewCount: 458, soldCount: 1200, isNew: true,
+    rackId: 'rack_men_casual', rackName: "Men's Casual",
+    details: {'Material':'97% Cotton, 3% Elastane','Fit':'Slim','Rise':'Mid','Care':'Machine Wash'},
   ),
   Product(
-    id: 'p04', name: 'Premium Oversized Hoodie', brand: 'StyleSphere',
-    description: 'The ultimate streetwear staple. This heavyweight cotton hoodie features an oversized silhouette, kangaroo pocket, and ribbed cuffs. The premium fleece interior provides exceptional warmth.',
+    id: 'p04', name: 'Premium Oversized Hoodie', brand: 'Chanel',
+    description: 'The ultimate streetwear staple. This heavyweight cotton hoodie features an oversized silhouette and premium fleece interior for exceptional warmth.',
     price: 119.99, originalPrice: 160.00, category: 'Men', subCategory: 'Streetwear',
-    images: ['$_u/photo-1556821840-3a63f15732ce?w=800&q=80', '$_u/photo-1515886657613-9f3515b0c78f?w=800&q=80', '$_u/photo-1620799140408-edc6dcb6d633?w=800&q=80'],
-    sizes: ['S','M','L','XL','XXL'], colors: ['Black','Cream','Forest Green','Burgundy'],
-    rating: 4.8, reviewCount: 792, isNew: true, isFeatured: true,
-    rackId: 'rack_streetwear', rackName: 'Streetwear Collection',
-    details: {'Material':'400gsm Cotton Fleece','Fit':'Oversized','Weight':'Heavyweight','Care':'Machine Wash Cold'},
+    images: [
+      'https://images.unsplash.com/photo-1556821840-3a63f15732ce?w=600&q=80',
+      'https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=600&q=80',
+    ],
+    sizes: ['S','M','L','XL','XXL'], colors: ['Black','Cream','Forest Green'],
+    rating: 4.8, reviewCount: 792, soldCount: 2100, isNew: true, isFeatured: true,
+    rackId: 'rack_streetwear', rackName: 'Streetwear',
+    details: {'Material':'400gsm Fleece','Fit':'Oversized','Weight':'Heavyweight','Care':'Machine Wash Cold'},
   ),
   Product(
-    id: 'p05', name: 'Cargo Tech Pants', brand: 'StyleSphere',
-    description: 'Functional meets fashion with these technical cargo pants. Multiple zip pockets, adjustable waistband, and a tapered leg silhouette.',
+    id: 'p05', name: 'Cargo Tech Pants', brand: 'Versace',
+    description: 'Functional meets fashion with these technical cargo pants. Multiple zip pockets, adjustable waistband, and tapered leg silhouette.',
     price: 149.99, originalPrice: 200.00, category: 'Men', subCategory: 'Streetwear',
-    images: ['$_u/photo-1542272604-787c3835535d?w=800&q=80', '$_u/photo-1517438476312-10d79c077509?w=800&q=80'],
+    images: [
+      'https://images.unsplash.com/photo-1542272604-787c3835535d?w=600&q=80',
+      'https://images.unsplash.com/photo-1517438476312-10d79c077509?w=600&q=80',
+    ],
     sizes: ['S','M','L','XL'], colors: ['Black','Khaki','Dark Green'],
-    rating: 4.6, reviewCount: 234,
-    rackId: 'rack_streetwear', rackName: 'Streetwear Collection',
-    details: {'Material':'Ripstop Nylon','Pockets':'6 Zip Pockets','Feature':'Water Resistant','Care':'Machine Wash'},
+    rating: 4.6, reviewCount: 234, soldCount: 560,
+    rackId: 'rack_streetwear', rackName: 'Streetwear',
+    details: {'Material':'Ripstop Nylon','Pockets':'6 Zip','Feature':'Water Resistant','Care':'Machine Wash'},
   ),
   Product(
-    id: 'p06', name: 'Floral Midi Dress', brand: 'StyleSphere',
-    description: 'A stunning floral midi dress featuring a V-neckline, flowy silhouette, and delicate floral print. Crafted from lightweight viscose fabric that drapes beautifully.',
+    id: 'p06', name: 'Floral Midi Dress', brand: 'Gucci',
+    description: 'A stunning floral midi dress featuring a V-neckline, flowy silhouette, and delicate floral print. Crafted from lightweight viscose fabric.',
     price: 129.99, originalPrice: 180.00, category: 'Women', subCategory: 'Casual',
-    images: ['$_u/photo-1572804013309-59a88b7e92f1?w=800&q=80', '$_u/photo-1496747611176-843222e1e57c?w=800&q=80', '$_u/photo-1595777457583-95e059d581b8?w=800&q=80'],
-    sizes: ['XS','S','M','L','XL'], colors: ['Floral Blue','Floral Pink','Floral Green'],
-    rating: 4.8, reviewCount: 567, isNew: true, isFeatured: true,
-    rackId: 'rack_women_casual', rackName: "Women's Casual Section",
-    details: {'Material':'100% Viscose','Fit':'Relaxed','Length':'Midi (Below Knee)','Care':'Hand Wash'},
+    images: [
+      'https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=600&q=80',
+      'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=600&q=80',
+    ],
+    sizes: ['XS','S','M','L','XL'], colors: ['Floral Blue','Floral Pink'],
+    rating: 4.8, reviewCount: 567, soldCount: 1340, isNew: true, isFeatured: true,
+    rackId: 'rack_women_casual', rackName: "Women's Casual",
+    details: {'Material':'100% Viscose','Fit':'Relaxed','Length':'Midi','Care':'Hand Wash'},
   ),
   Product(
-    id: 'p07', name: 'Tailored Blazer Dress', brand: 'StyleSphere',
-    description: 'A sophisticated power-dressing piece that commands attention. This tailored blazer dress features peak lapels, a defined waist, and a thigh-length hemline.',
+    id: 'p07', name: 'Tailored Blazer Dress', brand: 'Prada',
+    description: 'A sophisticated power-dressing piece that commands attention. This tailored blazer dress features peak lapels and a defined waist.',
     price: 219.99, originalPrice: 320.00, category: 'Women', subCategory: 'Formal',
-    images: ['$_u/photo-1594938298603-c8148c4b2f8e?w=800&q=80', '$_u/photo-1539109136881-3be0616acf4b?w=800&q=80'],
+    images: [
+      'https://images.unsplash.com/photo-1539109136881-3be0616acf4b?w=600&q=80',
+      'https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=600&q=80',
+    ],
     sizes: ['XS','S','M','L'], colors: ['Black','Ivory','Deep Red'],
-    rating: 4.9, reviewCount: 189, isFeatured: true,
-    rackId: 'rack_women_formal', rackName: "Women's Formal Section",
-    details: {'Material':'Italian Crepe Fabric','Fit':'Tailored','Closure':'Single Button','Care':'Dry Clean'},
+    rating: 4.9, reviewCount: 189, soldCount: 380, isFeatured: true,
+    rackId: 'rack_women_formal', rackName: "Women's Formal",
+    details: {'Material':'Italian Crepe','Fit':'Tailored','Closure':'Single Button','Care':'Dry Clean'},
   ),
   Product(
-    id: 'p08', name: 'High-Waist Wide Leg Jeans', brand: 'StyleSphere',
-    description: 'A modern take on the classic wide-leg silhouette. Features a high-waist design, raw hem, and premium stretch denim that flatters every body type.',
+    id: 'p08', name: 'High-Waist Wide Leg Jeans', brand: 'Calvin Klein',
+    description: 'A modern take on the classic wide-leg silhouette. Premium stretch denim that flatters every body type.',
     price: 109.99, category: 'Women', subCategory: 'Casual',
-    images: ['$_u/photo-1541099649105-f69ad21f3246?w=800&q=80', '$_u/photo-1475178626620-a4d074967452?w=800&q=80'],
+    images: [
+      'https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=600&q=80',
+      'https://images.unsplash.com/photo-1475178626620-a4d074967452?w=600&q=80',
+    ],
     sizes: ['24','25','26','27','28','30'], colors: ['Light Wash','Dark Wash','Black'],
-    rating: 4.7, reviewCount: 883,
-    rackId: 'rack_women_casual', rackName: "Women's Casual Section",
-    details: {'Material':'93% Cotton, 7% Elastane','Rise':'High Rise','Fit':'Wide Leg','Care':'Machine Wash'},
+    rating: 4.7, reviewCount: 883, soldCount: 2500,
+    rackId: 'rack_women_casual', rackName: "Women's Casual",
+    details: {'Material':'93% Cotton, 7% Elastane','Rise':'High','Fit':'Wide Leg','Care':'Machine Wash'},
   ),
   Product(
-    id: 'p09', name: 'Cropped Leather Jacket', brand: 'StyleSphere',
-    description: 'The definitive statement piece. This cropped moto jacket is crafted from premium vegan leather with silver-tone hardware and asymmetric zip closure.',
+    id: 'p09', name: 'Cropped Leather Jacket', brand: 'Versace',
+    description: 'The definitive statement piece. Crafted from premium vegan leather with silver-tone hardware and asymmetric zip closure.',
     price: 299.99, originalPrice: 450.00, category: 'Women', subCategory: 'Streetwear',
-    images: ['$_u/photo-1551028719-00167b16eac5?w=800&q=80', '$_u/photo-1548624313-0396c75e4b1a?w=800&q=80'],
+    images: [
+      'https://images.unsplash.com/photo-1551028719-00167b16eac5?w=600&q=80',
+      'https://images.unsplash.com/photo-1548624313-0396c75e4b1a?w=600&q=80',
+    ],
     sizes: ['XS','S','M','L'], colors: ['Black','Burgundy','Tan'],
-    rating: 4.9, reviewCount: 342, isNew: true, isFeatured: true,
-    rackId: 'rack_streetwear', rackName: 'Streetwear Collection',
-    details: {'Material':'Premium Vegan Leather','Fit':'Cropped','Hardware':'Silver-Tone','Care':'Wipe Clean'},
+    rating: 4.9, reviewCount: 342, soldCount: 710, isNew: true, isFeatured: true,
+    rackId: 'rack_streetwear', rackName: 'Streetwear',
+    details: {'Material':'Vegan Leather','Fit':'Cropped','Hardware':'Silver','Care':'Wipe Clean'},
   ),
   Product(
-    id: 'p10', name: 'Satin Slip Dress', brand: 'StyleSphere',
-    description: 'Effortlessly chic satin slip dress that works for any occasion. Features adjustable spaghetti straps and a bias-cut silhouette that skims the body beautifully.',
+    id: 'p10', name: 'Satin Slip Dress', brand: 'Gucci',
+    description: 'Effortlessly chic satin slip dress with adjustable spaghetti straps and a bias-cut silhouette.',
     price: 99.99, originalPrice: 150.00, category: 'Women', subCategory: 'Formal',
-    images: ['$_u/photo-1566174053879-31528523f8ae?w=800&q=80', '$_u/photo-1515372039744-b8f02a3ae446?w=800&q=80'],
-    sizes: ['XS','S','M','L'], colors: ['Champagne','Dusty Rose','Sage Green','Black'],
-    rating: 4.7, reviewCount: 456,
-    rackId: 'rack_women_formal', rackName: "Women's Formal Section",
+    images: [
+      'https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=600&q=80',
+      'https://images.unsplash.com/photo-1566174053879-31528523f8ae?w=600&q=80',
+    ],
+    sizes: ['XS','S','M','L'], colors: ['Champagne','Dusty Rose','Black'],
+    rating: 4.7, reviewCount: 456, soldCount: 980,
+    rackId: 'rack_women_formal', rackName: "Women's Formal",
     details: {'Material':'100% Satin','Fit':'Bias Cut','Straps':'Adjustable','Care':'Hand Wash Cold'},
   ),
   Product(
-    id: 'p11', name: 'Kids Denim Overalls', brand: 'StyleSphere',
-    description: 'Super cute and durable denim overalls for active kids. Features adjustable straps, multiple pockets, and reinforced knees.',
+    id: 'p11', name: 'Kids Denim Overalls', brand: 'Tommy Hilfiger',
+    description: 'Super cute and durable denim overalls. Features adjustable straps and reinforced knees.',
     price: 49.99, originalPrice: 70.00, category: 'Kids', subCategory: 'Casual',
-    images: ['$_u/photo-1519238263530-99bdd11df2ea?w=800&q=80', '$_u/photo-1543854589-fdd815240077?w=800&q=80'],
+    images: [
+      'https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?w=600&q=80',
+      'https://images.unsplash.com/photo-1471286174890-9c112ffca5b4?w=600&q=80',
+    ],
     sizes: ['3T','4T','5T','6','7','8'], colors: ['Light Denim','Dark Denim'],
-    rating: 4.8, reviewCount: 234,
+    rating: 4.8, reviewCount: 234, soldCount: 670,
     rackId: 'rack_kids', rackName: "Kids' Section",
     details: {'Material':'Soft Denim','Feature':'Reinforced Knees','Straps':'Adjustable','Care':'Machine Wash'},
   ),
   Product(
-    id: 'p12', name: 'Kids Graphic Tee Set', brand: 'StyleSphere',
-    description: 'Fun graphic tee and matching shorts set for active kids. Made from super-soft 100% cotton jersey with playful prints.',
+    id: 'p12', name: 'Kids Graphic Tee Set', brand: 'Ralph Lauren',
+    description: 'Fun graphic tee and matching shorts set. Made from super-soft 100% cotton jersey.',
     price: 39.99, category: 'Kids', subCategory: 'Casual',
-    images: ['$_u/photo-1471286174890-9c112ffca5b4?w=800&q=80', '$_u/photo-1518831959646-742c3a14ebf7?w=800&q=80'],
-    sizes: ['3T','4T','5T','6','7','8','10'], colors: ['Blue','Red','Yellow','Green'],
-    rating: 4.6, reviewCount: 178, isNew: true,
+    images: [
+      'https://images.unsplash.com/photo-1518831959646-742c3a14ebf7?w=600&q=80',
+      'https://images.unsplash.com/photo-1471286174890-9c112ffca5b4?w=600&q=80',
+    ],
+    sizes: ['3T','4T','5T','6','7','8'], colors: ['Blue','Red','Yellow'],
+    rating: 4.6, reviewCount: 178, soldCount: 440, isNew: true,
     rackId: 'rack_kids', rackName: "Kids' Section",
-    details: {'Material':'100% Cotton Jersey','Set':'2-Piece (Tee + Shorts)','Waistband':'Elastic','Care':'Machine Wash'},
+    details: {'Material':'100% Cotton','Set':'2-Piece','Waistband':'Elastic','Care':'Machine Wash'},
   ),
   Product(
-    id: 'p13', name: 'Leather Tote Bag', brand: 'StyleSphere',
-    description: 'A spacious and elegant leather tote that combines functionality with luxury. Made from full-grain leather with gold-tone hardware.',
+    id: 'p13', name: 'Leather Tote Bag', brand: 'Chanel',
+    description: 'A spacious and elegant leather tote made from full-grain leather with gold-tone hardware.',
     price: 189.99, originalPrice: 280.00, category: 'Accessories', subCategory: 'Bags',
-    images: ['$_u/photo-1590874103328-eac38a683ce7?w=800&q=80', '$_u/photo-1553062407-98eeb64c6a62?w=800&q=80'],
+    images: [
+      'https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=600&q=80',
+      'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&q=80',
+    ],
     sizes: ['One Size'], colors: ['Tan','Black','Cognac'],
-    rating: 4.9, reviewCount: 312, isFeatured: true,
-    rackId: 'rack_accessories', rackName: 'Accessories Section',
-    details: {'Material':'Full-Grain Leather','Hardware':'Gold-Tone','Dimensions':'14" x 12" x 5"','Pockets':'Interior Organizer'},
+    rating: 4.9, reviewCount: 312, soldCount: 540, isFeatured: true,
+    rackId: 'rack_accessories', rackName: 'Accessories',
+    details: {'Material':'Full-Grain Leather','Hardware':'Gold-Tone','Dimensions':'14x12x5"','Pockets':'Interior'},
   ),
   Product(
-    id: 'p14', name: 'Wool Knit Scarf', brand: 'StyleSphere',
-    description: 'Luxuriously soft merino wool scarf with a classic ribbed pattern. Extra-long length allows for multiple styling options.',
+    id: 'p14', name: 'Wool Knit Scarf', brand: 'Prada',
+    description: 'Luxuriously soft merino wool scarf with a classic ribbed pattern. Extra-long for multiple styling options.',
     price: 69.99, originalPrice: 100.00, category: 'Accessories', subCategory: 'Scarves',
-    images: ['$_u/photo-1520903920243-00d872a2d1c9?w=800&q=80', '$_u/photo-1574180566232-aaad1b5b8450?w=800&q=80'],
-    sizes: ['One Size'], colors: ['Camel','Charcoal','Cream','Burgundy'],
-    rating: 4.8, reviewCount: 145,
-    rackId: 'rack_accessories', rackName: 'Accessories Section',
+    images: [
+      'https://images.unsplash.com/photo-1520903920243-00d872a2d1c9?w=600&q=80',
+      'https://images.unsplash.com/photo-1574180566232-aaad1b5b8450?w=600&q=80',
+    ],
+    sizes: ['One Size'], colors: ['Camel','Charcoal','Cream'],
+    rating: 4.8, reviewCount: 145, soldCount: 320,
+    rackId: 'rack_accessories', rackName: 'Accessories',
     details: {'Material':'100% Merino Wool','Length':'180cm','Pattern':'Ribbed Knit','Care':'Hand Wash'},
   ),
-  // ── NEW PRODUCTS ──
   Product(
-    id: 'p15', name: 'Classic Polo Shirt', brand: 'StyleSphere',
-    description: 'A versatile polo shirt in premium piqué cotton. Features a ribbed collar, two-button placket, and a relaxed fit that works for both casual and smart-casual occasions.',
-    price: 59.99, originalPrice: 85.00, category: 'Men', subCategory: 'Casual',
-    images: ['$_u/photo-1625910513413-5fc421e0e858?w=800&q=80', '$_u/photo-1581655353564-df123a1eb820?w=800&q=80'],
-    sizes: ['S','M','L','XL','XXL'], colors: ['White','Navy','Black','Burgundy'],
-    rating: 4.6, reviewCount: 412, isNew: true,
-    rackId: 'rack_men_casual', rackName: "Men's Casual Section",
-    details: {'Material':'100% Piqué Cotton','Fit':'Regular','Collar':'Ribbed','Care':'Machine Wash'},
+    id: 'p15', name: 'Cable Knit Sweater', brand: 'Gucci',
+    description: 'A cozy cable knit sweater perfect for layering or wearing on its own. Crafted with soft yarn for all-day comfort.',
+    price: 42.99, originalPrice: 46.77, category: 'Men', subCategory: 'Casual',
+    images: [
+      'https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&q=80',
+      'https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=600&q=80',
+    ],
+    sizes: ['S','M','L','XL','XXL'], colors: ['Brown','Cream','Grey','Navy'],
+    rating: 4.2, reviewCount: 380, soldCount: 1560, isNew: true,
+    rackId: 'rack_men_casual', rackName: "Men's Casual",
+    details: {'Material':'100% Merino Wool','Fit':'Regular','Pattern':'Cable Knit','Care':'Hand Wash Cold'},
   ),
   Product(
-    id: 'p16', name: 'Rugged Denim Jacket', brand: 'StyleSphere',
-    description: 'An iconic denim jacket with a vintage-washed finish. Features copper-tone buttons, chest pockets, and a tailored fit that layers perfectly over any outfit.',
-    price: 139.99, originalPrice: 190.00, category: 'Men', subCategory: 'Casual',
-    images: ['$_u/photo-1576995853123-5a10305d93c0?w=800&q=80', '$_u/photo-1551537482-f2075a1d41f2?w=800&q=80'],
-    sizes: ['S','M','L','XL'], colors: ['Light Wash','Dark Wash','Black'],
-    rating: 4.7, reviewCount: 289, isFeatured: true,
-    rackId: 'rack_men_casual', rackName: "Men's Casual Section",
-    details: {'Material':'100% Cotton Denim','Buttons':'Copper-Tone','Fit':'Tailored','Care':'Machine Wash Cold'},
+    id: 'p16', name: 'Tomorrow Cardigan', brand: 'Ralph Lauren',
+    description: 'An iconic cardigan with classic styling. Ribbed collar and cuffs, button front, and premium quality knit.',
+    price: 36.99, originalPrice: 46.77, category: 'Men', subCategory: 'Casual',
+    images: [
+      'https://images.unsplash.com/photo-1623479322729-28b25c16b011?w=600&q=80',
+      'https://images.unsplash.com/photo-1571945153237-4929e783af4a?w=600&q=80',
+    ],
+    sizes: ['S','M','L','XL'], colors: ['Brown','Black','Navy'],
+    rating: 4.2, reviewCount: 290, soldCount: 870, isFeatured: true,
+    rackId: 'rack_men_casual', rackName: "Men's Casual",
+    details: {'Material':'Wool Blend','Buttons':'Brass','Collar':'Ribbed','Care':'Dry Clean Preferred'},
   ),
   Product(
-    id: 'p17', name: 'Tapered Jogger Pants', brand: 'StyleSphere',
-    description: 'Athletic-inspired joggers with a modern tapered silhouette. Elasticised cuffs, drawstring waist, and side zip pockets. Perfect for athleisure or relaxed weekends.',
-    price: 79.99, category: 'Men', subCategory: 'Streetwear',
-    images: ['$_u/photo-1552902865-b72c031ac5ea?w=800&q=80', '$_u/photo-1562157873-818bc0726f68?w=800&q=80'],
-    sizes: ['S','M','L','XL','XXL'], colors: ['Black','Grey','Navy'],
-    rating: 4.5, reviewCount: 356, isNew: true,
-    rackId: 'rack_streetwear', rackName: 'Streetwear Collection',
-    details: {'Material':'French Terry Cotton','Fit':'Tapered','Waist':'Drawstring','Care':'Machine Wash'},
-  ),
-  Product(
-    id: 'p18', name: 'Italian Leather Belt', brand: 'StyleSphere',
-    description: 'Handcrafted Italian leather belt with a polished nickel buckle. The perfect finishing touch for any outfit — from jeans to dress trousers.',
-    price: 89.99, originalPrice: 130.00, category: 'Accessories', subCategory: 'Belts',
-    images: ['$_u/photo-1553062407-98eeb64c6a62?w=800&q=80', '$_u/photo-1624222247344-550fb60583dc?w=800&q=80'],
-    sizes: ['30','32','34','36','38'], colors: ['Black','Tan','Cognac'],
-    rating: 4.8, reviewCount: 198,
-    rackId: 'rack_accessories', rackName: 'Accessories Section',
-    details: {'Material':'Italian Full-Grain Leather','Buckle':'Polished Nickel','Width':'3.5cm','Care':'Leather Conditioner'},
-  ),
-  Product(
-    id: 'p19', name: 'Oversized Knit Sweater', brand: 'StyleSphere',
-    description: 'A cozy, oversized knit sweater in a chunky cable-knit pattern. Features dropped shoulders, ribbed cuffs, and a relaxed fit that feels like a warm hug.',
+    id: 'p17', name: 'Oversized Knit Sweater', brand: 'Dior',
+    description: 'A cozy, oversized knit sweater in a chunky cable-knit pattern. Dropped shoulders and ribbed cuffs.',
     price: 109.99, originalPrice: 155.00, category: 'Women', subCategory: 'Casual',
-    images: ['$_u/photo-1576566588028-4147f3842f27?w=800&q=80', '$_u/photo-1434389677669-e08b4cda3a40?w=800&q=80'],
-    sizes: ['XS','S','M','L','XL'], colors: ['Cream','Dusty Rose','Sage Green','Mocha'],
-    rating: 4.8, reviewCount: 523, isNew: true, isFeatured: true,
-    rackId: 'rack_women_casual', rackName: "Women's Casual Section",
+    images: [
+      'https://images.unsplash.com/photo-1434389677669-e08b4cda3a40?w=600&q=80',
+      'https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=600&q=80',
+    ],
+    sizes: ['XS','S','M','L','XL'], colors: ['Cream','Dusty Rose','Sage'],
+    rating: 4.8, reviewCount: 523, soldCount: 1290, isNew: true, isFeatured: true,
+    rackId: 'rack_women_casual', rackName: "Women's Casual",
     details: {'Material':'80% Wool, 20% Cashmere','Fit':'Oversized','Pattern':'Cable Knit','Care':'Hand Wash Cold'},
   ),
   Product(
-    id: 'p20', name: 'Pleated Midi Skirt', brand: 'StyleSphere',
-    description: 'An elegant pleated midi skirt that flows beautifully with every step. Features a hidden side zip, satin lining, and a versatile silhouette for day to night.',
-    price: 89.99, originalPrice: 130.00, category: 'Women', subCategory: 'Formal',
-    images: ['$_u/photo-1583496661160-fb5886a0aaaa?w=800&q=80', '$_u/photo-1583496661160-fb5886a0aaaa?w=800&q=80'],
-    sizes: ['XS','S','M','L'], colors: ['Black','Navy','Champagne','Dusty Rose'],
-    rating: 4.7, reviewCount: 267,
-    rackId: 'rack_women_formal', rackName: "Women's Formal Section",
-    details: {'Material':'Polyester Georgette','Lining':'Satin','Closure':'Hidden Side Zip','Care':'Dry Clean'},
-  ),
-  Product(
-    id: 'p21', name: 'Bohemian Maxi Dress', brand: 'StyleSphere',
-    description: 'A free-spirited bohemian maxi dress with intricate print details, a cinched waist, and a dramatic floor-length skirt that moves beautifully in the breeze.',
-    price: 149.99, originalPrice: 210.00, category: 'Women', subCategory: 'Casual',
-    images: ['$_u/photo-1496747611176-843222e1e57c?w=800&q=80', '$_u/photo-1469334031218-e382a71b716b?w=800&q=80'],
-    sizes: ['XS','S','M','L','XL'], colors: ['Coral','Teal','Lavender'],
-    rating: 4.6, reviewCount: 391, isNew: true,
-    rackId: 'rack_women_casual', rackName: "Women's Casual Section",
-    details: {'Material':'100% Rayon','Fit':'Cinched Waist','Length':'Maxi (Floor Length)','Care':'Hand Wash'},
-  ),
-  Product(
-    id: 'p22', name: 'White Leather Sneakers', brand: 'StyleSphere',
-    description: 'Minimalist white leather sneakers that go with absolutely everything. Premium leather upper with a cushioned insole and signature back-tab detail.',
+    id: 'p18', name: 'White Leather Sneakers', brand: 'Versace',
+    description: 'Minimalist white leather sneakers with cushioned insole and signature back-tab detail.',
     price: 129.99, category: 'Women', subCategory: 'Streetwear',
-    images: ['$_u/photo-1560769629-975ec94e6a86?w=800&q=80', '$_u/photo-1549298916-b41d501d3772?w=800&q=80'],
-    sizes: ['36','37','38','39','40','41'], colors: ['White','White','Black'],
-    rating: 4.9, reviewCount: 678, isFeatured: true,
-    rackId: 'rack_streetwear', rackName: 'Streetwear Collection',
+    images: [
+      'https://images.unsplash.com/photo-1560769629-975ec94e6a86?w=600&q=80',
+      'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=600&q=80',
+    ],
+    sizes: ['36','37','38','39','40','41'], colors: ['White','Black'],
+    rating: 4.9, reviewCount: 678, soldCount: 2300, isFeatured: true,
+    rackId: 'rack_streetwear', rackName: 'Streetwear',
     details: {'Material':'Premium Leather','Sole':'Rubber','Insole':'Memory Foam','Care':'Wipe Clean'},
-  ),
-  Product(
-    id: 'p23', name: 'Kids Hooded Raincoat', brand: 'StyleSphere',
-    description: 'Bright and waterproof hooded raincoat to keep little ones dry on rainy days. Features reflective strips, snap closures, and a fun print lining.',
-    price: 59.99, originalPrice: 80.00, category: 'Kids', subCategory: 'Casual',
-    images: ['$_u/photo-1503919545889-aef636e10ad4?w=800&q=80', '$_u/photo-1519238263530-99bdd11df2ea?w=800&q=80'],
-    sizes: ['3T','4T','5T','6','7','8'], colors: ['Yellow','Red','Navy'],
-    rating: 4.7, reviewCount: 156, isNew: true,
-    rackId: 'rack_kids', rackName: "Kids' Section",
-    details: {'Material':'Waterproof Polyester','Feature':'Reflective Strips','Closures':'Snap Buttons','Care':'Machine Wash'},
-  ),
-  Product(
-    id: 'p24', name: 'Kids Canvas Sneakers', brand: 'StyleSphere',
-    description: 'Cool and comfortable canvas sneakers for everyday adventures. Features a reinforced toe cap, elastic laces for easy on/off, and a non-slip rubber sole.',
-    price: 44.99, category: 'Kids', subCategory: 'Casual',
-    images: ['$_u/photo-1560769629-975ec94e6a86?w=800&q=80', '$_u/photo-1506629082955-511b1aa562c8?w=800&q=80'],
-    sizes: ['10C','11C','12C','13C','1Y','2Y','3Y'], colors: ['Red','Blue','White','Green'],
-    rating: 4.5, reviewCount: 203,
-    rackId: 'rack_kids', rackName: "Kids' Section",
-    details: {'Material':'Canvas Upper','Sole':'Non-Slip Rubber','Laces':'Elastic','Care':'Machine Wash Cold'},
   ),
 ];
 
 final kBanners = <BannerData>[
-  BannerData(id:'b1', imageUrl:'$_u/photo-1445205170230-053b83016050?w=1200&q=80', title:'New Season\nCollection', subtitle:'Up to 40% Off', actionLabel:'Shop Now', route:'/explore'),
-  BannerData(id:'b2', imageUrl:'$_u/photo-1469334031218-e382a71b716b?w=1200&q=80', title:"Women's\nEdition", subtitle:'Explore the Latest Trends', actionLabel:'Discover', route:'/explore'),
-  BannerData(id:'b3', imageUrl:'$_u/photo-1558618666-fcd25c85f82e?w=1200&q=80', title:'Street\nStyle', subtitle:'Urban Fashion for the Bold', actionLabel:'Explore', route:'/explore'),
+  BannerData(id:'b1', imageUrl:'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&q=80',
+    title:'Enjoy 25% off\non all Fashion', subtitle:"Don't miss this offer", actionLabel:'Shop Now', route:'/explore', tag:'LIMITED'),
+  BannerData(id:'b2', imageUrl:'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=800&q=80',
+    title:"Women's\nNew Season", subtitle:'Explore the Latest Trends', actionLabel:'Discover', route:'/explore', tag:'NEW'),
+  BannerData(id:'b3', imageUrl:'https://images.unsplash.com/photo-1445205170230-053b83016050?w=800&q=80',
+    title:'Street\nStyle Drop', subtitle:'Urban Fashion for the Bold', actionLabel:'Explore', route:'/explore', tag:'HOT'),
 ];
 
 final kCategories = <CategoryData>[
-  CategoryData(id:'men',   name:'Men',        imageUrl:'$_u/photo-1507679799987-c73779587ccf?w=400&q=80', emoji:'👔', color:C.primary),
-  CategoryData(id:'women', name:'Women',      imageUrl:'$_u/photo-1515886657613-9f3515b0c78f?w=400&q=80', emoji:'👗', color:C.secondary),
-  CategoryData(id:'kids',  name:'Kids',       imageUrl:'$_u/photo-1519238263530-99bdd11df2ea?w=400&q=80', emoji:'🎒', color:C.success),
-  CategoryData(id:'accs',  name:'Accessories',imageUrl:'$_u/photo-1590874103328-eac38a683ce7?w=400&q=80', emoji:'👜', color:C.warning),
+  CategoryData(id:'men',   name:'Men',         emoji:'👔', color:C.blue,    bgColor:C.blueLight),
+  CategoryData(id:'women', name:'Women',       emoji:'👗', color:const Color(0xFFDB2777), bgColor:const Color(0xFFFDF2F8)),
+  CategoryData(id:'kids',  name:'Kids',        emoji:'🎒', color:const Color(0xFF059669), bgColor:const Color(0xFFF0FDF4)),
+  CategoryData(id:'accs',  name:'Accessories', emoji:'👜', color:const Color(0xFFD97706), bgColor:const Color(0xFFFFFBEB)),
+];
+
+final kBrands = <BrandData>[
+  BrandData(id:'polo',    name:'Polo',    logoUrl:'https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Ralph_Lauren_logo.svg/120px-Ralph_Lauren_logo.svg.png'),
+  BrandData(id:'tommy',   name:'Tommy',   logoUrl:'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Tommy_Hilfiger_logo.svg/120px-Tommy_Hilfiger_logo.svg.png'),
+  BrandData(id:'dior',    name:'Dior',    logoUrl:'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Christian_Dior_logo.svg/120px-Christian_Dior_logo.svg.png'),
+  BrandData(id:'chanel',  name:'Chanel',  logoUrl:'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Chanel_logo_interlocking_cs.svg/120px-Chanel_logo_interlocking_cs.svg.png'),
+  BrandData(id:'versace', name:'Versace', logoUrl:'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Versace_logo.svg/120px-Versace_logo.svg.png'),
+  BrandData(id:'gucci',   name:'Gucci',   logoUrl:'https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/1960s_Gucci_Logo.svg/120px-1960s_Gucci_Logo.svg.png'),
 ];
 
 const kRackMap = <String, List<String>>{
   'rack_men_formal':   ['p01','p02'],
   'rack_men_casual':   ['p03','p15','p16'],
-  'rack_streetwear':   ['p04','p05','p09','p17','p22'],
-  'rack_women_casual': ['p06','p08','p19','p21'],
-  'rack_women_formal': ['p07','p10','p20'],
-  'rack_kids':         ['p11','p12','p23','p24'],
-  'rack_accessories':  ['p13','p14','p18'],
+  'rack_streetwear':   ['p04','p05','p09','p18'],
+  'rack_women_casual': ['p06','p08','p17'],
+  'rack_women_formal': ['p07','p10'],
+  'rack_kids':         ['p11','p12'],
+  'rack_accessories':  ['p13','p14'],
 };
 
 const kRackNames = <String, String>{
@@ -591,65 +564,29 @@ const kRackNames = <String, String>{
 };
 
 const _colorMap = <String, Color>{
-  'White': Color(0xFFFFFFFF),
-  'Black': Color(0xFF1A1A1A),
-  'Blue': Color(0xFF2962FF),
-  'Light Blue': Color(0xFF64B5F6),
-  'Navy': Color(0xFF0D47A1),
-  'Charcoal': Color(0xFF424242),
-  'Khaki': Color(0xFFC8AD7F),
-  'Olive': Color(0xFF6B8E23),
-  'Stone': Color(0xFFBDB5A9),
-  'Cream': Color(0xFFFFFDD0),
-  'Forest Green': Color(0xFF228B22),
-  'Burgundy': Color(0xFF800020),
-  'Dark Green': Color(0xFF006400),
-  'Floral Blue': Color(0xFF6495ED),
-  'Floral Pink': Color(0xFFF8A4B8),
-  'Floral Green': Color(0xFF77DD77),
-  'Ivory': Color(0xFFFFFFF0),
-  'Deep Red': Color(0xFFB71C1C),
-  'Light Wash': Color(0xFFB3C7E6),
-  'Dark Wash': Color(0xFF3A5A8C),
-  'Light Denim': Color(0xFF7BA3D4),
-  'Dark Denim': Color(0xFF3B5998),
-  'Tan': Color(0xFFD2B48C),
-  'Champagne': Color(0xFFF7E7CE),
-  'Dusty Rose': Color(0xFFDCB2A8),
-  'Sage Green': Color(0xFFB2AC88),
-  'Red': Color(0xFFE53935),
-  'Yellow': Color(0xFFFFEB3B),
-  'Green': Color(0xFF4CAF50),
-  'Camel': Color(0xFFC19A6B),
-  'Cognac': Color(0xFF9A463D),
-  'Grey': Color(0xFF9E9E9E),
-  'Pink': Color(0xFFE91E63),
-  'Beige': Color(0xFFF5F5DC),
-  'Rust': Color(0xFFB7410E),
-  'Lavender': Color(0xFFB39CD0),
-  'Mocha': Color(0xFF967969),
-  'Teal': Color(0xFF008080),
-  'Coral': Color(0xFFFF7F50),
-  'Mint': Color(0xFF98FF98),
-  'Silver': Color(0xFFC0C0C0),
-  'Rose Gold': Color(0xFFB76E79),
-  'Slate Blue': Color(0xFF6A5ACD),
-  'Heather Grey': Color(0xFFB6B6B4),
+  'White': Color(0xFFF8F8F8), 'Black': Color(0xFF1A1A1A), 'Blue': Color(0xFF2962FF),
+  'Light Blue': Color(0xFF64B5F6), 'Navy': Color(0xFF0D47A1), 'Charcoal': Color(0xFF424242),
+  'Khaki': Color(0xFFC8AD7F), 'Olive': Color(0xFF6B8E23), 'Brown': Color(0xFF6B3F2A),
+  'Cream': Color(0xFFFFF8DC), 'Forest Green': Color(0xFF228B22), 'Burgundy': Color(0xFF800020),
+  'Dark Green': Color(0xFF006400), 'Floral Blue': Color(0xFF6495ED), 'Floral Pink': Color(0xFFF8A4B8),
+  'Ivory': Color(0xFFFFFFF0), 'Deep Red': Color(0xFFB71C1C), 'Light Wash': Color(0xFFB3C7E6),
+  'Dark Wash': Color(0xFF3A5A8C), 'Light Denim': Color(0xFF7BA3D4), 'Dark Denim': Color(0xFF3B5998),
+  'Tan': Color(0xFFD2B48C), 'Champagne': Color(0xFFF7E7CE), 'Dusty Rose': Color(0xFFDCB2A8),
+  'Sage': Color(0xFFB2C5B0), 'Sage Green': Color(0xFFB2AC88), 'Red': Color(0xFFE53935),
+  'Yellow': Color(0xFFFFEB3B), 'Green': Color(0xFF4CAF50), 'Camel': Color(0xFFC19A6B),
+  'Cognac': Color(0xFF9A463D), 'Grey': Color(0xFF9E9E9E), 'Heather Grey': Color(0xFFB6B6B4),
 };
 
 // ╔══════════════════════════════════════════════════════════╗
 // ║                  5 · PROVIDERS (Riverpod)               ║
 // ╚══════════════════════════════════════════════════════════╝
 
-// — Onboarding —
 final onboardingCompleteProvider = StateProvider<bool>((_) => false);
 
-// — Auth —
 final authProvider = AsyncNotifierProvider<AuthNotifier, AppUser?>(AuthNotifier.new);
 
 class AuthNotifier extends AsyncNotifier<AppUser?> {
-  @override
-  Future<AppUser?> build() async {
+  @override Future<AppUser?> build() async {
     await Future.delayed(const Duration(milliseconds: 600));
     return null;
   }
@@ -690,42 +627,34 @@ class AuthNotifier extends AsyncNotifier<AppUser?> {
   AppUser _makeUser(String email) => AppUser(
     id: 'u001',
     name: email.split('@').first.split('.').map((w) => w.isEmpty ? w : '${w[0].toUpperCase()}${w.substring(1)}').join(' '),
-    email: email,
-    addresses: [_defaultAddress()],
+    email: email, addresses: [_defaultAddress()],
   );
 
   Address _defaultAddress() => const Address(
     id: 'a01', name: 'Home', phone: '+1 234 567 8900',
-    line1: '123 Fashion Street', line2: 'Apt 4B',
+    line1: 'Vicatoria lane', line2: 'Maryland',
     city: 'New York', state: 'NY', zip: '10001', country: 'USA', isDefault: true,
   );
 }
 
-// — Product Filter —
 class PFilter {
   final String? category, subCategory, search, sortBy;
   final List<String> sizes, colors;
   final double? minPrice, maxPrice;
-  const PFilter({
-    this.category, this.subCategory, this.search,
+  const PFilter({this.category, this.subCategory, this.search,
     this.sortBy = 'popularity', this.sizes = const [],
-    this.colors = const [], this.minPrice, this.maxPrice,
-  });
+    this.colors = const [], this.minPrice, this.maxPrice});
   bool get hasFilters => category != null || sizes.isNotEmpty || colors.isNotEmpty || minPrice != null || maxPrice != null || search != null;
-  PFilter copyWith({
-    String? category, String? subCategory, String? search,
+  PFilter copyWith({String? category, String? subCategory, String? search,
     String? sortBy, List<String>? sizes, List<String>? colors,
     double? minPrice, double? maxPrice,
-    bool clearCategory = false, bool clearSearch = false,
-  }) => PFilter(
-    category:    clearCategory ? null : category ?? this.category,
+    bool clearCategory = false, bool clearSearch = false}) => PFilter(
+    category: clearCategory ? null : category ?? this.category,
     subCategory: subCategory ?? this.subCategory,
-    search:      clearSearch  ? null : search   ?? this.search,
-    sortBy:      sortBy   ?? this.sortBy,
-    sizes:       sizes    ?? this.sizes,
-    colors:      colors   ?? this.colors,
-    minPrice:    minPrice ?? this.minPrice,
-    maxPrice:    maxPrice ?? this.maxPrice,
+    search: clearSearch ? null : search ?? this.search,
+    sortBy: sortBy ?? this.sortBy,
+    sizes: sizes ?? this.sizes, colors: colors ?? this.colors,
+    minPrice: minPrice ?? this.minPrice, maxPrice: maxPrice ?? this.maxPrice,
   );
 }
 
@@ -757,7 +686,6 @@ final filteredProductsProvider = Provider<List<Product>>((ref) {
   return list;
 });
 
-// — Cart —
 final cartProvider = StateNotifierProvider<CartNotifier, List<CartItem>>((_) => CartNotifier());
 class CartNotifier extends StateNotifier<List<CartItem>> {
   CartNotifier() : super([]);
@@ -784,25 +712,21 @@ final cartCountProvider    = Provider<int>((ref)    => ref.watch(cartProvider.no
 final cartSubtotalProvider = Provider<double>((ref) => ref.watch(cartProvider.notifier).subtotal);
 final cartTotalProvider    = Provider<double>((ref) => ref.watch(cartProvider.notifier).total);
 
-// — Wishlist —
 final wishlistProvider = StateNotifierProvider<WishlistNotifier, List<Product>>((_) => WishlistNotifier());
 class WishlistNotifier extends StateNotifier<List<Product>> {
   WishlistNotifier() : super([]);
   void toggle(Product p) => state = state.any((x) => x.id==p.id)
-      ? state.where((x) => x.id!=p.id).toList()
-      : [...state, p];
+      ? state.where((x) => x.id!=p.id).toList() : [...state, p];
   bool has(String id) => state.any((x) => x.id==id);
 }
 final inWishlistProvider = Provider.family<bool,String>((ref, id) => ref.watch(wishlistProvider.notifier).has(id));
 
-// — Recently Viewed —
 final recentlyViewedProvider = StateNotifierProvider<RecentlyViewedNotifier, List<Product>>((_) => RecentlyViewedNotifier());
 class RecentlyViewedNotifier extends StateNotifier<List<Product>> {
   RecentlyViewedNotifier() : super([]);
   void add(Product p) => state = [p, ...state.where((x) => x.id!=p.id)].take(8).toList();
 }
 
-// — Orders —
 final ordersProvider = StateNotifierProvider<OrdersNotifier, List<AppOrder>>((_) => OrdersNotifier());
 class OrdersNotifier extends StateNotifier<List<AppOrder>> {
   OrdersNotifier() : super([
@@ -822,11 +746,9 @@ class OrdersNotifier extends StateNotifier<List<AppOrder>> {
     ),
   ]);
 
-  Future<AppOrder> place({
-    required List<CartItem> items, required Address address, required String payment,
-  }) async {
-    await Future.delayed(const Duration(seconds:2));
-    final sub = items.fold<double>(0,(s,i) => s+i.total);
+  Future<AppOrder> place({required List<CartItem> items, required Address address, required String payment}) async {
+    await Future.delayed(const Duration(seconds: 2));
+    final sub = items.fold<double>(0, (s,i) => s+i.total);
     final ship = sub >= 100 ? 0.0 : 9.99;
     final order = AppOrder(
       id:'o_${DateTime.now().ms}', orderNumber:'SS-2024-${(state.length+1).toString().padLeft(3,'0')}',
@@ -858,11 +780,10 @@ final routerProvider = Provider<GoRouter>((ref) {
       final isOnboarding = state.matchedLocation == '/onboarding';
       if (!onboardingDone && !isOnboarding) return '/onboarding';
       if (onboardingDone && isOnboarding) {
-        final loggedIn = auth.valueOrNull != null;
-        return loggedIn ? '/' : '/login';
+        return auth.valueOrNull != null ? '/' : '/login';
       }
-      final loggedIn  = auth.valueOrNull != null;
-      final isAuth    = state.matchedLocation.startsWith('/login') || state.matchedLocation.startsWith('/register');
+      final loggedIn = auth.valueOrNull != null;
+      final isAuth   = state.matchedLocation.startsWith('/login') || state.matchedLocation.startsWith('/register');
       if (!loggedIn && !isAuth && !isOnboarding) return '/login';
       if (loggedIn  &&  isAuth) return '/';
       return null;
@@ -882,13 +803,13 @@ final routerProvider = Provider<GoRouter>((ref) {
           GoRoute(path:'/profile',   pageBuilder:(c,s) => _none(s, const ProfileScreen())),
         ],
       ),
-      GoRoute(path:'/product/:id',     parentNavigatorKey:_rootKey, pageBuilder:(c,s) => _slideUp(s, ProductDetailScreen(product: s.extra as Product?))),
-      GoRoute(path:'/checkout',        parentNavigatorKey:_rootKey, pageBuilder:(c,s) => _slideUp(s, const CheckoutScreen())),
-      GoRoute(path:'/orders',          parentNavigatorKey:_rootKey, pageBuilder:(c,s) => _slide(s,  const OrdersScreen())),
-      GoRoute(path:'/try-on',          parentNavigatorKey:_rootKey, pageBuilder:(c,s) => _fade(s,   TryOnScreen(product: s.extra as Product?))),
-      GoRoute(path:'/qr-scanner',      parentNavigatorKey:_rootKey, pageBuilder:(c,s) => _fade(s,   const QrScannerScreen())),
-      GoRoute(path:'/rack/:id',        parentNavigatorKey:_rootKey, pageBuilder:(c,s) => _slide(s,  RackProductsScreen(rackId: s.pathParameters['id']!, extra: s.extra))),
-      GoRoute(path:'/order-success',   parentNavigatorKey:_rootKey, pageBuilder:(c,s) => _slideUp(s, OrderSuccessScreen(order: s.extra as AppOrder))),
+      GoRoute(path:'/product/:id',   parentNavigatorKey:_rootKey, pageBuilder:(c,s) => _slideUp(s, ProductDetailScreen(product: s.extra as Product?))),
+      GoRoute(path:'/checkout',      parentNavigatorKey:_rootKey, pageBuilder:(c,s) => _slideUp(s, const CheckoutScreen())),
+      GoRoute(path:'/orders',        parentNavigatorKey:_rootKey, pageBuilder:(c,s) => _slide(s,  const OrdersScreen())),
+      GoRoute(path:'/try-on',        parentNavigatorKey:_rootKey, pageBuilder:(c,s) => _fade(s,   TryOnScreen(product: s.extra as Product?))),
+      GoRoute(path:'/qr-scanner',    parentNavigatorKey:_rootKey, pageBuilder:(c,s) => _fade(s,   const QrScannerScreen())),
+      GoRoute(path:'/rack/:id',      parentNavigatorKey:_rootKey, pageBuilder:(c,s) => _slide(s,  RackProductsScreen(rackId: s.pathParameters['id']!, extra: s.extra))),
+      GoRoute(path:'/order-success', parentNavigatorKey:_rootKey, pageBuilder:(c,s) => _slideUp(s, OrderSuccessScreen(order: s.extra as AppOrder))),
     ],
   );
 });
@@ -904,8 +825,7 @@ Page<dynamic> _slideUp(GoRouterState s, Widget c) => CustomTransitionPage(key:s.
 
 class StyleSphereApp extends ConsumerWidget {
   const StyleSphereApp({super.key});
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  @override Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(routerProvider);
     return MaterialApp.router(
       title: 'StyleSphere',
@@ -925,14 +845,17 @@ class Img extends StatelessWidget {
   final double? w, h;
   final BoxFit fit;
   final double r;
-  const Img(this.url,{super.key, this.w, this.h, this.fit=BoxFit.cover, this.r=0});
-  @override
-  Widget build(BuildContext ctx) => ClipRRect(
+  const Img(this.url, {super.key, this.w, this.h, this.fit = BoxFit.cover, this.r = 0});
+  @override Widget build(BuildContext ctx) => ClipRRect(
     borderRadius: BorderRadius.circular(r),
     child: CachedNetworkImage(
-      imageUrl: url, width:w, height:h, fit:fit,
-      placeholder:(c,u)=>Shimmer.fromColors(baseColor:C.g200, highlightColor:C.g100, child:Container(width:w,height:h,color:C.g200)),
-      errorWidget:(c,u,e)=>Container(width:w,height:h,color:C.g200,child:const Icon(Icons.image_not_supported_outlined,color:C.g400,size:28)),
+      imageUrl: url, width: w, height: h, fit: fit,
+      placeholder: (c, u) => Shimmer.fromColors(
+        baseColor: C.g200, highlightColor: C.g100,
+        child: Container(width: w, height: h, color: C.g200)),
+      errorWidget: (c, u, e) => Container(
+        width: w, height: h, color: C.g100,
+        child: const Icon(Icons.image_outlined, color: C.g300, size: 32)),
     ),
   );
 }
@@ -940,45 +863,54 @@ class Img extends StatelessWidget {
 class Btn extends StatelessWidget {
   final String text; final VoidCallback? onPressed; final bool loading;
   final double? w; final IconData? icon; final Color? bg; final double h;
-  const Btn({super.key,required this.text,this.onPressed,this.loading=false,this.w,this.icon,this.bg,this.h=52});
-  @override
-  Widget build(BuildContext ctx) => SizedBox(width:w??double.infinity, height:h,
+  const Btn({super.key, required this.text, this.onPressed, this.loading=false, this.w, this.icon, this.bg, this.h=52});
+  @override Widget build(BuildContext ctx) => SizedBox(width: w ?? double.infinity, height: h,
     child: ElevatedButton(
       onPressed: loading ? null : onPressed,
-      style: ElevatedButton.styleFrom(backgroundColor:bg??C.secondary, disabledBackgroundColor:C.g300),
+      style: ElevatedButton.styleFrom(backgroundColor: bg ?? C.blue, disabledBackgroundColor: C.g200),
       child: loading
-        ? const SizedBox(width:20,height:20, child:_SmallLoader())
-        : Row(mainAxisAlignment:MainAxisAlignment.center, children:[
-            if(icon!=null)...[Icon(icon,size:18),const SizedBox(width:8)],
+        ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2, color: C.white))
+        : Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+            if (icon != null) ...[Icon(icon, size: 18), const SizedBox(width: 8)],
             Text(text),
           ]),
     ),
   );
 }
 
+class BuyBtn extends StatelessWidget {
+  final String text; final VoidCallback? onPressed; final double? w;
+  const BuyBtn({super.key, required this.text, this.onPressed, this.w});
+  @override Widget build(BuildContext ctx) => SizedBox(width: w ?? double.infinity, height: 52,
+    child: ElevatedButton(
+      onPressed: onPressed,
+      style: ElevatedButton.styleFrom(
+        backgroundColor: C.blueDark,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
+      ),
+      child: Text(text, style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w600, color: C.white)),
+    ),
+  );
+}
+
 class OutBtn extends StatelessWidget {
   final String text; final VoidCallback? onPressed; final double? w;
-  const OutBtn({super.key,required this.text,this.onPressed,this.w});
-  @override
-  Widget build(BuildContext ctx) => SizedBox(width:w??double.infinity, height:52,
-    child: OutlinedButton(onPressed:onPressed, child:Text(text)));
+  const OutBtn({super.key, required this.text, this.onPressed, this.w});
+  @override Widget build(BuildContext ctx) => SizedBox(width: w ?? double.infinity, height: 52,
+    child: OutlinedButton(onPressed: onPressed, child: Text(text)));
 }
 
 class SecHeader extends StatelessWidget {
   final String title; final VoidCallback? onAll;
-  const SecHeader({super.key,required this.title,this.onAll});
-  @override
-  Widget build(BuildContext ctx) => Row(
+  const SecHeader({super.key, required this.title, this.onAll});
+  @override Widget build(BuildContext ctx) => Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
-      Text(title, style:Theme.of(ctx).textTheme.titleLarge?.copyWith(fontWeight:FontWeight.w700)),
-      if(onAll!=null) TextButton(
-        onPressed:onAll,
-        style: TextButton.styleFrom(padding:EdgeInsets.zero, minimumSize:Size.zero, tapTargetSize:MaterialTapTargetSize.shrinkWrap),
-        child: Row(children:[
-          Text('See All', style:Theme.of(ctx).textTheme.bodySmall?.copyWith(color:C.secondary,fontWeight:FontWeight.w600)),
-          const Icon(Icons.chevron_right_rounded,size:16,color:C.secondary),
-        ]),
+      Text(title, style: Theme.of(ctx).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w700, fontSize: 17)),
+      if (onAll != null) TextButton(
+        onPressed: onAll,
+        style: TextButton.styleFrom(padding: EdgeInsets.zero, minimumSize: Size.zero, tapTargetSize: MaterialTapTargetSize.shrinkWrap),
+        child: Text('See All', style: GoogleFonts.poppins(fontSize: 13, color: C.blue, fontWeight: FontWeight.w600)),
       ),
     ],
   );
@@ -986,92 +918,71 @@ class SecHeader extends StatelessWidget {
 
 class Stars extends StatelessWidget {
   final double rating; final int count; final double sz;
-  const Stars({super.key,required this.rating,this.count=0,this.sz=14});
-  @override
-  Widget build(BuildContext ctx) => Row(mainAxisSize:MainAxisSize.min, children:[
-    Icon(Icons.star_rounded, color:Colors.amber, size:sz),
-    const SizedBox(width:2),
-    Text(rating.toStringAsFixed(1), style:Theme.of(ctx).textTheme.bodySmall?.copyWith(fontWeight:FontWeight.w600,color:C.g700,fontSize:sz-2)),
-    if(count>0) Text(' ($count)', style:Theme.of(ctx).textTheme.bodySmall?.copyWith(color:C.g400,fontSize:sz-2)),
+  const Stars({super.key, required this.rating, this.count = 0, this.sz = 13});
+  @override Widget build(BuildContext ctx) => Row(mainAxisSize: MainAxisSize.min, children: [
+    Icon(Icons.star_rounded, color: Colors.amber, size: sz),
+    const SizedBox(width: 2),
+    Text(rating.toStringAsFixed(1),
+      style: GoogleFonts.poppins(fontSize: sz - 2, fontWeight: FontWeight.w600, color: C.g700)),
+    if (count > 0) Text(' ($count)', style: GoogleFonts.poppins(fontSize: sz - 2, color: C.g400)),
   ]);
 }
 
-class DiscBadge extends StatelessWidget {
+class SaleBadge extends StatelessWidget {
   final double pct;
-  const DiscBadge({super.key,required this.pct});
-  @override
-  Widget build(BuildContext ctx) => Container(
-    padding:const EdgeInsets.symmetric(horizontal:7,vertical:3),
-    decoration:BoxDecoration(color:C.secondary,borderRadius:BorderRadius.circular(5)),
-    child:Text('-${pct.toInt()}%', style:const TextStyle(color:C.white,fontSize:10,fontWeight:FontWeight.w700)),
+  const SaleBadge({super.key, required this.pct});
+  @override Widget build(BuildContext ctx) => Container(
+    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+    decoration: BoxDecoration(color: C.red, borderRadius: BorderRadius.circular(4)),
+    child: Text('-${pct.toInt()}%', style: const TextStyle(color: C.white, fontSize: 9, fontWeight: FontWeight.w800)),
   );
 }
 
 class NewBadge extends StatelessWidget {
   const NewBadge({super.key});
-  @override
-  Widget build(BuildContext ctx) => Container(
-    padding:const EdgeInsets.symmetric(horizontal:7,vertical:3),
-    decoration:BoxDecoration(color:C.primary,borderRadius:BorderRadius.circular(5)),
-    child:const Text('NEW', style:TextStyle(color:C.white,fontSize:9,fontWeight:FontWeight.w800,letterSpacing:0.5)),
+  @override Widget build(BuildContext ctx) => Container(
+    padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 3),
+    decoration: BoxDecoration(color: C.blue, borderRadius: BorderRadius.circular(5)),
+    child: const Text('NEW', style: TextStyle(color: C.white, fontSize: 9, fontWeight: FontWeight.w800, letterSpacing: 0.5)),
   );
 }
 
 class PriceRow extends StatelessWidget {
   final double price; final double? orig; final double sz; final double origSz;
-  const PriceRow({super.key,required this.price,this.orig,this.sz=18,this.origSz=13});
-  @override
-  Widget build(BuildContext ctx) => Row(mainAxisSize:MainAxisSize.min, crossAxisAlignment:CrossAxisAlignment.baseline, textBaseline:TextBaseline.alphabetic, children:[
-    Text('\$${price.toStringAsFixed(2)}', style:TextStyle(fontSize:sz,fontWeight:FontWeight.w700,color:C.primary)),
-    if(orig!=null&&orig!>price)...[const SizedBox(width:5),
-      Text('\$${orig!.toStringAsFixed(2)}', style:TextStyle(fontSize:origSz,fontWeight:FontWeight.w400,color:C.g400,decoration:TextDecoration.lineThrough))],
-  ]);
+  const PriceRow({super.key, required this.price, this.orig, this.sz = 16, this.origSz = 12});
+  @override Widget build(BuildContext ctx) => Row(mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.baseline, textBaseline: TextBaseline.alphabetic,
+    children: [
+      Text('\$${price.toStringAsFixed(2)}',
+        style: TextStyle(fontSize: sz, fontWeight: FontWeight.w700, color: C.primary)),
+      if (orig != null && orig! > price) ...[const SizedBox(width: 5),
+        Text('\$${orig!.toStringAsFixed(2)}',
+          style: TextStyle(fontSize: origSz, fontWeight: FontWeight.w400, color: C.g400, decoration: TextDecoration.lineThrough))],
+    ]);
 }
 
 class EmptyView extends StatelessWidget {
   final IconData icon; final String title, desc; final String? btnLabel; final VoidCallback? onBtn;
-  const EmptyView({super.key,required this.icon,required this.title,required this.desc,this.btnLabel,this.onBtn});
-  @override
-  Widget build(BuildContext ctx) => Center(child:Padding(padding:const EdgeInsets.all(32), child:Column(mainAxisAlignment:MainAxisAlignment.center, children:[
-    Container(width:90,height:90, decoration:BoxDecoration(color:C.g100,shape:BoxShape.circle),
-      child:Icon(icon,size:42,color:C.g400)),
-    const SizedBox(height:20),
-    Text(title,style:Theme.of(ctx).textTheme.headlineSmall,textAlign:TextAlign.center),
-    const SizedBox(height:8),
-    Text(desc,style:Theme.of(ctx).textTheme.bodyMedium?.copyWith(color:C.g500),textAlign:TextAlign.center),
-    if(btnLabel!=null&&onBtn!=null)...[const SizedBox(height:28),Btn(text:btnLabel!,onPressed:onBtn,w:180)],
-  ])));
+  const EmptyView({super.key, required this.icon, required this.title, required this.desc, this.btnLabel, this.onBtn});
+  @override Widget build(BuildContext ctx) => Center(child: Padding(padding: const EdgeInsets.all(32),
+    child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+      Container(width: 90, height: 90, decoration: const BoxDecoration(color: C.g100, shape: BoxShape.circle),
+        child: Icon(icon, size: 40, color: C.g300)),
+      const SizedBox(height: 20),
+      Text(title, style: Theme.of(ctx).textTheme.headlineSmall, textAlign: TextAlign.center),
+      const SizedBox(height: 8),
+      Text(desc, style: Theme.of(ctx).textTheme.bodyMedium?.copyWith(color: C.g500), textAlign: TextAlign.center),
+      if (btnLabel != null && onBtn != null) ...[const SizedBox(height: 28),
+        Btn(text: btnLabel!, onPressed: onBtn, w: 180)],
+    ])));
 }
 
-class _SmallLoader extends StatelessWidget {
-  const _SmallLoader();
-  @override
-  Widget build(BuildContext ctx) => const SizedBox(width:20,height:20, child:CircularProgressIndicator(strokeWidth:2,color:C.white));
-}
-
-class SizeChip extends StatelessWidget {
-  final String size; final bool selected, available; final VoidCallback onTap;
-  const SizeChip({super.key,required this.size,required this.selected,required this.available,required this.onTap});
-  @override
-  Widget build(BuildContext ctx) => GestureDetector(onTap:available?onTap:null, child:AnimatedContainer(
-    duration:200.ms, width:48, height:48,
-    decoration:BoxDecoration(
-      color:selected?C.primary:available?C.white:C.g100,
-      borderRadius:BorderRadius.circular(10),
-      border:Border.all(color:selected?C.primary:C.g300,width:selected?2:1),
-    ),
-    child:Center(child:Text(size, style:TextStyle(fontSize:12,fontWeight:FontWeight.w600,
-      color:selected?C.white:available?C.primary:C.g400,
-      decoration:!available?TextDecoration.lineThrough:null))),
-  ));
-}
-
-void snack(BuildContext ctx, String msg, {bool err=false, String? action, VoidCallback? onAction}) =>
+void snack(BuildContext ctx, String msg, {bool err = false, String? action, VoidCallback? onAction}) =>
   ScaffoldMessenger.of(ctx).showSnackBar(SnackBar(
-    content:Text(msg), backgroundColor:err?C.error:C.primary,
-    behavior:SnackBarBehavior.floating, margin:const EdgeInsets.all(16),
-    shape:RoundedRectangleBorder(borderRadius:BorderRadius.circular(10)),
-    action: action!=null ? SnackBarAction(label:action, textColor:C.secondary, onPressed:onAction??(){}) : null,
+    content: Text(msg), backgroundColor: err ? C.error : C.primary,
+    behavior: SnackBarBehavior.floating, margin: const EdgeInsets.all(16),
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+    action: action != null ? SnackBarAction(label: action, textColor: const Color(0xFF60A5FA), onPressed: onAction ?? () {}) : null,
   ));
 
 // ╔══════════════════════════════════════════════════════════╗
@@ -1081,24 +992,28 @@ void snack(BuildContext ctx, String msg, {bool err=false, String? action, VoidCa
 class MainNav extends ConsumerWidget {
   final Widget child;
   const MainNav({super.key, required this.child});
-  static const _routes = ['/','/explore','/cart','/wishlist','/profile'];
-  int _idx(String loc) { for(int i=_routes.length-1;i>=0;i--) if(loc.startsWith(_routes[i])) return i; return 0; }
-  @override
-  Widget build(BuildContext ctx, WidgetRef ref) {
+  static const _routes = ['/', '/explore', '/cart', '/wishlist', '/profile'];
+  int _idx(String loc) { for (int i = _routes.length-1; i >= 0; i--) if (loc.startsWith(_routes[i])) return i; return 0; }
+
+  @override Widget build(BuildContext ctx, WidgetRef ref) {
     final loc   = GoRouterState.of(ctx).matchedLocation;
     final cur   = _idx(loc);
     final count = ref.watch(cartCountProvider);
     return Scaffold(
       body: child,
       bottomNavigationBar: Container(
-        decoration:BoxDecoration(color:C.white, boxShadow:[BoxShadow(color:Colors.black.withOpacity(.08),blurRadius:20,offset:const Offset(0,-4))]),
-        child:SafeArea(child:SizedBox(height:64, child:Row(mainAxisAlignment:MainAxisAlignment.spaceAround, children:[
-          _NI(Icons.home_outlined,        Icons.home_rounded,            'Home',      cur==0, ()=>ctx.go('/'),         null),
-          _NI(Icons.explore_outlined,     Icons.explore_rounded,         'Explore',   cur==1, ()=>ctx.go('/explore'),  null),
-          _NI(Icons.shopping_bag_outlined, Icons.shopping_bag_rounded,   'Cart',      cur==2, ()=>ctx.go('/cart'),     count>0?count:null),
-          _NI(Icons.favorite_border_rounded, Icons.favorite_rounded,     'Wishlist',  cur==3, ()=>ctx.go('/wishlist'), null),
-          _NI(Icons.person_outline_rounded,  Icons.person_rounded,       'Profile',   cur==4, ()=>ctx.go('/profile'),  null),
-        ]))),
+        decoration: BoxDecoration(color: C.white,
+          boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.06), blurRadius: 16, offset: const Offset(0, -4))]),
+        child: SafeArea(child: SizedBox(height: 64, child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            _NI(Icons.home_outlined,          Icons.home_rounded,            'Home',     cur==0, () => ctx.go('/'),        null),
+            _NI(Icons.explore_outlined,       Icons.explore_rounded,         'Explore',  cur==1, () => ctx.go('/explore'), null),
+            _NI(Icons.shopping_bag_outlined,  Icons.shopping_bag_rounded,    'Cart',     cur==2, () => ctx.go('/cart'),    count>0?count:null),
+            _NI(Icons.favorite_border_rounded, Icons.favorite_rounded,       'Wishlist', cur==3, () => ctx.go('/wishlist'),null),
+            _NI(Icons.person_outline_rounded,  Icons.person_rounded,         'Profile',  cur==4, () => ctx.go('/profile'), null),
+          ],
+        ))),
       ),
     );
   }
@@ -1106,21 +1021,24 @@ class MainNav extends ConsumerWidget {
 
 class _NI extends StatelessWidget {
   final IconData ic, ica; final String lbl; final bool active; final VoidCallback tap; final int? badge;
-  const _NI(this.ic,this.ica,this.lbl,this.active,this.tap,this.badge);
-  @override
-  Widget build(BuildContext ctx) => GestureDetector(onTap:tap, behavior:HitTestBehavior.opaque,
-    child:SizedBox(width:64, child:Column(mainAxisAlignment:MainAxisAlignment.center, children:[
-      Stack(clipBehavior:Clip.none, children:[
-        AnimatedSwitcher(duration:200.ms, child:Icon(active?ica:ic, key:ValueKey(active), size:24, color:active?C.secondary:C.g400)),
-        if(badge!=null) Positioned(right:-6,top:-6, child:Container(
-          padding:const EdgeInsets.all(3),
-          decoration:const BoxDecoration(color:C.secondary,shape:BoxShape.circle),
-          constraints:const BoxConstraints(minWidth:16,minHeight:16),
-          child:Text('$badge', style:const TextStyle(color:C.white,fontSize:9,fontWeight:FontWeight.w700), textAlign:TextAlign.center),
+  const _NI(this.ic, this.ica, this.lbl, this.active, this.tap, this.badge);
+  @override Widget build(BuildContext ctx) => GestureDetector(onTap: tap,
+    behavior: HitTestBehavior.opaque,
+    child: SizedBox(width: 64, child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+      Stack(clipBehavior: Clip.none, children: [
+        AnimatedSwitcher(duration: 200.ms, child: Icon(active ? ica : ic,
+          key: ValueKey(active), size: 24, color: active ? C.blue : C.g400)),
+        if (badge != null) Positioned(right: -6, top: -6, child: Container(
+          padding: const EdgeInsets.all(3),
+          decoration: const BoxDecoration(color: C.red, shape: BoxShape.circle),
+          constraints: const BoxConstraints(minWidth: 16, minHeight: 16),
+          child: Text('$badge', style: const TextStyle(color: C.white, fontSize: 9, fontWeight: FontWeight.w700), textAlign: TextAlign.center),
         )),
       ]),
-      const SizedBox(height:3),
-      Text(lbl, style:TextStyle(fontSize:10, fontWeight:active?FontWeight.w600:FontWeight.w400, color:active?C.secondary:C.g400)),
+      const SizedBox(height: 3),
+      Text(lbl, style: TextStyle(fontSize: 10,
+        fontWeight: active ? FontWeight.w600 : FontWeight.w400,
+        color: active ? C.blue : C.g400)),
     ])),
   );
 }
@@ -1129,259 +1047,173 @@ class _NI extends StatelessWidget {
 // ║               9B · ONBOARDING SCREEN                    ║
 // ╚══════════════════════════════════════════════════════════╝
 
-class _OnboardingPage {
-  final String imageUrl, title, subtitle;
-  const _OnboardingPage({required this.imageUrl, required this.title, required this.subtitle});
+class _OBPage {
+  final String imageUrl, title, subtitle, tag;
+  const _OBPage({required this.imageUrl, required this.title, required this.subtitle, required this.tag});
 }
 
-final _onboardingPages = <_OnboardingPage>[
-  _OnboardingPage(
-    imageUrl: 'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800&q=80',
-    title: "Discover\nYour Perfect\nStyle",
-    subtitle: 'Curated collections tailored to your unique fashion sense',
+final _obPages = <_OBPage>[
+  _OBPage(
+    imageUrl: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=900&q=85',
+    title: 'Discover\nYour Style',
+    subtitle: 'Shop curated collections from the world\'s top fashion brands',
+    tag: '500+ Brands',
   ),
-  _OnboardingPage(
-    imageUrl: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=800&q=80',
-    title: "Virtual\nTry-On\nExperience",
-    subtitle: 'See how outfits look on you before you buy',
+  _OBPage(
+    imageUrl: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=900&q=85',
+    title: 'Try Before\nYou Buy',
+    subtitle: 'Virtual try-on technology so you always look your best',
+    tag: 'AR Try-On',
   ),
-  _OnboardingPage(
-    imageUrl: 'https://images.unsplash.com/photo-1445205170230-053b83016050?w=800&q=80',
-    title: "Your Smart\nWardrobe\nAwaits",
-    subtitle: 'Scan racks, explore trends, and dress your world',
+  _OBPage(
+    imageUrl: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=900&q=85',
+    title: 'Fast &\nSafe Delivery',
+    subtitle: 'Free shipping on orders over \$100. Easy returns guaranteed',
+    tag: 'Free Shipping',
   ),
 ];
 
 class OnboardingScreen extends ConsumerStatefulWidget {
   const OnboardingScreen({super.key});
-  @override ConsumerState<OnboardingScreen> createState() => _OnboardingState();
+  @override ConsumerState<OnboardingScreen> createState() => _OBState();
 }
 
-class _OnboardingState extends ConsumerState<OnboardingScreen> with TickerProviderStateMixin {
-  final _pageCtrl = PageController();
-  int _currentPage = 0;
-  late AnimationController _textAnimCtrl;
-  late Animation<double> _textFade;
-  late Animation<Offset> _textSlide;
+class _OBState extends ConsumerState<OnboardingScreen> with TickerProviderStateMixin {
+  final _pc = PageController();
+  int _cur = 0;
+  late AnimationController _fadeCtrl;
 
-  @override
-  void initState() {
+  @override void initState() {
     super.initState();
-    _textAnimCtrl = AnimationController(vsync: this, duration: const Duration(milliseconds: 600));
-    _textFade = Tween<double>(begin: 0, end: 1).animate(CurvedAnimation(parent: _textAnimCtrl, curve: Curves.easeOut));
-    _textSlide = Tween<Offset>(begin: const Offset(0, 0.15), end: Offset.zero).animate(CurvedAnimation(parent: _textAnimCtrl, curve: Curves.easeOutCubic));
-    _textAnimCtrl.forward();
+    _fadeCtrl = AnimationController(vsync: this, duration: const Duration(milliseconds: 500));
+    _fadeCtrl.forward();
   }
 
-  @override
-  void dispose() {
-    _pageCtrl.dispose();
-    _textAnimCtrl.dispose();
-    super.dispose();
-  }
+  @override void dispose() { _pc.dispose(); _fadeCtrl.dispose(); super.dispose(); }
 
-  void _onPageChanged(int page) {
-    setState(() => _currentPage = page);
-    _textAnimCtrl.reset();
-    _textAnimCtrl.forward();
-  }
-
-  void _skip() {
-    ref.read(onboardingCompleteProvider.notifier).state = true;
-  }
+  void _skip() => ref.read(onboardingCompleteProvider.notifier).state = true;
 
   void _next() {
-    if (_currentPage < _onboardingPages.length - 1) {
-      _pageCtrl.nextPage(duration: 500.ms, curve: Curves.easeInOutCubic);
+    if (_cur < _obPages.length - 1) {
+      _fadeCtrl.reverse().then((_) {
+        _pc.nextPage(duration: 400.ms, curve: Curves.easeInOutCubic);
+        _fadeCtrl.forward();
+      });
     } else {
       _skip();
     }
   }
 
-  @override
-  Widget build(BuildContext ctx) {
-    return Scaffold(
-      body: Stack(children: [
-        // ── Full-screen page view ──
-        PageView.builder(
-          controller: _pageCtrl,
-          itemCount: _onboardingPages.length,
-          onPageChanged: _onPageChanged,
-          itemBuilder: (_, i) {
-            final page = _onboardingPages[i];
-            return Stack(fit: StackFit.expand, children: [
-              // Background image
-              CachedNetworkImage(
-                imageUrl: page.imageUrl,
-                fit: BoxFit.cover,
-                width: double.infinity,
-                height: double.infinity,
-                placeholder: (c, u) => Container(color: C.primary),
-                errorWidget: (c, u, e) => Container(
-                  decoration: const BoxDecoration(gradient: C.wineGrad),
-                ),
-              ),
-              // Dark gradient overlay
-              Container(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    stops: const [0.0, 0.3, 0.6, 1.0],
-                    colors: [
-                      const Color(0xFF2D0A16).withOpacity(0.4),
-                      const Color(0xFF2D0A16).withOpacity(0.25),
-                      const Color(0xFF2D0A16).withOpacity(0.55),
-                      const Color(0xFF2D0A16).withOpacity(0.92),
-                    ],
-                  ),
-                ),
-              ),
-              // Side accent gradient (like reference image)
-              Container(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.centerLeft,
-                    end: Alignment.centerRight,
-                    stops: const [0.0, 0.4, 1.0],
-                    colors: [
-                      const Color(0xFF6B1D2A).withOpacity(0.5),
-                      Colors.transparent,
-                      const Color(0xFF6B1D2A).withOpacity(0.15),
-                    ],
-                  ),
-                ),
-              ),
-            ]);
-          },
+  @override Widget build(BuildContext ctx) {
+    final page = _obPages[_cur];
+    return Scaffold(body: Stack(children: [
+      // Full screen image
+      Positioned.fill(child: CachedNetworkImage(
+        imageUrl: page.imageUrl, fit: BoxFit.cover,
+        placeholder: (c, u) => Container(color: C.g100),
+        errorWidget: (c, u, e) => Container(decoration: const BoxDecoration(gradient: C.blueGrad)),
+      )),
+      // Gradient overlay — lighter at top, heavier at bottom
+      Positioned.fill(child: Container(decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter, end: Alignment.bottomCenter,
+          stops: const [0.0, 0.4, 0.75, 1.0],
+          colors: [
+            Colors.black.withOpacity(0.15),
+            Colors.black.withOpacity(0.05),
+            Colors.black.withOpacity(0.55),
+            Colors.black.withOpacity(0.92),
+          ],
         ),
+      ))),
 
-        // ── Top bar: Brand name + Skip ──
-        Positioned(
-          top: 0, left: 0, right: 0,
-          child: SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text('STYLESPHERE', style: GoogleFonts.poppins(
-                    fontSize: 14, fontWeight: FontWeight.w700, color: C.white,
-                    letterSpacing: 2,
-                  )).animate().fadeIn(duration: 500.ms),
-                  GestureDetector(
-                    onTap: _skip,
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                      decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.12),
-                        borderRadius: BorderRadius.circular(20),
-                        border: Border.all(color: Colors.white.withOpacity(0.2)),
-                      ),
-                      child: Text('Skip', style: GoogleFonts.poppins(
-                        fontSize: 13, fontWeight: FontWeight.w500, color: C.white,
-                      )),
-                    ),
-                  ).animate().fadeIn(delay: 200.ms),
-                ],
+      // Top — logo & skip
+      Positioned(top: 0, left: 0, right: 0, child: SafeArea(
+        child: Padding(padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14), child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            // Logo
+            Row(children: [
+              Container(width: 34, height: 34,
+                decoration: BoxDecoration(color: C.blue, borderRadius: BorderRadius.circular(10)),
+                child: const Center(child: Text('S', style: TextStyle(color: C.white, fontSize: 18, fontWeight: FontWeight.w900)))),
+              const SizedBox(width: 9),
+              Text('StyleSphere', style: GoogleFonts.poppins(color: C.white, fontWeight: FontWeight.w700, fontSize: 16)),
+            ]),
+            // Skip
+            GestureDetector(onTap: _skip, child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 7),
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(0.15),
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(color: Colors.white.withOpacity(0.25)),
               ),
-            ),
-          ),
-        ),
+              child: Text('Skip', style: GoogleFonts.poppins(color: C.white, fontSize: 13, fontWeight: FontWeight.w500)),
+            )),
+          ],
+        )),
+      )),
 
-        // ── Bottom content: Title, subtitle, indicators, button ──
-        Positioned(
-          bottom: 0, left: 0, right: 0,
-          child: SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(28, 0, 28, 32),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  // Title
-                  SlideTransition(
-                    position: _textSlide,
-                    child: FadeTransition(
-                      opacity: _textFade,
-                      child: Text(
-                        _onboardingPages[_currentPage].title,
-                        style: GoogleFonts.playfairDisplay(
-                          fontSize: 42,
-                          fontWeight: FontWeight.w800,
-                          color: C.white,
-                          height: 1.15,
-                          letterSpacing: -0.5,
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 14),
-                  // Subtitle
-                  SlideTransition(
-                    position: _textSlide,
-                    child: FadeTransition(
-                      opacity: _textFade,
-                      child: Text(
-                        _onboardingPages[_currentPage].subtitle,
-                        style: GoogleFonts.poppins(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w400,
-                          color: Colors.white.withOpacity(0.8),
-                          height: 1.5,
-                        ),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 36),
-                  // Arrow button + indicators
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      // Diamond-shaped next/get started button
-                      GestureDetector(
-                        onTap: _next,
-                        child: Container(
-                          width: 56, height: 56,
-                          decoration: BoxDecoration(
-                            color: C.white,
-                            borderRadius: BorderRadius.circular(14),
-                            boxShadow: [
-                              BoxShadow(color: Colors.black.withOpacity(0.2), blurRadius: 12, offset: const Offset(0, 4)),
-                            ],
-                          ),
-                          child: Center(
-                            child: _currentPage == _onboardingPages.length - 1
-                                ? const Icon(Icons.check_rounded, color: C.primary, size: 26)
-                                : const Icon(Icons.arrow_forward_rounded, color: C.primary, size: 24),
-                          ),
-                        ),
-                      ).animate().fadeIn(delay: 300.ms).scale(begin: const Offset(0.8, 0.8), end: const Offset(1, 1)),
-                      // Page indicators
-                      Row(
-                        children: List.generate(_onboardingPages.length, (i) =>
-                          AnimatedContainer(
-                            duration: 300.ms,
-                            margin: const EdgeInsets.symmetric(horizontal: 4),
-                            width: _currentPage == i ? 28 : 8,
-                            height: 8,
-                            decoration: BoxDecoration(
-                              color: _currentPage == i ? C.white : Colors.white.withOpacity(0.35),
-                              borderRadius: BorderRadius.circular(4),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+      // Page dots (invisible pages — just for swiping)
+      Positioned.fill(child: PageView.builder(
+        controller: _pc, itemCount: _obPages.length,
+        physics: const BouncingScrollPhysics(),
+        onPageChanged: (i) {
+          setState(() => _cur = i);
+          _fadeCtrl.reset();
+          _fadeCtrl.forward();
+        },
+        itemBuilder: (_, __) => const SizedBox.expand(),
+      )),
+
+      // Bottom content
+      Positioned(bottom: 0, left: 0, right: 0, child: SafeArea(
+        child: Padding(padding: const EdgeInsets.fromLTRB(28, 0, 28, 36), child: FadeTransition(
+          opacity: _fadeCtrl,
+          child: Column(crossAxisAlignment: CrossAxisAlignment.start, mainAxisSize: MainAxisSize.min, children: [
+            // Tag pill
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+              decoration: BoxDecoration(color: C.blue, borderRadius: BorderRadius.circular(20)),
+              child: Text(page.tag, style: GoogleFonts.poppins(color: C.white, fontSize: 12, fontWeight: FontWeight.w600)),
             ),
-          ),
-        ),
-      ]),
-    );
+            const SizedBox(height: 14),
+            // Title
+            Text(page.title, style: GoogleFonts.playfairDisplay(
+              fontSize: 46, fontWeight: FontWeight.w800, color: C.white, height: 1.1)),
+            const SizedBox(height: 12),
+            // Subtitle
+            Text(page.subtitle, style: GoogleFonts.poppins(
+              color: Colors.white.withOpacity(0.82), fontSize: 15, height: 1.55)),
+            const SizedBox(height: 36),
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, crossAxisAlignment: CrossAxisAlignment.center, children: [
+              // Indicators
+              Row(children: List.generate(_obPages.length, (i) => AnimatedContainer(
+                duration: 280.ms,
+                margin: const EdgeInsets.only(right: 8),
+                width: _cur == i ? 28 : 8, height: 8,
+                decoration: BoxDecoration(
+                  color: _cur == i ? C.white : Colors.white.withOpacity(0.35),
+                  borderRadius: BorderRadius.circular(4)),
+              ))),
+              // Next / Done button
+              GestureDetector(onTap: _next, child: AnimatedContainer(
+                duration: 220.ms,
+                width: 60, height: 60,
+                decoration: BoxDecoration(
+                  color: _cur == _obPages.length - 1 ? C.blue : C.white,
+                  shape: BoxShape.circle,
+                  boxShadow: [BoxShadow(color: (_cur == _obPages.length - 1 ? C.blue : Colors.black).withOpacity(0.25), blurRadius: 16, offset: const Offset(0, 6))],
+                ),
+                child: Icon(
+                  _cur == _obPages.length - 1 ? Icons.check_rounded : Icons.arrow_forward_rounded,
+                  color: _cur == _obPages.length - 1 ? C.white : C.blue, size: 26),
+              )),
+            ]),
+          ]),
+        )),
+      )),
+    ]));
   }
 }
 
@@ -1389,244 +1221,172 @@ class _OnboardingState extends ConsumerState<OnboardingScreen> with TickerProvid
 // ║                 10 · LOGIN SCREEN                       ║
 // ╚══════════════════════════════════════════════════════════╝
 
-
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
   @override ConsumerState<LoginScreen> createState() => _LoginState();
 }
-class _LoginState extends ConsumerState<LoginScreen> with TickerProviderStateMixin {
+
+class _LoginState extends ConsumerState<LoginScreen> {
   final _fk = GlobalKey<FormState>();
   final _ec = TextEditingController();
   final _pc = TextEditingController();
   bool _hide = true, _loading = false;
-  late AnimationController _floatCtrl;
 
-  @override void initState() {
-    super.initState();
-    _floatCtrl = AnimationController(vsync: this, duration: const Duration(seconds: 6))..repeat(reverse: true);
-  }
-  @override void dispose() { _ec.dispose(); _pc.dispose(); _floatCtrl.dispose(); super.dispose(); }
+  @override void dispose() { _ec.dispose(); _pc.dispose(); super.dispose(); }
 
   Future<void> _login() async {
     if (!_fk.currentState!.validate()) return;
-    setState(()=>_loading=true);
+    setState(() => _loading = true);
     final ok = await ref.read(authProvider.notifier).signIn(_ec.text.trim(), _pc.text);
-    if(mounted) setState(()=>_loading=false);
-    if(!ok && mounted) snack(context,'Invalid credentials', err:true);
+    if (mounted) setState(() => _loading = false);
+    if (!ok && mounted) snack(context, 'Invalid credentials', err: true);
   }
 
-  @override
-  Widget build(BuildContext ctx) {
-    final h = MediaQuery.of(ctx).size.height;
-    final w = MediaQuery.of(ctx).size.width;
-    return Scaffold(body:SizedBox.expand(child:Stack(children:[
-      // ── gradient hero background ──
-      Container(width:double.infinity, height:h*.46, decoration:const BoxDecoration(
-        gradient: LinearGradient(begin:Alignment.topLeft, end:Alignment.bottomRight,
-          colors:[Color(0xFF2D0A16), Color(0xFF6B1D2A), Color(0xFF4A1526)]),
-      ), child:Stack(children:[
-        // Diagonal lines pattern
-        Positioned.fill(child:CustomPaint(painter:_DiagPainter())),
-        // Animated floating circles
-        ..._buildFloatingCircles(w, h),
-        // Content
-        Padding(padding:EdgeInsets.fromLTRB(28,MediaQuery.of(ctx).padding.top+36,28,0), child:Column(crossAxisAlignment:CrossAxisAlignment.start,children:[
-          Row(children:[
-            Container(padding:const EdgeInsets.symmetric(horizontal:14,vertical:8),
-              decoration:BoxDecoration(
-                gradient:const LinearGradient(colors:[Color(0xFFC8415B), Color(0xFFE06B7F)]),
-                borderRadius:BorderRadius.circular(10),
-                boxShadow:[BoxShadow(color:const Color(0xFFC8415B).withOpacity(.4), blurRadius:12, offset:const Offset(0,4))],
-              ),
-              child:const Text('SS',style:TextStyle(color:C.white,fontSize:20,fontWeight:FontWeight.w900,letterSpacing:1)),
-            ).animate().fadeIn(duration:500.ms).scale(begin:const Offset(.5,.5),end:const Offset(1,1),curve:Curves.elasticOut),
-            const SizedBox(width:12),
-            Container(padding:const EdgeInsets.symmetric(horizontal:10,vertical:4),
-              decoration:BoxDecoration(color:Colors.white.withOpacity(.1),borderRadius:BorderRadius.circular(20)),
-              child:Text('Premium',style:GoogleFonts.poppins(fontSize:11,color:Colors.white.withOpacity(.8),fontWeight:FontWeight.w500)),
-            ).animate().fadeIn(delay:300.ms),
-          ]),
-          const SizedBox(height:22),
-          Text('StyleSphere', style:GoogleFonts.poppins(fontSize:38,fontWeight:FontWeight.w800,color:C.white,letterSpacing:-1.5,height:1.1))
-            .animate().fadeIn(delay:100.ms).slideX(begin:-.15,end:0,curve:Curves.easeOutCubic),
-          const SizedBox(height:6),
-          ShaderMask(
-            shaderCallback:(bounds) => const LinearGradient(colors:[Color(0xFFC8415B), Color(0xFFE06B7F), Color(0xFFD4A0A8)]).createShader(bounds),
-            child:Text('Dress Your World', style:GoogleFonts.poppins(fontSize:16,color:C.white,fontWeight:FontWeight.w500,letterSpacing:3)),
-          ).animate().fadeIn(delay:250.ms).slideX(begin:-.15,end:0),
-          const SizedBox(height:16),
-          // Feature pills
-          Wrap(spacing:8, children:[
-            _FeaturePill(Icons.checkroom_rounded, 'Virtual Try-On'),
-            _FeaturePill(Icons.qr_code_scanner_rounded, 'Smart Racks'),
-            _FeaturePill(Icons.local_shipping_outlined, 'Free Shipping'),
-          ]),
-        ])),
-      ])),
-      // ── white card ──
-      Positioned(top:h*.34,left:0,right:0,bottom:0,child:Container(
-        decoration:BoxDecoration(
-          color:C.white,
-          borderRadius:const BorderRadius.vertical(top:Radius.circular(32)),
-          boxShadow:[BoxShadow(color:Colors.black.withOpacity(.15),blurRadius:30,offset:const Offset(0,-8))],
-        ),
-        child:SingleChildScrollView(padding:const EdgeInsets.fromLTRB(28,28,28,30),child:Form(key:_fk,child:Column(crossAxisAlignment:CrossAxisAlignment.start,children:[
-          Row(mainAxisAlignment:MainAxisAlignment.spaceBetween,children:[
-            Column(crossAxisAlignment:CrossAxisAlignment.start,children:[
-              Text('Welcome back',style:Theme.of(ctx).textTheme.headlineMedium?.copyWith(fontSize:24,fontWeight:FontWeight.w800)),
-              const SizedBox(height:4),
-              Text('Sign in to your account',style:Theme.of(ctx).textTheme.bodyMedium?.copyWith(color:C.g500)),
-            ]),
-            Container(padding:const EdgeInsets.all(10),
-              decoration:BoxDecoration(color:C.secondary.withOpacity(.08),borderRadius:BorderRadius.circular(12)),
-              child:const Icon(Icons.login_rounded,color:C.secondary,size:22)),
-          ]).animate().fadeIn(delay:300.ms),
-          const SizedBox(height:24),
-          // Email
-          Container(
-            decoration:BoxDecoration(borderRadius:BorderRadius.circular(14),
-              boxShadow:[BoxShadow(color:C.shadow,blurRadius:8,offset:const Offset(0,2))]),
-            child:TextFormField(controller:_ec, keyboardType:TextInputType.emailAddress, textInputAction:TextInputAction.next,
-              decoration:InputDecoration(labelText:'Email Address',prefixIcon:const Icon(Icons.email_outlined,size:20),
-                filled:true,fillColor:C.white,
-                border:OutlineInputBorder(borderRadius:BorderRadius.circular(14),borderSide:BorderSide.none),
-                enabledBorder:OutlineInputBorder(borderRadius:BorderRadius.circular(14),borderSide:const BorderSide(color:C.g200)),
-                focusedBorder:OutlineInputBorder(borderRadius:BorderRadius.circular(14),borderSide:const BorderSide(color:C.secondary,width:1.5)),
-              ),
-              validator:(v){if(v==null||v.isEmpty)return 'Email required';if(!v.contains('@'))return 'Invalid email';return null;},
-            ),
-          ).animate().fadeIn(delay:400.ms).slideY(begin:.15,end:0),
-          const SizedBox(height:14),
-          // Password
-          Container(
-            decoration:BoxDecoration(borderRadius:BorderRadius.circular(14),
-              boxShadow:[BoxShadow(color:C.shadow,blurRadius:8,offset:const Offset(0,2))]),
-            child:TextFormField(controller:_pc, obscureText:_hide, textInputAction:TextInputAction.done, onFieldSubmitted:(_)=>_login(),
-              decoration:InputDecoration(labelText:'Password',prefixIcon:const Icon(Icons.lock_outline,size:20),
-                filled:true,fillColor:C.white,
-                border:OutlineInputBorder(borderRadius:BorderRadius.circular(14),borderSide:BorderSide.none),
-                enabledBorder:OutlineInputBorder(borderRadius:BorderRadius.circular(14),borderSide:const BorderSide(color:C.g200)),
-                focusedBorder:OutlineInputBorder(borderRadius:BorderRadius.circular(14),borderSide:const BorderSide(color:C.secondary,width:1.5)),
-                suffixIcon:IconButton(icon:Icon(_hide?Icons.visibility_off_outlined:Icons.visibility_outlined,color:C.g400,size:20),onPressed:()=>setState(()=>_hide=!_hide))),
-              validator:(v){if(v==null||v.isEmpty)return 'Password required';if(v.length<6)return 'Min 6 characters';return null;},
-            ),
-          ).animate().fadeIn(delay:450.ms).slideY(begin:.15,end:0),
-          Align(alignment:Alignment.centerRight,child:TextButton(
-            onPressed:(){},
-            style:TextButton.styleFrom(foregroundColor:C.secondary),
-            child:Text('Forgot Password?',style:GoogleFonts.poppins(fontSize:13,fontWeight:FontWeight.w500)))),
-          const SizedBox(height:6),
-          // Sign In button with gradient
-          Container(
-            width:double.infinity, height:54,
-            decoration:BoxDecoration(
-              gradient:const LinearGradient(colors:[Color(0xFFC8415B), Color(0xFFE06B7F)]),
-              borderRadius:BorderRadius.circular(14),
-              boxShadow:[BoxShadow(color:const Color(0xFFC8415B).withOpacity(.35),blurRadius:16,offset:const Offset(0,6))],
-            ),
-            child:ElevatedButton(
-              onPressed:_loading?null:_login,
-              style:ElevatedButton.styleFrom(backgroundColor:Colors.transparent,shadowColor:Colors.transparent,
-                shape:RoundedRectangleBorder(borderRadius:BorderRadius.circular(14))),
-              child:_loading
-                ? const SizedBox(width:22,height:22,child:CircularProgressIndicator(strokeWidth:2.5,color:C.white))
-                : Row(mainAxisAlignment:MainAxisAlignment.center,children:[
-                    Text('Sign In',style:GoogleFonts.poppins(fontSize:15,fontWeight:FontWeight.w600,color:C.white)),
-                    const SizedBox(width:8),
-                    const Icon(Icons.arrow_forward_rounded,color:C.white,size:20),
-                  ]),
-            ),
-          ).animate().fadeIn(delay:500.ms).slideY(begin:.1,end:0),
-          const SizedBox(height:24),
-          Row(children:[
-            Expanded(child:Container(height:1,decoration:BoxDecoration(gradient:LinearGradient(colors:[C.g200,C.g300])))),
-            Padding(padding:const EdgeInsets.symmetric(horizontal:16),child:Text('or continue with',style:GoogleFonts.poppins(fontSize:12,color:C.g400,fontWeight:FontWeight.w500))),
-            Expanded(child:Container(height:1,decoration:BoxDecoration(gradient:LinearGradient(colors:[C.g300,C.g200])))),
-          ]),
-          const SizedBox(height:24),
-          _GoogleBtn(onPressed:ref.read(authProvider.notifier).signInWithGoogle, loading:_loading).animate().fadeIn(delay:550.ms),
-          const SizedBox(height:30),
-          Center(child:RichText(text:TextSpan(text:"Don't have an account? ",style:GoogleFonts.poppins(fontSize:14,color:C.g500),
-            children:[WidgetSpan(child:GestureDetector(onTap:()=>ctx.push('/register'),child:Text('Sign Up',style:GoogleFonts.poppins(fontSize:14,color:C.secondary,fontWeight:FontWeight.w700))))]))),
-        ])))),
-      ),
-    ])));
-  }
-
-  List<Widget> _buildFloatingCircles(double w, double h) {
-    return [
-      _FloatingCircle(ctrl:_floatCtrl, left:w*0.1, top:h*0.08, size:70, color:const Color(0xFFC8415B).withOpacity(.12), delay:0),
-      _FloatingCircle(ctrl:_floatCtrl, left:w*0.7, top:h*0.04, size:50, color:const Color(0xFFD4A0A8).withOpacity(.12), delay:0.3),
-      _FloatingCircle(ctrl:_floatCtrl, left:w*0.5, top:h*0.18, size:35, color:const Color(0xFFE06B7F).withOpacity(.12), delay:0.6),
-      _FloatingCircle(ctrl:_floatCtrl, left:w*0.85, top:h*0.15, size:25, color:Colors.white.withOpacity(.08), delay:0.2),
-      _FloatingCircle(ctrl:_floatCtrl, left:w*0.25, top:h*0.25, size:20, color:const Color(0xFFC8415B).withOpacity(.08), delay:0.5),
-    ];
-  }
-}
-
-class _FloatingCircle extends AnimatedWidget {
-  final double left, top, size;
-  final Color color;
-  final double delay;
-  const _FloatingCircle({required AnimationController ctrl, required this.left, required this.top, required this.size, required this.color, required this.delay})
-    : super(listenable: ctrl);
   @override Widget build(BuildContext ctx) {
-    final anim = listenable as AnimationController;
-    final offset = math.sin((anim.value + delay) * math.pi * 2) * 12;
-    return Positioned(left:left, top:top + offset, child:Container(width:size,height:size,
-      decoration:BoxDecoration(shape:BoxShape.circle, color:color,
-        boxShadow:[BoxShadow(color:color.withOpacity(.3),blurRadius:20)])));
-  }
-}
-
-class _FeaturePill extends StatelessWidget {
-  final IconData icon; final String label;
-  const _FeaturePill(this.icon, this.label);
-  @override Widget build(BuildContext ctx) => Container(
-    padding:const EdgeInsets.symmetric(horizontal:10,vertical:6),
-    decoration:BoxDecoration(color:Colors.white.withOpacity(.1),borderRadius:BorderRadius.circular(20),
-      border:Border.all(color:Colors.white.withOpacity(.15))),
-    child:Row(mainAxisSize:MainAxisSize.min,children:[
-      Icon(icon,color:Colors.white.withOpacity(.9),size:13),
-      const SizedBox(width:5),
-      Text(label,style:GoogleFonts.poppins(color:Colors.white.withOpacity(.85),fontSize:10,fontWeight:FontWeight.w500)),
-    ]),
-  ).animate().fadeIn(delay:350.ms).slideY(begin:.3,end:0);
-}
-
-class _GoogleBtn extends StatelessWidget {
-  final Future<void> Function() onPressed; final bool loading;
-  const _GoogleBtn({required this.onPressed, required this.loading});
-  @override Widget build(BuildContext ctx) => SizedBox(width:double.infinity,height:54,
-    child:OutlinedButton(
-      onPressed:loading?null:onPressed,
-      style:OutlinedButton.styleFrom(
-        side:const BorderSide(color:C.g200),
-        shape:RoundedRectangleBorder(borderRadius:BorderRadius.circular(14)),
-        backgroundColor:C.g100,
+    final h = MediaQuery.of(ctx).size.height;
+    return Scaffold(backgroundColor: C.white, body: Stack(children: [
+      // Hero image top portion
+      Positioned(top: 0, left: 0, right: 0, height: h * 0.42,
+        child: Stack(children: [
+          CachedNetworkImage(
+            imageUrl: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=800&q=80',
+            fit: BoxFit.cover, width: double.infinity, height: h * 0.42,
+            placeholder: (c, u) => Container(color: C.blueLight),
+            errorWidget: (c, u, e) => Container(decoration: const BoxDecoration(gradient: C.blueGrad)),
+          ),
+          // Gradient overlay
+          Container(decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter, end: Alignment.bottomCenter,
+              colors: [Colors.black.withOpacity(0.3), Colors.black.withOpacity(0.05), Colors.transparent],
+              stops: const [0.0, 0.4, 1.0],
+            ),
+          )),
+          // Top branding
+          Positioned(top: MediaQuery.of(ctx).padding.top + 16, left: 24, child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Row(children: [
+                Container(width: 36, height: 36, decoration: BoxDecoration(color: C.white, borderRadius: BorderRadius.circular(10)),
+                  child: const Center(child: Text('S', style: TextStyle(color: C.blue, fontSize: 20, fontWeight: FontWeight.w900)))),
+                const SizedBox(width: 10),
+                Text('StyleSphere', style: GoogleFonts.poppins(color: C.white, fontWeight: FontWeight.w700, fontSize: 18)),
+              ]).animate().fadeIn(duration: 500.ms),
+              const SizedBox(height: 8),
+              Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+                decoration: BoxDecoration(color: Colors.white.withOpacity(0.15), borderRadius: BorderRadius.circular(20),
+                  border: Border.all(color: Colors.white.withOpacity(0.3))),
+                child: Text('Premium Fashion', style: GoogleFonts.poppins(color: C.white, fontSize: 12, fontWeight: FontWeight.w500)),
+              ).animate().fadeIn(delay: 200.ms),
+            ],
+          )),
+        ]),
       ),
-      child:Row(mainAxisAlignment:MainAxisAlignment.center,children:[
-        Container(width:24,height:24,decoration:BoxDecoration(
-          gradient:const LinearGradient(begin:Alignment.topLeft,end:Alignment.bottomRight,colors:[Color(0xFF4285F4),Color(0xFF34A853),Color(0xFFFBBC05),Color(0xFFEA4335)]),
-          shape:BoxShape.circle),
-          child:const Center(child:Text('G',style:TextStyle(color:C.white,fontWeight:FontWeight.w800,fontSize:13)))),
-        const SizedBox(width:12),
-        Text('Continue with Google',style:GoogleFonts.poppins(color:C.primary,fontWeight:FontWeight.w500,fontSize:14)),
-      ]),
-    ),
-  );
-}
 
-class _DiagPainter extends CustomPainter {
-  @override void paint(Canvas canvas, Size size) {
-    final p = Paint()..color=Colors.white.withOpacity(.03)..strokeWidth=0.8;
-    for(double i=-size.height;i<size.width+size.height;i+=30)
-      canvas.drawLine(Offset(i,0), Offset(i+size.height,size.height), p);
-    // Subtle horizontal lines
-    for(double y=0;y<size.height;y+=60)
-      canvas.drawLine(Offset(0,y), Offset(size.width,y), Paint()..color=Colors.white.withOpacity(.02)..strokeWidth=0.5);
+      // White card form
+      Positioned(top: h * 0.36, left: 0, right: 0, bottom: 0, child: Container(
+        decoration: BoxDecoration(
+          color: C.white,
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(28)),
+          boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.12), blurRadius: 24, offset: const Offset(0, -6))],
+        ),
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.fromLTRB(24, 28, 24, 32),
+          child: Form(key: _fk, child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Text('Welcome Back 👋', style: GoogleFonts.poppins(fontSize: 24, fontWeight: FontWeight.w700, color: C.primary)),
+            const SizedBox(height: 4),
+            Text('Sign in to continue shopping', style: GoogleFonts.poppins(fontSize: 14, color: C.g500)),
+            const SizedBox(height: 28),
+
+            // Email field
+            TextFormField(controller: _ec, keyboardType: TextInputType.emailAddress, textInputAction: TextInputAction.next,
+              style: GoogleFonts.poppins(fontSize: 14, color: C.primary),
+              decoration: InputDecoration(
+                labelText: 'Email address',
+                prefixIcon: const Icon(Icons.email_outlined, size: 20, color: C.g400),
+                filled: true, fillColor: C.g50,
+                border: OutlineInputBorder(borderRadius: BorderRadius.circular(14), borderSide: const BorderSide(color: C.g200)),
+                enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(14), borderSide: const BorderSide(color: C.g200)),
+                focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(14), borderSide: const BorderSide(color: C.blue, width: 1.5)),
+              ),
+              validator: (v) { if (v == null || v.isEmpty) return 'Email required'; if (!v.contains('@')) return 'Invalid email'; return null; },
+            ).animate().fadeIn(delay: 200.ms).slideY(begin: 0.1, end: 0),
+            const SizedBox(height: 14),
+
+            // Password field
+            TextFormField(controller: _pc, obscureText: _hide, textInputAction: TextInputAction.done, onFieldSubmitted: (_) => _login(),
+              style: GoogleFonts.poppins(fontSize: 14, color: C.primary),
+              decoration: InputDecoration(
+                labelText: 'Password',
+                prefixIcon: const Icon(Icons.lock_outline, size: 20, color: C.g400),
+                suffixIcon: IconButton(icon: Icon(_hide ? Icons.visibility_off_outlined : Icons.visibility_outlined, color: C.g400, size: 20), onPressed: () => setState(() => _hide = !_hide)),
+                filled: true, fillColor: C.g50,
+                border: OutlineInputBorder(borderRadius: BorderRadius.circular(14), borderSide: const BorderSide(color: C.g200)),
+                enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(14), borderSide: const BorderSide(color: C.g200)),
+                focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(14), borderSide: const BorderSide(color: C.blue, width: 1.5)),
+              ),
+              validator: (v) { if (v == null || v.isEmpty) return 'Password required'; if (v.length < 6) return 'Min 6 characters'; return null; },
+            ).animate().fadeIn(delay: 280.ms).slideY(begin: 0.1, end: 0),
+
+            Align(alignment: Alignment.centerRight, child: TextButton(
+              onPressed: () {},
+              style: TextButton.styleFrom(foregroundColor: C.blue, padding: const EdgeInsets.symmetric(vertical: 8)),
+              child: Text('Forgot Password?', style: GoogleFonts.poppins(fontSize: 13, fontWeight: FontWeight.w500)),
+            )),
+
+            // Sign In button
+            SizedBox(width: double.infinity, height: 52, child: ElevatedButton(
+              onPressed: _loading ? null : _login,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: C.blue,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                elevation: 0,
+              ),
+              child: _loading
+                ? const SizedBox(width: 22, height: 22, child: CircularProgressIndicator(strokeWidth: 2.5, color: C.white))
+                : Text('Sign In', style: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w600, color: C.white)),
+            )).animate().fadeIn(delay: 350.ms),
+
+            const SizedBox(height: 20),
+            Row(children: [
+              Expanded(child: Container(height: 1, color: C.g200)),
+              Padding(padding: const EdgeInsets.symmetric(horizontal: 14),
+                child: Text('or', style: GoogleFonts.poppins(fontSize: 13, color: C.g400))),
+              Expanded(child: Container(height: 1, color: C.g200)),
+            ]),
+            const SizedBox(height: 20),
+
+            // Google button
+            SizedBox(width: double.infinity, height: 52, child: OutlinedButton(
+              onPressed: _loading ? null : ref.read(authProvider.notifier).signInWithGoogle,
+              style: OutlinedButton.styleFrom(
+                side: const BorderSide(color: C.g200),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(14)),
+                backgroundColor: C.g50,
+              ),
+              child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                Container(width: 22, height: 22, decoration: BoxDecoration(
+                  gradient: const LinearGradient(colors: [Color(0xFF4285F4), Color(0xFF34A853), Color(0xFFFBBC05), Color(0xFFEA4335)]),
+                  shape: BoxShape.circle),
+                  child: const Center(child: Text('G', style: TextStyle(color: C.white, fontWeight: FontWeight.w800, fontSize: 12)))),
+                const SizedBox(width: 10),
+                Text('Continue with Google', style: GoogleFonts.poppins(color: C.primary, fontWeight: FontWeight.w500, fontSize: 14)),
+              ]),
+            )).animate().fadeIn(delay: 400.ms),
+
+            const SizedBox(height: 28),
+            Center(child: RichText(text: TextSpan(
+              text: "Don't have an account? ",
+              style: GoogleFonts.poppins(fontSize: 14, color: C.g500),
+              children: [WidgetSpan(child: GestureDetector(
+                onTap: () => ctx.push('/register'),
+                child: Text('Sign Up', style: GoogleFonts.poppins(fontSize: 14, color: C.blue, fontWeight: FontWeight.w700)),
+              ))],
+            ))),
+          ])),
+        ),
+      )),
+    ]));
   }
-  @override bool shouldRepaint(_DiagPainter o) => false;
 }
 
 // ╔══════════════════════════════════════════════════════════╗
@@ -1637,74 +1397,74 @@ class RegisterScreen extends ConsumerStatefulWidget {
   const RegisterScreen({super.key});
   @override ConsumerState<RegisterScreen> createState() => _RegState();
 }
+
 class _RegState extends ConsumerState<RegisterScreen> {
-  final _fk=GlobalKey<FormState>(); final _nc=TextEditingController();
-  final _ec=TextEditingController(); final _pc=TextEditingController(); final _cc=TextEditingController();
-  bool _hp=true,_hc=true,_load=false,_agreed=false;
-  @override void dispose(){_nc.dispose();_ec.dispose();_pc.dispose();_cc.dispose();super.dispose();}
+  final _fk = GlobalKey<FormState>();
+  final _nc = TextEditingController(); final _ec = TextEditingController();
+  final _pc = TextEditingController(); final _cc = TextEditingController();
+  bool _hp = true, _hc = true, _load = false, _agreed = false;
+  @override void dispose() { _nc.dispose(); _ec.dispose(); _pc.dispose(); _cc.dispose(); super.dispose(); }
 
   Future<void> _reg() async {
-    if(!_fk.currentState!.validate()) return;
-    if(!_agreed){snack(context,'Please agree to Terms',err:true);return;}
-    setState(()=>_load=true);
-    await ref.read(authProvider.notifier).signUp(_nc.text.trim(),_ec.text.trim(),_pc.text);
-    if(mounted) setState(()=>_load=false);
+    if (!_fk.currentState!.validate()) return;
+    if (!_agreed) { snack(context, 'Please agree to Terms', err: true); return; }
+    setState(() => _load = true);
+    await ref.read(authProvider.notifier).signUp(_nc.text.trim(), _ec.text.trim(), _pc.text);
+    if (mounted) setState(() => _load = false);
   }
 
-  @override Widget build(BuildContext ctx) => Scaffold(backgroundColor:C.white,body:CustomScrollView(slivers:[
-    SliverAppBar(backgroundColor:C.white,leading:IconButton(icon:const Icon(Icons.arrow_back_ios_new_rounded,size:20),onPressed:()=>ctx.pop())),
-    SliverToBoxAdapter(child:Padding(padding:const EdgeInsets.fromLTRB(28,0,28,40),child:Form(key:_fk,child:Column(crossAxisAlignment:CrossAxisAlignment.start,children:[
-      Container(padding:const EdgeInsets.symmetric(horizontal:12,vertical:6),
-        decoration:BoxDecoration(
-          gradient:const LinearGradient(colors:[Color(0xFFC8415B), Color(0xFFE06B7F)]),
-          borderRadius:BorderRadius.circular(8)),
-        child:const Text('StyleSphere',style:TextStyle(color:C.white,fontWeight:FontWeight.w700,fontSize:12,letterSpacing:1))),
-      const SizedBox(height:16),
-      Text('Create\nAccount',style:Theme.of(ctx).textTheme.displaySmall?.copyWith(height:1.1,fontWeight:FontWeight.w800)).animate().fadeIn().slideX(begin:-.2,end:0),
-      const SizedBox(height:8),
-      Text('Join StyleSphere and discover your personal style ✨',style:Theme.of(ctx).textTheme.bodyMedium?.copyWith(color:C.g500)).animate().fadeIn(delay:100.ms),
-      const SizedBox(height:32),
-      TextFormField(controller:_nc,textCapitalization:TextCapitalization.words,textInputAction:TextInputAction.next,
-        decoration:const InputDecoration(labelText:'Full Name',prefixIcon:Icon(Icons.person_outline)),
-        validator:(v){if(v==null||v.trim().isEmpty)return 'Name required';return null;},
-      ).animate().fadeIn(delay:200.ms).slideY(begin:.2,end:0),
-      const SizedBox(height:14),
-      TextFormField(controller:_ec,keyboardType:TextInputType.emailAddress,textInputAction:TextInputAction.next,
-        decoration:const InputDecoration(labelText:'Email',prefixIcon:Icon(Icons.email_outlined)),
-        validator:(v){if(v==null||v.isEmpty)return 'Email required';if(!v.contains('@'))return 'Invalid email';return null;},
-      ).animate().fadeIn(delay:250.ms).slideY(begin:.2,end:0),
-      const SizedBox(height:14),
-      TextFormField(controller:_pc,obscureText:_hp,textInputAction:TextInputAction.next,
-        decoration:InputDecoration(labelText:'Password',prefixIcon:const Icon(Icons.lock_outline),
-          suffixIcon:IconButton(icon:Icon(_hp?Icons.visibility_off_outlined:Icons.visibility_outlined,color:C.g400),onPressed:()=>setState(()=>_hp=!_hp))),
-        validator:(v){if(v==null||v.isEmpty)return 'Password required';if(v.length<6)return 'Min 6 characters';return null;},
-      ).animate().fadeIn(delay:300.ms).slideY(begin:.2,end:0),
-      const SizedBox(height:14),
-      TextFormField(controller:_cc,obscureText:_hc,textInputAction:TextInputAction.done,
-        decoration:InputDecoration(labelText:'Confirm Password',prefixIcon:const Icon(Icons.lock_outline),
-          suffixIcon:IconButton(icon:Icon(_hc?Icons.visibility_off_outlined:Icons.visibility_outlined,color:C.g400),onPressed:()=>setState(()=>_hc=!_hc))),
-        validator:(v){if(v!=_pc.text)return 'Passwords do not match';return null;},
-      ).animate().fadeIn(delay:350.ms).slideY(begin:.2,end:0),
-      const SizedBox(height:18),
-      Row(children:[Checkbox(value:_agreed,onChanged:(v)=>setState(()=>_agreed=v??false)),
-        Expanded(child:RichText(text:TextSpan(text:'I agree to the ',style:Theme.of(ctx).textTheme.bodySmall?.copyWith(color:C.g600),
-          children:[const TextSpan(text:'Terms of Service',style:TextStyle(color:C.secondary,fontWeight:FontWeight.w600)),
-            const TextSpan(text:' & '),
-            const TextSpan(text:'Privacy Policy',style:TextStyle(color:C.secondary,fontWeight:FontWeight.w600))])))]),
-      const SizedBox(height:24),
-      Btn(text:'Sign Up',loading:_load,onPressed:_reg).animate().fadeIn(delay:400.ms),
-      const SizedBox(height:22),
-      Center(child:RichText(text:TextSpan(text:'Already have an account? ',style:Theme.of(ctx).textTheme.bodyMedium?.copyWith(color:C.g500),
-        children:[WidgetSpan(child:GestureDetector(onTap:()=>ctx.pop(),child:Text('Sign In',style:Theme.of(ctx).textTheme.bodyMedium?.copyWith(color:C.secondary,fontWeight:FontWeight.w700))))]))),
+  @override Widget build(BuildContext ctx) => Scaffold(backgroundColor: C.white, body: CustomScrollView(slivers: [
+    SliverAppBar(backgroundColor: C.white, leading: IconButton(
+      icon: const Icon(Icons.arrow_back_ios_new_rounded, size: 20), onPressed: () => ctx.pop())),
+    SliverToBoxAdapter(child: Padding(padding: const EdgeInsets.fromLTRB(24, 0, 24, 40), child: Form(key: _fk, child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+        decoration: BoxDecoration(color: C.blueLight, borderRadius: BorderRadius.circular(8)),
+        child: Text('StyleSphere', style: GoogleFonts.poppins(color: C.blue, fontWeight: FontWeight.w600, fontSize: 12))),
+      const SizedBox(height: 14),
+      Text('Create Account', style: GoogleFonts.poppins(fontSize: 28, fontWeight: FontWeight.w800, color: C.primary, height: 1.1))
+        .animate().fadeIn().slideX(begin: -0.2, end: 0),
+      const SizedBox(height: 6),
+      Text('Join StyleSphere and explore your style ✨',
+        style: GoogleFonts.poppins(fontSize: 14, color: C.g500))
+        .animate().fadeIn(delay: 100.ms),
+      const SizedBox(height: 28),
+
+      ...[
+        TextFormField(controller: _nc, textCapitalization: TextCapitalization.words, textInputAction: TextInputAction.next,
+          decoration: const InputDecoration(labelText: 'Full Name', prefixIcon: Icon(Icons.person_outline, size: 20)),
+          validator: (v) { if (v == null || v.trim().isEmpty) return 'Name required'; return null; }),
+        const SizedBox(height: 14),
+        TextFormField(controller: _ec, keyboardType: TextInputType.emailAddress, textInputAction: TextInputAction.next,
+          decoration: const InputDecoration(labelText: 'Email', prefixIcon: Icon(Icons.email_outlined, size: 20)),
+          validator: (v) { if (v == null || v.isEmpty) return 'Email required'; if (!v.contains('@')) return 'Invalid email'; return null; }),
+        const SizedBox(height: 14),
+        TextFormField(controller: _pc, obscureText: _hp, textInputAction: TextInputAction.next,
+          decoration: InputDecoration(labelText: 'Password', prefixIcon: const Icon(Icons.lock_outline, size: 20),
+            suffixIcon: IconButton(icon: Icon(_hp ? Icons.visibility_off_outlined : Icons.visibility_outlined, color: C.g400), onPressed: () => setState(() => _hp = !_hp))),
+          validator: (v) { if (v == null || v.isEmpty) return 'Password required'; if (v.length < 6) return 'Min 6 characters'; return null; }),
+        const SizedBox(height: 14),
+        TextFormField(controller: _cc, obscureText: _hc, textInputAction: TextInputAction.done,
+          decoration: InputDecoration(labelText: 'Confirm Password', prefixIcon: const Icon(Icons.lock_outline, size: 20),
+            suffixIcon: IconButton(icon: Icon(_hc ? Icons.visibility_off_outlined : Icons.visibility_outlined, color: C.g400), onPressed: () => setState(() => _hc = !_hc))),
+          validator: (v) { if (v != _pc.text) return 'Passwords do not match'; return null; }),
+      ].asMap().entries.map((e) => e.value is SizedBox ? e.value : (e.value as Widget).animate().fadeIn(delay: (200 + e.key * 50).ms).slideY(begin: 0.15, end: 0)).toList(),
+
+      const SizedBox(height: 16),
+      Row(children: [Checkbox(value: _agreed, onChanged: (v) => setState(() => _agreed = v ?? false)),
+        Expanded(child: RichText(text: TextSpan(text: 'I agree to the ',
+          style: GoogleFonts.poppins(fontSize: 13, color: C.g600),
+          children: [const TextSpan(text: 'Terms of Service', style: TextStyle(color: C.blue, fontWeight: FontWeight.w600)),
+            const TextSpan(text: ' & '),
+            const TextSpan(text: 'Privacy Policy', style: TextStyle(color: C.blue, fontWeight: FontWeight.w600))])))]),
+      const SizedBox(height: 24),
+      Btn(text: 'Create Account', loading: _load, onPressed: _reg).animate().fadeIn(delay: 450.ms),
+      const SizedBox(height: 22),
+      Center(child: RichText(text: TextSpan(text: 'Already have an account? ',
+        style: GoogleFonts.poppins(fontSize: 14, color: C.g500),
+        children: [WidgetSpan(child: GestureDetector(onTap: () => ctx.pop(),
+          child: Text('Sign In', style: GoogleFonts.poppins(fontSize: 14, color: C.blue, fontWeight: FontWeight.w700))))]))),
     ])))),
   ]));
-}
-
-String _greeting() {
-  final h = DateTime.now().hour;
-  if (h < 12) return 'Good Morning ☀️';
-  if (h < 17) return 'Good Afternoon 🌤️';
-  return 'Good Evening 🌙';
 }
 
 // ╔══════════════════════════════════════════════════════════╗
@@ -1713,110 +1473,136 @@ String _greeting() {
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
-  @override
-  Widget build(BuildContext ctx, WidgetRef ref) {
-    final user = ref.watch(authProvider).valueOrNull;
-    final newArrivals = kProducts.where((p)=>p.isNew).toList();
-    final featured    = kProducts.where((p)=>p.isFeatured).toList();
+  @override Widget build(BuildContext ctx, WidgetRef ref) {
+    final user      = ref.watch(authProvider).valueOrNull;
+    final newArrs   = kProducts.where((p) => p.isNew).take(6).toList();
+    final featured  = kProducts.where((p) => p.isFeatured).take(6).toList();
 
-    return Scaffold(backgroundColor:C.g100, body:CustomScrollView(slivers:[
-      // — App Bar —
+    return Scaffold(backgroundColor: C.bg, body: CustomScrollView(slivers: [
+      // — AppBar —
       SliverAppBar(
-        pinned:true, floating:true, expandedHeight:0,
-        backgroundColor:C.white,
-        automaticallyImplyLeading:false,
-        title:Row(children:[
-          Container(padding:const EdgeInsets.symmetric(horizontal:10,vertical:5),
-            decoration:BoxDecoration(color:C.secondary,borderRadius:BorderRadius.circular(6)),
-            child:const Text('SS',style:TextStyle(color:C.white,fontSize:14,fontWeight:FontWeight.w800))),
-          const SizedBox(width:10),
-          Text('StyleSphere',style:GoogleFonts.poppins(fontSize:17,fontWeight:FontWeight.w700,color:C.primary)),
+        pinned: true, floating: true, expandedHeight: 0,
+        backgroundColor: C.white, automaticallyImplyLeading: false,
+        title: Row(children: [
+          Container(width: 32, height: 32,
+            decoration: BoxDecoration(color: C.blue, borderRadius: BorderRadius.circular(9)),
+            child: const Center(child: Text('S', style: TextStyle(color: C.white, fontSize: 18, fontWeight: FontWeight.w900)))),
+          const SizedBox(width: 9),
+          Text('StyleSphere', style: GoogleFonts.poppins(fontSize: 17, fontWeight: FontWeight.w700, color: C.primary)),
         ]),
-        actions:[
-          IconButton(icon:const Icon(Icons.qr_code_scanner_rounded,color:C.primary), onPressed:()=>ctx.push('/qr-scanner'),tooltip:'Rack Scanner'),
-          IconButton(icon:const Icon(Icons.notifications_none_rounded,color:C.primary), onPressed:(){}),
-          const SizedBox(width:4),
+        actions: [
+          IconButton(icon: const Icon(Icons.qr_code_scanner_rounded, color: C.g700), onPressed: () => ctx.push('/qr-scanner'), tooltip: 'Rack Scanner'),
+          IconButton(icon: const Icon(Icons.search_rounded, color: C.g700), onPressed: () => ctx.go('/explore')),
+          const SizedBox(width: 4),
         ],
       ),
 
-      SliverToBoxAdapter(child:Column(children:[
-        // — Greeting —
-        Padding(padding:const EdgeInsets.fromLTRB(16,16,16,0),child:Row(children:[
-          Expanded(child:Column(crossAxisAlignment:CrossAxisAlignment.start,children:[
-            Text(_greeting(), style:GoogleFonts.poppins(fontSize:22,fontWeight:FontWeight.w700,color:C.primary)),
-            Text(user?.name ?? 'Guest', style:GoogleFonts.poppins(fontSize:14,color:C.g500)),
-          ])),
-          Container(width:44,height:44,
-            decoration:BoxDecoration(gradient:const LinearGradient(colors:[Color(0xFFC8415B),Color(0xFFE06B7F)]),shape:BoxShape.circle),
-            child:Center(child:Text(user?.name.isNotEmpty==true?user!.name[0].toUpperCase():'?',style:GoogleFonts.poppins(fontSize:18,fontWeight:FontWeight.w700,color:C.white)))),
-        ])),
-        // — Search bar —
-        Padding(padding:const EdgeInsets.fromLTRB(16,14,16,0),child:GestureDetector(
-          onTap:()=>ctx.go('/explore'),
-          child:Container(
-            padding:const EdgeInsets.symmetric(horizontal:16,vertical:14),
-            decoration:BoxDecoration(color:C.white,borderRadius:BorderRadius.circular(12),
-              boxShadow:[BoxShadow(color:C.shadow,blurRadius:8,offset:const Offset(0,2))]),
-            child:Row(children:[
-              const Icon(Icons.search_rounded,color:C.g400,size:22),
-              const SizedBox(width:10),
-              Text('Search clothes, brands...',style:GoogleFonts.poppins(fontSize:14,color:C.g400)),
-              const Spacer(),
-              const Icon(Icons.tune_rounded,color:C.primary,size:20),
-            ]),
+      SliverToBoxAdapter(child: Column(children: [
+        // — Delivery Location Bar —
+        Padding(padding: const EdgeInsets.fromLTRB(16, 14, 16, 0), child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+          decoration: BoxDecoration(
+            color: C.white, borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: C.g200),
+            boxShadow: [BoxShadow(color: C.shadow, blurRadius: 8, offset: const Offset(0, 2))],
           ),
+          child: Row(children: [
+            Container(width: 28, height: 28, decoration: BoxDecoration(color: C.blueLight, shape: BoxShape.circle),
+              child: const Icon(Icons.location_on_outlined, color: C.blue, size: 16)),
+            const SizedBox(width: 10),
+            Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Text('Send to', style: GoogleFonts.poppins(fontSize: 10, color: C.g400, fontWeight: FontWeight.w500)),
+              Text(user?.defaultAddress?.short ?? 'Set delivery address',
+                style: GoogleFonts.poppins(fontSize: 12, color: C.primary, fontWeight: FontWeight.w600)),
+            ])),
+            TextButton(
+              onPressed: () {},
+              style: TextButton.styleFrom(
+                backgroundColor: C.blue, foregroundColor: C.white, padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
+                minimumSize: Size.zero, tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                textStyle: GoogleFonts.poppins(fontSize: 12, fontWeight: FontWeight.w600),
+              ),
+              child: const Text('Change'),
+            ),
+          ]),
         )),
 
         // — Banner Slider —
-        const SizedBox(height:16),
+        const SizedBox(height: 14),
         _BannerSlider(),
 
         // — Categories —
-        Padding(padding:const EdgeInsets.fromLTRB(16,20,16,0),child:Column(children:[
-          SecHeader(title:'Categories', onAll:()=>ctx.go('/explore')),
-          const SizedBox(height:14),
-          SizedBox(height:100, child:ListView.separated(
-            scrollDirection:Axis.horizontal, padding:EdgeInsets.zero,
-            itemCount:kCategories.length,
-            separatorBuilder:(_,__)=>const SizedBox(width:12),
-            itemBuilder:(_,i){final cat=kCategories[i]; return GestureDetector(
-              onTap:(){ ref.read(filterProvider.notifier).update((s)=>s.copyWith(category:cat.name)); ctx.go('/explore'); },
-              child:Column(children:[
-                Container(width:64,height:64, decoration:BoxDecoration(borderRadius:BorderRadius.circular(14),
-                  boxShadow:[BoxShadow(color:cat.color.withOpacity(.15),blurRadius:8,offset:const Offset(0,4))]),
-                  child:ClipRRect(borderRadius:BorderRadius.circular(14), child:Stack(children:[
-                    Img(cat.imageUrl,w:64,h:64),
-                    Container(decoration:BoxDecoration(gradient:LinearGradient(begin:Alignment.topCenter,end:Alignment.bottomCenter,colors:[Colors.transparent,cat.color.withOpacity(.6)]))),
-                    Center(child:Text(cat.emoji,style:const TextStyle(fontSize:26))),
-                  ]))),
-                const SizedBox(height:6),
-                Text(cat.name,style:GoogleFonts.poppins(fontSize:12,fontWeight:FontWeight.w600,color:C.primary)),
+        Padding(padding: const EdgeInsets.fromLTRB(16, 20, 16, 0), child: Column(children: [
+          SecHeader(title: 'Categories', onAll: () => ctx.go('/explore')),
+          const SizedBox(height: 14),
+          Row(children: kCategories.map((cat) => Expanded(child: GestureDetector(
+            onTap: () { ref.read(filterProvider.notifier).update((s) => s.copyWith(category: cat.name)); ctx.go('/explore'); },
+            child: Container(
+              margin: const EdgeInsets.only(right: 10),
+              padding: const EdgeInsets.symmetric(vertical: 12),
+              decoration: BoxDecoration(
+                color: cat.bgColor, borderRadius: BorderRadius.circular(14),
+                border: Border.all(color: cat.color.withOpacity(0.15)),
+              ),
+              child: Column(children: [
+                Text(cat.emoji, style: const TextStyle(fontSize: 24)),
+                const SizedBox(height: 4),
+                Text(cat.name, style: GoogleFonts.poppins(fontSize: 11, fontWeight: FontWeight.w600, color: cat.color)),
               ]),
-            );},
+            ),
+          ))).toList()),
+        ])),
+
+        // — Popular Brands —
+        Padding(padding: const EdgeInsets.fromLTRB(16, 20, 16, 0), child: Column(children: [
+          SecHeader(title: 'Popular Brands', onAll: () => ctx.go('/explore')),
+          const SizedBox(height: 12),
+          SizedBox(height: 80, child: ListView.separated(
+            scrollDirection: Axis.horizontal, padding: EdgeInsets.zero,
+            itemCount: kBrands.length,
+            separatorBuilder: (_, __) => const SizedBox(width: 12),
+            itemBuilder: (_, i) {
+              final b = kBrands[i];
+              return Container(
+                width: 72, padding: const EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: C.white, borderRadius: BorderRadius.circular(14),
+                  border: Border.all(color: C.g200),
+                  boxShadow: [BoxShadow(color: C.shadow, blurRadius: 6, offset: const Offset(0, 2))],
+                ),
+                child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  Container(width: 34, height: 34, decoration: const BoxDecoration(color: C.g50, shape: BoxShape.circle),
+                    child: Center(child: Text(b.name[0], style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w800, color: C.primary)))),
+                  const SizedBox(height: 4),
+                  Text(b.name, style: GoogleFonts.poppins(fontSize: 9, fontWeight: FontWeight.w600, color: C.g600), overflow: TextOverflow.ellipsis),
+                ]),
+              );
+            },
           )),
         ])),
 
         // — Featured —
-        Padding(padding:const EdgeInsets.fromLTRB(16,20,16,0),child:Column(children:[
-          SecHeader(title:'Featured', onAll:()=>ctx.go('/explore')),
-          const SizedBox(height:12),
-          SizedBox(height:260, child:ListView.separated(
-            scrollDirection:Axis.horizontal, padding:EdgeInsets.zero,
-            itemCount:featured.length,
-            separatorBuilder:(_,__)=>const SizedBox(width:12),
-            itemBuilder:(_,i)=>_ProdCard(featured[i], wide:true),
+        Padding(padding: const EdgeInsets.fromLTRB(16, 20, 16, 0), child: Column(children: [
+          SecHeader(title: 'Featured', onAll: () => ctx.go('/explore')),
+          const SizedBox(height: 12),
+          SizedBox(height: 245, child: ListView.separated(
+            scrollDirection: Axis.horizontal, padding: EdgeInsets.zero,
+            itemCount: featured.length,
+            separatorBuilder: (_, __) => const SizedBox(width: 12),
+            itemBuilder: (_, i) => _ProdCard(featured[i], wide: true),
           )),
         ])),
 
         // — New Arrivals —
-        Padding(padding:const EdgeInsets.fromLTRB(16,20,16,16),child:Column(children:[
-          SecHeader(title:'New Arrivals', onAll:()=>ctx.go('/explore')),
-          const SizedBox(height:12),
+        Padding(padding: const EdgeInsets.fromLTRB(16, 20, 16, 20), child: Column(children: [
+          SecHeader(title: 'New Arrivals', onAll: () => ctx.go('/explore')),
+          const SizedBox(height: 12),
           GridView.builder(
-            shrinkWrap:true, physics:const NeverScrollableScrollPhysics(),
-            gridDelegate:const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount:2,childAspectRatio:.72,crossAxisSpacing:12,mainAxisSpacing:12),
-            itemCount:newArrivals.length,
-            itemBuilder:(_,i)=>_ProdCard(newArrivals[i]),
+            shrinkWrap: true, physics: const NeverScrollableScrollPhysics(),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 0.71, crossAxisSpacing: 12, mainAxisSpacing: 12),
+            itemCount: newArrs.length,
+            itemBuilder: (_, i) => _ProdCard(newArrs[i]),
           ),
         ])),
       ])),
@@ -1828,36 +1614,65 @@ class HomeScreen extends ConsumerWidget {
 class _BannerSlider extends StatefulWidget {
   @override State<_BannerSlider> createState() => _BSState();
 }
+
 class _BSState extends State<_BannerSlider> {
   final _ctrl = PageController();
   int _cur = 0;
   Timer? _timer;
-  @override void initState(){super.initState(); _timer=Timer.periodic(const Duration(seconds:4),(_){ if(_cur<kBanners.length-1) _cur++; else _cur=0; _ctrl.animateToPage(_cur,duration:600.ms,curve:Curves.easeInOutCubic); });}
-  @override void dispose(){_timer?.cancel();_ctrl.dispose();super.dispose();}
-  @override Widget build(BuildContext ctx) => Column(children:[
-    SizedBox(height:200, child:PageView.builder(controller:_ctrl, itemCount:kBanners.length,
-      onPageChanged:(i)=>setState(()=>_cur=i),
-      itemBuilder:(_,i){ final b=kBanners[i]; return Padding(padding:const EdgeInsets.symmetric(horizontal:16),
-        child:GestureDetector(onTap:()=>ctx.go(b.route), child:ClipRRect(borderRadius:BorderRadius.circular(18),
-          child:Stack(children:[
-            Img(b.imageUrl,w:double.infinity,h:200),
-            Container(decoration:const BoxDecoration(gradient:C.heroGrad)),
-            Padding(padding:const EdgeInsets.all(20),child:Column(crossAxisAlignment:CrossAxisAlignment.start,mainAxisAlignment:MainAxisAlignment.end,children:[
-              Text(b.title,style:GoogleFonts.poppins(fontSize:22,fontWeight:FontWeight.w800,color:C.white,height:1.2)),
-              const SizedBox(height:4),
-              Text(b.subtitle,style:GoogleFonts.poppins(fontSize:13,color:C.white.withOpacity(.85))),
-              const SizedBox(height:10),
-              Container(padding:const EdgeInsets.symmetric(horizontal:14,vertical:7),
-                decoration:BoxDecoration(color:C.secondary,borderRadius:BorderRadius.circular(20)),
-                child:Text(b.actionLabel,style:GoogleFonts.poppins(fontSize:12,fontWeight:FontWeight.w600,color:C.white))),
-            ])),
-          ]))),
-      );},
-    )),
-    const SizedBox(height:10),
-    AnimatedSmoothIndicator(activeIndex:_cur, count:kBanners.length,
-      effect:const WormEffect(dotHeight:7,dotWidth:7,activeDotColor:C.secondary,dotColor:C.g300,spacing:6)),
-  ]);
+  @override void initState() {
+    super.initState();
+    _timer = Timer.periodic(const Duration(seconds: 4), (_) {
+      final next = (_cur + 1) % kBanners.length;
+      _ctrl.animateToPage(next, duration: 500.ms, curve: Curves.easeInOutCubic);
+    });
+  }
+  @override void dispose() { _timer?.cancel(); _ctrl.dispose(); super.dispose(); }
+
+  @override Widget build(BuildContext ctx) => Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 16),
+    child: Column(children: [
+      SizedBox(height: 180, child: PageView.builder(
+        controller: _ctrl, itemCount: kBanners.length,
+        onPageChanged: (i) => setState(() => _cur = i),
+        itemBuilder: (_, i) {
+          final b = kBanners[i];
+          return GestureDetector(onTap: () => context.go(b.route), child: ClipRRect(
+            borderRadius: BorderRadius.circular(18),
+            child: Stack(children: [
+              CachedNetworkImage(imageUrl: b.imageUrl, width: double.infinity, height: 180, fit: BoxFit.cover,
+                placeholder: (c, u) => Container(color: C.blueLight),
+                errorWidget: (c, u, e) => Container(decoration: const BoxDecoration(gradient: C.blueGrad))),
+              Container(decoration: BoxDecoration(gradient: LinearGradient(
+                begin: Alignment.centerRight, end: Alignment.centerLeft,
+                colors: [C.blueDark.withOpacity(0.9), C.blueDark.withOpacity(0.6), Colors.transparent],
+                stops: const [0.0, 0.5, 1.0],
+              ))),
+              Padding(padding: const EdgeInsets.all(20), child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                    decoration: BoxDecoration(color: Colors.white.withOpacity(0.2), borderRadius: BorderRadius.circular(4)),
+                    child: Text(b.tag, style: GoogleFonts.poppins(color: C.white, fontSize: 9, fontWeight: FontWeight.w700, letterSpacing: 1))),
+                  const SizedBox(height: 6),
+                  Text(b.title, style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w800, color: C.white, height: 1.2)),
+                  const SizedBox(height: 4),
+                  Text(b.subtitle, style: GoogleFonts.poppins(fontSize: 12, color: Colors.white.withOpacity(0.85))),
+                  const SizedBox(height: 12),
+                  Container(padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
+                    decoration: BoxDecoration(color: C.white, borderRadius: BorderRadius.circular(20)),
+                    child: Text(b.actionLabel, style: GoogleFonts.poppins(fontSize: 12, fontWeight: FontWeight.w700, color: C.blue))),
+                ],
+              )),
+            ]),
+          ));
+        },
+      )),
+      const SizedBox(height: 10),
+      AnimatedSmoothIndicator(activeIndex: _cur, count: kBanners.length,
+        effect: const WormEffect(dotHeight: 6, dotWidth: 6, activeDotColor: C.blue, dotColor: C.g300, spacing: 6)),
+    ]),
+  );
 }
 
 // ╔══════════════════════════════════════════════════════════╗
@@ -1866,44 +1681,65 @@ class _BSState extends State<_BannerSlider> {
 
 class _ProdCard extends ConsumerWidget {
   final Product p; final bool wide;
-  const _ProdCard(this.p, {this.wide=false});
-  @override
-  Widget build(BuildContext ctx, WidgetRef ref) {
+  const _ProdCard(this.p, {this.wide = false});
+
+  @override Widget build(BuildContext ctx, WidgetRef ref) {
     final inWish = ref.watch(inWishlistProvider(p.id));
     return GestureDetector(
-      onTap:(){ref.read(recentlyViewedProvider.notifier).add(p); ctx.push('/product/${p.id}',extra:p);},
-      child:Container(width:wide?160:null,
-        decoration:BoxDecoration(color:C.white,borderRadius:BorderRadius.circular(16),
-          boxShadow:[BoxShadow(color:C.shadow,blurRadius:8,offset:const Offset(0,3))]),
-        child:Column(crossAxisAlignment:CrossAxisAlignment.start,children:[
-          // image
-          Stack(children:[
-            ClipRRect(borderRadius:const BorderRadius.vertical(top:Radius.circular(16)),
-              child:Img(p.images.first, w:double.infinity, h:wide?150:145)),
-            // badges
-            Positioned(top:10,left:10,child:Column(children:[
-              if(p.hasDiscount) DiscBadge(pct:p.discount),
-              if(p.isNew) const SizedBox(height:4),
-              if(p.isNew) const NewBadge(),
+      onTap: () { ref.read(recentlyViewedProvider.notifier).add(p); ctx.push('/product/${p.id}', extra: p); },
+      child: Container(
+        width: wide ? 155 : null,
+        decoration: BoxDecoration(
+          color: C.white, borderRadius: BorderRadius.circular(16),
+          boxShadow: [BoxShadow(color: C.shadowMd, blurRadius: 10, offset: const Offset(0, 4))],
+        ),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          // Image
+          Stack(children: [
+            ClipRRect(borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+              child: Img(p.images.first, w: double.infinity, h: wide ? 140 : 140)),
+            // Badges
+            Positioned(top: 8, left: 8, child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              if (p.hasDiscount) SaleBadge(pct: p.discount),
+              if (p.isNew) ...[const SizedBox(height: 4), const NewBadge()],
             ])),
-            // wishlist
-            Positioned(top:6,right:6,child:GestureDetector(
-              onTap:()=>ref.read(wishlistProvider.notifier).toggle(p),
-              child:Container(padding:const EdgeInsets.all(6),
-                decoration:BoxDecoration(color:C.white.withOpacity(.9),shape:BoxShape.circle),
-                child:Icon(inWish?Icons.favorite_rounded:Icons.favorite_border_rounded,
-                  color:inWish?C.secondary:C.g400, size:18)),
+            // Wishlist
+            Positioned(top: 6, right: 6, child: GestureDetector(
+              onTap: () => ref.read(wishlistProvider.notifier).toggle(p),
+              child: Container(padding: const EdgeInsets.all(6),
+                decoration: BoxDecoration(color: C.white.withOpacity(0.95), shape: BoxShape.circle,
+                  boxShadow: [BoxShadow(color: C.shadowMd, blurRadius: 4)]),
+                child: Icon(inWish ? Icons.favorite_rounded : Icons.favorite_border_rounded,
+                  color: inWish ? C.red : C.g400, size: 16)),
             )),
           ]),
-          // info
-          Expanded(child:Padding(padding:const EdgeInsets.fromLTRB(10,8,10,8),child:Column(crossAxisAlignment:CrossAxisAlignment.start, mainAxisSize:MainAxisSize.min, children:[
-            Text(p.brand,style:GoogleFonts.poppins(fontSize:10,fontWeight:FontWeight.w500,color:C.g500,letterSpacing:.5)),
-            const SizedBox(height:2),
-            Text(p.name,style:GoogleFonts.poppins(fontSize:12,fontWeight:FontWeight.w600,color:C.primary),maxLines:1,overflow:TextOverflow.ellipsis),
-            const SizedBox(height:4),
-            Stars(rating:p.rating,count:p.reviewCount,sz:12),
+          // Info
+          Expanded(child: Padding(padding: const EdgeInsets.fromLTRB(10, 9, 10, 10), child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start, mainAxisSize: MainAxisSize.min, children: [
+            // Brand + rating row
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+              Expanded(child: Text(p.brand,
+                style: GoogleFonts.poppins(fontSize: 10, fontWeight: FontWeight.w500, color: C.g500),
+                overflow: TextOverflow.ellipsis)),
+              Row(mainAxisSize: MainAxisSize.min, children: [
+                const Icon(Icons.star_rounded, color: Colors.amber, size: 11),
+                const SizedBox(width: 2),
+                Text(p.rating.toStringAsFixed(1), style: GoogleFonts.poppins(fontSize: 10, fontWeight: FontWeight.w600, color: C.g700)),
+              ]),
+            ]),
+            const SizedBox(height: 2),
+            Text(p.name,
+              style: GoogleFonts.poppins(fontSize: 12, fontWeight: FontWeight.w600, color: C.primary),
+              maxLines: 1, overflow: TextOverflow.ellipsis),
             const Spacer(),
-            PriceRow(price:p.price,orig:p.originalPrice,sz:14,origSz:11),
+            // Price
+            Row(children: [
+              Text('\$${p.price.toStringAsFixed(2)}',
+                style: GoogleFonts.poppins(fontSize: 13, fontWeight: FontWeight.w700, color: C.primary)),
+              if (p.hasDiscount) ...[const SizedBox(width: 5),
+                Text('\$${p.originalPrice!.toStringAsFixed(2)}',
+                  style: GoogleFonts.poppins(fontSize: 10, color: C.g400, decoration: TextDecoration.lineThrough))],
+            ]),
           ]))),
         ]),
       ),
@@ -1912,158 +1748,161 @@ class _ProdCard extends ConsumerWidget {
 }
 
 // ╔══════════════════════════════════════════════════════════╗
-// ║                 14 · EXPLORE / LISTING SCREEN           ║
+// ║                 14 · EXPLORE SCREEN                     ║
 // ╚══════════════════════════════════════════════════════════╝
 
 class ExploreScreen extends ConsumerStatefulWidget {
   const ExploreScreen({super.key});
   @override ConsumerState<ExploreScreen> createState() => _ExploreState();
 }
+
 class _ExploreState extends ConsumerState<ExploreScreen> {
   final _sc = TextEditingController();
-
-  @override void dispose(){_sc.dispose();super.dispose();}
+  @override void dispose() { _sc.dispose(); super.dispose(); }
 
   @override Widget build(BuildContext ctx) {
     final products = ref.watch(filteredProductsProvider);
     final filter   = ref.watch(filterProvider);
-    return Scaffold(backgroundColor:C.g100,body:CustomScrollView(slivers:[
-      SliverAppBar(pinned:true,floating:true,backgroundColor:C.white,automaticallyImplyLeading:false,
-        title:const Text('Explore'),
-        bottom:PreferredSize(preferredSize:const Size.fromHeight(70),child:Padding(padding:const EdgeInsets.fromLTRB(16,0,16,10),child:Row(children:[
-          Expanded(child:Container(
-            decoration:BoxDecoration(color:C.g100,borderRadius:BorderRadius.circular(12),border:Border.all(color:C.g200)),
-            child:TextField(controller:_sc,
-              onChanged:(q)=>ref.read(filterProvider.notifier).update((s)=>s.copyWith(search:q.isEmpty?null:q)),
-              style:GoogleFonts.poppins(fontSize:14,color:C.primary),
-              decoration:InputDecoration(hintText:'Search clothes, brands...',hintStyle:GoogleFonts.poppins(fontSize:14,color:C.g400),
-                prefixIcon:const Icon(Icons.search_rounded,color:C.g400,size:20),
-                border:InputBorder.none,enabledBorder:InputBorder.none,focusedBorder:InputBorder.none,filled:false,
-                contentPadding:const EdgeInsets.symmetric(horizontal:12,vertical:12),
-                suffixIcon:_sc.text.isNotEmpty?IconButton(icon:const Icon(Icons.clear,size:18,color:C.g400),
-                  onPressed:(){ _sc.clear(); ref.read(filterProvider.notifier).update((s)=>s.copyWith(clearSearch:true)); setState((){}); }):null,
+    return Scaffold(backgroundColor: C.bg, body: CustomScrollView(slivers: [
+      SliverAppBar(
+        pinned: true, floating: true, backgroundColor: C.white,
+        automaticallyImplyLeading: false, title: const Text('Explore'),
+        bottom: PreferredSize(preferredSize: const Size.fromHeight(60), child: Padding(
+          padding: const EdgeInsets.fromLTRB(16, 0, 16, 10), child: Row(children: [
+          Expanded(child: Container(
+            decoration: BoxDecoration(color: C.g50, borderRadius: BorderRadius.circular(12), border: Border.all(color: C.g200)),
+            child: TextField(controller: _sc,
+              onChanged: (q) => ref.read(filterProvider.notifier).update((s) => s.copyWith(search: q.isEmpty ? null : q)),
+              style: GoogleFonts.poppins(fontSize: 14, color: C.primary),
+              decoration: InputDecoration(
+                hintText: 'Search brands, clothes...',
+                hintStyle: GoogleFonts.poppins(fontSize: 14, color: C.g400),
+                prefixIcon: const Icon(Icons.search_rounded, color: C.g400, size: 20),
+                border: InputBorder.none, enabledBorder: InputBorder.none, focusedBorder: InputBorder.none,
+                filled: false, contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 13),
+                suffixIcon: _sc.text.isNotEmpty ? IconButton(icon: const Icon(Icons.clear, size: 18, color: C.g400),
+                  onPressed: () { _sc.clear(); ref.read(filterProvider.notifier).update((s) => s.copyWith(clearSearch: true)); setState(() {}); }) : null,
               )),
           )),
-          const SizedBox(width:10),
-          GestureDetector(onTap:()=>_showFilters(ctx),child:AnimatedContainer(duration:200.ms,
-            padding:const EdgeInsets.all(12),
-            decoration:BoxDecoration(color:filter.hasFilters?C.secondary:C.white,borderRadius:BorderRadius.circular(12),border:Border.all(color:filter.hasFilters?C.secondary:C.g200)),
-            child:Icon(Icons.tune_rounded,color:filter.hasFilters?C.white:C.primary,size:22))),
+          const SizedBox(width: 10),
+          GestureDetector(onTap: () => _showFilters(ctx), child: AnimatedContainer(duration: 200.ms,
+            padding: const EdgeInsets.all(11),
+            decoration: BoxDecoration(color: filter.hasFilters ? C.blue : C.white, borderRadius: BorderRadius.circular(12), border: Border.all(color: filter.hasFilters ? C.blue : C.g200)),
+            child: Icon(Icons.tune_rounded, color: filter.hasFilters ? C.white : C.g700, size: 22))),
         ]))),
-        actions:[
-          PopupMenuButton<String>(icon:const Icon(Icons.sort_rounded,color:C.primary),
-            onSelected:(v)=>ref.read(filterProvider.notifier).update((s)=>s.copyWith(sortBy:v)),
-            itemBuilder:(_)=>[
-              const PopupMenuItem(value:'popularity',child:Text('Popularity')),
-              const PopupMenuItem(value:'price_low',child:Text('Price: Low to High')),
-              const PopupMenuItem(value:'price_high',child:Text('Price: High to Low')),
-              const PopupMenuItem(value:'newest',child:Text('Newest First')),
-              const PopupMenuItem(value:'rating',child:Text('Top Rated')),
+        actions: [
+          PopupMenuButton<String>(icon: const Icon(Icons.sort_rounded, color: C.g700),
+            onSelected: (v) => ref.read(filterProvider.notifier).update((s) => s.copyWith(sortBy: v)),
+            itemBuilder: (_) => [
+              const PopupMenuItem(value: 'popularity', child: Text('Popularity')),
+              const PopupMenuItem(value: 'price_low', child: Text('Price: Low to High')),
+              const PopupMenuItem(value: 'price_high', child: Text('Price: High to Low')),
+              const PopupMenuItem(value: 'newest', child: Text('Newest First')),
+              const PopupMenuItem(value: 'rating', child: Text('Top Rated')),
             ]),
         ],
       ),
 
       // Category chips
-      SliverToBoxAdapter(child:SingleChildScrollView(scrollDirection:Axis.horizontal,padding:const EdgeInsets.fromLTRB(16,12,16,0),
-        child:Row(children:[
-          _CatChip('All',filter.category==null,()=>ref.read(filterProvider.notifier).update((s)=>s.copyWith(clearCategory:true))),
-          ...['Men','Women','Kids','Accessories'].map((c)=>_CatChip(c,filter.category==c,()=>ref.read(filterProvider.notifier).update((s)=>s.copyWith(category:c)))),
+      SliverToBoxAdapter(child: SingleChildScrollView(scrollDirection: Axis.horizontal,
+        padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
+        child: Row(children: [
+          _CatChip('All', filter.category == null, () => ref.read(filterProvider.notifier).update((s) => s.copyWith(clearCategory: true))),
+          ...['Men', 'Women', 'Kids', 'Accessories'].map((c) => _CatChip(c, filter.category == c,
+            () => ref.read(filterProvider.notifier).update((s) => s.copyWith(category: c)))),
         ]),
       )),
 
-      // Count
-      SliverToBoxAdapter(child:Padding(padding:const EdgeInsets.fromLTRB(16,14,16,6),
-        child:Text('${products.length} items found',style:GoogleFonts.poppins(fontSize:12,color:C.g500)))),
+      SliverToBoxAdapter(child: Padding(padding: const EdgeInsets.fromLTRB(16, 12, 16, 6),
+        child: Text('${products.length} items found', style: GoogleFonts.poppins(fontSize: 12, color: C.g500)))),
 
-      // Grid
       products.isEmpty
-        ? SliverFillRemaining(child:EmptyView(icon:Icons.search_off_rounded,title:'No results found',desc:'Try adjusting your search or filters',btnLabel:'Clear Filters',onBtn:()=>ref.read(filterProvider.notifier).update((_)=>const PFilter())))
-        : SliverPadding(padding:const EdgeInsets.fromLTRB(16,0,16,100),
-            sliver:SliverGrid(
-              delegate:SliverChildBuilderDelegate((c,i)=>_ProdCard(products[i]),childCount:products.length),
-              gridDelegate:const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount:2,childAspectRatio:.72,crossAxisSpacing:12,mainAxisSpacing:12),
+        ? SliverFillRemaining(child: EmptyView(icon: Icons.search_off_rounded, title: 'No results found',
+            desc: 'Try adjusting your search or filters', btnLabel: 'Clear Filters',
+            onBtn: () => ref.read(filterProvider.notifier).update((_) => const PFilter())))
+        : SliverPadding(padding: const EdgeInsets.fromLTRB(16, 0, 16, 100),
+            sliver: SliverGrid(
+              delegate: SliverChildBuilderDelegate((c, i) => _ProdCard(products[i]), childCount: products.length),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 0.71, crossAxisSpacing: 12, mainAxisSpacing: 12),
             )),
     ]));
   }
 
   void _showFilters(BuildContext ctx) => showModalBottomSheet(
-    context:ctx, isScrollControlled:true, backgroundColor:Colors.transparent,
-    builder:(_)=>const _FilterSheet(),
+    context: ctx, isScrollControlled: true, backgroundColor: Colors.transparent,
+    builder: (_) => const _FilterSheet(),
   );
 }
 
 class _CatChip extends StatelessWidget {
   final String label; final bool selected; final VoidCallback onTap;
-  const _CatChip(this.label,this.selected,this.onTap);
-  @override Widget build(BuildContext ctx) => GestureDetector(onTap:onTap,child:AnimatedContainer(duration:200.ms,
-    margin:const EdgeInsets.only(right:10),padding:const EdgeInsets.symmetric(horizontal:16,vertical:8),
-    decoration:BoxDecoration(color:selected?C.primary:C.white,borderRadius:BorderRadius.circular(20),
-      border:Border.all(color:selected?C.primary:C.g300)),
-    child:Text(label,style:GoogleFonts.poppins(fontSize:13,fontWeight:FontWeight.w500,color:selected?C.white:C.g700))));
+  const _CatChip(this.label, this.selected, this.onTap);
+  @override Widget build(BuildContext ctx) => GestureDetector(onTap: onTap, child: AnimatedContainer(duration: 200.ms,
+    margin: const EdgeInsets.only(right: 10),
+    padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
+    decoration: BoxDecoration(
+      color: selected ? C.blue : C.white,
+      borderRadius: BorderRadius.circular(20),
+      border: Border.all(color: selected ? C.blue : C.g200),
+      boxShadow: selected ? [BoxShadow(color: C.blue.withOpacity(0.25), blurRadius: 8, offset: const Offset(0, 3))] : [],
+    ),
+    child: Text(label, style: GoogleFonts.poppins(fontSize: 13, fontWeight: FontWeight.w500, color: selected ? C.white : C.g700))));
 }
 
-// Filter Bottom Sheet
 class _FilterSheet extends ConsumerStatefulWidget {
   const _FilterSheet();
   @override ConsumerState<_FilterSheet> createState() => _FSState();
 }
+
 class _FSState extends ConsumerState<_FilterSheet> {
   late PFilter _f;
-  @override void initState(){super.initState(); _f=ref.read(filterProvider);}
-  void _toggleSize(String s)=>setState(()=>_f=_f.copyWith(sizes:_f.sizes.contains(s)?_f.sizes.where((x)=>x!=s).toList():[..._f.sizes,s]));
-  void _toggleColor(String c)=>setState(()=>_f=_f.copyWith(colors:_f.colors.contains(c)?_f.colors.where((x)=>x!=c).toList():[..._f.colors,c]));
-  @override Widget build(BuildContext ctx)=>Container(
-    decoration:const BoxDecoration(color:C.white,borderRadius:BorderRadius.vertical(top:Radius.circular(24))),
-    padding:const EdgeInsets.fromLTRB(20,16,20,30),
-    child:SingleChildScrollView(child:Column(crossAxisAlignment:CrossAxisAlignment.start,mainAxisSize:MainAxisSize.min,children:[
-      // handle
-      Center(child:Container(width:40,height:4,decoration:BoxDecoration(color:C.g300,borderRadius:BorderRadius.circular(2)))),
-      const SizedBox(height:16),
-      Row(mainAxisAlignment:MainAxisAlignment.spaceBetween,children:[
-        Text('Filters',style:Theme.of(ctx).textTheme.headlineMedium),
-        TextButton(onPressed:()=>setState(()=>_f=const PFilter()),child:const Text('Clear All',style:TextStyle(color:C.secondary))),
+  @override void initState() { super.initState(); _f = ref.read(filterProvider); }
+  void _toggleSize(String s) => setState(() => _f = _f.copyWith(sizes: _f.sizes.contains(s) ? _f.sizes.where((x) => x != s).toList() : [..._f.sizes, s]));
+
+  @override Widget build(BuildContext ctx) => Container(
+    decoration: const BoxDecoration(color: C.white, borderRadius: BorderRadius.vertical(top: Radius.circular(24))),
+    padding: const EdgeInsets.fromLTRB(20, 12, 20, 30),
+    child: SingleChildScrollView(child: Column(crossAxisAlignment: CrossAxisAlignment.start, mainAxisSize: MainAxisSize.min, children: [
+      Center(child: Container(width: 40, height: 4, decoration: BoxDecoration(color: C.g200, borderRadius: BorderRadius.circular(2)))),
+      const SizedBox(height: 16),
+      Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+        Text('Filters', style: Theme.of(ctx).textTheme.headlineMedium),
+        TextButton(onPressed: () => setState(() => _f = const PFilter()), child: const Text('Clear All', style: TextStyle(color: C.blue))),
       ]),
-      const SizedBox(height:16),
-      // Sizes
-      Text('Sizes',style:Theme.of(ctx).textTheme.titleMedium),
-      const SizedBox(height:10),
-      Wrap(spacing:10,runSpacing:10,children:['XS','S','M','L','XL','XXL'].map((s)=>GestureDetector(
-        onTap:()=>_toggleSize(s),
-        child:AnimatedContainer(duration:200.ms,padding:const EdgeInsets.symmetric(horizontal:16,vertical:8),
-          decoration:BoxDecoration(color:_f.sizes.contains(s)?C.primary:C.white,borderRadius:BorderRadius.circular(10),
-            border:Border.all(color:_f.sizes.contains(s)?C.primary:C.g300)),
-          child:Text(s,style:TextStyle(fontWeight:FontWeight.w600,color:_f.sizes.contains(s)?C.white:C.primary))),
+      const SizedBox(height: 16),
+      Text('Sizes', style: Theme.of(ctx).textTheme.titleMedium),
+      const SizedBox(height: 10),
+      Wrap(spacing: 10, runSpacing: 10, children: ['XS','S','M','L','XL','XXL'].map((s) => GestureDetector(
+        onTap: () => _toggleSize(s),
+        child: AnimatedContainer(duration: 200.ms,
+          width: 44, height: 44,
+          decoration: BoxDecoration(
+            color: _f.sizes.contains(s) ? C.blue : C.white,
+            borderRadius: BorderRadius.circular(22),
+            border: Border.all(color: _f.sizes.contains(s) ? C.blue : C.g300),
+          ),
+          child: Center(child: Text(s, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600,
+            color: _f.sizes.contains(s) ? C.white : C.primary)))),
       )).toList()),
-      const SizedBox(height:18),
-      // Price
-      Text('Price Range',style:Theme.of(ctx).textTheme.titleMedium),
+      const SizedBox(height: 18),
+      Text('Price Range', style: Theme.of(ctx).textTheme.titleMedium),
       RangeSlider(
-        values:RangeValues(_f.minPrice??0, _f.maxPrice??500),
-        min:0, max:500,
-        onChanged:(v)=>setState(()=>_f=_f.copyWith(minPrice:v.start,maxPrice:v.end)),
+        values: RangeValues(_f.minPrice ?? 0, _f.maxPrice ?? 500),
+        min: 0, max: 500,
+        onChanged: (v) => setState(() => _f = _f.copyWith(minPrice: v.start, maxPrice: v.end)),
       ),
-      Row(mainAxisAlignment:MainAxisAlignment.spaceBetween,children:[
-        Text('\$${(_f.minPrice??0).toInt()}',style:Theme.of(ctx).textTheme.bodySmall),
-        Text('\$${(_f.maxPrice??500).toInt()}',style:Theme.of(ctx).textTheme.bodySmall),
+      Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+        Text('\$${(_f.minPrice ?? 0).toInt()}', style: Theme.of(ctx).textTheme.bodySmall),
+        Text('\$${(_f.maxPrice ?? 500).toInt()}', style: Theme.of(ctx).textTheme.bodySmall),
       ]),
-      const SizedBox(height:18),
-      // Sort
-      Text('Sort By',style:Theme.of(ctx).textTheme.titleMedium),
-      const SizedBox(height:10),
-      ...['popularity','price_low','price_high','newest','rating'].map((s){
-        final labels={'popularity':'Popularity','price_low':'Price: Low to High','price_high':'Price: High to Low','newest':'Newest First','rating':'Top Rated'};
-        return RadioListTile<String>(value:s,groupValue:_f.sortBy,onChanged:(v)=>setState(()=>_f=_f.copyWith(sortBy:v)),
-          title:Text(labels[s]!,style:Theme.of(ctx).textTheme.bodyMedium),
-          activeColor:C.secondary,dense:true,contentPadding:EdgeInsets.zero);
-      }),
-      const SizedBox(height:20),
-      Btn(text:'Apply Filters',onPressed:(){ ref.read(filterProvider.notifier).state=_f; Navigator.pop(ctx); }),
+      const SizedBox(height: 20),
+      Btn(text: 'Apply Filters', onPressed: () { ref.read(filterProvider.notifier).state = _f; Navigator.pop(ctx); }),
     ])),
   );
 }
 
 // ╔══════════════════════════════════════════════════════════╗
-// ║                 15 · PRODUCT DETAIL SCREEN              ║
+// ║                 15 · PRODUCT DETAIL                     ║
 // ╚══════════════════════════════════════════════════════════╝
 
 class ProductDetailScreen extends ConsumerStatefulWidget {
@@ -2071,157 +1910,234 @@ class ProductDetailScreen extends ConsumerStatefulWidget {
   const ProductDetailScreen({super.key, this.product});
   @override ConsumerState<ProductDetailScreen> createState() => _PDState();
 }
+
 class _PDState extends ConsumerState<ProductDetailScreen> {
-  int _imgIdx=0;
+  int _imgIdx = 0;
   String? _selSize;
   String? _selColor;
   late PageController _pc;
 
-  @override void initState(){super.initState(); _pc=PageController();}
-  @override void dispose(){_pc.dispose();super.dispose();}
+  @override void initState() { super.initState(); _pc = PageController(); }
+  @override void dispose() { _pc.dispose(); super.dispose(); }
 
   @override Widget build(BuildContext ctx) {
     final p = widget.product;
-    if(p==null) return const Scaffold(body:Center(child:Text('Product not found')));
+    if (p == null) return const Scaffold(body: Center(child: Text('Product not found')));
     final inWish = ref.watch(inWishlistProvider(p.id));
     final size   = MediaQuery.of(ctx).size;
 
-    return Scaffold(backgroundColor:C.white, body:CustomScrollView(slivers:[
-      // — Image gallery app bar —
-      SliverAppBar(
-        expandedHeight: size.height * .48,
-        pinned:true, backgroundColor:C.white,
-        leading:IconButton(icon:Container(padding:const EdgeInsets.all(6),decoration:BoxDecoration(color:C.white.withOpacity(.9),shape:BoxShape.circle),child:const Icon(Icons.arrow_back_ios_new_rounded,size:18,color:C.primary)),onPressed:()=>ctx.pop()),
-        actions:[
-          IconButton(icon:Container(padding:const EdgeInsets.all(6),decoration:BoxDecoration(color:C.white.withOpacity(.9),shape:BoxShape.circle),
-            child:Icon(inWish?Icons.favorite_rounded:Icons.favorite_border_rounded,size:20,color:inWish?C.secondary:C.primary)),
-            onPressed:()=>ref.read(wishlistProvider.notifier).toggle(p)),
-          IconButton(icon:Container(padding:const EdgeInsets.all(6),decoration:BoxDecoration(color:C.white.withOpacity(.9),shape:BoxShape.circle),child:const Icon(Icons.share_outlined,size:20,color:C.primary)),onPressed:(){}),
-          const SizedBox(width:4),
-        ],
-        flexibleSpace:FlexibleSpaceBar(
-          background:Stack(children:[
-            PageView.builder(controller:_pc,itemCount:p.images.length,onPageChanged:(i)=>setState(()=>_imgIdx=i),
-              itemBuilder:(_,i)=>Img(p.images[i],w:double.infinity,h:size.height*.48)),
-            Positioned(bottom:16,left:0,right:0,child:Row(mainAxisAlignment:MainAxisAlignment.center,children:List.generate(p.images.length,(i)=>
-              AnimatedContainer(duration:200.ms,margin:const EdgeInsets.symmetric(horizontal:3),width:_imgIdx==i?20:7,height:7,
-                decoration:BoxDecoration(color:_imgIdx==i?C.secondary:C.white.withOpacity(.7),borderRadius:BorderRadius.circular(4)))))),
-          ]),
-        ),
-      ),
-
-      // — Details —
-      SliverToBoxAdapter(child:Padding(padding:const EdgeInsets.fromLTRB(20,20,20,120),child:Column(crossAxisAlignment:CrossAxisAlignment.start,children:[
-        Row(crossAxisAlignment:CrossAxisAlignment.start,children:[
-          Expanded(child:Column(crossAxisAlignment:CrossAxisAlignment.start,children:[
-            Text(p.brand,style:GoogleFonts.poppins(fontSize:12,fontWeight:FontWeight.w500,color:C.secondary,letterSpacing:.5)),
-            const SizedBox(height:4),
-            Text(p.name,style:Theme.of(ctx).textTheme.headlineMedium),
-          ])),
-          Column(crossAxisAlignment:CrossAxisAlignment.end,children:[
-            PriceRow(price:p.price,orig:p.originalPrice,sz:22,origSz:15),
-            if(p.hasDiscount) const SizedBox(height:4),
-            if(p.hasDiscount) DiscBadge(pct:p.discount),
-          ]),
-        ]),
-        const SizedBox(height:10),
-        Row(children:[
-          Stars(rating:p.rating,count:p.reviewCount,sz:14),
-          const SizedBox(width:12),
-          Container(padding:const EdgeInsets.symmetric(horizontal:10,vertical:4),
-            decoration:BoxDecoration(color:p.isInStock?C.success.withOpacity(.1):C.error.withOpacity(.1),borderRadius:BorderRadius.circular(20)),
-            child:Text(p.isInStock?'In Stock':'Out of Stock',style:GoogleFonts.poppins(fontSize:11,fontWeight:FontWeight.w600,color:p.isInStock?C.success:C.error))),
-        ]),
-        const SizedBox(height:20),
-        const Divider(),
-        const SizedBox(height:16),
-        // Sizes
-        Text('Select Size',style:Theme.of(ctx).textTheme.titleMedium),
-        const SizedBox(height:12),
-        Wrap(spacing:10,runSpacing:10,children:p.sizes.map((s)=>SizeChip(size:s,selected:_selSize==s,available:true,onTap:()=>setState(()=>_selSize=s))).toList()),
-        const SizedBox(height:20),
-        // Colors
-        Text('Select Color',style:Theme.of(ctx).textTheme.titleMedium),
-        const SizedBox(height:12),
-        Wrap(spacing:14, runSpacing:10, children:p.colors.map((c){
-          final isSelected = _selColor == c;
-          final color = _colorMap[c] ?? C.g400;
-          final isLight = color.computeLuminance() > 0.7;
-          return GestureDetector(
-            onTap: () => setState(() => _selColor = c),
-            child: Column(mainAxisSize:MainAxisSize.min, children:[
-              AnimatedContainer(
-                duration: 200.ms,
-                width: 42, height: 42,
-                decoration: BoxDecoration(
-                  color: color,
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                    color: isSelected ? C.secondary : (isLight ? C.g300 : Colors.transparent),
-                    width: isSelected ? 2.5 : 1,
-                  ),
-                  boxShadow: isSelected
-                    ? [BoxShadow(color: color.withOpacity(0.4), blurRadius: 8, spreadRadius: 1)]
-                    : [BoxShadow(color: C.shadow, blurRadius: 4)],
-                ),
-                child: isSelected
-                  ? Icon(Icons.check_rounded, color: isLight ? C.primary : C.white, size: 20)
-                  : null,
+    return Scaffold(backgroundColor: C.white, body: Stack(children: [
+      // Main scrollable content
+      CustomScrollView(slivers: [
+        // Image gallery
+        SliverAppBar(
+          expandedHeight: size.height * 0.50,
+          pinned: true, backgroundColor: C.white,
+          leading: GestureDetector(onTap: () => ctx.pop(), child: Container(
+            margin: const EdgeInsets.all(8),
+            decoration: BoxDecoration(color: C.white.withOpacity(0.9), shape: BoxShape.circle,
+              boxShadow: [BoxShadow(color: C.shadowMd, blurRadius: 8)]),
+            child: const Icon(Icons.arrow_back_ios_new_rounded, size: 18, color: C.primary))),
+          actions: [
+            GestureDetector(onTap: () => ref.read(wishlistProvider.notifier).toggle(p), child: Container(
+              margin: const EdgeInsets.all(8),
+              decoration: BoxDecoration(color: C.white.withOpacity(0.9), shape: BoxShape.circle,
+                boxShadow: [BoxShadow(color: C.shadowMd, blurRadius: 8)]),
+              child: Padding(padding: const EdgeInsets.all(7),
+                child: Icon(inWish ? Icons.favorite_rounded : Icons.favorite_border_rounded,
+                  color: inWish ? C.red : C.g500, size: 20)))),
+            const SizedBox(width: 4),
+          ],
+          flexibleSpace: FlexibleSpaceBar(
+            background: Stack(children: [
+              // Images
+              PageView.builder(controller: _pc, itemCount: p.images.length,
+                onPageChanged: (i) => setState(() => _imgIdx = i),
+                itemBuilder: (_, i) => Container(
+                  color: C.g50,
+                  child: CachedNetworkImage(imageUrl: p.images[i], fit: BoxFit.contain,
+                    width: double.infinity, height: size.height * 0.50,
+                    placeholder: (c, u) => Shimmer.fromColors(baseColor: C.g100, highlightColor: C.g50,
+                      child: Container(color: C.g100)),
+                    errorWidget: (c, u, e) => Container(color: C.g50,
+                      child: const Icon(Icons.image_outlined, size: 48, color: C.g300)))),
               ),
-              const SizedBox(height: 4),
-              Text(c, style: GoogleFonts.poppins(fontSize: 10, fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400, color: isSelected ? C.primary : C.g500)),
+              // Image indicator — centered at bottom like reference "1/8"
+              Positioned(bottom: 14, left: 0, right: 0, child: Center(child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+                decoration: BoxDecoration(color: Colors.black.withOpacity(0.35), borderRadius: BorderRadius.circular(20)),
+                child: Text('${_imgIdx + 1}/${p.images.length}',
+                  style: GoogleFonts.poppins(color: C.white, fontSize: 12, fontWeight: FontWeight.w600)),
+              ))),
             ]),
-          );
-        }).toList()),
-        const SizedBox(height:20),
-        const Divider(),
-        const SizedBox(height:16),
-        // Description
-        Text('Description',style:Theme.of(ctx).textTheme.titleMedium),
-        const SizedBox(height:8),
-        Text(p.description,style:Theme.of(ctx).textTheme.bodyMedium?.copyWith(height:1.7)),
-        const SizedBox(height:20),
-        // Details
-        if(p.details.isNotEmpty)...[
-          Text('Product Details',style:Theme.of(ctx).textTheme.titleMedium),
-          const SizedBox(height:12),
-          Container(padding:const EdgeInsets.all(16),decoration:BoxDecoration(color:C.g100,borderRadius:BorderRadius.circular(12)),
-            child:Column(children:p.details.entries.map((e)=>Padding(padding:const EdgeInsets.only(bottom:10),
-              child:Row(children:[
-                SizedBox(width:100,child:Text(e.key,style:GoogleFonts.poppins(fontSize:13,fontWeight:FontWeight.w600,color:C.g700))),
-                Expanded(child:Text(e.value,style:GoogleFonts.poppins(fontSize:13,color:C.primary))),
-              ]))).toList())),
-        ],
-        const SizedBox(height:20),
-        // Try On
-        Container(padding:const EdgeInsets.all(16),
-          decoration:BoxDecoration(gradient:const LinearGradient(begin:Alignment.topLeft,end:Alignment.bottomRight,colors:[Color(0xFF2D0A16),Color(0xFF4A1526)]),borderRadius:BorderRadius.circular(14)),
-          child:Row(children:[
-            const Icon(Icons.camera_alt_rounded,color:C.secondary,size:28),
-            const SizedBox(width:12),
-            Expanded(child:Column(crossAxisAlignment:CrossAxisAlignment.start,children:[
-              Text('Virtual Try-On',style:GoogleFonts.poppins(fontWeight:FontWeight.w700,color:C.white,fontSize:15)),
-              Text('See how it looks on you',style:GoogleFonts.poppins(color:C.white.withOpacity(.7),fontSize:12)),
-            ])),
-            ElevatedButton(
-              onPressed:()=>ctx.push('/try-on',extra:p),
-              style:ElevatedButton.styleFrom(backgroundColor:C.secondary,padding:const EdgeInsets.symmetric(horizontal:16,vertical:10)),
-              child:Text('Try It',style:GoogleFonts.poppins(fontWeight:FontWeight.w600,fontSize:12,color:C.white)),
+          ),
+        ),
+
+        // Product details
+        SliverToBoxAdapter(child: Container(
+          decoration: const BoxDecoration(color: C.white),
+          padding: const EdgeInsets.fromLTRB(20, 20, 20, 120),
+          child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            // Brand + rating row
+            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+              Row(children: [
+                Container(width: 22, height: 22, decoration: BoxDecoration(color: C.g100, shape: BoxShape.circle),
+                  child: Center(child: Text(p.brand[0], style: GoogleFonts.poppins(fontSize: 11, fontWeight: FontWeight.w700, color: C.primary)))),
+                const SizedBox(width: 6),
+                Text(p.brand, style: GoogleFonts.poppins(fontSize: 13, fontWeight: FontWeight.w600, color: C.g700)),
+              ]),
+              Stars(rating: p.rating, sz: 14),
+            ]),
+            const SizedBox(height: 8),
+
+            // Product name
+            Text(p.name, style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w700, color: C.primary, height: 1.2)),
+            const SizedBox(height: 10),
+
+            // Price + discount + sold count
+            Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
+              Text('\$${p.price.toStringAsFixed(2)}',
+                style: GoogleFonts.poppins(fontSize: 22, fontWeight: FontWeight.w700, color: C.primary)),
+              if (p.hasDiscount) ...[const SizedBox(width: 8),
+                Text('\$${p.originalPrice!.toStringAsFixed(2)}',
+                  style: GoogleFonts.poppins(fontSize: 14, color: C.g400, decoration: TextDecoration.lineThrough)),
+                const SizedBox(width: 8),
+                SaleBadge(pct: p.discount)],
+              const Spacer(),
+              if (p.soldCount > 0) Text('${p.soldCount}+ Sold',
+                style: GoogleFonts.poppins(fontSize: 12, color: C.g500, fontWeight: FontWeight.w500)),
+            ]),
+            const SizedBox(height: 20),
+            const Divider(),
+            const SizedBox(height: 16),
+
+            // Size selector
+            Text('Size:', style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w600, color: C.primary)),
+            const SizedBox(height: 10),
+            Wrap(spacing: 10, runSpacing: 10, children: p.sizes.map((s) => GestureDetector(
+              onTap: () => setState(() => _selSize = s),
+              child: AnimatedContainer(duration: 200.ms,
+                width: 44, height: 44,
+                decoration: BoxDecoration(
+                  color: _selSize == s ? C.blue : C.g50,
+                  shape: BoxShape.circle,
+                  border: Border.all(color: _selSize == s ? C.blue : C.g200, width: _selSize == s ? 2 : 1),
+                  boxShadow: _selSize == s ? [BoxShadow(color: C.blue.withOpacity(0.3), blurRadius: 8)] : [],
+                ),
+                child: Center(child: Text(s, style: GoogleFonts.poppins(fontSize: 12, fontWeight: FontWeight.w600,
+                  color: _selSize == s ? C.white : C.g700)))),
+            )).toList()),
+            const SizedBox(height: 18),
+
+            // Color selector
+            Text('Color', style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w600, color: C.primary)),
+            const SizedBox(height: 10),
+            Wrap(spacing: 12, runSpacing: 10, children: p.colors.map((c) {
+              final col = _colorMap[c] ?? C.g300;
+              final sel = _selColor == c;
+              final isLight = col.computeLuminance() > 0.75;
+              return GestureDetector(
+                onTap: () => setState(() => _selColor = c),
+                child: AnimatedContainer(duration: 200.ms,
+                  width: 36, height: 36, decoration: BoxDecoration(
+                    color: col, shape: BoxShape.circle,
+                    border: Border.all(color: sel ? C.blue : (isLight ? C.g300 : Colors.transparent), width: sel ? 2.5 : 1),
+                    boxShadow: sel ? [BoxShadow(color: C.blue.withOpacity(0.35), blurRadius: 8, spreadRadius: 1)] : [],
+                  ),
+                  child: sel ? Icon(Icons.check_rounded, color: isLight ? C.primary : C.white, size: 18) : null),
+              );
+            }).toList()),
+            const SizedBox(height: 20),
+            const Divider(),
+            const SizedBox(height: 16),
+
+            // Description
+            Text('Description', style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w600, color: C.primary)),
+            const SizedBox(height: 8),
+            Text(p.description, style: GoogleFonts.poppins(fontSize: 14, color: C.g600, height: 1.65)),
+            const SizedBox(height: 20),
+
+            // Product details
+            if (p.details.isNotEmpty) ...[
+              Text('Product Details', style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w600, color: C.primary)),
+              const SizedBox(height: 12),
+              Container(padding: const EdgeInsets.all(14), decoration: BoxDecoration(color: C.g50, borderRadius: BorderRadius.circular(12)),
+                child: Column(children: p.details.entries.map((e) => Padding(padding: const EdgeInsets.only(bottom: 8),
+                  child: Row(children: [
+                    SizedBox(width: 90, child: Text(e.key, style: GoogleFonts.poppins(fontSize: 12, fontWeight: FontWeight.w600, color: C.g500))),
+                    Expanded(child: Text(e.value, style: GoogleFonts.poppins(fontSize: 12, color: C.primary))),
+                  ]))).toList())),
+              const SizedBox(height: 20),
+            ],
+
+            // Virtual Try-On banner
+            Container(padding: const EdgeInsets.all(14),
+              decoration: BoxDecoration(
+                color: C.blueLight, borderRadius: BorderRadius.circular(14),
+                border: Border.all(color: C.blue.withOpacity(0.2)),
+              ),
+              child: Row(children: [
+                Container(width: 42, height: 42, decoration: BoxDecoration(color: C.blue, shape: BoxShape.circle),
+                  child: const Icon(Icons.camera_alt_rounded, color: C.white, size: 22)),
+                const SizedBox(width: 12),
+                Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  Text('Virtual Try-On', style: GoogleFonts.poppins(fontWeight: FontWeight.w700, color: C.blueDark, fontSize: 14)),
+                  Text('See how it looks on you', style: GoogleFonts.poppins(color: C.blue, fontSize: 12)),
+                ])),
+                ElevatedButton(
+                  onPressed: () => ctx.push('/try-on', extra: p),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: C.blue, padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+                    elevation: 0,
+                  ),
+                  child: Text('Try It', style: GoogleFonts.poppins(fontWeight: FontWeight.w600, fontSize: 12, color: C.white)),
+                ),
+              ]),
             ),
           ]),
+        )),
+      ]),
+
+      // Bottom CTA bar
+      Positioned(bottom: 0, left: 0, right: 0, child: Container(
+        decoration: BoxDecoration(
+          color: C.white,
+          boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.06), blurRadius: 12, offset: const Offset(0, -4))],
         ),
-      ]))),
-    ]),
-    bottomNavigationBar:SafeArea(child:Padding(padding:const EdgeInsets.fromLTRB(16,8,16,12),child:Row(children:[
-      Expanded(flex:1,child:OutBtn(text:'Wishlist',onPressed:(){ref.read(wishlistProvider.notifier).toggle(p);snack(context,inWish?'Removed from wishlist':'Added to wishlist!');})),
-      const SizedBox(width:12),
-      Expanded(flex:2,child:Btn(text:'Add to Cart',icon:Icons.shopping_bag_outlined,onPressed:(){
-        if(_selSize==null){snack(context,'Please select a size',err:true);return;}
-        ref.read(cartProvider.notifier).add(p,_selSize!,_selColor ?? p.colors.first);
-        snack(context,'${p.name} added to cart',action:'View Cart',onAction:()=>context.go('/cart'));
-      })),
-    ]))),
-    );
+        padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
+        child: SafeArea(child: Row(children: [
+          // Add to cart button (outlined)
+          Expanded(flex: 1, child: SizedBox(height: 50, child: OutlinedButton(
+            onPressed: () {
+              if (_selSize == null) { snack(context, 'Please select a size', err: true); return; }
+              ref.read(cartProvider.notifier).add(p, _selSize!, _selColor ?? p.colors.first);
+              snack(context, '${p.name} added to cart', action: 'View Cart', onAction: () => context.go('/cart'));
+            },
+            style: OutlinedButton.styleFrom(
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
+              side: const BorderSide(color: C.g300, width: 1.5),
+            ),
+            child: Text('Add to cart', style: GoogleFonts.poppins(fontSize: 13, fontWeight: FontWeight.w600, color: C.primary)),
+          ))),
+          const SizedBox(width: 12),
+          // Buy now button
+          Expanded(flex: 1, child: SizedBox(height: 50, child: ElevatedButton(
+            onPressed: () {
+              if (_selSize == null) { snack(context, 'Please select a size', err: true); return; }
+              ref.read(cartProvider.notifier).add(p, _selSize!, _selColor ?? p.colors.first);
+              ctx.push('/checkout');
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: C.blueDark,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
+              elevation: 0,
+            ),
+            child: Text('Buy now', style: GoogleFonts.poppins(fontSize: 13, fontWeight: FontWeight.w600, color: C.white)),
+          ))),
+        ])),
+      )),
+    ]));
   }
 }
 
@@ -2233,10 +2149,11 @@ class CartScreen extends ConsumerStatefulWidget {
   const CartScreen({super.key});
   @override ConsumerState<CartScreen> createState() => _CartState();
 }
+
 class _CartState extends ConsumerState<CartScreen> {
   final _promoCtrl = TextEditingController();
   double _discount = 0;
-  @override void dispose(){_promoCtrl.dispose();super.dispose();}
+  @override void dispose() { _promoCtrl.dispose(); super.dispose(); }
 
   @override Widget build(BuildContext ctx) {
     final items    = ref.watch(cartProvider);
@@ -2245,82 +2162,91 @@ class _CartState extends ConsumerState<CartScreen> {
     final ship = notifier.shipping;
     final tot  = sub - _discount + ship;
 
-    if(items.isEmpty) return Scaffold(backgroundColor:C.g100,appBar:AppBar(title:const Text('My Cart'),backgroundColor:C.white,automaticallyImplyLeading:false),
-      body:EmptyView(icon:Icons.shopping_bag_outlined,title:'Your cart is empty',desc:"Looks like you haven't added anything yet.",btnLabel:'Start Shopping',onBtn:()=>ctx.go('/explore')));
+    if (items.isEmpty) return Scaffold(backgroundColor: C.bg,
+      appBar: AppBar(title: const Text('My Cart'), backgroundColor: C.white, automaticallyImplyLeading: false),
+      body: EmptyView(icon: Icons.shopping_bag_outlined, title: 'Your cart is empty',
+        desc: "Looks like you haven't added anything yet.",
+        btnLabel: 'Start Shopping', onBtn: () => ctx.go('/explore')));
 
-    return Scaffold(backgroundColor:C.g100, appBar:AppBar(title:const Text('My Cart'),backgroundColor:C.white,automaticallyImplyLeading:false,
-      actions:[TextButton(onPressed:(){ ref.read(cartProvider.notifier).clear(); setState(()=>_discount=0); },child:const Text('Clear',style:TextStyle(color:C.secondary)))]),
-      body:Column(children:[
-        Expanded(child:ListView.separated(padding:const EdgeInsets.all(16),itemCount:items.length,
-          separatorBuilder:(_,__)=>const SizedBox(height:12),
-          itemBuilder:(_,i){ final item=items[i]; return _CartTile(item,
-            onRemove:()=>ref.read(cartProvider.notifier).remove(item.id),
-            onQtyChange:(q)=>ref.read(cartProvider.notifier).updateQty(item.id,q));})),
-        Container(padding:const EdgeInsets.fromLTRB(16,16,16,0),
-          decoration:const BoxDecoration(color:C.white,borderRadius:BorderRadius.vertical(top:Radius.circular(24)),
-            boxShadow:[BoxShadow(color:C.shadow,blurRadius:16,offset:Offset(0,-4))]),
-          child:Column(children:[
-            // promo
-            Row(children:[
-              Expanded(child:TextField(controller:_promoCtrl,style:GoogleFonts.poppins(fontSize:14),
-                decoration:InputDecoration(hintText:'Promo code',hintStyle:GoogleFonts.poppins(color:C.g400,fontSize:14),
-                  contentPadding:const EdgeInsets.symmetric(horizontal:14,vertical:12),
-                  border:OutlineInputBorder(borderRadius:BorderRadius.circular(10),borderSide:const BorderSide(color:C.g200)),
-                  enabledBorder:OutlineInputBorder(borderRadius:BorderRadius.circular(10),borderSide:const BorderSide(color:C.g200)),
-                  focusedBorder:OutlineInputBorder(borderRadius:BorderRadius.circular(10),borderSide:const BorderSide(color:C.secondary))))),
-              const SizedBox(width:10),
-              ElevatedButton(onPressed:(){
-                if(_promoCtrl.text=='STYLE20'){setState(()=>_discount=sub*.2);snack(ctx,'20% discount applied! 🎉');}
-                else snack(ctx,'Invalid promo code',err:true);
-              },child:const Text('Apply')),
+    return Scaffold(backgroundColor: C.bg,
+      appBar: AppBar(title: const Text('My Cart'), backgroundColor: C.white, automaticallyImplyLeading: false,
+        actions: [TextButton(onPressed: () { ref.read(cartProvider.notifier).clear(); setState(() => _discount = 0); },
+          child: const Text('Clear', style: TextStyle(color: C.red)))]),
+      body: Column(children: [
+        Expanded(child: ListView.separated(padding: const EdgeInsets.all(16), itemCount: items.length,
+          separatorBuilder: (_, __) => const SizedBox(height: 12),
+          itemBuilder: (_, i) { final item = items[i]; return _CartTile(item,
+            onRemove: () => ref.read(cartProvider.notifier).remove(item.id),
+            onQtyChange: (q) => ref.read(cartProvider.notifier).updateQty(item.id, q)); })),
+
+        Container(padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+          decoration: BoxDecoration(color: C.white, borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
+            boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.06), blurRadius: 16, offset: const Offset(0, -4))]),
+          child: Column(children: [
+            Row(children: [
+              Expanded(child: TextField(controller: _promoCtrl,
+                style: GoogleFonts.poppins(fontSize: 14),
+                decoration: InputDecoration(hintText: 'Promo code', hintStyle: GoogleFonts.poppins(color: C.g400, fontSize: 14),
+                  contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: const BorderSide(color: C.g200)),
+                  enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: const BorderSide(color: C.g200)),
+                  focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: const BorderSide(color: C.blue))))),
+              const SizedBox(width: 10),
+              ElevatedButton(onPressed: () {
+                if (_promoCtrl.text == 'STYLE20') { setState(() => _discount = sub * 0.2); snack(ctx, '20% discount applied! 🎉'); }
+                else snack(ctx, 'Invalid promo code', err: true);
+              }, child: const Text('Apply')),
             ]),
-            const SizedBox(height:14),
-            _Row('Subtotal','\$${sub.toStringAsFixed(2)}'),
-            if(_discount>0) _Row('Discount (STYLE20)','-\$${_discount.toStringAsFixed(2)}',valueColor:C.success),
-            _Row('Shipping',ship==0?'FREE':'\$${ship.toStringAsFixed(2)}',valueColor:ship==0?C.success:null),
-            const Divider(height:20),
-            _Row('Total','\$${tot.toStringAsFixed(2)}',bold:true),
-            const SizedBox(height:16),
-            SafeArea(child:Btn(text:'Proceed to Checkout',onPressed:()=>ctx.push('/checkout'))),
-            const SizedBox(height:8),
-          ]),
-        ),
+            const SizedBox(height: 14),
+            _SumRow('Subtotal', '\$${sub.toStringAsFixed(2)}'),
+            if (_discount > 0) _SumRow('Discount (STYLE20)', '-\$${_discount.toStringAsFixed(2)}', valueColor: C.success),
+            _SumRow('Shipping', ship == 0 ? 'FREE' : '\$${ship.toStringAsFixed(2)}', valueColor: ship == 0 ? C.success : null),
+            const Divider(height: 20),
+            _SumRow('Total', '\$${tot.toStringAsFixed(2)}', bold: true),
+            const SizedBox(height: 14),
+            SafeArea(child: Btn(text: 'Proceed to Checkout', onPressed: () => ctx.push('/checkout'))),
+            const SizedBox(height: 8),
+          ])),
       ]),
     );
   }
 }
 
-Widget _Row(String label, String val,{Color? valueColor,bool bold=false}) => Padding(
-  padding:const EdgeInsets.symmetric(vertical:5),
-  child:Row(mainAxisAlignment:MainAxisAlignment.spaceBetween,children:[
-    Text(label,style:GoogleFonts.poppins(fontSize:14,color:C.g600,fontWeight:bold?FontWeight.w600:FontWeight.w400)),
-    Text(val,style:GoogleFonts.poppins(fontSize:14,fontWeight:bold?FontWeight.w700:FontWeight.w500,color:valueColor??C.primary)),
+Widget _SumRow(String label, String val, {Color? valueColor, bool bold = false}) => Padding(
+  padding: const EdgeInsets.symmetric(vertical: 5),
+  child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+    Text(label, style: GoogleFonts.poppins(fontSize: 14, color: C.g600, fontWeight: bold ? FontWeight.w600 : FontWeight.w400)),
+    Text(val, style: GoogleFonts.poppins(fontSize: 14, fontWeight: bold ? FontWeight.w700 : FontWeight.w500, color: valueColor ?? C.primary)),
   ]),
 );
 
 class _CartTile extends StatelessWidget {
   final CartItem item; final VoidCallback onRemove; final ValueChanged<int> onQtyChange;
-  const _CartTile(this.item,{required this.onRemove,required this.onQtyChange});
+  const _CartTile(this.item, {required this.onRemove, required this.onQtyChange});
   @override Widget build(BuildContext ctx) => Container(
-    padding:const EdgeInsets.all(12),
-    decoration:BoxDecoration(color:C.white,borderRadius:BorderRadius.circular(14),boxShadow:[BoxShadow(color:C.shadow,blurRadius:6,offset:const Offset(0,2))]),
-    child:Row(children:[
-      ClipRRect(borderRadius:BorderRadius.circular(10),child:Img(item.product.images.first,w:80,h:90)),
-      const SizedBox(width:12),
-      Expanded(child:Column(crossAxisAlignment:CrossAxisAlignment.start,children:[
-        Text(item.product.name,style:GoogleFonts.poppins(fontSize:13,fontWeight:FontWeight.w600,color:C.primary),maxLines:2,overflow:TextOverflow.ellipsis),
-        const SizedBox(height:4),
-        Text('${item.selectedSize} · ${item.selectedColor}',style:GoogleFonts.poppins(fontSize:11,color:C.g500)),
-        const SizedBox(height:6),
-        PriceRow(price:item.product.price,sz:15),
+    padding: const EdgeInsets.all(12),
+    decoration: BoxDecoration(color: C.white, borderRadius: BorderRadius.circular(14),
+      boxShadow: [BoxShadow(color: C.shadow, blurRadius: 8, offset: const Offset(0, 3))]),
+    child: Row(children: [
+      Container(width: 80, height: 90, decoration: BoxDecoration(color: C.g50, borderRadius: BorderRadius.circular(10)),
+        child: ClipRRect(borderRadius: BorderRadius.circular(10),
+          child: Img(item.product.images.first, w: 80, h: 90, fit: BoxFit.contain))),
+      const SizedBox(width: 12),
+      Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Text(item.product.name, style: GoogleFonts.poppins(fontSize: 13, fontWeight: FontWeight.w600, color: C.primary), maxLines: 2, overflow: TextOverflow.ellipsis),
+        const SizedBox(height: 3),
+        Text('${item.selectedSize} · ${item.selectedColor}', style: GoogleFonts.poppins(fontSize: 11, color: C.g400)),
+        const SizedBox(height: 6),
+        Text('\$${item.product.price.toStringAsFixed(2)}', style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w700, color: C.primary)),
       ])),
-      Column(children:[
-        IconButton(icon:const Icon(Icons.delete_outline_rounded,color:C.g400,size:20),onPressed:onRemove,padding:EdgeInsets.zero,constraints:const BoxConstraints()),
-        const SizedBox(height:8),
-        Row(children:[
-          _QBtn(Icons.remove,()=>onQtyChange(item.quantity-1)),
-          SizedBox(width:32,child:Text('${item.quantity}',textAlign:TextAlign.center,style:GoogleFonts.poppins(fontWeight:FontWeight.w700,fontSize:14))),
-          _QBtn(Icons.add,()=>onQtyChange(item.quantity+1)),
+      Column(children: [
+        IconButton(icon: const Icon(Icons.delete_outline_rounded, color: C.g300, size: 20), onPressed: onRemove, padding: EdgeInsets.zero, constraints: const BoxConstraints()),
+        const SizedBox(height: 8),
+        Row(children: [
+          _QBtn(Icons.remove, () => onQtyChange(item.quantity - 1)),
+          SizedBox(width: 32, child: Text('${item.quantity}', textAlign: TextAlign.center,
+            style: GoogleFonts.poppins(fontWeight: FontWeight.w700, fontSize: 14))),
+          _QBtn(Icons.add, () => onQtyChange(item.quantity + 1)),
         ]),
       ]),
     ]),
@@ -2329,10 +2255,10 @@ class _CartTile extends StatelessWidget {
 
 class _QBtn extends StatelessWidget {
   final IconData ic; final VoidCallback onTap;
-  const _QBtn(this.ic,this.onTap);
-  @override Widget build(BuildContext ctx) => GestureDetector(onTap:onTap,child:Container(width:28,height:28,
-    decoration:BoxDecoration(color:C.g100,borderRadius:BorderRadius.circular(7)),
-    child:Icon(ic,size:16,color:C.primary)));
+  const _QBtn(this.ic, this.onTap);
+  @override Widget build(BuildContext ctx) => GestureDetector(onTap: onTap,
+    child: Container(width: 28, height: 28, decoration: BoxDecoration(color: C.g100, borderRadius: BorderRadius.circular(7)),
+      child: Icon(ic, size: 16, color: C.primary)));
 }
 
 // ╔══════════════════════════════════════════════════════════╗
@@ -2343,13 +2269,14 @@ class WishlistScreen extends ConsumerWidget {
   const WishlistScreen({super.key});
   @override Widget build(BuildContext ctx, WidgetRef ref) {
     final items = ref.watch(wishlistProvider);
-    return Scaffold(backgroundColor:C.g100,
-      appBar:AppBar(title:const Text('My Wishlist'),backgroundColor:C.white,automaticallyImplyLeading:false),
-      body:items.isEmpty
-        ? EmptyView(icon:Icons.favorite_border_rounded,title:'Your wishlist is empty',desc:'Save items you love here.',btnLabel:'Explore Now',onBtn:()=>ctx.go('/explore'))
-        : GridView.builder(padding:const EdgeInsets.all(16),
-            gridDelegate:const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount:2,childAspectRatio:.72,crossAxisSpacing:12,mainAxisSpacing:12),
-            itemCount:items.length,itemBuilder:(_,i)=>_ProdCard(items[i])),
+    return Scaffold(backgroundColor: C.bg,
+      appBar: AppBar(title: const Text('Wishlist'), backgroundColor: C.white, automaticallyImplyLeading: false),
+      body: items.isEmpty
+        ? EmptyView(icon: Icons.favorite_border_rounded, title: 'Your wishlist is empty',
+            desc: 'Save items you love here.', btnLabel: 'Explore Now', onBtn: () => ctx.go('/explore'))
+        : GridView.builder(padding: const EdgeInsets.all(16),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 0.71, crossAxisSpacing: 12, mainAxisSpacing: 12),
+            itemCount: items.length, itemBuilder: (_, i) => _ProdCard(items[i])),
     );
   }
 }
@@ -2362,112 +2289,122 @@ class CheckoutScreen extends ConsumerStatefulWidget {
   const CheckoutScreen({super.key});
   @override ConsumerState<CheckoutScreen> createState() => _COState();
 }
-class _COState extends ConsumerState<CheckoutScreen> {
-  int _step=0, _payment=0;
-  bool _placing=false;
 
-  static const _payments=['Cash on Delivery','Card Payment'];
+class _COState extends ConsumerState<CheckoutScreen> {
+  int _step = 0, _payment = 0;
+  bool _placing = false;
+  static const _payments = ['Cash on Delivery', 'Card Payment'];
 
   @override Widget build(BuildContext ctx) {
     final user  = ref.watch(authProvider).valueOrNull;
     final items = ref.watch(cartProvider);
     final sub   = ref.read(cartProvider.notifier).subtotal;
     final ship  = ref.read(cartProvider.notifier).shipping;
-    final tot   = sub+ship;
+    final tot   = sub + ship;
     final addr  = user?.defaultAddress;
 
-    return Scaffold(backgroundColor:C.g100,
-      appBar:AppBar(title:const Text('Checkout'),backgroundColor:C.white,leading:IconButton(icon:const Icon(Icons.arrow_back_ios_new_rounded,size:20),onPressed:()=>ctx.pop())),
-      body:SingleChildScrollView(padding:const EdgeInsets.all(16),child:Column(crossAxisAlignment:CrossAxisAlignment.start,children:[
+    return Scaffold(backgroundColor: C.bg,
+      appBar: AppBar(title: const Text('Checkout'), backgroundColor: C.white,
+        leading: IconButton(icon: const Icon(Icons.arrow_back_ios_new_rounded, size: 20), onPressed: () => ctx.pop())),
+      body: SingleChildScrollView(padding: const EdgeInsets.all(16), child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         // Stepper
-        Row(children:['Address','Payment','Review'].asMap().entries.map((e)=>Expanded(child:Row(children:[
-          Expanded(child:Column(children:[
-            Container(width:28,height:28,decoration:BoxDecoration(color:_step>=e.key?C.secondary:C.g200,shape:BoxShape.circle),
-              child:Center(child:_step>e.key?const Icon(Icons.check,color:C.white,size:16):Text('${e.key+1}',style:TextStyle(color:_step>=e.key?C.white:C.g500,fontSize:12,fontWeight:FontWeight.w700)))),
-            const SizedBox(height:4),
-            Text(e.value,style:GoogleFonts.poppins(fontSize:10,color:_step>=e.key?C.secondary:C.g400,fontWeight:FontWeight.w500)),
+        Row(children: ['Address', 'Payment', 'Review'].asMap().entries.map((e) => Expanded(child: Row(children: [
+          Expanded(child: Column(children: [
+            Container(width: 28, height: 28,
+              decoration: BoxDecoration(color: _step >= e.key ? C.blue : C.g200, shape: BoxShape.circle),
+              child: Center(child: _step > e.key
+                ? const Icon(Icons.check, color: C.white, size: 16)
+                : Text('${e.key+1}', style: TextStyle(color: _step >= e.key ? C.white : C.g500, fontSize: 12, fontWeight: FontWeight.w700)))),
+            const SizedBox(height: 4),
+            Text(e.value, style: GoogleFonts.poppins(fontSize: 10, color: _step >= e.key ? C.blue : C.g400, fontWeight: FontWeight.w500)),
           ])),
-          if(e.key<2) Expanded(child:Container(height:2,color:_step>e.key?C.secondary:C.g200)),
+          if (e.key < 2) Expanded(child: Container(height: 2, color: _step > e.key ? C.blue : C.g200)),
         ]))).toList()),
-        const SizedBox(height:24),
+        const SizedBox(height: 24),
 
-        if(_step==0)...[
-          Text('Delivery Address',style:Theme.of(ctx).textTheme.titleLarge),
-          const SizedBox(height:12),
-          if(addr!=null) Container(padding:const EdgeInsets.all(16),
-            decoration:BoxDecoration(color:C.white,borderRadius:BorderRadius.circular(14),border:Border.all(color:C.secondary,width:1.5),
-              boxShadow:[BoxShadow(color:C.shadow,blurRadius:6)]),
-            child:Row(children:[
-              Container(padding:const EdgeInsets.all(8),decoration:BoxDecoration(color:C.secondary.withOpacity(.1),shape:BoxShape.circle),child:const Icon(Icons.location_on_outlined,color:C.secondary)),
-              const SizedBox(width:12),
-              Expanded(child:Column(crossAxisAlignment:CrossAxisAlignment.start,children:[
-                Text(addr.name,style:Theme.of(ctx).textTheme.titleMedium),
-                Text(addr.full,style:Theme.of(ctx).textTheme.bodySmall?.copyWith(height:1.5)),
-                Text(addr.phone,style:Theme.of(ctx).textTheme.bodySmall),
+        if (_step == 0) ...[
+          Text('Delivery Address', style: Theme.of(ctx).textTheme.titleLarge),
+          const SizedBox(height: 12),
+          if (addr != null) Container(padding: const EdgeInsets.all(16),
+            decoration: BoxDecoration(color: C.white, borderRadius: BorderRadius.circular(14),
+              border: Border.all(color: C.blue, width: 1.5),
+              boxShadow: [BoxShadow(color: C.shadow, blurRadius: 6)]),
+            child: Row(children: [
+              Container(padding: const EdgeInsets.all(8), decoration: BoxDecoration(color: C.blueLight, shape: BoxShape.circle),
+                child: const Icon(Icons.location_on_outlined, color: C.blue)),
+              const SizedBox(width: 12),
+              Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                Text(addr.name, style: Theme.of(ctx).textTheme.titleMedium),
+                Text(addr.full, style: Theme.of(ctx).textTheme.bodySmall?.copyWith(height: 1.5)),
+                Text(addr.phone, style: Theme.of(ctx).textTheme.bodySmall),
               ])),
-              const Icon(Icons.check_circle_rounded,color:C.secondary),
+              const Icon(Icons.check_circle_rounded, color: C.blue),
             ])),
-          const SizedBox(height:28),
-          Btn(text:'Continue to Payment',onPressed:()=>setState(()=>_step=1)),
+          const SizedBox(height: 28),
+          Btn(text: 'Continue to Payment', onPressed: () => setState(() => _step = 1)),
         ],
 
-        if(_step==1)...[
-          Text('Payment Method',style:Theme.of(ctx).textTheme.titleLarge),
-          const SizedBox(height:12),
-          ..._payments.asMap().entries.map((e)=>GestureDetector(
-            onTap:()=>setState(()=>_payment=e.key),
-            child:Container(margin:const EdgeInsets.only(bottom:12),padding:const EdgeInsets.all(16),
-              decoration:BoxDecoration(color:C.white,borderRadius:BorderRadius.circular(14),
-                border:Border.all(color:_payment==e.key?C.secondary:C.g200,width:_payment==e.key?1.5:1),
-                boxShadow:[BoxShadow(color:C.shadow,blurRadius:6)]),
-              child:Row(children:[
-                Icon(_payment==e.key?Icons.radio_button_checked_rounded:Icons.radio_button_unchecked_rounded,color:_payment==e.key?C.secondary:C.g300),
-                const SizedBox(width:12),
-                Icon(e.key==0?Icons.local_shipping_outlined:Icons.credit_card_rounded,color:C.primary),
-                const SizedBox(width:10),
-                Text(e.value,style:Theme.of(ctx).textTheme.titleMedium),
+        if (_step == 1) ...[
+          Text('Payment Method', style: Theme.of(ctx).textTheme.titleLarge),
+          const SizedBox(height: 12),
+          ..._payments.asMap().entries.map((e) => GestureDetector(
+            onTap: () => setState(() => _payment = e.key),
+            child: Container(margin: const EdgeInsets.only(bottom: 12), padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(color: C.white, borderRadius: BorderRadius.circular(14),
+                border: Border.all(color: _payment == e.key ? C.blue : C.g200, width: _payment == e.key ? 1.5 : 1),
+                boxShadow: [BoxShadow(color: C.shadow, blurRadius: 6)]),
+              child: Row(children: [
+                Icon(_payment == e.key ? Icons.radio_button_checked_rounded : Icons.radio_button_unchecked_rounded,
+                  color: _payment == e.key ? C.blue : C.g300),
+                const SizedBox(width: 12),
+                Icon(e.key == 0 ? Icons.local_shipping_outlined : Icons.credit_card_rounded, color: C.primary),
+                const SizedBox(width: 10),
+                Text(e.value, style: Theme.of(ctx).textTheme.titleMedium),
               ])),
           )),
-          if(_payment==1) Padding(padding:const EdgeInsets.only(bottom:16),child:Container(padding:const EdgeInsets.all(16),
-            decoration:BoxDecoration(color:C.g100,borderRadius:BorderRadius.circular(12)),
-            child:Column(children:[
-              TextFormField(decoration:const InputDecoration(labelText:'Card Number')),
-              const SizedBox(height:12),
-              Row(children:[Expanded(child:TextFormField(decoration:const InputDecoration(labelText:'MM/YY'))),const SizedBox(width:12),Expanded(child:TextFormField(decoration:const InputDecoration(labelText:'CVV')))]),
-            ]))),
-          Row(children:[Expanded(child:OutBtn(text:'Back',onPressed:()=>setState(()=>_step=0))),const SizedBox(width:12),Expanded(flex:2,child:Btn(text:'Review Order',onPressed:()=>setState(()=>_step=2)))]),
+          Row(children: [
+            Expanded(child: OutBtn(text: 'Back', onPressed: () => setState(() => _step = 0))),
+            const SizedBox(width: 12),
+            Expanded(flex: 2, child: Btn(text: 'Review Order', onPressed: () => setState(() => _step = 2))),
+          ]),
         ],
 
-        if(_step==2)...[
-          Text('Order Summary',style:Theme.of(ctx).textTheme.titleLarge),
-          const SizedBox(height:12),
-          ...items.map((item)=>Padding(padding:const EdgeInsets.only(bottom:10),child:Container(padding:const EdgeInsets.all(12),
-            decoration:BoxDecoration(color:C.white,borderRadius:BorderRadius.circular(12),boxShadow:[BoxShadow(color:C.shadow,blurRadius:6)]),
-            child:Row(children:[
-              ClipRRect(borderRadius:BorderRadius.circular(8),child:Img(item.product.images.first,w:56,h:64)),
-              const SizedBox(width:10),
-              Expanded(child:Column(crossAxisAlignment:CrossAxisAlignment.start,children:[
-                Text(item.product.name,style:Theme.of(ctx).textTheme.titleSmall,maxLines:1,overflow:TextOverflow.ellipsis),
-                Text('${item.selectedSize} × ${item.quantity}',style:Theme.of(ctx).textTheme.bodySmall),
+        if (_step == 2) ...[
+          Text('Order Summary', style: Theme.of(ctx).textTheme.titleLarge),
+          const SizedBox(height: 12),
+          ...items.map((item) => Padding(padding: const EdgeInsets.only(bottom: 10), child: Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(color: C.white, borderRadius: BorderRadius.circular(12), boxShadow: [BoxShadow(color: C.shadow, blurRadius: 6)]),
+            child: Row(children: [
+              Container(width: 56, height: 64, decoration: BoxDecoration(color: C.g50, borderRadius: BorderRadius.circular(8)),
+                child: ClipRRect(borderRadius: BorderRadius.circular(8), child: Img(item.product.images.first, w: 56, h: 64, fit: BoxFit.contain))),
+              const SizedBox(width: 10),
+              Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                Text(item.product.name, style: Theme.of(ctx).textTheme.titleSmall, maxLines: 1, overflow: TextOverflow.ellipsis),
+                Text('${item.selectedSize} × ${item.quantity}', style: Theme.of(ctx).textTheme.bodySmall),
               ])),
-              Text('\$${item.total.toStringAsFixed(2)}',style:Theme.of(ctx).textTheme.titleSmall?.copyWith(color:C.primary)),
+              Text('\$${item.total.toStringAsFixed(2)}', style: Theme.of(ctx).textTheme.titleSmall?.copyWith(color: C.primary)),
             ])))),
-          const SizedBox(height:8),
-          Container(padding:const EdgeInsets.all(16),decoration:BoxDecoration(color:C.white,borderRadius:BorderRadius.circular(14),boxShadow:[BoxShadow(color:C.shadow,blurRadius:6)]),child:Column(children:[
-            _Row('Subtotal','\$${sub.toStringAsFixed(2)}'),
-            _Row('Shipping',ship==0?'FREE':'\$${ship.toStringAsFixed(2)}',valueColor:ship==0?C.success:null),
-            const Divider(height:16),
-            _Row('Total','\$${tot.toStringAsFixed(2)}',bold:true),
+          const SizedBox(height: 8),
+          Container(padding: const EdgeInsets.all(16), decoration: BoxDecoration(color: C.white, borderRadius: BorderRadius.circular(14), boxShadow: [BoxShadow(color: C.shadow, blurRadius: 6)]), child: Column(children: [
+            _SumRow('Subtotal', '\$${sub.toStringAsFixed(2)}'),
+            _SumRow('Shipping', ship == 0 ? 'FREE' : '\$${ship.toStringAsFixed(2)}', valueColor: ship == 0 ? C.success : null),
+            const Divider(height: 16),
+            _SumRow('Total', '\$${tot.toStringAsFixed(2)}', bold: true),
           ])),
-          const SizedBox(height:20),
-          Row(children:[Expanded(child:OutBtn(text:'Back',onPressed:()=>setState(()=>_step=1))),const SizedBox(width:12),Expanded(flex:2,child:Btn(text:'Place Order',loading:_placing,onPressed:() async {
-            setState(()=>_placing=true);
-            if(addr==null){setState(()=>_placing=false);return;}
-            final order = await ref.read(ordersProvider.notifier).place(items:items,address:addr,payment:_payments[_payment]);
-            ref.read(cartProvider.notifier).clear();
-            setState(()=>_placing=false);
-            if(mounted) ctx.pushReplacement('/order-success',extra:order);
-          }))]),
+          const SizedBox(height: 20),
+          Row(children: [
+            Expanded(child: OutBtn(text: 'Back', onPressed: () => setState(() => _step = 1))),
+            const SizedBox(width: 12),
+            Expanded(flex: 2, child: Btn(text: 'Place Order', loading: _placing, onPressed: () async {
+              setState(() => _placing = true);
+              if (addr == null) { setState(() => _placing = false); return; }
+              final order = await ref.read(ordersProvider.notifier).place(items: items, address: addr, payment: _payments[_payment]);
+              ref.read(cartProvider.notifier).clear();
+              setState(() => _placing = false);
+              if (mounted) ctx.pushReplacement('/order-success', extra: order);
+            })),
+          ]),
         ],
       ])),
     );
@@ -2482,55 +2419,33 @@ class OrderSuccessScreen extends StatelessWidget {
   final AppOrder order;
   const OrderSuccessScreen({super.key, required this.order});
 
-  @override
-  Widget build(BuildContext ctx) {
-    return Scaffold(
-      backgroundColor: C.white,
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(32),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Container(
-                width: 100, height: 100,
-                decoration: const BoxDecoration(color: Color(0xFFE8F5E9), shape: BoxShape.circle),
-                child: const Icon(Icons.check_circle_rounded, color: C.success, size: 60),
-              ).animate().scale(delay: 200.ms, duration: 500.ms, curve: Curves.elasticOut),
-              const SizedBox(height: 24),
-              Text('Order Placed!', style: Theme.of(ctx).textTheme.displaySmall)
-                  .animate().fadeIn(delay: 400.ms),
-              const SizedBox(height: 8),
-              Text(
-                'Your order ${order.orderNumber} has been placed successfully.',
-                style: Theme.of(ctx).textTheme.bodyMedium?.copyWith(color: C.g600, height: 1.5),
-                textAlign: TextAlign.center,
-              ).animate().fadeIn(delay: 500.ms),
-              const SizedBox(height: 32),
-              Container(
-                padding: const EdgeInsets.all(20),
-                decoration: BoxDecoration(color: C.g100, borderRadius: BorderRadius.circular(16)),
-                child: Column(children: [
-                  _Row('Order No.', order.orderNumber),
-                  _Row('Payment', order.paymentMethod),
-                  _Row('Estimated Delivery',
-                      '${order.estimatedDelivery?.day}/${order.estimatedDelivery?.month}/${order.estimatedDelivery?.year}'),
-                  const Divider(height: 16),
-                  _Row('Total', '\$${order.total.toStringAsFixed(2)}', bold: true),
-                ]),
-              ).animate().fadeIn(delay: 600.ms),
-              const SizedBox(height: 32),
-              Btn(text: 'Track My Order', onPressed: () => ctx.pushReplacement('/orders'))
-                  .animate().fadeIn(delay: 700.ms),
-              const SizedBox(height: 12),
-              OutBtn(text: 'Continue Shopping', onPressed: () => ctx.go('/'))
-                  .animate().fadeIn(delay: 800.ms),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
+  @override Widget build(BuildContext ctx) => Scaffold(
+    backgroundColor: C.white,
+    body: SafeArea(child: Padding(padding: const EdgeInsets.all(32), child: Column(
+      mainAxisAlignment: MainAxisAlignment.center, children: [
+      Container(width: 100, height: 100, decoration: const BoxDecoration(color: Color(0xFFE8F5E9), shape: BoxShape.circle),
+        child: const Icon(Icons.check_circle_rounded, color: C.success, size: 60))
+          .animate().scale(delay: 200.ms, duration: 500.ms, curve: Curves.elasticOut),
+      const SizedBox(height: 24),
+      Text('Order Placed!', style: Theme.of(ctx).textTheme.displaySmall).animate().fadeIn(delay: 400.ms),
+      const SizedBox(height: 8),
+      Text('Your order ${order.orderNumber} has been placed successfully.',
+        style: Theme.of(ctx).textTheme.bodyMedium?.copyWith(color: C.g600, height: 1.5),
+        textAlign: TextAlign.center).animate().fadeIn(delay: 500.ms),
+      const SizedBox(height: 32),
+      Container(padding: const EdgeInsets.all(20), decoration: BoxDecoration(color: C.g50, borderRadius: BorderRadius.circular(16)), child: Column(children: [
+        _SumRow('Order No.', order.orderNumber),
+        _SumRow('Payment', order.paymentMethod),
+        _SumRow('Est. Delivery', '${order.estimatedDelivery?.day}/${order.estimatedDelivery?.month}/${order.estimatedDelivery?.year}'),
+        const Divider(height: 16),
+        _SumRow('Total', '\$${order.total.toStringAsFixed(2)}', bold: true),
+      ])).animate().fadeIn(delay: 600.ms),
+      const SizedBox(height: 32),
+      Btn(text: 'Track My Order', onPressed: () => ctx.pushReplacement('/orders')).animate().fadeIn(delay: 700.ms),
+      const SizedBox(height: 12),
+      OutBtn(text: 'Continue Shopping', onPressed: () => ctx.go('/')).animate().fadeIn(delay: 800.ms),
+    ]))),
+  );
 }
 
 // ╔══════════════════════════════════════════════════════════╗
@@ -2541,13 +2456,14 @@ class OrdersScreen extends ConsumerWidget {
   const OrdersScreen({super.key});
   @override Widget build(BuildContext ctx, WidgetRef ref) {
     final orders = ref.watch(ordersProvider);
-    return Scaffold(backgroundColor:C.g100,
-      appBar:AppBar(title:const Text('My Orders'),backgroundColor:C.white,leading:IconButton(icon:const Icon(Icons.arrow_back_ios_new_rounded,size:20),onPressed:()=>ctx.pop())),
-      body:orders.isEmpty
-        ? EmptyView(icon:Icons.receipt_long_outlined,title:'No orders yet',desc:'Your order history will appear here.')
-        : ListView.separated(padding:const EdgeInsets.all(16),itemCount:orders.length,
-            separatorBuilder:(_,__)=>const SizedBox(height:12),
-            itemBuilder:(_,i)=>_OrderCard(orders[i])),
+    return Scaffold(backgroundColor: C.bg,
+      appBar: AppBar(title: const Text('My Orders'), backgroundColor: C.white,
+        leading: IconButton(icon: const Icon(Icons.arrow_back_ios_new_rounded, size: 20), onPressed: () => ctx.pop())),
+      body: orders.isEmpty
+        ? const EmptyView(icon: Icons.receipt_long_outlined, title: 'No orders yet', desc: 'Your order history will appear here.')
+        : ListView.separated(padding: const EdgeInsets.all(16), itemCount: orders.length,
+            separatorBuilder: (_, __) => const SizedBox(height: 12),
+            itemBuilder: (_, i) => _OrderCard(orders[i])),
     );
   }
 }
@@ -2556,37 +2472,38 @@ class _OrderCard extends StatelessWidget {
   final AppOrder o;
   const _OrderCard(this.o);
   @override Widget build(BuildContext ctx) => Container(
-    padding:const EdgeInsets.all(16),
-    decoration:BoxDecoration(color:C.white,borderRadius:BorderRadius.circular(16),boxShadow:[BoxShadow(color:C.shadow,blurRadius:8,offset:const Offset(0,3))]),
-    child:Column(crossAxisAlignment:CrossAxisAlignment.start,children:[
-      Row(mainAxisAlignment:MainAxisAlignment.spaceBetween,children:[
-        Text(o.orderNumber,style:GoogleFonts.poppins(fontWeight:FontWeight.w700,fontSize:14,color:C.primary)),
-        Container(padding:const EdgeInsets.symmetric(horizontal:10,vertical:4),
-          decoration:BoxDecoration(color:o.status.color.withOpacity(.1),borderRadius:BorderRadius.circular(20)),
-          child:Text(o.status.label,style:GoogleFonts.poppins(fontSize:11,fontWeight:FontWeight.w600,color:o.status.color))),
+    padding: const EdgeInsets.all(16),
+    decoration: BoxDecoration(color: C.white, borderRadius: BorderRadius.circular(16), boxShadow: [BoxShadow(color: C.shadowMd, blurRadius: 8, offset: const Offset(0, 3))]),
+    child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+        Text(o.orderNumber, style: GoogleFonts.poppins(fontWeight: FontWeight.w700, fontSize: 14, color: C.primary)),
+        Container(padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+          decoration: BoxDecoration(color: o.status.color.withOpacity(0.1), borderRadius: BorderRadius.circular(20)),
+          child: Text(o.status.label, style: GoogleFonts.poppins(fontSize: 11, fontWeight: FontWeight.w600, color: o.status.color))),
       ]),
-      const SizedBox(height:8),
-      Text('${o.createdAt.day}/${o.createdAt.month}/${o.createdAt.year}',style:Theme.of(ctx).textTheme.bodySmall?.copyWith(color:C.g500)),
-      const SizedBox(height:12),
-      // Progress
-      if(o.status!=OrderStatus.cancelled)...[
-        Row(children:List.generate(4,(i){
-          final active=o.status.step>=i;
-          return Expanded(child:Row(children:[
-            Container(width:20,height:20,decoration:BoxDecoration(color:active?C.secondary:C.g200,shape:BoxShape.circle),
-              child:Center(child:Icon(Icons.check,size:12,color:active?C.white:C.g400))),
-            if(i<3)Expanded(child:Container(height:2,color:active&&o.status.step>i?C.secondary:C.g200)),
+      const SizedBox(height: 6),
+      Text('${o.createdAt.day}/${o.createdAt.month}/${o.createdAt.year}', style: Theme.of(ctx).textTheme.bodySmall?.copyWith(color: C.g500)),
+      const SizedBox(height: 12),
+      if (o.status != OrderStatus.cancelled) ...[
+        Row(children: List.generate(4, (i) {
+          final active = o.status.step >= i;
+          return Expanded(child: Row(children: [
+            Container(width: 20, height: 20, decoration: BoxDecoration(color: active ? C.blue : C.g200, shape: BoxShape.circle),
+              child: Center(child: Icon(Icons.check, size: 12, color: active ? C.white : C.g400))),
+            if (i < 3) Expanded(child: Container(height: 2, color: active && o.status.step > i ? C.blue : C.g200)),
           ]));
         })),
-        const SizedBox(height:6),
-        Row(mainAxisAlignment:MainAxisAlignment.spaceBetween,children:['Placed','Processing','Shipped','Delivered'].map((s)=>Text(s,style:GoogleFonts.poppins(fontSize:9,color:C.g400))).toList()),
-        const SizedBox(height:12),
+        const SizedBox(height: 5),
+        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: ['Placed', 'Processing', 'Shipped', 'Delivered']
+            .map((s) => Text(s, style: GoogleFonts.poppins(fontSize: 9, color: C.g400))).toList()),
+        const SizedBox(height: 12),
       ],
       const Divider(),
-      const SizedBox(height:8),
-      Row(mainAxisAlignment:MainAxisAlignment.spaceBetween,children:[
-        Text('Total',style:Theme.of(ctx).textTheme.bodyMedium?.copyWith(color:C.g600)),
-        Text('\$${o.total.toStringAsFixed(2)}',style:GoogleFonts.poppins(fontWeight:FontWeight.w700,fontSize:15,color:C.primary)),
+      const SizedBox(height: 8),
+      Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+        Text('Total', style: Theme.of(ctx).textTheme.bodyMedium?.copyWith(color: C.g600)),
+        Text('\$${o.total.toStringAsFixed(2)}', style: GoogleFonts.poppins(fontWeight: FontWeight.w700, fontSize: 15, color: C.primary)),
       ]),
     ]),
   );
@@ -2600,84 +2517,98 @@ class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({super.key});
   @override Widget build(BuildContext ctx, WidgetRef ref) {
     final user = ref.watch(authProvider).valueOrNull;
-    return Scaffold(backgroundColor:C.g100,
-      appBar:AppBar(title:const Text('My Profile'),backgroundColor:C.white,automaticallyImplyLeading:false),
-      body:SingleChildScrollView(padding:const EdgeInsets.all(16),child:Column(children:[
-        // Avatar card
-        Container(padding:const EdgeInsets.all(20),
-          decoration:BoxDecoration(gradient:const LinearGradient(begin:Alignment.topLeft,end:Alignment.bottomRight,colors:[Color(0xFF6B1D2A),Color(0xFF4A1526),Color(0xFF2D0A16)]),borderRadius:BorderRadius.circular(20)),
-          child:Row(children:[
-            CircleAvatar(radius:34, backgroundColor:C.secondary,
-              child:Text(user?.name.isNotEmpty==true?user!.name[0].toUpperCase():'?',style:GoogleFonts.poppins(fontSize:26,fontWeight:FontWeight.w700,color:C.white))),
-            const SizedBox(width:16),
-            Expanded(child:Column(crossAxisAlignment:CrossAxisAlignment.start,children:[
-              Text(user?.name??'Guest',style:GoogleFonts.poppins(fontWeight:FontWeight.w700,fontSize:17,color:C.white)),
-              Text(user?.email??'',style:GoogleFonts.poppins(fontSize:13,color:C.white.withOpacity(.75))),
-              const SizedBox(height:6),
-              Container(padding:const EdgeInsets.symmetric(horizontal:10,vertical:3),decoration:BoxDecoration(color:C.secondary,borderRadius:BorderRadius.circular(20)),child:const Text('Premium Member',style:TextStyle(color:C.white,fontSize:11,fontWeight:FontWeight.w600))),
+    return Scaffold(backgroundColor: C.bg,
+      appBar: AppBar(title: const Text('My Profile'), backgroundColor: C.white, automaticallyImplyLeading: false),
+      body: SingleChildScrollView(padding: const EdgeInsets.all(16), child: Column(children: [
+        // Profile card
+        Container(padding: const EdgeInsets.all(20),
+          decoration: BoxDecoration(gradient: const LinearGradient(begin: Alignment.topLeft, end: Alignment.bottomRight,
+            colors: [Color(0xFF1E3A8A), Color(0xFF2563EB), Color(0xFF3B82F6)]),
+            borderRadius: BorderRadius.circular(20)),
+          child: Row(children: [
+            CircleAvatar(radius: 32, backgroundColor: Colors.white.withOpacity(0.2),
+              child: Text(user?.name.isNotEmpty == true ? user!.name[0].toUpperCase() : '?',
+                style: GoogleFonts.poppins(fontSize: 24, fontWeight: FontWeight.w700, color: C.white))),
+            const SizedBox(width: 16),
+            Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Text(user?.name ?? 'Guest', style: GoogleFonts.poppins(fontWeight: FontWeight.w700, fontSize: 17, color: C.white)),
+              Text(user?.email ?? '', style: GoogleFonts.poppins(fontSize: 12, color: Colors.white.withOpacity(0.75))),
+              const SizedBox(height: 6),
+              Container(padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+                decoration: BoxDecoration(color: Colors.white.withOpacity(0.15), borderRadius: BorderRadius.circular(20),
+                  border: Border.all(color: Colors.white.withOpacity(0.3))),
+                child: const Text('Premium Member', style: TextStyle(color: C.white, fontSize: 11, fontWeight: FontWeight.w600))),
             ])),
           ])),
-        const SizedBox(height:16),
+        const SizedBox(height: 14),
+
         // Stats
-        Row(children:[
-          _StatCard('Orders',ref.watch(ordersProvider).length.toString(),Icons.receipt_long_outlined),
-          const SizedBox(width:12),
-          _StatCard('Wishlist',ref.watch(wishlistProvider).length.toString(),Icons.favorite_border_rounded),
-          const SizedBox(width:12),
-          _StatCard('Reviews','5',Icons.star_border_rounded),
+        Row(children: [
+          _StatCard('Orders',  ref.watch(ordersProvider).length.toString(), Icons.receipt_long_outlined),
+          const SizedBox(width: 12),
+          _StatCard('Wishlist', ref.watch(wishlistProvider).length.toString(), Icons.favorite_border_rounded),
+          const SizedBox(width: 12),
+          _StatCard('Reviews', '5', Icons.star_border_rounded),
         ]),
-        const SizedBox(height:16),
-        // Menu
-        _MenuSection('Shopping',[
-          _MenuItem(Icons.receipt_long_outlined,'My Orders',()=>ctx.push('/orders')),
-          _MenuItem(Icons.favorite_border_rounded,'Wishlist',()=>ctx.go('/wishlist')),
-          _MenuItem(Icons.location_on_outlined,'Addresses',(){}),
-          _MenuItem(Icons.local_offer_outlined,'Promo Codes',(){}),
+        const SizedBox(height: 14),
+
+        _MenuSection('Shopping', [
+          _MenuItem(Icons.receipt_long_outlined, 'My Orders', () => ctx.push('/orders')),
+          _MenuItem(Icons.favorite_border_rounded, 'Wishlist', () => ctx.go('/wishlist')),
+          _MenuItem(Icons.location_on_outlined, 'Addresses', () {}),
+          _MenuItem(Icons.local_offer_outlined, 'Promo Codes', () {}),
         ]),
-        const SizedBox(height:12),
-        _MenuSection('Features',[
-          _MenuItem(Icons.camera_alt_outlined,'Virtual Try-On',()=>ctx.push('/try-on')),
-          _MenuItem(Icons.qr_code_scanner_rounded,'QR Rack Scanner',()=>ctx.push('/qr-scanner')),
+        const SizedBox(height: 12),
+        _MenuSection('Features', [
+          _MenuItem(Icons.camera_alt_outlined, 'Virtual Try-On', () => ctx.push('/try-on')),
+          _MenuItem(Icons.qr_code_scanner_rounded, 'QR Rack Scanner', () => ctx.push('/qr-scanner')),
         ]),
-        const SizedBox(height:12),
-        _MenuSection('Account',[
-          _MenuItem(Icons.notifications_none_rounded,'Notifications',(){}),
-          _MenuItem(Icons.help_outline_rounded,'Help & Support',(){}),
-          _MenuItem(Icons.privacy_tip_outlined,'Privacy Policy',(){}),
-          _MenuItem(Icons.info_outline_rounded,'About StyleSphere',(){}),
+        const SizedBox(height: 12),
+        _MenuSection('Account', [
+          _MenuItem(Icons.notifications_none_rounded, 'Notifications', () {}),
+          _MenuItem(Icons.help_outline_rounded, 'Help & Support', () {}),
+          _MenuItem(Icons.info_outline_rounded, 'About StyleSphere', () {}),
         ]),
-        const SizedBox(height:12),
-        Container(decoration:BoxDecoration(color:C.white,borderRadius:BorderRadius.circular(14),boxShadow:[BoxShadow(color:C.shadow,blurRadius:6)]),
-          child:ListTile(leading:const Icon(Icons.logout_rounded,color:C.error),title:Text('Logout',style:GoogleFonts.poppins(color:C.error,fontWeight:FontWeight.w600)),
-            onTap:()=>ref.read(authProvider.notifier).signOut())),
-        const SizedBox(height:24),
+        const SizedBox(height: 12),
+        Container(decoration: BoxDecoration(color: C.white, borderRadius: BorderRadius.circular(14), boxShadow: [BoxShadow(color: C.shadow, blurRadius: 6)]),
+          child: ListTile(leading: const Icon(Icons.logout_rounded, color: C.error),
+            title: Text('Logout', style: GoogleFonts.poppins(color: C.error, fontWeight: FontWeight.w600)),
+            onTap: () => ref.read(authProvider.notifier).signOut())),
+        const SizedBox(height: 24),
       ])),
     );
   }
 }
 
 class _StatCard extends StatelessWidget {
-  final String label,val; final IconData ic;
-  const _StatCard(this.label,this.val,this.ic);
-  @override Widget build(BuildContext ctx)=>Expanded(child:Container(padding:const EdgeInsets.all(14),
-    decoration:BoxDecoration(color:C.white,borderRadius:BorderRadius.circular(14),boxShadow:[BoxShadow(color:C.shadow,blurRadius:6)]),
-    child:Column(children:[Icon(ic,color:C.secondary,size:22),const SizedBox(height:6),Text(val,style:GoogleFonts.poppins(fontWeight:FontWeight.w700,fontSize:18,color:C.primary)),Text(label,style:GoogleFonts.poppins(fontSize:11,color:C.g500))])));
+  final String label, val; final IconData ic;
+  const _StatCard(this.label, this.val, this.ic);
+  @override Widget build(BuildContext ctx) => Expanded(child: Container(padding: const EdgeInsets.all(14),
+    decoration: BoxDecoration(color: C.white, borderRadius: BorderRadius.circular(14), boxShadow: [BoxShadow(color: C.shadow, blurRadius: 6)]),
+    child: Column(children: [Icon(ic, color: C.blue, size: 22), const SizedBox(height: 6),
+      Text(val, style: GoogleFonts.poppins(fontWeight: FontWeight.w700, fontSize: 18, color: C.primary)),
+      Text(label, style: GoogleFonts.poppins(fontSize: 11, color: C.g500))])));
 }
 
-Widget _MenuSection(String title, List<Widget> items)=>Column(crossAxisAlignment:CrossAxisAlignment.start,children:[
-  Padding(padding:const EdgeInsets.only(left:4,bottom:8),child:Text(title,style:GoogleFonts.poppins(fontSize:12,fontWeight:FontWeight.w600,color:C.g500,letterSpacing:.5))),
-  Container(decoration:BoxDecoration(color:Colors.white,borderRadius:BorderRadius.circular(14),boxShadow:[BoxShadow(color:C.shadow,blurRadius:6)]),
-    child:Column(children:items.asMap().entries.map((e)=>Column(children:[e.value,if(e.key<items.length-1)const Divider(height:1,indent:52)])).toList())),
+Widget _MenuSection(String title, List<Widget> items) => Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+  Padding(padding: const EdgeInsets.only(left: 4, bottom: 8),
+    child: Text(title, style: GoogleFonts.poppins(fontSize: 11, fontWeight: FontWeight.w600, color: C.g400, letterSpacing: 0.5))),
+  Container(decoration: BoxDecoration(color: C.white, borderRadius: BorderRadius.circular(14), boxShadow: [BoxShadow(color: C.shadow, blurRadius: 6)]),
+    child: Column(children: items.asMap().entries.map((e) => Column(children: [e.value, if (e.key < items.length - 1) const Divider(height: 1, indent: 52)])).toList())),
 ]);
 
 class _MenuItem extends StatelessWidget {
   final IconData ic; final String label; final VoidCallback onTap;
-  const _MenuItem(this.ic,this.label,this.onTap);
-  @override Widget build(BuildContext ctx)=>ListTile(leading:Icon(ic,color:C.primary,size:22),title:Text(label,style:GoogleFonts.poppins(fontSize:14,fontWeight:FontWeight.w500)),trailing:const Icon(Icons.chevron_right_rounded,color:C.g400),onTap:onTap);
+  const _MenuItem(this.ic, this.label, this.onTap);
+  @override Widget build(BuildContext ctx) => ListTile(
+    leading: Container(width: 34, height: 34, decoration: BoxDecoration(color: C.blueLight, borderRadius: BorderRadius.circular(9)),
+      child: Icon(ic, color: C.blue, size: 18)),
+    title: Text(label, style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w500)),
+    trailing: const Icon(Icons.chevron_right_rounded, color: C.g300), onTap: onTap);
 }
 
 // ╔══════════════════════════════════════════════════════════╗
-// ║                 22 · VIRTUAL TRY-ON SCREEN              ║
+// ║                 22 · VIRTUAL TRY-ON                     ║
 // ╚══════════════════════════════════════════════════════════╝
 
 class TryOnScreen extends ConsumerStatefulWidget {
@@ -2685,153 +2616,127 @@ class TryOnScreen extends ConsumerStatefulWidget {
   const TryOnScreen({super.key, this.product});
   @override ConsumerState<TryOnScreen> createState() => _TOState();
 }
+
 class _TOState extends ConsumerState<TryOnScreen> with SingleTickerProviderStateMixin {
-  bool _detecting=true, _bodyFound=false, _captured=false;
-  double _scale=1.0, _ox=0, _oy=-40;
+  bool _detecting = true, _bodyFound = false, _captured = false;
+  double _scale = 1.0, _ox = 0, _oy = -40;
   late AnimationController _pulseCtrl;
   late Animation<double> _pulse;
 
-  @override void initState(){
+  @override void initState() {
     super.initState();
-    _pulseCtrl=AnimationController(vsync:this,duration:const Duration(seconds:1))..repeat(reverse:true);
-    _pulse=Tween<double>(begin:.95,end:1.05).animate(CurvedAnimation(parent:_pulseCtrl,curve:Curves.easeInOut));
-    Future.delayed(const Duration(seconds:2),(){if(mounted)setState(()=>_bodyFound=true);});
-    Future.delayed(const Duration(seconds:3),(){if(mounted)setState(()=>_detecting=false);});
+    _pulseCtrl = AnimationController(vsync: this, duration: const Duration(seconds: 1))..repeat(reverse: true);
+    _pulse = Tween<double>(begin: 0.95, end: 1.05).animate(CurvedAnimation(parent: _pulseCtrl, curve: Curves.easeInOut));
+    Future.delayed(const Duration(seconds: 2), () { if (mounted) setState(() => _bodyFound = true); });
+    Future.delayed(const Duration(seconds: 3), () { if (mounted) setState(() => _detecting = false); });
   }
-  @override void dispose(){_pulseCtrl.dispose();super.dispose();}
+  @override void dispose() { _pulseCtrl.dispose(); super.dispose(); }
 
   @override Widget build(BuildContext ctx) {
     final p = widget.product;
-    return Scaffold(backgroundColor:C.black,
-      body:Stack(children:[
-        // — Simulated camera feed —
-        Positioned.fill(child:CustomPaint(painter:_CamPainter())),
+    return Scaffold(backgroundColor: C.black, body: Stack(children: [
+      Positioned.fill(child: CustomPaint(painter: _CamPainter())),
 
-        // — Clothing overlay on "body" —
-        if(_bodyFound&&p!=null) Positioned.fill(child:GestureDetector(
-          onScaleUpdate:(d){setState((){_scale=(_scale*d.scale).clamp(.5,2.5);_ox+=d.focalPointDelta.dx;_oy+=d.focalPointDelta.dy;});},
-          child:Center(child:Transform.translate(offset:Offset(_ox,_oy),
-            child:ScaleTransition(scale:_pulse,child:Transform.scale(scale:_scale,
-              child:AnimatedOpacity(opacity:_bodyFound?1:0,duration:600.ms,child:Container(
-                width:200,height:280,
-                decoration:BoxDecoration(
-                  gradient:LinearGradient(begin:Alignment.topCenter,end:Alignment.bottomCenter,
-                    colors:[C.secondary.withOpacity(.85), C.primary.withOpacity(.9)]),
-                  borderRadius:BorderRadius.circular(12),
-                  border:Border.all(color:C.white.withOpacity(.3),width:1),
-                ),
-                child:Column(mainAxisAlignment:MainAxisAlignment.center,children:[
-                  const Icon(Icons.checkroom_rounded,color:C.white,size:48),
-                  const SizedBox(height:8),
-                  Text(p.name,style:GoogleFonts.poppins(color:C.white,fontSize:13,fontWeight:FontWeight.w600),textAlign:TextAlign.center,maxLines:2),
-                  Text('AR Preview',style:GoogleFonts.poppins(color:C.white.withOpacity(.7),fontSize:10)),
-                ]),
-              )),
-            )),
-          )),
-        )),
+      if (_bodyFound && p != null) Positioned.fill(child: GestureDetector(
+        onScaleUpdate: (d) { setState(() { _scale = (_scale * d.scale).clamp(0.5, 2.5); _ox += d.focalPointDelta.dx; _oy += d.focalPointDelta.dy; }); },
+        child: Center(child: Transform.translate(offset: Offset(_ox, _oy), child: ScaleTransition(scale: _pulse,
+          child: Transform.scale(scale: _scale, child: AnimatedOpacity(opacity: _bodyFound ? 1 : 0, duration: 600.ms,
+            child: Container(width: 200, height: 280,
+              decoration: BoxDecoration(gradient: const LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter,
+                colors: [Color(0xFF2563EB), Color(0xFF1E3A8A)]),
+                borderRadius: BorderRadius.circular(12), border: Border.all(color: C.white.withOpacity(0.25))),
+              child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+                const Icon(Icons.checkroom_rounded, color: C.white, size: 44),
+                const SizedBox(height: 8),
+                Text(p.name, style: GoogleFonts.poppins(color: C.white, fontSize: 12, fontWeight: FontWeight.w600), textAlign: TextAlign.center, maxLines: 2),
+                Text('AR Preview', style: GoogleFonts.poppins(color: Colors.white.withOpacity(0.7), fontSize: 10)),
+              ]))))))))),
 
-        // — Body detection indicator —
-        if(_detecting) Positioned.fill(child:Container(color:Colors.black.withOpacity(.3),child:Center(child:Column(mainAxisSize:MainAxisSize.min,children:[
-          const CircularProgressIndicator(color:C.secondary,strokeWidth:3),
-          const SizedBox(height:16),
-          Text('Detecting body pose...',style:GoogleFonts.poppins(color:C.white,fontSize:15,fontWeight:FontWeight.w500)),
-          const SizedBox(height:6),
-          Text('Stand 2-3 feet from camera',style:GoogleFonts.poppins(color:C.white.withOpacity(.7),fontSize:12)),
+      if (_detecting) Positioned.fill(child: Container(color: Colors.black.withOpacity(0.35),
+        child: Center(child: Column(mainAxisSize: MainAxisSize.min, children: [
+          const CircularProgressIndicator(color: C.blue, strokeWidth: 3),
+          const SizedBox(height: 16),
+          Text('Detecting body pose...', style: GoogleFonts.poppins(color: C.white, fontSize: 14, fontWeight: FontWeight.w500)),
+          const SizedBox(height: 4),
+          Text('Stand 2-3 feet from camera', style: GoogleFonts.poppins(color: Colors.white.withOpacity(0.6), fontSize: 12)),
         ])))),
 
-        // — Top bar —
-        Positioned(top:0,left:0,right:0,child:SafeArea(child:Padding(padding:const EdgeInsets.all(16),child:Row(children:[
-          GestureDetector(onTap:()=>ctx.pop(),child:Container(padding:const EdgeInsets.all(8),decoration:BoxDecoration(color:Colors.black.withOpacity(.5),shape:BoxShape.circle),child:const Icon(Icons.close,color:C.white,size:20))),
-          const SizedBox(width:12),
-          Expanded(child:Text('Virtual Try-On',style:GoogleFonts.poppins(color:C.white,fontWeight:FontWeight.w700,fontSize:16))),
-          if(_bodyFound) Container(padding:const EdgeInsets.symmetric(horizontal:12,vertical:6),decoration:BoxDecoration(color:C.success,borderRadius:BorderRadius.circular(20)),child:Row(children:[const Icon(Icons.person,color:C.white,size:14),const SizedBox(width:4),Text('Body Detected',style:GoogleFonts.poppins(color:C.white,fontSize:11,fontWeight:FontWeight.w600))])),
-        ])))),
+      Positioned(top: 0, left: 0, right: 0, child: SafeArea(child: Padding(padding: const EdgeInsets.all(16), child: Row(children: [
+        GestureDetector(onTap: () => ctx.pop(), child: Container(padding: const EdgeInsets.all(8),
+          decoration: BoxDecoration(color: Colors.black54, shape: BoxShape.circle),
+          child: const Icon(Icons.close, color: C.white, size: 20))),
+        const SizedBox(width: 12),
+        Expanded(child: Text('Virtual Try-On', style: GoogleFonts.poppins(color: C.white, fontWeight: FontWeight.w700, fontSize: 16))),
+        if (_bodyFound) Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+          decoration: BoxDecoration(color: C.success, borderRadius: BorderRadius.circular(20)),
+          child: Row(children: [const Icon(Icons.person, color: C.white, size: 14), const SizedBox(width: 4),
+            Text('Body Detected', style: GoogleFonts.poppins(color: C.white, fontSize: 11, fontWeight: FontWeight.w600))])),
+      ])))),
 
-        // — Instructions —
-        if(!_detecting) Positioned(top:100,left:0,right:0,child:Center(child:Container(
-          padding:const EdgeInsets.symmetric(horizontal:16,vertical:8),
-          decoration:BoxDecoration(color:Colors.black.withOpacity(.5),borderRadius:BorderRadius.circular(20)),
-          child:Text('Pinch to resize · Drag to reposition',style:GoogleFonts.poppins(color:C.white,fontSize:12)),
-        ))),
+      if (!_detecting) Positioned(top: 100, left: 0, right: 0, child: Center(child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        decoration: BoxDecoration(color: Colors.black.withOpacity(0.5), borderRadius: BorderRadius.circular(20)),
+        child: Text('Pinch to resize · Drag to reposition', style: GoogleFonts.poppins(color: C.white, fontSize: 12))))),
 
-        // — Capture overlay —
-        if(_captured) Positioned.fill(child:AnimatedOpacity(opacity:_captured?1:0,duration:200.ms,child:Container(color:C.white))),
+      if (_captured) Positioned.fill(child: Container(color: C.white)),
 
-        // — Bottom controls —
-        Positioned(bottom:0,left:0,right:0,child:SafeArea(child:Padding(padding:const EdgeInsets.fromLTRB(20,16,20,20),child:Column(mainAxisSize:MainAxisSize.min,children:[
-          // Fit adjusters
-          Row(mainAxisAlignment:MainAxisAlignment.center,children:[
-            _TBtn(Icons.remove,(){if(_scale>.5)setState(()=>_scale-=.1);},'Smaller'),
-            const SizedBox(width:20),
-            _TBtn(Icons.refresh_rounded,(){setState((){_scale=1;_ox=0;_oy=-40;});},'Reset'),
-            const SizedBox(width:20),
-            _TBtn(Icons.add,(){if(_scale<2.5)setState(()=>_scale+=.1);},'Larger'),
-          ]),
-          const SizedBox(height:20),
-          // Capture button
-          Row(mainAxisAlignment:MainAxisAlignment.center,children:[
-            GestureDetector(
-              onTap:(){ setState(()=>_captured=true); Future.delayed(const Duration(milliseconds:200),(){if(mounted)setState(()=>_captured=false);}); snack(ctx,'Screenshot saved! 📸'); },
-              child:Container(width:72,height:72,decoration:BoxDecoration(color:C.white,shape:BoxShape.circle,border:Border.all(color:C.g300,width:3)),
-                child:const Center(child:Icon(Icons.camera_alt_rounded,color:C.primary,size:32))),
-            ),
-          ]),
-        ])))),
-      ]),
-    );
+      Positioned(bottom: 0, left: 0, right: 0, child: SafeArea(child: Padding(padding: const EdgeInsets.fromLTRB(20, 16, 20, 20), child: Column(mainAxisSize: MainAxisSize.min, children: [
+        Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+          _TBtn(Icons.remove, () { if (_scale > 0.5) setState(() => _scale -= 0.1); }, 'Smaller'),
+          const SizedBox(width: 20),
+          _TBtn(Icons.refresh_rounded, () { setState(() { _scale = 1; _ox = 0; _oy = -40; }); }, 'Reset'),
+          const SizedBox(width: 20),
+          _TBtn(Icons.add, () { if (_scale < 2.5) setState(() => _scale += 0.1); }, 'Larger'),
+        ]),
+        const SizedBox(height: 20),
+        GestureDetector(
+          onTap: () { setState(() => _captured = true); Future.delayed(200.ms, () { if (mounted) setState(() => _captured = false); }); snack(ctx, 'Screenshot saved! 📸'); },
+          child: Container(width: 70, height: 70, decoration: BoxDecoration(color: C.white, shape: BoxShape.circle, border: Border.all(color: C.g300, width: 3)),
+            child: const Center(child: Icon(Icons.camera_alt_rounded, color: C.primary, size: 30)))),
+      ])))),
+    ]));
   }
 }
 
 class _TBtn extends StatelessWidget {
   final IconData ic; final VoidCallback onTap; final String label;
-  const _TBtn(this.ic,this.onTap,this.label);
-  @override Widget build(BuildContext ctx)=>Column(mainAxisSize:MainAxisSize.min,children:[
-    GestureDetector(onTap:onTap,child:Container(padding:const EdgeInsets.all(12),decoration:BoxDecoration(color:Colors.black.withOpacity(.5),shape:BoxShape.circle),child:Icon(ic,color:C.white,size:22))),
-    const SizedBox(height:4),
-    Text(label,style:GoogleFonts.poppins(color:C.white,fontSize:10)),
+  const _TBtn(this.ic, this.onTap, this.label);
+  @override Widget build(BuildContext ctx) => Column(mainAxisSize: MainAxisSize.min, children: [
+    GestureDetector(onTap: onTap, child: Container(padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(color: Colors.black.withOpacity(0.5), shape: BoxShape.circle),
+      child: Icon(ic, color: C.white, size: 22))),
+    const SizedBox(height: 4),
+    Text(label, style: GoogleFonts.poppins(color: C.white, fontSize: 10)),
   ]);
 }
 
 class _CamPainter extends CustomPainter {
-  final _rng = math.Random(42);
-  @override void paint(Canvas canvas, Size size){
-    // Gradient background simulating camera
-    canvas.drawRect(Offset.zero&size, Paint()..shader=const LinearGradient(begin:Alignment.topCenter,end:Alignment.bottomCenter,
-      colors:[Color(0xFF2D0A16),Color(0xFF4A1526),Color(0xFF6B1D2A)]).createShader(Offset.zero&size));
-    // Simulated body silhouette
-    final cx=size.width/2, cy=size.height*.45;
-    // Head
-    canvas.drawCircle(Offset(cx,cy-160),36,Paint()..color=const Color(0xFF8B6F47).withOpacity(.7));
-    // Body
-    final bp=Paint()..color=const Color(0xFF6B5B45).withOpacity(.6);
-    canvas.drawRRect(RRect.fromRectAndRadius(Rect.fromCenter(center:Offset(cx,cy),width:130,height:200),const Radius.circular(20)),bp);
-    // Pose dots
-    final dp=Paint()..color=C.secondary.withOpacity(.9);
-    for(final o in[Offset(cx,cy-180),Offset(cx-60,cy-120),Offset(cx+60,cy-120),Offset(cx-70,cy-60),Offset(cx+70,cy-60),Offset(cx,cy-60),Offset(cx-50,cy+60),Offset(cx+50,cy+60),Offset(cx-50,cy+160),Offset(cx+50,cy+160)])
-      canvas.drawCircle(o,5,dp);
-    // Skeleton lines
-    final lp=Paint()..color=C.secondary.withOpacity(.5)..strokeWidth=2;
-    void ln(Offset a,Offset b)=>canvas.drawLine(a,b,lp);
-    ln(Offset(cx,cy-180),Offset(cx,cy-60));
-    ln(Offset(cx,cy-120),Offset(cx-70,cy-60));
-    ln(Offset(cx,cy-120),Offset(cx+70,cy-60));
-    ln(Offset(cx,cy-60),Offset(cx-50,cy+60));
-    ln(Offset(cx,cy-60),Offset(cx+50,cy+60));
-    ln(Offset(cx-50,cy+60),Offset(cx-50,cy+160));
+  @override void paint(Canvas canvas, Size size) {
+    canvas.drawRect(Offset.zero & size, Paint()..shader = const LinearGradient(
+      begin: Alignment.topCenter, end: Alignment.bottomCenter,
+      colors: [Color(0xFF0F172A), Color(0xFF1E293B), Color(0xFF0F172A)],
+    ).createShader(Offset.zero & size));
+    final cx = size.width / 2, cy = size.height * 0.45;
+    canvas.drawCircle(Offset(cx, cy - 160), 36, Paint()..color = const Color(0xFF8B6F47).withOpacity(0.7));
+    canvas.drawRRect(RRect.fromRectAndRadius(Rect.fromCenter(center: Offset(cx, cy), width: 130, height: 200), const Radius.circular(20)),
+      Paint()..color = const Color(0xFF6B5B45).withOpacity(0.6));
+    final dp = Paint()..color = C.blue.withOpacity(0.9);
+    for (final o in [Offset(cx,cy-180),Offset(cx-60,cy-120),Offset(cx+60,cy-120),Offset(cx-70,cy-60),Offset(cx+70,cy-60),Offset(cx,cy-60),Offset(cx-50,cy+60),Offset(cx+50,cy+60),Offset(cx-50,cy+160),Offset(cx+50,cy+160)])
+      canvas.drawCircle(o, 5, dp);
+    final lp = Paint()..color = C.blue.withOpacity(0.4)..strokeWidth = 2;
+    void ln(Offset a, Offset b) => canvas.drawLine(a, b, lp);
+    ln(Offset(cx,cy-180),Offset(cx,cy-60)); ln(Offset(cx,cy-120),Offset(cx-70,cy-60));
+    ln(Offset(cx,cy-120),Offset(cx+70,cy-60)); ln(Offset(cx,cy-60),Offset(cx-50,cy+60));
+    ln(Offset(cx,cy-60),Offset(cx+50,cy+60)); ln(Offset(cx-50,cy+60),Offset(cx-50,cy+160));
     ln(Offset(cx+50,cy+60),Offset(cx+50,cy+160));
-    // Scan line
-    final scanY=size.height*.3;
-    canvas.drawLine(Offset(0,scanY),Offset(size.width,scanY),Paint()..color=C.secondary.withOpacity(.4)..strokeWidth=1.5);
-    // Corner brackets
-    final br=Paint()..color=C.secondary..strokeWidth=3..style=PaintingStyle.stroke;
-    const m=40.0, bl=25.0;
-    for(final c in[Offset(m,m),Offset(size.width-m,m),Offset(m,size.height-m),Offset(size.width-m,size.height-m)]){
-      final dx=c.dx<size.width/2?1:-1, dy=c.dy<size.height/2?1:-1;
-      canvas.drawPath(Path()..moveTo(c.dx,c.dy+dy*bl)..lineTo(c.dx,c.dy)..lineTo(c.dx+dx*bl,c.dy),br);
+    const m = 40.0, bl = 25.0;
+    final br = Paint()..color = C.blue..strokeWidth = 3..style = PaintingStyle.stroke;
+    for (final c in [Offset(m,m),Offset(size.width-m,m),Offset(m,size.height-m),Offset(size.width-m,size.height-m)]) {
+      final dx = c.dx < size.width/2 ? 1.0 : -1.0, dy = c.dy < size.height/2 ? 1.0 : -1.0;
+      canvas.drawPath(Path()..moveTo(c.dx,c.dy+dy*bl)..lineTo(c.dx,c.dy)..lineTo(c.dx+dx*bl,c.dy), br);
     }
   }
-  @override bool shouldRepaint(_CamPainter o)=>false;
+  @override bool shouldRepaint(_CamPainter o) => false;
 }
 
 // ╔══════════════════════════════════════════════════════════╗
@@ -2842,103 +2747,97 @@ class QrScannerScreen extends ConsumerStatefulWidget {
   const QrScannerScreen({super.key});
   @override ConsumerState<QrScannerScreen> createState() => _QRState();
 }
+
 class _QRState extends ConsumerState<QrScannerScreen> with SingleTickerProviderStateMixin {
-  bool _scanning=true, _scanned=false;
+  bool _scanning = true, _scanned = false;
   String? _scannedRack;
   late AnimationController _scanCtrl;
   late Animation<double> _scanAnim;
 
-  @override void initState(){
+  @override void initState() {
     super.initState();
-    _scanCtrl=AnimationController(vsync:this,duration:const Duration(seconds:2))..repeat();
-    _scanAnim=Tween<double>(begin:0,end:1).animate(_scanCtrl);
+    _scanCtrl = AnimationController(vsync: this, duration: const Duration(seconds: 2))..repeat();
+    _scanAnim = Tween<double>(begin: 0, end: 1).animate(_scanCtrl);
   }
-  @override void dispose(){_scanCtrl.dispose();super.dispose();}
+  @override void dispose() { _scanCtrl.dispose(); super.dispose(); }
 
-  void _simulateScan(String rackId){
-    if(_scanned)return;
-    setState((){_scanned=true;_scanning=false;_scannedRack=rackId;});
+  void _simulateScan(String rackId) {
+    if (_scanned) return;
+    setState(() { _scanned = true; _scanning = false; _scannedRack = rackId; });
     HapticFeedback.heavyImpact();
   }
 
-  @override Widget build(BuildContext ctx)=>Scaffold(backgroundColor:C.black,
-    body:Stack(children:[
-      // Camera bg
-      Positioned.fill(child:Container(decoration:const BoxDecoration(gradient:LinearGradient(begin:Alignment.topCenter,end:Alignment.bottomCenter,colors:[Color(0xFF0a0a10),Color(0xFF2D0A16)])))),
+  @override Widget build(BuildContext ctx) => Scaffold(backgroundColor: C.black, body: Stack(children: [
+    Positioned.fill(child: Container(decoration: const BoxDecoration(
+      gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter,
+        colors: [Color(0xFF0F172A), Color(0xFF1E293B)])))),
 
-      // QR frame
-      Positioned.fill(child:CustomPaint(painter:_QRFramePainter(_scanAnim))),
+    Positioned.fill(child: CustomPaint(painter: _QRFramePainter(_scanAnim))),
 
-      // Top bar
-      Positioned(top:0,left:0,right:0,child:SafeArea(child:Padding(padding:const EdgeInsets.all(16),child:Row(children:[
-        GestureDetector(onTap:()=>ctx.pop(),child:Container(padding:const EdgeInsets.all(8),decoration:BoxDecoration(color:Colors.black54,shape:BoxShape.circle),child:const Icon(Icons.close,color:C.white,size:20))),
-        const SizedBox(width:12),
-        Text('Rack Scanner',style:GoogleFonts.poppins(color:C.white,fontWeight:FontWeight.w700,fontSize:16)),
-      ])))),
+    Positioned(top: 0, left: 0, right: 0, child: SafeArea(child: Padding(padding: const EdgeInsets.all(16), child: Row(children: [
+      GestureDetector(onTap: () => ctx.pop(), child: Container(padding: const EdgeInsets.all(8),
+        decoration: BoxDecoration(color: Colors.black54, shape: BoxShape.circle),
+        child: const Icon(Icons.close, color: C.white, size: 20))),
+      const SizedBox(width: 12),
+      Text('Rack Scanner', style: GoogleFonts.poppins(color: C.white, fontWeight: FontWeight.w700, fontSize: 16)),
+    ])))),
 
-      // Instructions
-      Positioned(top:130,left:40,right:40,child:Text('Point camera at the QR code on any clothing rack',style:GoogleFonts.poppins(color:C.white.withOpacity(.8),fontSize:14),textAlign:TextAlign.center)),
+    Positioned(top: 120, left: 40, right: 40, child: Text(
+      'Point camera at the QR code on any clothing rack',
+      style: GoogleFonts.poppins(color: Colors.white.withOpacity(0.8), fontSize: 14), textAlign: TextAlign.center)),
 
-      // Mock rack buttons
-      if(_scanning) Positioned(bottom:160,left:20,right:20,child:Column(children:[
-        Text('Demo: Tap a rack to simulate scan',style:GoogleFonts.poppins(color:C.white.withOpacity(.6),fontSize:12),textAlign:TextAlign.center),
-        const SizedBox(height:12),
-        Wrap(spacing:10,runSpacing:10,alignment:WrapAlignment.center,children:kRackNames.entries.map((e)=>GestureDetector(
-          onTap:()=>_simulateScan(e.key),
-          child:Container(padding:const EdgeInsets.symmetric(horizontal:12,vertical:8),
-            decoration:BoxDecoration(color:C.secondary.withOpacity(.15),borderRadius:BorderRadius.circular(20),border:Border.all(color:C.secondary.withOpacity(.5))),
-            child:Text(e.value,style:GoogleFonts.poppins(color:C.white,fontSize:11,fontWeight:FontWeight.w500))),
-        )).toList()),
-      ])),
+    if (_scanning) Positioned(bottom: 160, left: 20, right: 20, child: Column(children: [
+      Text('Demo: Tap a rack to simulate scan', style: GoogleFonts.poppins(color: Colors.white.withOpacity(0.5), fontSize: 12), textAlign: TextAlign.center),
+      const SizedBox(height: 12),
+      Wrap(spacing: 10, runSpacing: 10, alignment: WrapAlignment.center, children: kRackNames.entries.map((e) => GestureDetector(
+        onTap: () => _simulateScan(e.key),
+        child: Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          decoration: BoxDecoration(color: C.blue.withOpacity(0.2), borderRadius: BorderRadius.circular(20), border: Border.all(color: C.blue.withOpacity(0.5))),
+          child: Text(e.value, style: GoogleFonts.poppins(color: C.white, fontSize: 11, fontWeight: FontWeight.w500))),
+      )).toList()),
+    ])),
 
-      // Success state
-      if(_scanned&&_scannedRack!=null) Positioned.fill(child:Container(color:Colors.black.withOpacity(.6),child:Center(child:Column(mainAxisSize:MainAxisSize.min,children:[
-        const Icon(Icons.check_circle_rounded,color:C.secondary,size:72).animate().scale(duration:500.ms,curve:Curves.elasticOut),
-        const SizedBox(height:16),
-        Text('Rack Found!',style:GoogleFonts.poppins(color:C.white,fontWeight:FontWeight.w700,fontSize:22)).animate().fadeIn(delay:200.ms),
-        const SizedBox(height:8),
-        Text(kRackNames[_scannedRack]??'',style:GoogleFonts.poppins(color:C.secondary,fontSize:16,fontWeight:FontWeight.w600)).animate().fadeIn(delay:300.ms),
-        const SizedBox(height:28),
+    if (_scanned && _scannedRack != null) Positioned.fill(child: Container(
+      color: Colors.black.withOpacity(0.65),
+      child: Center(child: Column(mainAxisSize: MainAxisSize.min, children: [
+        const Icon(Icons.check_circle_rounded, color: C.success, size: 70).animate().scale(duration: 500.ms, curve: Curves.elasticOut),
+        const SizedBox(height: 16),
+        Text('Rack Found!', style: GoogleFonts.poppins(color: C.white, fontWeight: FontWeight.w700, fontSize: 22)).animate().fadeIn(delay: 200.ms),
+        const SizedBox(height: 6),
+        Text(kRackNames[_scannedRack]!, style: GoogleFonts.poppins(color: C.blue, fontSize: 16, fontWeight: FontWeight.w600)).animate().fadeIn(delay: 300.ms),
+        const SizedBox(height: 28),
         ElevatedButton.icon(
-          onPressed:()=>ctx.pushReplacement('/rack/$_scannedRack',extra:kRackNames[_scannedRack]),
-          icon:const Icon(Icons.grid_view_rounded),label:const Text('View Rack Items'),
-          style:ElevatedButton.styleFrom(backgroundColor:C.secondary,padding:const EdgeInsets.symmetric(horizontal:24,vertical:14),shape:RoundedRectangleBorder(borderRadius:BorderRadius.circular(30))),
-        ).animate().fadeIn(delay:400.ms),
-        const SizedBox(height:12),
-        TextButton(onPressed:(){setState((){_scanned=false;_scanning=true;_scannedRack=null;});},child:const Text('Scan Again',style:TextStyle(color:C.white))),
-      ])))),
-
-      // Bottom tip
-      if(!_scanned) Positioned(bottom:0,left:0,right:0,child:SafeArea(child:Padding(padding:const EdgeInsets.all(20),child:Row(mainAxisAlignment:MainAxisAlignment.center,children:[
-        const Icon(Icons.lightbulb_outline_rounded,color:Colors.amber,size:16),
-        const SizedBox(width:6),
-        Text('Each rack has a unique QR code',style:GoogleFonts.poppins(color:C.white.withOpacity(.7),fontSize:12)),
-      ])))),
-    ]),
-  );
+          onPressed: () => ctx.pushReplacement('/rack/$_scannedRack', extra: kRackNames[_scannedRack]),
+          icon: const Icon(Icons.grid_view_rounded), label: const Text('View Rack Items'),
+          style: ElevatedButton.styleFrom(backgroundColor: C.blue, padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))),
+        ).animate().fadeIn(delay: 400.ms),
+        const SizedBox(height: 12),
+        TextButton(onPressed: () { setState(() { _scanned = false; _scanning = true; _scannedRack = null; }); },
+          child: const Text('Scan Again', style: TextStyle(color: C.white))),
+      ])),
+    )),
+  ]));
 }
 
 class _QRFramePainter extends CustomPainter {
   final Animation<double> anim;
-  _QRFramePainter(this.anim):super(repaint:anim);
-  @override void paint(Canvas canvas, Size sz){
-    final cx=sz.width/2,cy=sz.height/2,s=220.0,r=16.0;
-    final outer=Paint()..color=Colors.black.withOpacity(.7);
+  _QRFramePainter(this.anim) : super(repaint: anim);
+  @override void paint(Canvas canvas, Size sz) {
+    final cx = sz.width/2, cy = sz.height/2, s = 220.0, r = 16.0;
     canvas.drawPath(Path.combine(PathOperation.difference,
-      Path()..addRect(Offset.zero&sz),
-      Path()..addRRect(RRect.fromRectAndRadius(Rect.fromCenter(center:Offset(cx,cy),width:s,height:s),Radius.circular(r)))),outer);
-    // Corner brackets
-    final p=Paint()..color=C.secondary..strokeWidth=4..style=PaintingStyle.stroke;
-    final l=s/2,tl=s/2-20,bl=28.0;
-    for(final c in[Offset(cx-l+r,cy-l+r),Offset(cx+l-r,cy-l+r),Offset(cx-l+r,cy+l-r),Offset(cx+l-r,cy+l-r)]){
-      final dx=c.dx<cx?-1:1,dy=c.dy<cy?-1:1;
-      canvas.drawPath(Path()..moveTo(c.dx+dx*bl,c.dy)..lineTo(c.dx,c.dy)..lineTo(c.dx,c.dy+dy*bl),p);
+      Path()..addRect(Offset.zero & sz),
+      Path()..addRRect(RRect.fromRectAndRadius(Rect.fromCenter(center: Offset(cx, cy), width: s, height: s), Radius.circular(r)))),
+      Paint()..color = Colors.black.withOpacity(0.7));
+    final p = Paint()..color = C.blue..strokeWidth = 4..style = PaintingStyle.stroke;
+    final l = s/2, bl = 28.0;
+    for (final c in [Offset(cx-l+r,cy-l+r),Offset(cx+l-r,cy-l+r),Offset(cx-l+r,cy+l-r),Offset(cx+l-r,cy+l-r)]) {
+      final dx = c.dx < cx ? -1.0 : 1.0, dy = c.dy < cy ? -1.0 : 1.0;
+      canvas.drawPath(Path()..moveTo(c.dx+dx*bl,c.dy)..lineTo(c.dx,c.dy)..lineTo(c.dx,c.dy+dy*bl), p);
     }
-    // Scan line
-    final scanY=cy-l+r+(s-2*r)*anim.value;
-    canvas.drawLine(Offset(cx-l+r+4,scanY),Offset(cx+l-r-4,scanY),Paint()..color=C.secondary..strokeWidth=2.5);
+    final scanY = cy - l + r + (s - 2*r) * anim.value;
+    canvas.drawLine(Offset(cx-l+r+4, scanY), Offset(cx+l-r-4, scanY), Paint()..color = C.blue..strokeWidth = 2.5);
   }
-  @override bool shouldRepaint(_QRFramePainter o)=>true;
+  @override bool shouldRepaint(_QRFramePainter o) => true;
 }
 
 // ╔══════════════════════════════════════════════════════════╗
@@ -2952,24 +2851,24 @@ class RackProductsScreen extends ConsumerWidget {
 
   @override Widget build(BuildContext ctx, WidgetRef ref) {
     final rackName = extra is String ? extra as String : kRackNames[rackId] ?? 'Rack';
-    final ids = kRackMap[rackId] ?? [];
-    final products = kProducts.where((p)=>ids.contains(p.id)).toList();
+    final ids      = kRackMap[rackId] ?? [];
+    final products = kProducts.where((p) => ids.contains(p.id)).toList();
 
-    return Scaffold(backgroundColor:C.g100,
-      appBar:AppBar(
-        title:Column(crossAxisAlignment:CrossAxisAlignment.start,children:[
-          const Text('Rack Items',style:TextStyle(fontSize:16)),
-          Text(rackName,style:GoogleFonts.poppins(fontSize:11,color:C.secondary,fontWeight:FontWeight.w500)),
+    return Scaffold(backgroundColor: C.bg,
+      appBar: AppBar(
+        title: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          const Text('Rack Items', style: TextStyle(fontSize: 16)),
+          Text(rackName, style: GoogleFonts.poppins(fontSize: 11, color: C.blue, fontWeight: FontWeight.w500)),
         ]),
-        backgroundColor:C.white,
-        leading:IconButton(icon:const Icon(Icons.arrow_back_ios_new_rounded,size:20),onPressed:()=>ctx.pop()),
-        actions:[IconButton(icon:const Icon(Icons.qr_code_scanner_rounded,color:C.secondary),onPressed:()=>ctx.pushReplacement('/qr-scanner'))],
+        backgroundColor: C.white,
+        leading: IconButton(icon: const Icon(Icons.arrow_back_ios_new_rounded, size: 20), onPressed: () => ctx.pop()),
+        actions: [IconButton(icon: const Icon(Icons.qr_code_scanner_rounded, color: C.blue), onPressed: () => ctx.pushReplacement('/qr-scanner'))],
       ),
-      body:products.isEmpty
-        ? const EmptyView(icon:Icons.checkroom_outlined,title:'No items on this rack',desc:'This rack appears to be empty.')
-        : GridView.builder(padding:const EdgeInsets.all(16),
-            gridDelegate:const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount:2,childAspectRatio:.72,crossAxisSpacing:12,mainAxisSpacing:12),
-            itemCount:products.length, itemBuilder:(_,i)=>_ProdCard(products[i])),
+      body: products.isEmpty
+        ? const EmptyView(icon: Icons.checkroom_outlined, title: 'No items on this rack', desc: 'This rack appears to be empty.')
+        : GridView.builder(padding: const EdgeInsets.all(16),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 0.71, crossAxisSpacing: 12, mainAxisSpacing: 12),
+            itemCount: products.length, itemBuilder: (_, i) => _ProdCard(products[i])),
     );
   }
 }
