@@ -641,6 +641,9 @@ const _colorMap = <String, Color>{
 // ║                  5 · PROVIDERS (Riverpod)               ║
 // ╚══════════════════════════════════════════════════════════╝
 
+// — Onboarding —
+final onboardingCompleteProvider = StateProvider<bool>((_) => false);
+
 // — Auth —
 final authProvider = AsyncNotifierProvider<AuthNotifier, AppUser?>(AuthNotifier.new);
 
@@ -847,17 +850,25 @@ final _shellKey = GlobalKey<NavigatorState>();
 
 final routerProvider = Provider<GoRouter>((ref) {
   final auth = ref.watch(authProvider);
+  final onboardingDone = ref.watch(onboardingCompleteProvider);
   return GoRouter(
     navigatorKey: _rootKey,
     initialLocation: '/',
     redirect: (ctx, state) {
+      final isOnboarding = state.matchedLocation == '/onboarding';
+      if (!onboardingDone && !isOnboarding) return '/onboarding';
+      if (onboardingDone && isOnboarding) {
+        final loggedIn = auth.valueOrNull != null;
+        return loggedIn ? '/' : '/login';
+      }
       final loggedIn  = auth.valueOrNull != null;
       final isAuth    = state.matchedLocation.startsWith('/login') || state.matchedLocation.startsWith('/register');
-      if (!loggedIn && !isAuth) return '/login';
+      if (!loggedIn && !isAuth && !isOnboarding) return '/login';
       if (loggedIn  &&  isAuth) return '/';
       return null;
     },
     routes: [
+      GoRoute(path:'/onboarding', pageBuilder:(c,s) => _fade(s, const OnboardingScreen())),
       GoRoute(path:'/login',    pageBuilder:(c,s) => _fade(s, const LoginScreen())),
       GoRoute(path:'/register', pageBuilder:(c,s) => _slide(s, const RegisterScreen())),
       ShellRoute(
@@ -1115,8 +1126,269 @@ class _NI extends StatelessWidget {
 }
 
 // ╔══════════════════════════════════════════════════════════╗
+// ║               9B · ONBOARDING SCREEN                    ║
+// ╚══════════════════════════════════════════════════════════╝
+
+class _OnboardingPage {
+  final String imageUrl, title, subtitle;
+  const _OnboardingPage({required this.imageUrl, required this.title, required this.subtitle});
+}
+
+final _onboardingPages = <_OnboardingPage>[
+  _OnboardingPage(
+    imageUrl: 'https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800&q=80',
+    title: "Discover\nYour Perfect\nStyle",
+    subtitle: 'Curated collections tailored to your unique fashion sense',
+  ),
+  _OnboardingPage(
+    imageUrl: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=800&q=80',
+    title: "Virtual\nTry-On\nExperience",
+    subtitle: 'See how outfits look on you before you buy',
+  ),
+  _OnboardingPage(
+    imageUrl: 'https://images.unsplash.com/photo-1445205170230-053b83016050?w=800&q=80',
+    title: "Your Smart\nWardrobe\nAwaits",
+    subtitle: 'Scan racks, explore trends, and dress your world',
+  ),
+];
+
+class OnboardingScreen extends ConsumerStatefulWidget {
+  const OnboardingScreen({super.key});
+  @override ConsumerState<OnboardingScreen> createState() => _OnboardingState();
+}
+
+class _OnboardingState extends ConsumerState<OnboardingScreen> with TickerProviderStateMixin {
+  final _pageCtrl = PageController();
+  int _currentPage = 0;
+  late AnimationController _textAnimCtrl;
+  late Animation<double> _textFade;
+  late Animation<Offset> _textSlide;
+
+  @override
+  void initState() {
+    super.initState();
+    _textAnimCtrl = AnimationController(vsync: this, duration: const Duration(milliseconds: 600));
+    _textFade = Tween<double>(begin: 0, end: 1).animate(CurvedAnimation(parent: _textAnimCtrl, curve: Curves.easeOut));
+    _textSlide = Tween<Offset>(begin: const Offset(0, 0.15), end: Offset.zero).animate(CurvedAnimation(parent: _textAnimCtrl, curve: Curves.easeOutCubic));
+    _textAnimCtrl.forward();
+  }
+
+  @override
+  void dispose() {
+    _pageCtrl.dispose();
+    _textAnimCtrl.dispose();
+    super.dispose();
+  }
+
+  void _onPageChanged(int page) {
+    setState(() => _currentPage = page);
+    _textAnimCtrl.reset();
+    _textAnimCtrl.forward();
+  }
+
+  void _skip() {
+    ref.read(onboardingCompleteProvider.notifier).state = true;
+  }
+
+  void _next() {
+    if (_currentPage < _onboardingPages.length - 1) {
+      _pageCtrl.nextPage(duration: 500.ms, curve: Curves.easeInOutCubic);
+    } else {
+      _skip();
+    }
+  }
+
+  @override
+  Widget build(BuildContext ctx) {
+    return Scaffold(
+      body: Stack(children: [
+        // ── Full-screen page view ──
+        PageView.builder(
+          controller: _pageCtrl,
+          itemCount: _onboardingPages.length,
+          onPageChanged: _onPageChanged,
+          itemBuilder: (_, i) {
+            final page = _onboardingPages[i];
+            return Stack(fit: StackFit.expand, children: [
+              // Background image
+              CachedNetworkImage(
+                imageUrl: page.imageUrl,
+                fit: BoxFit.cover,
+                width: double.infinity,
+                height: double.infinity,
+                placeholder: (c, u) => Container(color: C.primary),
+                errorWidget: (c, u, e) => Container(
+                  decoration: const BoxDecoration(gradient: C.wineGrad),
+                ),
+              ),
+              // Dark gradient overlay
+              Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    stops: const [0.0, 0.3, 0.6, 1.0],
+                    colors: [
+                      const Color(0xFF2D0A16).withOpacity(0.4),
+                      const Color(0xFF2D0A16).withOpacity(0.25),
+                      const Color(0xFF2D0A16).withOpacity(0.55),
+                      const Color(0xFF2D0A16).withOpacity(0.92),
+                    ],
+                  ),
+                ),
+              ),
+              // Side accent gradient (like reference image)
+              Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
+                    stops: const [0.0, 0.4, 1.0],
+                    colors: [
+                      const Color(0xFF6B1D2A).withOpacity(0.5),
+                      Colors.transparent,
+                      const Color(0xFF6B1D2A).withOpacity(0.15),
+                    ],
+                  ),
+                ),
+              ),
+            ]);
+          },
+        ),
+
+        // ── Top bar: Brand name + Skip ──
+        Positioned(
+          top: 0, left: 0, right: 0,
+          child: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('STYLESPHERE', style: GoogleFonts.poppins(
+                    fontSize: 14, fontWeight: FontWeight.w700, color: C.white,
+                    letterSpacing: 2,
+                  )).animate().fadeIn(duration: 500.ms),
+                  GestureDetector(
+                    onTap: _skip,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      decoration: BoxDecoration(
+                        color: Colors.white.withOpacity(0.12),
+                        borderRadius: BorderRadius.circular(20),
+                        border: Border.all(color: Colors.white.withOpacity(0.2)),
+                      ),
+                      child: Text('Skip', style: GoogleFonts.poppins(
+                        fontSize: 13, fontWeight: FontWeight.w500, color: C.white,
+                      )),
+                    ),
+                  ).animate().fadeIn(delay: 200.ms),
+                ],
+              ),
+            ),
+          ),
+        ),
+
+        // ── Bottom content: Title, subtitle, indicators, button ──
+        Positioned(
+          bottom: 0, left: 0, right: 0,
+          child: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(28, 0, 28, 32),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // Title
+                  SlideTransition(
+                    position: _textSlide,
+                    child: FadeTransition(
+                      opacity: _textFade,
+                      child: Text(
+                        _onboardingPages[_currentPage].title,
+                        style: GoogleFonts.playfairDisplay(
+                          fontSize: 42,
+                          fontWeight: FontWeight.w800,
+                          color: C.white,
+                          height: 1.15,
+                          letterSpacing: -0.5,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 14),
+                  // Subtitle
+                  SlideTransition(
+                    position: _textSlide,
+                    child: FadeTransition(
+                      opacity: _textFade,
+                      child: Text(
+                        _onboardingPages[_currentPage].subtitle,
+                        style: GoogleFonts.poppins(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.white.withOpacity(0.8),
+                          height: 1.5,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 36),
+                  // Arrow button + indicators
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      // Diamond-shaped next/get started button
+                      GestureDetector(
+                        onTap: _next,
+                        child: Container(
+                          width: 56, height: 56,
+                          decoration: BoxDecoration(
+                            color: C.white,
+                            borderRadius: BorderRadius.circular(14),
+                            boxShadow: [
+                              BoxShadow(color: Colors.black.withOpacity(0.2), blurRadius: 12, offset: const Offset(0, 4)),
+                            ],
+                          ),
+                          child: Center(
+                            child: _currentPage == _onboardingPages.length - 1
+                                ? const Icon(Icons.check_rounded, color: C.primary, size: 26)
+                                : const Icon(Icons.arrow_forward_rounded, color: C.primary, size: 24),
+                          ),
+                        ),
+                      ).animate().fadeIn(delay: 300.ms).scale(begin: const Offset(0.8, 0.8), end: const Offset(1, 1)),
+                      // Page indicators
+                      Row(
+                        children: List.generate(_onboardingPages.length, (i) =>
+                          AnimatedContainer(
+                            duration: 300.ms,
+                            margin: const EdgeInsets.symmetric(horizontal: 4),
+                            width: _currentPage == i ? 28 : 8,
+                            height: 8,
+                            decoration: BoxDecoration(
+                              color: _currentPage == i ? C.white : Colors.white.withOpacity(0.35),
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ]),
+    );
+  }
+}
+
+// ╔══════════════════════════════════════════════════════════╗
 // ║                 10 · LOGIN SCREEN                       ║
 // ╚══════════════════════════════════════════════════════════╝
+
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
