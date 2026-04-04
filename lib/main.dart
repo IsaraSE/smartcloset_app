@@ -1879,7 +1879,7 @@ class _ProdCard extends ConsumerWidget {
           // image
           Stack(children:[
             ClipRRect(borderRadius:const BorderRadius.vertical(top:Radius.circular(16)),
-              child:Img(p.images.first, w:double.infinity, h:wide?160:160)),
+              child:Img(p.images.first, w:double.infinity, h:wide?150:145)),
             // badges
             Positioned(top:10,left:10,child:Column(children:[
               if(p.hasDiscount) DiscBadge(pct:p.discount),
@@ -1896,15 +1896,15 @@ class _ProdCard extends ConsumerWidget {
             )),
           ]),
           // info
-          Padding(padding:const EdgeInsets.fromLTRB(10,10,10,12),child:Column(crossAxisAlignment:CrossAxisAlignment.start,children:[
+          Expanded(child:Padding(padding:const EdgeInsets.fromLTRB(10,8,10,8),child:Column(crossAxisAlignment:CrossAxisAlignment.start, mainAxisSize:MainAxisSize.min, children:[
             Text(p.brand,style:GoogleFonts.poppins(fontSize:10,fontWeight:FontWeight.w500,color:C.g500,letterSpacing:.5)),
             const SizedBox(height:2),
-            Text(p.name,style:GoogleFonts.poppins(fontSize:13,fontWeight:FontWeight.w600,color:C.primary),maxLines:2,overflow:TextOverflow.ellipsis),
-            const SizedBox(height:5),
+            Text(p.name,style:GoogleFonts.poppins(fontSize:12,fontWeight:FontWeight.w600,color:C.primary),maxLines:1,overflow:TextOverflow.ellipsis),
+            const SizedBox(height:4),
             Stars(rating:p.rating,count:p.reviewCount,sz:12),
-            const SizedBox(height:6),
-            PriceRow(price:p.price,orig:p.originalPrice,sz:15,origSz:12),
-          ])),
+            const Spacer(),
+            PriceRow(price:p.price,orig:p.originalPrice,sz:14,origSz:11),
+          ]))),
         ]),
       ),
     );
@@ -2195,7 +2195,7 @@ class _PDState extends ConsumerState<ProductDetailScreen> {
         const SizedBox(height:20),
         // Try On
         Container(padding:const EdgeInsets.all(16),
-          decoration:BoxDecoration(gradient:const LinearGradient(begin:Alignment.topLeft,end:Alignment.bottomRight,colors:[Color(0xFF1A1A2E),Color(0xFF16213E)]),borderRadius:BorderRadius.circular(14)),
+          decoration:BoxDecoration(gradient:const LinearGradient(begin:Alignment.topLeft,end:Alignment.bottomRight,colors:[Color(0xFF2D0A16),Color(0xFF4A1526)]),borderRadius:BorderRadius.circular(14)),
           child:Row(children:[
             const Icon(Icons.camera_alt_rounded,color:C.secondary,size:28),
             const SizedBox(width:12),
@@ -2605,7 +2605,7 @@ class ProfileScreen extends ConsumerWidget {
       body:SingleChildScrollView(padding:const EdgeInsets.all(16),child:Column(children:[
         // Avatar card
         Container(padding:const EdgeInsets.all(20),
-          decoration:BoxDecoration(gradient:const LinearGradient(begin:Alignment.topLeft,end:Alignment.bottomRight,colors:[C.primary,C.primaryLight]),borderRadius:BorderRadius.circular(20)),
+          decoration:BoxDecoration(gradient:const LinearGradient(begin:Alignment.topLeft,end:Alignment.bottomRight,colors:[Color(0xFF6B1D2A),Color(0xFF4A1526),Color(0xFF2D0A16)]),borderRadius:BorderRadius.circular(20)),
           child:Row(children:[
             CircleAvatar(radius:34, backgroundColor:C.secondary,
               child:Text(user?.name.isNotEmpty==true?user!.name[0].toUpperCase():'?',style:GoogleFonts.poppins(fontSize:26,fontWeight:FontWeight.w700,color:C.white))),
@@ -2798,7 +2798,7 @@ class _CamPainter extends CustomPainter {
   @override void paint(Canvas canvas, Size size){
     // Gradient background simulating camera
     canvas.drawRect(Offset.zero&size, Paint()..shader=const LinearGradient(begin:Alignment.topCenter,end:Alignment.bottomCenter,
-      colors:[Color(0xFF1a1a2e),Color(0xFF16213e),Color(0xFF0f3460)]).createShader(Offset.zero&size));
+      colors:[Color(0xFF2D0A16),Color(0xFF4A1526),Color(0xFF6B1D2A)]).createShader(Offset.zero&size));
     // Simulated body silhouette
     final cx=size.width/2, cy=size.height*.45;
     // Head
@@ -2864,7 +2864,7 @@ class _QRState extends ConsumerState<QrScannerScreen> with SingleTickerProviderS
   @override Widget build(BuildContext ctx)=>Scaffold(backgroundColor:C.black,
     body:Stack(children:[
       // Camera bg
-      Positioned.fill(child:Container(decoration:const BoxDecoration(gradient:LinearGradient(begin:Alignment.topCenter,end:Alignment.bottomCenter,colors:[Color(0xFF0a0a1a),Color(0xFF1a1a2e)])))),
+      Positioned.fill(child:Container(decoration:const BoxDecoration(gradient:LinearGradient(begin:Alignment.topCenter,end:Alignment.bottomCenter,colors:[Color(0xFF0a0a10),Color(0xFF2D0A16)])))),
 
       // QR frame
       Positioned.fill(child:CustomPaint(painter:_QRFramePainter(_scanAnim))),
