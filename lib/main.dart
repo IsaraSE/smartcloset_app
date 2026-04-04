@@ -1423,7 +1423,7 @@ class _LoginState extends ConsumerState<LoginScreen> with TickerProviderStateMix
       // ── gradient hero background ──
       Container(width:double.infinity, height:h*.46, decoration:const BoxDecoration(
         gradient: LinearGradient(begin:Alignment.topLeft, end:Alignment.bottomRight,
-          colors:[Color(0xFF0f0c29), Color(0xFF302b63), Color(0xFF24243e)]),
+          colors:[Color(0xFF2D0A16), Color(0xFF6B1D2A), Color(0xFF4A1526)]),
       ), child:Stack(children:[
         // Diagonal lines pattern
         Positioned.fill(child:CustomPaint(painter:_DiagPainter())),
@@ -1434,9 +1434,9 @@ class _LoginState extends ConsumerState<LoginScreen> with TickerProviderStateMix
           Row(children:[
             Container(padding:const EdgeInsets.symmetric(horizontal:14,vertical:8),
               decoration:BoxDecoration(
-                gradient:const LinearGradient(colors:[Color(0xFFE94560), Color(0xFFFF6B6B)]),
+                gradient:const LinearGradient(colors:[Color(0xFFC8415B), Color(0xFFE06B7F)]),
                 borderRadius:BorderRadius.circular(10),
-                boxShadow:[BoxShadow(color:const Color(0xFFE94560).withOpacity(.4), blurRadius:12, offset:const Offset(0,4))],
+                boxShadow:[BoxShadow(color:const Color(0xFFC8415B).withOpacity(.4), blurRadius:12, offset:const Offset(0,4))],
               ),
               child:const Text('SS',style:TextStyle(color:C.white,fontSize:20,fontWeight:FontWeight.w900,letterSpacing:1)),
             ).animate().fadeIn(duration:500.ms).scale(begin:const Offset(.5,.5),end:const Offset(1,1),curve:Curves.elasticOut),
@@ -1451,7 +1451,7 @@ class _LoginState extends ConsumerState<LoginScreen> with TickerProviderStateMix
             .animate().fadeIn(delay:100.ms).slideX(begin:-.15,end:0,curve:Curves.easeOutCubic),
           const SizedBox(height:6),
           ShaderMask(
-            shaderCallback:(bounds) => const LinearGradient(colors:[Color(0xFFE94560), Color(0xFFFF6B6B), Color(0xFFFFC371)]).createShader(bounds),
+            shaderCallback:(bounds) => const LinearGradient(colors:[Color(0xFFC8415B), Color(0xFFE06B7F), Color(0xFFD4A0A8)]).createShader(bounds),
             child:Text('Dress Your World', style:GoogleFonts.poppins(fontSize:16,color:C.white,fontWeight:FontWeight.w500,letterSpacing:3)),
           ).animate().fadeIn(delay:250.ms).slideX(begin:-.15,end:0),
           const SizedBox(height:16),
@@ -1520,9 +1520,9 @@ class _LoginState extends ConsumerState<LoginScreen> with TickerProviderStateMix
           Container(
             width:double.infinity, height:54,
             decoration:BoxDecoration(
-              gradient:const LinearGradient(colors:[Color(0xFFE94560), Color(0xFFFF6B6B)]),
+              gradient:const LinearGradient(colors:[Color(0xFFC8415B), Color(0xFFE06B7F)]),
               borderRadius:BorderRadius.circular(14),
-              boxShadow:[BoxShadow(color:const Color(0xFFE94560).withOpacity(.35),blurRadius:16,offset:const Offset(0,6))],
+              boxShadow:[BoxShadow(color:const Color(0xFFC8415B).withOpacity(.35),blurRadius:16,offset:const Offset(0,6))],
             ),
             child:ElevatedButton(
               onPressed:_loading?null:_login,
@@ -1555,11 +1555,11 @@ class _LoginState extends ConsumerState<LoginScreen> with TickerProviderStateMix
 
   List<Widget> _buildFloatingCircles(double w, double h) {
     return [
-      _FloatingCircle(ctrl:_floatCtrl, left:w*0.1, top:h*0.08, size:70, color:const Color(0xFFE94560).withOpacity(.12), delay:0),
-      _FloatingCircle(ctrl:_floatCtrl, left:w*0.7, top:h*0.04, size:50, color:const Color(0xFF6C63FF).withOpacity(.10), delay:0.3),
-      _FloatingCircle(ctrl:_floatCtrl, left:w*0.5, top:h*0.18, size:35, color:const Color(0xFFFFC371).withOpacity(.12), delay:0.6),
+      _FloatingCircle(ctrl:_floatCtrl, left:w*0.1, top:h*0.08, size:70, color:const Color(0xFFC8415B).withOpacity(.12), delay:0),
+      _FloatingCircle(ctrl:_floatCtrl, left:w*0.7, top:h*0.04, size:50, color:const Color(0xFFD4A0A8).withOpacity(.12), delay:0.3),
+      _FloatingCircle(ctrl:_floatCtrl, left:w*0.5, top:h*0.18, size:35, color:const Color(0xFFE06B7F).withOpacity(.12), delay:0.6),
       _FloatingCircle(ctrl:_floatCtrl, left:w*0.85, top:h*0.15, size:25, color:Colors.white.withOpacity(.08), delay:0.2),
-      _FloatingCircle(ctrl:_floatCtrl, left:w*0.25, top:h*0.25, size:20, color:const Color(0xFFE94560).withOpacity(.08), delay:0.5),
+      _FloatingCircle(ctrl:_floatCtrl, left:w*0.25, top:h*0.25, size:20, color:const Color(0xFFC8415B).withOpacity(.08), delay:0.5),
     ];
   }
 }
@@ -1656,7 +1656,7 @@ class _RegState extends ConsumerState<RegisterScreen> {
     SliverToBoxAdapter(child:Padding(padding:const EdgeInsets.fromLTRB(28,0,28,40),child:Form(key:_fk,child:Column(crossAxisAlignment:CrossAxisAlignment.start,children:[
       Container(padding:const EdgeInsets.symmetric(horizontal:12,vertical:6),
         decoration:BoxDecoration(
-          gradient:const LinearGradient(colors:[Color(0xFFE94560), Color(0xFFFF6B6B)]),
+          gradient:const LinearGradient(colors:[Color(0xFFC8415B), Color(0xFFE06B7F)]),
           borderRadius:BorderRadius.circular(8)),
         child:const Text('StyleSphere',style:TextStyle(color:C.white,fontWeight:FontWeight.w700,fontSize:12,letterSpacing:1))),
       const SizedBox(height:16),
@@ -1747,7 +1747,7 @@ class HomeScreen extends ConsumerWidget {
             Text(user?.name ?? 'Guest', style:GoogleFonts.poppins(fontSize:14,color:C.g500)),
           ])),
           Container(width:44,height:44,
-            decoration:BoxDecoration(gradient:const LinearGradient(colors:[Color(0xFFE94560),Color(0xFFFF6B6B)]),shape:BoxShape.circle),
+            decoration:BoxDecoration(gradient:const LinearGradient(colors:[Color(0xFFC8415B),Color(0xFFE06B7F)]),shape:BoxShape.circle),
             child:Center(child:Text(user?.name.isNotEmpty==true?user!.name[0].toUpperCase():'?',style:GoogleFonts.poppins(fontSize:18,fontWeight:FontWeight.w700,color:C.white)))),
         ])),
         // — Search bar —
