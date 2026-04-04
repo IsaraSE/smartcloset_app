@@ -38,35 +38,47 @@ void main() {
 
 class C {
   C._();
-  static const primary      = Color(0xFF1A1A2E);
-  static const secondary    = Color(0xFFE94560);
-  static const accent       = Color(0xFFF5F5F5);
-  static const primaryLight = Color(0xFF16213E);
+  static const primary      = Color(0xFF2D0A16);
+  static const secondary    = Color(0xFFC8415B);
+  static const accent       = Color(0xFFF5E6EA);
+  static const primaryLight = Color(0xFF4A1526);
+  static const wine         = Color(0xFF6B1D2A);
+  static const roseGold     = Color(0xFFD4A0A8);
   static const white        = Color(0xFFFFFFFF);
   static const black        = Color(0xFF000000);
-  static const g100 = Color(0xFFF8F8F8);
-  static const g200 = Color(0xFFEEEEEE);
-  static const g300 = Color(0xFFE0E0E0);
-  static const g400 = Color(0xFFBDBDBD);
-  static const g500 = Color(0xFF9E9E9E);
-  static const g600 = Color(0xFF757575);
-  static const g700 = Color(0xFF616161);
-  static const g800 = Color(0xFF424242);
-  static const success  = Color(0xFF4CAF50);
-  static const warning  = Color(0xFFFFC107);
-  static const error    = Color(0xFFF44336);
+  static const g100 = Color(0xFFFAF7F8);
+  static const g200 = Color(0xFFF0EAEC);
+  static const g300 = Color(0xFFE0D6D9);
+  static const g400 = Color(0xFFBDB0B5);
+  static const g500 = Color(0xFF9E8F94);
+  static const g600 = Color(0xFF756A6E);
+  static const g700 = Color(0xFF5C5255);
+  static const g800 = Color(0xFF3D3436);
+  static const success  = Color(0xFF2E7D32);
+  static const warning  = Color(0xFFF9A825);
+  static const error    = Color(0xFFD32F2F);
   static const shadow   = Color(0x14000000);
-  static const divider  = Color(0xFFEEEEEE);
+  static const divider  = Color(0xFFF0EAEC);
 
   static const LinearGradient heroGrad = LinearGradient(
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
-    colors: [Colors.transparent, Color(0xDD1A1A2E)],
+    colors: [Colors.transparent, Color(0xDD2D0A16)],
   );
   static const LinearGradient primaryGrad = LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
     colors: [primary, primaryLight],
+  );
+  static const LinearGradient wineGrad = LinearGradient(
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+    colors: [Color(0xFF6B1D2A), Color(0xFF4A1526), Color(0xFF2D0A16)],
+  );
+  static const LinearGradient roseAccentGrad = LinearGradient(
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+    colors: [Color(0xFFC8415B), Color(0xFFE06B7F)],
   );
 }
 
