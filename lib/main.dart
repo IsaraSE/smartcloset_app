@@ -12,6 +12,7 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:camera/camera.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -27,7 +28,7 @@ void main() {
     statusBarColor: Colors.transparent,
     statusBarIconBrightness: Brightness.dark,
   ));
-  runApp(const ProviderScope(child: StyleSphereApp()));
+  runApp(const ProviderScope(child: AURAApp()));
 }
 
 // ╔══════════════════════════════════════════════════════════╗
@@ -37,16 +38,17 @@ void main() {
 class C {
   C._();
   // Primary palette — clean blue & white
-  static const primary      = Color(0xFF0F172A);   // Dark navy (main text)
-  static const blue         = Color(0xFF2563EB);   // Main blue accent
-  static const blueDark     = Color(0xFF1E3A8A);   // Dark blue (buy now btn)
-  static const blueLight    = Color(0xFFEFF6FF);   // Light blue surface
-  static const blueMid      = Color(0xFF3B82F6);   // Medium blue
-  static const secondary    = Color(0xFF2563EB);   // Alias for compat
-  static const red          = Color(0xFFEF4444);   // Sale badge
+  static const primary      = Color(0xFF000000);   // Pure Black
+  static const blue         = Color(0xFF000000);   // Was blue, now Black for pure monochrome
+  static const blueDark     = Color(0xFF111111);   // Almost black
+  static const blueLight    = Color(0xFFF9F9F9);   // Off-white
+  static const blueMid      = Color(0xFF333333);   // Dark gray
+  static const secondary    = Color(0xFF000000);   // Black
+  static const accent       = Color(0xFFC8AD7F);   // Champagne / Gold accent
+  static const red          = Color(0xFFD32F2F);   // Deep elegant red
   static const white        = Color(0xFFFFFFFF);
   static const black        = Color(0xFF000000);
-  static const bg           = Color(0xFFF8FAFC);   // App background
+  static const bg           = Color(0xFFFFFFFF);   // Pure white background
   static const cardBg       = Color(0xFFFFFFFF);   // Card background
   static const g50          = Color(0xFFF8FAFC);
   static const g100         = Color(0xFFF1F5F9);
@@ -80,7 +82,7 @@ class C {
 
 ThemeData _buildTheme() {
   TextStyle p(double sz, FontWeight w, Color col, {double ls = 0, double? h}) =>
-      GoogleFonts.poppins(fontSize: sz, fontWeight: w, color: col, letterSpacing: ls, height: h);
+      GoogleFonts.inter(fontSize: sz, fontWeight: w, color: col, letterSpacing: ls, height: h);
 
   return ThemeData(
     useMaterial3: true,
@@ -116,7 +118,7 @@ ThemeData _buildTheme() {
       backgroundColor: C.white, elevation: 0,
       scrolledUnderElevation: 0.5,
       iconTheme: const IconThemeData(color: C.primary),
-      titleTextStyle: GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w700, color: C.primary),
+      titleTextStyle: GoogleFonts.inter(fontSize: 18, fontWeight: FontWeight.w700, color: C.primary),
       systemOverlayStyle: SystemUiOverlayStyle.dark,
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
@@ -124,7 +126,7 @@ ThemeData _buildTheme() {
         backgroundColor: C.blue, foregroundColor: C.white, elevation: 0,
         padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 24),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        textStyle: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w600),
+        textStyle: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w600),
       ),
     ),
     outlinedButtonTheme: OutlinedButtonThemeData(
@@ -133,7 +135,7 @@ ThemeData _buildTheme() {
         side: const BorderSide(color: C.g300, width: 1.5),
         padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 24),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        textStyle: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w600),
+        textStyle: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w600),
       ),
     ),
     inputDecorationTheme: InputDecorationTheme(
@@ -143,8 +145,8 @@ ThemeData _buildTheme() {
       enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: const BorderSide(color: C.g200)),
       focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: const BorderSide(color: C.blue, width: 1.5)),
       errorBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(12), borderSide: const BorderSide(color: C.error)),
-      hintStyle: GoogleFonts.poppins(fontSize: 14, color: C.g400),
-      labelStyle: GoogleFonts.poppins(fontSize: 14, color: C.g500),
+      hintStyle: GoogleFonts.inter(fontSize: 14, color: C.g400),
+      labelStyle: GoogleFonts.inter(fontSize: 14, color: C.g500),
     ),
     cardTheme: CardThemeData(
       color: C.white, elevation: 0,
@@ -153,7 +155,7 @@ ThemeData _buildTheme() {
     ),
     snackBarTheme: SnackBarThemeData(
       backgroundColor: C.primary,
-      contentTextStyle: GoogleFonts.poppins(color: C.white, fontSize: 13),
+      contentTextStyle: GoogleFonts.inter(color: C.white, fontSize: 13),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       behavior: SnackBarBehavior.floating,
     ),
@@ -824,12 +826,12 @@ Page<dynamic> _slideUp(GoRouterState s, Widget c) => CustomTransitionPage(key:s.
 // ║                  7 · APP ROOT                           ║
 // ╚══════════════════════════════════════════════════════════╝
 
-class StyleSphereApp extends ConsumerWidget {
-  const StyleSphereApp({super.key});
+class AURAApp extends ConsumerWidget {
+  const AURAApp({super.key});
   @override Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(routerProvider);
     return MaterialApp.router(
-      title: 'StyleSphere',
+      title: 'AURA',
       debugShowCheckedModeBanner: false,
       theme: _buildTheme(),
       routerConfig: router,
@@ -889,7 +891,7 @@ class BuyBtn extends StatelessWidget {
         backgroundColor: C.blueDark,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
       ),
-      child: Text(text, style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w600, color: C.white)),
+      child: Text(text, style: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w600, color: C.white)),
     ),
   );
 }
@@ -911,7 +913,7 @@ class SecHeader extends StatelessWidget {
       if (onAll != null) TextButton(
         onPressed: onAll,
         style: TextButton.styleFrom(padding: EdgeInsets.zero, minimumSize: Size.zero, tapTargetSize: MaterialTapTargetSize.shrinkWrap),
-        child: Text('See All', style: GoogleFonts.poppins(fontSize: 13, color: C.blue, fontWeight: FontWeight.w600)),
+        child: Text('See All', style: GoogleFonts.inter(fontSize: 13, color: C.blue, fontWeight: FontWeight.w600)),
       ),
     ],
   );
@@ -924,8 +926,8 @@ class Stars extends StatelessWidget {
     Icon(Icons.star_rounded, color: Colors.amber, size: sz),
     const SizedBox(width: 2),
     Text(rating.toStringAsFixed(1),
-      style: GoogleFonts.poppins(fontSize: sz - 2, fontWeight: FontWeight.w600, color: C.g700)),
-    if (count > 0) Text(' ($count)', style: GoogleFonts.poppins(fontSize: sz - 2, color: C.g400)),
+      style: GoogleFonts.inter(fontSize: sz - 2, fontWeight: FontWeight.w600, color: C.g700)),
+    if (count > 0) Text(' ($count)', style: GoogleFonts.inter(fontSize: sz - 2, color: C.g400)),
   ]);
 }
 
@@ -1139,7 +1141,7 @@ class _OBState extends ConsumerState<OnboardingScreen> with TickerProviderStateM
                 decoration: BoxDecoration(color: C.blue, borderRadius: BorderRadius.circular(10)),
                 child: const Center(child: Text('S', style: TextStyle(color: C.white, fontSize: 18, fontWeight: FontWeight.w900)))),
               const SizedBox(width: 9),
-              Text('StyleSphere', style: GoogleFonts.poppins(color: C.white, fontWeight: FontWeight.w700, fontSize: 16)),
+              Text('AURA', style: GoogleFonts.inter(color: C.white, fontWeight: FontWeight.w700, fontSize: 16)),
             ]),
             // Skip
             GestureDetector(onTap: _skip, child: Container(
@@ -1149,7 +1151,7 @@ class _OBState extends ConsumerState<OnboardingScreen> with TickerProviderStateM
                 borderRadius: BorderRadius.circular(20),
                 border: Border.all(color: Colors.white.withOpacity(0.25)),
               ),
-              child: Text('Skip', style: GoogleFonts.poppins(color: C.white, fontSize: 13, fontWeight: FontWeight.w500)),
+              child: Text('Skip', style: GoogleFonts.inter(color: C.white, fontSize: 13, fontWeight: FontWeight.w500)),
             )),
           ],
         )),
@@ -1176,7 +1178,7 @@ class _OBState extends ConsumerState<OnboardingScreen> with TickerProviderStateM
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
               decoration: BoxDecoration(color: C.blue, borderRadius: BorderRadius.circular(20)),
-              child: Text(page.tag, style: GoogleFonts.poppins(color: C.white, fontSize: 12, fontWeight: FontWeight.w600)),
+              child: Text(page.tag, style: GoogleFonts.inter(color: C.white, fontSize: 12, fontWeight: FontWeight.w600)),
             ),
             const SizedBox(height: 14),
             // Title
@@ -1184,7 +1186,7 @@ class _OBState extends ConsumerState<OnboardingScreen> with TickerProviderStateM
               fontSize: 46, fontWeight: FontWeight.w800, color: C.white, height: 1.1)),
             const SizedBox(height: 12),
             // Subtitle
-            Text(page.subtitle, style: GoogleFonts.poppins(
+            Text(page.subtitle, style: GoogleFonts.inter(
               color: Colors.white.withOpacity(0.82), fontSize: 15, height: 1.55)),
             const SizedBox(height: 36),
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, crossAxisAlignment: CrossAxisAlignment.center, children: [
@@ -1270,13 +1272,13 @@ class _LoginState extends ConsumerState<LoginScreen> {
                 Container(width: 36, height: 36, decoration: BoxDecoration(color: C.white, borderRadius: BorderRadius.circular(10)),
                   child: const Center(child: Text('S', style: TextStyle(color: C.blue, fontSize: 20, fontWeight: FontWeight.w900)))),
                 const SizedBox(width: 10),
-                Text('StyleSphere', style: GoogleFonts.poppins(color: C.white, fontWeight: FontWeight.w700, fontSize: 18)),
+                Text('AURA', style: GoogleFonts.inter(color: C.white, fontWeight: FontWeight.w700, fontSize: 18)),
               ]).animate().fadeIn(duration: 500.ms),
               const SizedBox(height: 8),
               Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
                 decoration: BoxDecoration(color: Colors.white.withOpacity(0.15), borderRadius: BorderRadius.circular(20),
                   border: Border.all(color: Colors.white.withOpacity(0.3))),
-                child: Text('Premium Fashion', style: GoogleFonts.poppins(color: C.white, fontSize: 12, fontWeight: FontWeight.w500)),
+                child: Text('Premium Fashion', style: GoogleFonts.inter(color: C.white, fontSize: 12, fontWeight: FontWeight.w500)),
               ).animate().fadeIn(delay: 200.ms),
             ],
           )),
@@ -1293,14 +1295,14 @@ class _LoginState extends ConsumerState<LoginScreen> {
         child: SingleChildScrollView(
           padding: const EdgeInsets.fromLTRB(24, 28, 24, 32),
           child: Form(key: _fk, child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Text('Welcome Back 👋', style: GoogleFonts.poppins(fontSize: 24, fontWeight: FontWeight.w700, color: C.primary)),
+            Text('Welcome Back 👋', style: GoogleFonts.inter(fontSize: 24, fontWeight: FontWeight.w700, color: C.primary)),
             const SizedBox(height: 4),
-            Text('Sign in to continue shopping', style: GoogleFonts.poppins(fontSize: 14, color: C.g500)),
+            Text('Sign in to continue shopping', style: GoogleFonts.inter(fontSize: 14, color: C.g500)),
             const SizedBox(height: 28),
 
             // Email field
             TextFormField(controller: _ec, keyboardType: TextInputType.emailAddress, textInputAction: TextInputAction.next,
-              style: GoogleFonts.poppins(fontSize: 14, color: C.primary),
+              style: GoogleFonts.inter(fontSize: 14, color: C.primary),
               decoration: InputDecoration(
                 labelText: 'Email address',
                 prefixIcon: const Icon(Icons.email_outlined, size: 20, color: C.g400),
@@ -1315,7 +1317,7 @@ class _LoginState extends ConsumerState<LoginScreen> {
 
             // Password field
             TextFormField(controller: _pc, obscureText: _hide, textInputAction: TextInputAction.done, onFieldSubmitted: (_) => _login(),
-              style: GoogleFonts.poppins(fontSize: 14, color: C.primary),
+              style: GoogleFonts.inter(fontSize: 14, color: C.primary),
               decoration: InputDecoration(
                 labelText: 'Password',
                 prefixIcon: const Icon(Icons.lock_outline, size: 20, color: C.g400),
@@ -1331,7 +1333,7 @@ class _LoginState extends ConsumerState<LoginScreen> {
             Align(alignment: Alignment.centerRight, child: TextButton(
               onPressed: () {},
               style: TextButton.styleFrom(foregroundColor: C.blue, padding: const EdgeInsets.symmetric(vertical: 8)),
-              child: Text('Forgot Password?', style: GoogleFonts.poppins(fontSize: 13, fontWeight: FontWeight.w500)),
+              child: Text('Forgot Password?', style: GoogleFonts.inter(fontSize: 13, fontWeight: FontWeight.w500)),
             )),
 
             // Sign In button
@@ -1344,14 +1346,14 @@ class _LoginState extends ConsumerState<LoginScreen> {
               ),
               child: _loading
                 ? const SizedBox(width: 22, height: 22, child: CircularProgressIndicator(strokeWidth: 2.5, color: C.white))
-                : Text('Sign In', style: GoogleFonts.poppins(fontSize: 15, fontWeight: FontWeight.w600, color: C.white)),
+                : Text('Sign In', style: GoogleFonts.inter(fontSize: 15, fontWeight: FontWeight.w600, color: C.white)),
             )).animate().fadeIn(delay: 350.ms),
 
             const SizedBox(height: 20),
             Row(children: [
               Expanded(child: Container(height: 1, color: C.g200)),
               Padding(padding: const EdgeInsets.symmetric(horizontal: 14),
-                child: Text('or', style: GoogleFonts.poppins(fontSize: 13, color: C.g400))),
+                child: Text('or', style: GoogleFonts.inter(fontSize: 13, color: C.g400))),
               Expanded(child: Container(height: 1, color: C.g200)),
             ]),
             const SizedBox(height: 20),
@@ -1370,17 +1372,17 @@ class _LoginState extends ConsumerState<LoginScreen> {
                   shape: BoxShape.circle),
                   child: const Center(child: Text('G', style: TextStyle(color: C.white, fontWeight: FontWeight.w800, fontSize: 12)))),
                 const SizedBox(width: 10),
-                Text('Continue with Google', style: GoogleFonts.poppins(color: C.primary, fontWeight: FontWeight.w500, fontSize: 14)),
+                Text('Continue with Google', style: GoogleFonts.inter(color: C.primary, fontWeight: FontWeight.w500, fontSize: 14)),
               ]),
             )).animate().fadeIn(delay: 400.ms),
 
             const SizedBox(height: 28),
             Center(child: RichText(text: TextSpan(
               text: "Don't have an account? ",
-              style: GoogleFonts.poppins(fontSize: 14, color: C.g500),
+              style: GoogleFonts.inter(fontSize: 14, color: C.g500),
               children: [WidgetSpan(child: GestureDetector(
                 onTap: () => ctx.push('/register'),
-                child: Text('Sign Up', style: GoogleFonts.poppins(fontSize: 14, color: C.blue, fontWeight: FontWeight.w700)),
+                child: Text('Sign Up', style: GoogleFonts.inter(fontSize: 14, color: C.blue, fontWeight: FontWeight.w700)),
               ))],
             ))),
           ])),
@@ -1420,13 +1422,13 @@ class _RegState extends ConsumerState<RegisterScreen> {
     SliverToBoxAdapter(child: Padding(padding: const EdgeInsets.fromLTRB(24, 0, 24, 40), child: Form(key: _fk, child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
         decoration: BoxDecoration(color: C.blueLight, borderRadius: BorderRadius.circular(8)),
-        child: Text('StyleSphere', style: GoogleFonts.poppins(color: C.blue, fontWeight: FontWeight.w600, fontSize: 12))),
+        child: Text('AURA', style: GoogleFonts.inter(color: C.blue, fontWeight: FontWeight.w600, fontSize: 12))),
       const SizedBox(height: 14),
-      Text('Create Account', style: GoogleFonts.poppins(fontSize: 28, fontWeight: FontWeight.w800, color: C.primary, height: 1.1))
+      Text('Create Account', style: GoogleFonts.inter(fontSize: 28, fontWeight: FontWeight.w800, color: C.primary, height: 1.1))
         .animate().fadeIn().slideX(begin: -0.2, end: 0),
       const SizedBox(height: 6),
-      Text('Join StyleSphere and explore your style ✨',
-        style: GoogleFonts.poppins(fontSize: 14, color: C.g500))
+      Text('Join AURA and explore your style ✨',
+        style: GoogleFonts.inter(fontSize: 14, color: C.g500))
         .animate().fadeIn(delay: 100.ms),
       const SizedBox(height: 28),
 
@@ -1453,7 +1455,7 @@ class _RegState extends ConsumerState<RegisterScreen> {
       const SizedBox(height: 16),
       Row(children: [Checkbox(value: _agreed, onChanged: (v) => setState(() => _agreed = v ?? false)),
         Expanded(child: RichText(text: TextSpan(text: 'I agree to the ',
-          style: GoogleFonts.poppins(fontSize: 13, color: C.g600),
+          style: GoogleFonts.inter(fontSize: 13, color: C.g600),
           children: [const TextSpan(text: 'Terms of Service', style: TextStyle(color: C.blue, fontWeight: FontWeight.w600)),
             const TextSpan(text: ' & '),
             const TextSpan(text: 'Privacy Policy', style: TextStyle(color: C.blue, fontWeight: FontWeight.w600))])))]),
@@ -1461,9 +1463,9 @@ class _RegState extends ConsumerState<RegisterScreen> {
       Btn(text: 'Create Account', loading: _load, onPressed: _reg).animate().fadeIn(delay: 450.ms),
       const SizedBox(height: 22),
       Center(child: RichText(text: TextSpan(text: 'Already have an account? ',
-        style: GoogleFonts.poppins(fontSize: 14, color: C.g500),
+        style: GoogleFonts.inter(fontSize: 14, color: C.g500),
         children: [WidgetSpan(child: GestureDetector(onTap: () => ctx.pop(),
-          child: Text('Sign In', style: GoogleFonts.poppins(fontSize: 14, color: C.blue, fontWeight: FontWeight.w700))))]))),
+          child: Text('Sign In', style: GoogleFonts.inter(fontSize: 14, color: C.blue, fontWeight: FontWeight.w700))))]))),
     ])))),
   ]));
 }
@@ -1489,7 +1491,7 @@ class HomeScreen extends ConsumerWidget {
             decoration: BoxDecoration(color: C.blue, borderRadius: BorderRadius.circular(9)),
             child: const Center(child: Text('S', style: TextStyle(color: C.white, fontSize: 18, fontWeight: FontWeight.w900)))),
           const SizedBox(width: 9),
-          Text('StyleSphere', style: GoogleFonts.poppins(fontSize: 17, fontWeight: FontWeight.w700, color: C.primary)),
+          Text('AURA', style: GoogleFonts.inter(fontSize: 17, fontWeight: FontWeight.w700, color: C.primary)),
         ]),
         actions: [
           IconButton(icon: const Icon(Icons.qr_code_scanner_rounded, color: C.g700), onPressed: () => ctx.push('/qr-scanner'), tooltip: 'Rack Scanner'),
@@ -1512,9 +1514,9 @@ class HomeScreen extends ConsumerWidget {
               child: const Icon(Icons.location_on_outlined, color: C.blue, size: 16)),
             const SizedBox(width: 10),
             Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text('Send to', style: GoogleFonts.poppins(fontSize: 10, color: C.g400, fontWeight: FontWeight.w500)),
+              Text('Send to', style: GoogleFonts.inter(fontSize: 10, color: C.g400, fontWeight: FontWeight.w500)),
               Text(user?.defaultAddress?.short ?? 'Set delivery address',
-                style: GoogleFonts.poppins(fontSize: 12, color: C.primary, fontWeight: FontWeight.w600)),
+                style: GoogleFonts.inter(fontSize: 12, color: C.primary, fontWeight: FontWeight.w600)),
             ])),
             TextButton(
               onPressed: () {},
@@ -1522,7 +1524,7 @@ class HomeScreen extends ConsumerWidget {
                 backgroundColor: C.blue, foregroundColor: C.white, padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 6),
                 minimumSize: Size.zero, tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-                textStyle: GoogleFonts.poppins(fontSize: 12, fontWeight: FontWeight.w600),
+                textStyle: GoogleFonts.inter(fontSize: 12, fontWeight: FontWeight.w600),
               ),
               child: const Text('Change'),
             ),
@@ -1549,7 +1551,7 @@ class HomeScreen extends ConsumerWidget {
               child: Column(children: [
                 Text(cat.emoji, style: const TextStyle(fontSize: 24)),
                 const SizedBox(height: 4),
-                Text(cat.name, style: GoogleFonts.poppins(fontSize: 11, fontWeight: FontWeight.w600, color: cat.color)),
+                Text(cat.name, style: GoogleFonts.inter(fontSize: 11, fontWeight: FontWeight.w600, color: cat.color)),
               ]),
             ),
           ))).toList()),
@@ -1574,9 +1576,9 @@ class HomeScreen extends ConsumerWidget {
                 ),
                 child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
                   Container(width: 34, height: 34, decoration: const BoxDecoration(color: C.g50, shape: BoxShape.circle),
-                    child: Center(child: Text(b.name[0], style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.w800, color: C.primary)))),
+                    child: Center(child: Text(b.name[0], style: GoogleFonts.inter(fontSize: 16, fontWeight: FontWeight.w800, color: C.primary)))),
                   const SizedBox(height: 4),
-                  Text(b.name, style: GoogleFonts.poppins(fontSize: 9, fontWeight: FontWeight.w600, color: C.g600), overflow: TextOverflow.ellipsis),
+                  Text(b.name, style: GoogleFonts.inter(fontSize: 9, fontWeight: FontWeight.w600, color: C.g600), overflow: TextOverflow.ellipsis),
                 ]),
               );
             },
@@ -1654,15 +1656,15 @@ class _BSState extends State<_BannerSlider> {
                 children: [
                   Container(padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
                     decoration: BoxDecoration(color: Colors.white.withOpacity(0.2), borderRadius: BorderRadius.circular(4)),
-                    child: Text(b.tag, style: GoogleFonts.poppins(color: C.white, fontSize: 9, fontWeight: FontWeight.w700, letterSpacing: 1))),
+                    child: Text(b.tag, style: GoogleFonts.inter(color: C.white, fontSize: 9, fontWeight: FontWeight.w700, letterSpacing: 1))),
                   const SizedBox(height: 6),
-                  Text(b.title, style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w800, color: C.white, height: 1.2)),
+                  Text(b.title, style: GoogleFonts.inter(fontSize: 20, fontWeight: FontWeight.w800, color: C.white, height: 1.2)),
                   const SizedBox(height: 4),
-                  Text(b.subtitle, style: GoogleFonts.poppins(fontSize: 12, color: Colors.white.withOpacity(0.85))),
+                  Text(b.subtitle, style: GoogleFonts.inter(fontSize: 12, color: Colors.white.withOpacity(0.85))),
                   const SizedBox(height: 12),
                   Container(padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
                     decoration: BoxDecoration(color: C.white, borderRadius: BorderRadius.circular(20)),
-                    child: Text(b.actionLabel, style: GoogleFonts.poppins(fontSize: 12, fontWeight: FontWeight.w700, color: C.blue))),
+                    child: Text(b.actionLabel, style: GoogleFonts.inter(fontSize: 12, fontWeight: FontWeight.w700, color: C.blue))),
                 ],
               )),
             ]),
@@ -1720,26 +1722,26 @@ class _ProdCard extends ConsumerWidget {
             // Brand + rating row
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
               Expanded(child: Text(p.brand,
-                style: GoogleFonts.poppins(fontSize: 10, fontWeight: FontWeight.w500, color: C.g500),
+                style: GoogleFonts.inter(fontSize: 10, fontWeight: FontWeight.w500, color: C.g500),
                 overflow: TextOverflow.ellipsis)),
               Row(mainAxisSize: MainAxisSize.min, children: [
                 const Icon(Icons.star_rounded, color: Colors.amber, size: 11),
                 const SizedBox(width: 2),
-                Text(p.rating.toStringAsFixed(1), style: GoogleFonts.poppins(fontSize: 10, fontWeight: FontWeight.w600, color: C.g700)),
+                Text(p.rating.toStringAsFixed(1), style: GoogleFonts.inter(fontSize: 10, fontWeight: FontWeight.w600, color: C.g700)),
               ]),
             ]),
             const SizedBox(height: 2),
             Text(p.name,
-              style: GoogleFonts.poppins(fontSize: 12, fontWeight: FontWeight.w600, color: C.primary),
+              style: GoogleFonts.inter(fontSize: 12, fontWeight: FontWeight.w600, color: C.primary),
               maxLines: 1, overflow: TextOverflow.ellipsis),
             const Spacer(),
             // Price
             Row(children: [
               Text('\$${p.price.toStringAsFixed(2)}',
-                style: GoogleFonts.poppins(fontSize: 13, fontWeight: FontWeight.w700, color: C.primary)),
+                style: GoogleFonts.inter(fontSize: 13, fontWeight: FontWeight.w700, color: C.primary)),
               if (p.hasDiscount) ...[const SizedBox(width: 5),
                 Text('\$${p.originalPrice!.toStringAsFixed(2)}',
-                  style: GoogleFonts.poppins(fontSize: 10, color: C.g400, decoration: TextDecoration.lineThrough))],
+                  style: GoogleFonts.inter(fontSize: 10, color: C.g400, decoration: TextDecoration.lineThrough))],
             ]),
           ]))),
         ]),
@@ -1774,10 +1776,10 @@ class _ExploreState extends ConsumerState<ExploreScreen> {
             decoration: BoxDecoration(color: C.g50, borderRadius: BorderRadius.circular(12), border: Border.all(color: C.g200)),
             child: TextField(controller: _sc,
               onChanged: (q) => ref.read(filterProvider.notifier).update((s) => s.copyWith(search: q.isEmpty ? null : q)),
-              style: GoogleFonts.poppins(fontSize: 14, color: C.primary),
+              style: GoogleFonts.inter(fontSize: 14, color: C.primary),
               decoration: InputDecoration(
                 hintText: 'Search brands, clothes...',
-                hintStyle: GoogleFonts.poppins(fontSize: 14, color: C.g400),
+                hintStyle: GoogleFonts.inter(fontSize: 14, color: C.g400),
                 prefixIcon: const Icon(Icons.search_rounded, color: C.g400, size: 20),
                 border: InputBorder.none, enabledBorder: InputBorder.none, focusedBorder: InputBorder.none,
                 filled: false, contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 13),
@@ -1815,7 +1817,7 @@ class _ExploreState extends ConsumerState<ExploreScreen> {
       )),
 
       SliverToBoxAdapter(child: Padding(padding: const EdgeInsets.fromLTRB(16, 12, 16, 6),
-        child: Text('${products.length} items found', style: GoogleFonts.poppins(fontSize: 12, color: C.g500)))),
+        child: Text('${products.length} items found', style: GoogleFonts.inter(fontSize: 12, color: C.g500)))),
 
       products.isEmpty
         ? SliverFillRemaining(child: EmptyView(icon: Icons.search_off_rounded, title: 'No results found',
@@ -1847,7 +1849,7 @@ class _CatChip extends StatelessWidget {
       border: Border.all(color: selected ? C.blue : C.g200),
       boxShadow: selected ? [BoxShadow(color: C.blue.withOpacity(0.25), blurRadius: 8, offset: const Offset(0, 3))] : [],
     ),
-    child: Text(label, style: GoogleFonts.poppins(fontSize: 13, fontWeight: FontWeight.w500, color: selected ? C.white : C.g700))));
+    child: Text(label, style: GoogleFonts.inter(fontSize: 13, fontWeight: FontWeight.w500, color: selected ? C.white : C.g700))));
 }
 
 class _FilterSheet extends ConsumerStatefulWidget {
@@ -1968,7 +1970,7 @@ class _PDState extends ConsumerState<ProductDetailScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
                 decoration: BoxDecoration(color: Colors.black.withOpacity(0.35), borderRadius: BorderRadius.circular(20)),
                 child: Text('${_imgIdx + 1}/${p.images.length}',
-                  style: GoogleFonts.poppins(color: C.white, fontSize: 12, fontWeight: FontWeight.w600)),
+                  style: GoogleFonts.inter(color: C.white, fontSize: 12, fontWeight: FontWeight.w600)),
               ))),
             ]),
           ),
@@ -1983,37 +1985,37 @@ class _PDState extends ConsumerState<ProductDetailScreen> {
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
               Row(children: [
                 Container(width: 22, height: 22, decoration: BoxDecoration(color: C.g100, shape: BoxShape.circle),
-                  child: Center(child: Text(p.brand[0], style: GoogleFonts.poppins(fontSize: 11, fontWeight: FontWeight.w700, color: C.primary)))),
+                  child: Center(child: Text(p.brand[0], style: GoogleFonts.inter(fontSize: 11, fontWeight: FontWeight.w700, color: C.primary)))),
                 const SizedBox(width: 6),
-                Text(p.brand, style: GoogleFonts.poppins(fontSize: 13, fontWeight: FontWeight.w600, color: C.g700)),
+                Text(p.brand, style: GoogleFonts.inter(fontSize: 13, fontWeight: FontWeight.w600, color: C.g700)),
               ]),
               Stars(rating: p.rating, sz: 14),
             ]),
             const SizedBox(height: 8),
 
             // Product name
-            Text(p.name, style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.w700, color: C.primary, height: 1.2)),
+            Text(p.name, style: GoogleFonts.inter(fontSize: 20, fontWeight: FontWeight.w700, color: C.primary, height: 1.2)),
             const SizedBox(height: 10),
 
             // Price + discount + sold count
             Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
               Text('\$${p.price.toStringAsFixed(2)}',
-                style: GoogleFonts.poppins(fontSize: 22, fontWeight: FontWeight.w700, color: C.primary)),
+                style: GoogleFonts.inter(fontSize: 22, fontWeight: FontWeight.w700, color: C.primary)),
               if (p.hasDiscount) ...[const SizedBox(width: 8),
                 Text('\$${p.originalPrice!.toStringAsFixed(2)}',
-                  style: GoogleFonts.poppins(fontSize: 14, color: C.g400, decoration: TextDecoration.lineThrough)),
+                  style: GoogleFonts.inter(fontSize: 14, color: C.g400, decoration: TextDecoration.lineThrough)),
                 const SizedBox(width: 8),
                 SaleBadge(pct: p.discount)],
               const Spacer(),
               if (p.soldCount > 0) Text('${p.soldCount}+ Sold',
-                style: GoogleFonts.poppins(fontSize: 12, color: C.g500, fontWeight: FontWeight.w500)),
+                style: GoogleFonts.inter(fontSize: 12, color: C.g500, fontWeight: FontWeight.w500)),
             ]),
             const SizedBox(height: 20),
             const Divider(),
             const SizedBox(height: 16),
 
             // Size selector
-            Text('Size:', style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w600, color: C.primary)),
+            Text('Size:', style: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w600, color: C.primary)),
             const SizedBox(height: 10),
             Wrap(spacing: 10, runSpacing: 10, children: p.sizes.map((s) => GestureDetector(
               onTap: () => setState(() => _selSize = s),
@@ -2025,13 +2027,13 @@ class _PDState extends ConsumerState<ProductDetailScreen> {
                   border: Border.all(color: _selSize == s ? C.blue : C.g200, width: _selSize == s ? 2 : 1),
                   boxShadow: _selSize == s ? [BoxShadow(color: C.blue.withOpacity(0.3), blurRadius: 8)] : [],
                 ),
-                child: Center(child: Text(s, style: GoogleFonts.poppins(fontSize: 12, fontWeight: FontWeight.w600,
+                child: Center(child: Text(s, style: GoogleFonts.inter(fontSize: 12, fontWeight: FontWeight.w600,
                   color: _selSize == s ? C.white : C.g700)))),
             )).toList()),
             const SizedBox(height: 18),
 
             // Color selector
-            Text('Color', style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w600, color: C.primary)),
+            Text('Color', style: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w600, color: C.primary)),
             const SizedBox(height: 10),
             Wrap(spacing: 12, runSpacing: 10, children: p.colors.map((c) {
               final col = _colorMap[c] ?? C.g300;
@@ -2053,20 +2055,20 @@ class _PDState extends ConsumerState<ProductDetailScreen> {
             const SizedBox(height: 16),
 
             // Description
-            Text('Description', style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w600, color: C.primary)),
+            Text('Description', style: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w600, color: C.primary)),
             const SizedBox(height: 8),
-            Text(p.description, style: GoogleFonts.poppins(fontSize: 14, color: C.g600, height: 1.65)),
+            Text(p.description, style: GoogleFonts.inter(fontSize: 14, color: C.g600, height: 1.65)),
             const SizedBox(height: 20),
 
             // Product details
             if (p.details.isNotEmpty) ...[
-              Text('Product Details', style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w600, color: C.primary)),
+              Text('Product Details', style: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w600, color: C.primary)),
               const SizedBox(height: 12),
               Container(padding: const EdgeInsets.all(14), decoration: BoxDecoration(color: C.g50, borderRadius: BorderRadius.circular(12)),
                 child: Column(children: p.details.entries.map((e) => Padding(padding: const EdgeInsets.only(bottom: 8),
                   child: Row(children: [
-                    SizedBox(width: 90, child: Text(e.key, style: GoogleFonts.poppins(fontSize: 12, fontWeight: FontWeight.w600, color: C.g500))),
-                    Expanded(child: Text(e.value, style: GoogleFonts.poppins(fontSize: 12, color: C.primary))),
+                    SizedBox(width: 90, child: Text(e.key, style: GoogleFonts.inter(fontSize: 12, fontWeight: FontWeight.w600, color: C.g500))),
+                    Expanded(child: Text(e.value, style: GoogleFonts.inter(fontSize: 12, color: C.primary))),
                   ]))).toList())),
               const SizedBox(height: 20),
             ],
@@ -2082,8 +2084,8 @@ class _PDState extends ConsumerState<ProductDetailScreen> {
                   child: const Icon(Icons.camera_alt_rounded, color: C.white, size: 22)),
                 const SizedBox(width: 12),
                 Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                  Text('Virtual Try-On', style: GoogleFonts.poppins(fontWeight: FontWeight.w700, color: C.blueDark, fontSize: 14)),
-                  Text('See how it looks on you', style: GoogleFonts.poppins(color: C.blue, fontSize: 12)),
+                  Text('Virtual Try-On', style: GoogleFonts.inter(fontWeight: FontWeight.w700, color: C.blueDark, fontSize: 14)),
+                  Text('See how it looks on you', style: GoogleFonts.inter(color: C.blue, fontSize: 12)),
                 ])),
                 ElevatedButton(
                   onPressed: () => ctx.push('/try-on', extra: p),
@@ -2092,7 +2094,7 @@ class _PDState extends ConsumerState<ProductDetailScreen> {
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                     elevation: 0,
                   ),
-                  child: Text('Try It', style: GoogleFonts.poppins(fontWeight: FontWeight.w600, fontSize: 12, color: C.white)),
+                  child: Text('Try It', style: GoogleFonts.inter(fontWeight: FontWeight.w600, fontSize: 12, color: C.white)),
                 ),
               ]),
             ),
@@ -2119,7 +2121,7 @@ class _PDState extends ConsumerState<ProductDetailScreen> {
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
               side: const BorderSide(color: C.g300, width: 1.5),
             ),
-            child: Text('Add to cart', style: GoogleFonts.poppins(fontSize: 13, fontWeight: FontWeight.w600, color: C.primary)),
+            child: Text('Add to cart', style: GoogleFonts.inter(fontSize: 13, fontWeight: FontWeight.w600, color: C.primary)),
           ))),
           const SizedBox(width: 12),
           // Buy now button
@@ -2134,7 +2136,7 @@ class _PDState extends ConsumerState<ProductDetailScreen> {
               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
               elevation: 0,
             ),
-            child: Text('Buy now', style: GoogleFonts.poppins(fontSize: 13, fontWeight: FontWeight.w600, color: C.white)),
+            child: Text('Buy now', style: GoogleFonts.inter(fontSize: 13, fontWeight: FontWeight.w600, color: C.white)),
           ))),
         ])),
       )),
@@ -2186,8 +2188,8 @@ class _CartState extends ConsumerState<CartScreen> {
           child: Column(children: [
             Row(children: [
               Expanded(child: TextField(controller: _promoCtrl,
-                style: GoogleFonts.poppins(fontSize: 14),
-                decoration: InputDecoration(hintText: 'Promo code', hintStyle: GoogleFonts.poppins(color: C.g400, fontSize: 14),
+                style: GoogleFonts.inter(fontSize: 14),
+                decoration: InputDecoration(hintText: 'Promo code', hintStyle: GoogleFonts.inter(color: C.g400, fontSize: 14),
                   contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
                   border: OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: const BorderSide(color: C.g200)),
                   enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(10), borderSide: const BorderSide(color: C.g200)),
@@ -2216,8 +2218,8 @@ class _CartState extends ConsumerState<CartScreen> {
 Widget _SumRow(String label, String val, {Color? valueColor, bool bold = false}) => Padding(
   padding: const EdgeInsets.symmetric(vertical: 5),
   child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-    Text(label, style: GoogleFonts.poppins(fontSize: 14, color: C.g600, fontWeight: bold ? FontWeight.w600 : FontWeight.w400)),
-    Text(val, style: GoogleFonts.poppins(fontSize: 14, fontWeight: bold ? FontWeight.w700 : FontWeight.w500, color: valueColor ?? C.primary)),
+    Text(label, style: GoogleFonts.inter(fontSize: 14, color: C.g600, fontWeight: bold ? FontWeight.w600 : FontWeight.w400)),
+    Text(val, style: GoogleFonts.inter(fontSize: 14, fontWeight: bold ? FontWeight.w700 : FontWeight.w500, color: valueColor ?? C.primary)),
   ]),
 );
 
@@ -2234,11 +2236,11 @@ class _CartTile extends StatelessWidget {
           child: Img(item.product.images.first, w: 80, h: 90, fit: BoxFit.contain))),
       const SizedBox(width: 12),
       Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Text(item.product.name, style: GoogleFonts.poppins(fontSize: 13, fontWeight: FontWeight.w600, color: C.primary), maxLines: 2, overflow: TextOverflow.ellipsis),
+        Text(item.product.name, style: GoogleFonts.inter(fontSize: 13, fontWeight: FontWeight.w600, color: C.primary), maxLines: 2, overflow: TextOverflow.ellipsis),
         const SizedBox(height: 3),
-        Text('${item.selectedSize} · ${item.selectedColor}', style: GoogleFonts.poppins(fontSize: 11, color: C.g400)),
+        Text('${item.selectedSize} · ${item.selectedColor}', style: GoogleFonts.inter(fontSize: 11, color: C.g400)),
         const SizedBox(height: 6),
-        Text('\$${item.product.price.toStringAsFixed(2)}', style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w700, color: C.primary)),
+        Text('\$${item.product.price.toStringAsFixed(2)}', style: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w700, color: C.primary)),
       ])),
       Column(children: [
         IconButton(icon: const Icon(Icons.delete_outline_rounded, color: C.g300, size: 20), onPressed: onRemove, padding: EdgeInsets.zero, constraints: const BoxConstraints()),
@@ -2246,7 +2248,7 @@ class _CartTile extends StatelessWidget {
         Row(children: [
           _QBtn(Icons.remove, () => onQtyChange(item.quantity - 1)),
           SizedBox(width: 32, child: Text('${item.quantity}', textAlign: TextAlign.center,
-            style: GoogleFonts.poppins(fontWeight: FontWeight.w700, fontSize: 14))),
+            style: GoogleFonts.inter(fontWeight: FontWeight.w700, fontSize: 14))),
           _QBtn(Icons.add, () => onQtyChange(item.quantity + 1)),
         ]),
       ]),
@@ -2317,7 +2319,7 @@ class _COState extends ConsumerState<CheckoutScreen> {
                 ? const Icon(Icons.check, color: C.white, size: 16)
                 : Text('${e.key+1}', style: TextStyle(color: _step >= e.key ? C.white : C.g500, fontSize: 12, fontWeight: FontWeight.w700)))),
             const SizedBox(height: 4),
-            Text(e.value, style: GoogleFonts.poppins(fontSize: 10, color: _step >= e.key ? C.blue : C.g400, fontWeight: FontWeight.w500)),
+            Text(e.value, style: GoogleFonts.inter(fontSize: 10, color: _step >= e.key ? C.blue : C.g400, fontWeight: FontWeight.w500)),
           ])),
           if (e.key < 2) Expanded(child: Container(height: 2, color: _step > e.key ? C.blue : C.g200)),
         ]))).toList()),
@@ -2477,10 +2479,10 @@ class _OrderCard extends StatelessWidget {
     decoration: BoxDecoration(color: C.white, borderRadius: BorderRadius.circular(16), boxShadow: [BoxShadow(color: C.shadowMd, blurRadius: 8, offset: const Offset(0, 3))]),
     child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        Text(o.orderNumber, style: GoogleFonts.poppins(fontWeight: FontWeight.w700, fontSize: 14, color: C.primary)),
+        Text(o.orderNumber, style: GoogleFonts.inter(fontWeight: FontWeight.w700, fontSize: 14, color: C.primary)),
         Container(padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
           decoration: BoxDecoration(color: o.status.color.withOpacity(0.1), borderRadius: BorderRadius.circular(20)),
-          child: Text(o.status.label, style: GoogleFonts.poppins(fontSize: 11, fontWeight: FontWeight.w600, color: o.status.color))),
+          child: Text(o.status.label, style: GoogleFonts.inter(fontSize: 11, fontWeight: FontWeight.w600, color: o.status.color))),
       ]),
       const SizedBox(height: 6),
       Text('${o.createdAt.day}/${o.createdAt.month}/${o.createdAt.year}', style: Theme.of(ctx).textTheme.bodySmall?.copyWith(color: C.g500)),
@@ -2497,14 +2499,14 @@ class _OrderCard extends StatelessWidget {
         const SizedBox(height: 5),
         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: ['Placed', 'Processing', 'Shipped', 'Delivered']
-            .map((s) => Text(s, style: GoogleFonts.poppins(fontSize: 9, color: C.g400))).toList()),
+            .map((s) => Text(s, style: GoogleFonts.inter(fontSize: 9, color: C.g400))).toList()),
         const SizedBox(height: 12),
       ],
       const Divider(),
       const SizedBox(height: 8),
       Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
         Text('Total', style: Theme.of(ctx).textTheme.bodyMedium?.copyWith(color: C.g600)),
-        Text('\$${o.total.toStringAsFixed(2)}', style: GoogleFonts.poppins(fontWeight: FontWeight.w700, fontSize: 15, color: C.primary)),
+        Text('\$${o.total.toStringAsFixed(2)}', style: GoogleFonts.inter(fontWeight: FontWeight.w700, fontSize: 15, color: C.primary)),
       ]),
     ]),
   );
@@ -2529,11 +2531,11 @@ class ProfileScreen extends ConsumerWidget {
           child: Row(children: [
             CircleAvatar(radius: 32, backgroundColor: Colors.white.withOpacity(0.2),
               child: Text(user?.name.isNotEmpty == true ? user!.name[0].toUpperCase() : '?',
-                style: GoogleFonts.poppins(fontSize: 24, fontWeight: FontWeight.w700, color: C.white))),
+                style: GoogleFonts.inter(fontSize: 24, fontWeight: FontWeight.w700, color: C.white))),
             const SizedBox(width: 16),
             Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text(user?.name ?? 'Guest', style: GoogleFonts.poppins(fontWeight: FontWeight.w700, fontSize: 17, color: C.white)),
-              Text(user?.email ?? '', style: GoogleFonts.poppins(fontSize: 12, color: Colors.white.withOpacity(0.75))),
+              Text(user?.name ?? 'Guest', style: GoogleFonts.inter(fontWeight: FontWeight.w700, fontSize: 17, color: C.white)),
+              Text(user?.email ?? '', style: GoogleFonts.inter(fontSize: 12, color: Colors.white.withOpacity(0.75))),
               const SizedBox(height: 6),
               Container(padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
                 decoration: BoxDecoration(color: Colors.white.withOpacity(0.15), borderRadius: BorderRadius.circular(20),
@@ -2568,12 +2570,12 @@ class ProfileScreen extends ConsumerWidget {
         _MenuSection('Account', [
           _MenuItem(Icons.notifications_none_rounded, 'Notifications', () {}),
           _MenuItem(Icons.help_outline_rounded, 'Help & Support', () {}),
-          _MenuItem(Icons.info_outline_rounded, 'About StyleSphere', () {}),
+          _MenuItem(Icons.info_outline_rounded, 'About AURA', () {}),
         ]),
         const SizedBox(height: 12),
         Container(decoration: BoxDecoration(color: C.white, borderRadius: BorderRadius.circular(14), boxShadow: [BoxShadow(color: C.shadow, blurRadius: 6)]),
           child: ListTile(leading: const Icon(Icons.logout_rounded, color: C.error),
-            title: Text('Logout', style: GoogleFonts.poppins(color: C.error, fontWeight: FontWeight.w600)),
+            title: Text('Logout', style: GoogleFonts.inter(color: C.error, fontWeight: FontWeight.w600)),
             onTap: () => ref.read(authProvider.notifier).signOut())),
         const SizedBox(height: 24),
       ])),
@@ -2587,13 +2589,13 @@ class _StatCard extends StatelessWidget {
   @override Widget build(BuildContext ctx) => Expanded(child: Container(padding: const EdgeInsets.all(14),
     decoration: BoxDecoration(color: C.white, borderRadius: BorderRadius.circular(14), boxShadow: [BoxShadow(color: C.shadow, blurRadius: 6)]),
     child: Column(children: [Icon(ic, color: C.blue, size: 22), const SizedBox(height: 6),
-      Text(val, style: GoogleFonts.poppins(fontWeight: FontWeight.w700, fontSize: 18, color: C.primary)),
-      Text(label, style: GoogleFonts.poppins(fontSize: 11, color: C.g500))])));
+      Text(val, style: GoogleFonts.inter(fontWeight: FontWeight.w700, fontSize: 18, color: C.primary)),
+      Text(label, style: GoogleFonts.inter(fontSize: 11, color: C.g500))])));
 }
 
 Widget _MenuSection(String title, List<Widget> items) => Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
   Padding(padding: const EdgeInsets.only(left: 4, bottom: 8),
-    child: Text(title, style: GoogleFonts.poppins(fontSize: 11, fontWeight: FontWeight.w600, color: C.g400, letterSpacing: 0.5))),
+    child: Text(title, style: GoogleFonts.inter(fontSize: 11, fontWeight: FontWeight.w600, color: C.g400, letterSpacing: 0.5))),
   Container(decoration: BoxDecoration(color: C.white, borderRadius: BorderRadius.circular(14), boxShadow: [BoxShadow(color: C.shadow, blurRadius: 6)]),
     child: Column(children: items.asMap().entries.map((e) => Column(children: [e.value, if (e.key < items.length - 1) const Divider(height: 1, indent: 52)])).toList())),
 ]);
@@ -2604,7 +2606,7 @@ class _MenuItem extends StatelessWidget {
   @override Widget build(BuildContext ctx) => ListTile(
     leading: Container(width: 34, height: 34, decoration: BoxDecoration(color: C.blueLight, borderRadius: BorderRadius.circular(9)),
       child: Icon(ic, color: C.blue, size: 18)),
-    title: Text(label, style: GoogleFonts.poppins(fontSize: 14, fontWeight: FontWeight.w500)),
+    title: Text(label, style: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w500)),
     trailing: const Icon(Icons.chevron_right_rounded, color: C.g300), onTap: onTap);
 }
 
@@ -2618,66 +2620,93 @@ class TryOnScreen extends ConsumerStatefulWidget {
   @override ConsumerState<TryOnScreen> createState() => _TOState();
 }
 
-class _TOState extends ConsumerState<TryOnScreen> with SingleTickerProviderStateMixin {
-  bool _detecting = true, _bodyFound = false, _captured = false;
-  double _scale = 1.0, _ox = 0, _oy = -40;
-  late AnimationController _pulseCtrl;
-  late Animation<double> _pulse;
+class _TOState extends ConsumerState<TryOnScreen> {
+  bool _captured = false;
+  double _scale = 1.0, _ox = 0, _oy = 0, _rot = 0;
+  double _startScale = 1.0, _startRot = 0;
+  
+  CameraController? _cam;
+  List<CameraDescription>? _cameras;
+  int _camIndex = 0;
 
   @override void initState() {
     super.initState();
-    _pulseCtrl = AnimationController(vsync: this, duration: const Duration(seconds: 1))..repeat(reverse: true);
-    _pulse = Tween<double>(begin: 0.95, end: 1.05).animate(CurvedAnimation(parent: _pulseCtrl, curve: Curves.easeInOut));
-    Future.delayed(const Duration(seconds: 2), () { if (mounted) setState(() => _bodyFound = true); });
-    Future.delayed(const Duration(seconds: 3), () { if (mounted) setState(() => _detecting = false); });
+    _initCam();
   }
-  @override void dispose() { _pulseCtrl.dispose(); super.dispose(); }
+
+  Future<void> _initCam() async {
+    try {
+      _cameras = await availableCameras();
+      if (_cameras!.isNotEmpty) {
+        _camIndex = _cameras!.indexWhere((c) => c.lensDirection == CameraLensDirection.front);
+        if (_camIndex == -1) _camIndex = 0;
+        _startCamera(_cameras![_camIndex]);
+      }
+    } catch (e) {
+      debugPrint('Camera err: $e');
+    }
+  }
+
+  Future<void> _startCamera(CameraDescription d) async {
+    final c = CameraController(d, ResolutionPreset.high, enableAudio: false);
+    await c.initialize();
+    if (mounted) setState(() => _cam = c);
+  }
+
+  void _flipCam() {
+    if (_cameras == null || _cameras!.length < 2) return;
+    _camIndex = (_camIndex + 1) % _cameras!.length;
+    _cam?.dispose();
+    setState(() => _cam = null);
+    _startCamera(_cameras![_camIndex]);
+  }
+
+  @override void dispose() { _cam?.dispose(); super.dispose(); }
 
   @override Widget build(BuildContext ctx) {
     final p = widget.product;
     return Scaffold(backgroundColor: C.black, body: Stack(children: [
-      Positioned.fill(child: CustomPaint(painter: _CamPainter())),
+      if (_cam != null && _cam!.value.isInitialized)
+        Positioned.fill(child: CameraPreview(_cam!))
+      else
+        Positioned.fill(child: const Center(child: CircularProgressIndicator(color: C.blue))),
 
-      if (_bodyFound && p != null) Positioned.fill(child: GestureDetector(
-        onScaleUpdate: (d) { setState(() { _scale = (_scale * d.scale).clamp(0.5, 2.5); _ox += d.focalPointDelta.dx; _oy += d.focalPointDelta.dy; }); },
-        child: Center(child: Transform.translate(offset: Offset(_ox, _oy), child: ScaleTransition(scale: _pulse,
-          child: Transform.scale(scale: _scale, child: AnimatedOpacity(opacity: _bodyFound ? 1 : 0, duration: 600.ms,
-            child: Container(width: 200, height: 280,
-              decoration: BoxDecoration(gradient: const LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter,
-                colors: [Color(0xFF2563EB), Color(0xFF1E3A8A)]),
-                borderRadius: BorderRadius.circular(12), border: Border.all(color: C.white.withOpacity(0.25))),
-              child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-                const Icon(Icons.checkroom_rounded, color: C.white, size: 44),
-                const SizedBox(height: 8),
-                Text(p.name, style: GoogleFonts.poppins(color: C.white, fontSize: 12, fontWeight: FontWeight.w600), textAlign: TextAlign.center, maxLines: 2),
-                Text('AR Preview', style: GoogleFonts.poppins(color: Colors.white.withOpacity(0.7), fontSize: 10)),
-              ]))))))))),
-
-      if (_detecting) Positioned.fill(child: Container(color: Colors.black.withOpacity(0.35),
-        child: Center(child: Column(mainAxisSize: MainAxisSize.min, children: [
-          const CircularProgressIndicator(color: C.blue, strokeWidth: 3),
-          const SizedBox(height: 16),
-          Text('Detecting body pose...', style: GoogleFonts.poppins(color: C.white, fontSize: 14, fontWeight: FontWeight.w500)),
-          const SizedBox(height: 4),
-          Text('Stand 2-3 feet from camera', style: GoogleFonts.poppins(color: Colors.white.withOpacity(0.6), fontSize: 12)),
-        ])))),
+      if (p != null) Positioned.fill(child: GestureDetector(
+        onScaleStart: (d) { _startScale = _scale; _startRot = _rot; },
+        onScaleUpdate: (d) { 
+          setState(() { 
+            _scale = (_startScale * d.scale).clamp(0.5, 3.5); 
+            _rot = _startRot + d.rotation;
+            _ox += d.focalPointDelta.dx; 
+            _oy += d.focalPointDelta.dy; 
+          }); 
+        },
+        child: Container(color: Colors.transparent, child: Center(
+          child: Transform.translate(offset: Offset(_ox, _oy),
+            child: Transform.scale(scale: _scale,
+              child: Transform.rotate(angle: _rot,
+                child: Img(p.images.first, w: 220, fit: BoxFit.contain),
+              )
+            )
+          )
+        ))
+      )),
 
       Positioned(top: 0, left: 0, right: 0, child: SafeArea(child: Padding(padding: const EdgeInsets.all(16), child: Row(children: [
         GestureDetector(onTap: () => ctx.pop(), child: Container(padding: const EdgeInsets.all(8),
-          decoration: BoxDecoration(color: Colors.black54, shape: BoxShape.circle),
+          decoration: const BoxDecoration(color: Colors.black54, shape: BoxShape.circle),
           child: const Icon(Icons.close, color: C.white, size: 20))),
         const SizedBox(width: 12),
-        Expanded(child: Text('Virtual Try-On', style: GoogleFonts.poppins(color: C.white, fontWeight: FontWeight.w700, fontSize: 16))),
-        if (_bodyFound) Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
-          decoration: BoxDecoration(color: C.success, borderRadius: BorderRadius.circular(20)),
-          child: Row(children: [const Icon(Icons.person, color: C.white, size: 14), const SizedBox(width: 4),
-            Text('Body Detected', style: GoogleFonts.poppins(color: C.white, fontSize: 11, fontWeight: FontWeight.w600))])),
+        Expanded(child: Text('Live AR Try-On', style: GoogleFonts.inter(color: C.white, fontWeight: FontWeight.w700, fontSize: 16))),
+        GestureDetector(onTap: _flipCam, child: Container(padding: const EdgeInsets.all(8),
+          decoration: const BoxDecoration(color: Colors.black54, shape: BoxShape.circle),
+          child: const Icon(Icons.cameraswitch_rounded, color: C.white, size: 20))),
       ])))),
 
-      if (!_detecting) Positioned(top: 100, left: 0, right: 0, child: Center(child: Container(
+      Positioned(top: 100, left: 0, right: 0, child: Center(child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(color: Colors.black.withOpacity(0.5), borderRadius: BorderRadius.circular(20)),
-        child: Text('Pinch to resize · Drag to reposition', style: GoogleFonts.poppins(color: C.white, fontSize: 12))))),
+        child: Text('Drag, Pinch & Rotate clothing', style: GoogleFonts.inter(color: C.white, fontSize: 12))))),
 
       if (_captured) Positioned.fill(child: Container(color: C.white)),
 
@@ -2685,13 +2714,13 @@ class _TOState extends ConsumerState<TryOnScreen> with SingleTickerProviderState
         Row(mainAxisAlignment: MainAxisAlignment.center, children: [
           _TBtn(Icons.remove, () { if (_scale > 0.5) setState(() => _scale -= 0.1); }, 'Smaller'),
           const SizedBox(width: 20),
-          _TBtn(Icons.refresh_rounded, () { setState(() { _scale = 1; _ox = 0; _oy = -40; }); }, 'Reset'),
+          _TBtn(Icons.refresh_rounded, () { setState(() { _scale = 1; _rot = 0; _ox = 0; _oy = 0; }); }, 'Reset'),
           const SizedBox(width: 20),
-          _TBtn(Icons.add, () { if (_scale < 2.5) setState(() => _scale += 0.1); }, 'Larger'),
+          _TBtn(Icons.add, () { if (_scale < 3.5) setState(() => _scale += 0.1); }, 'Larger'),
         ]),
         const SizedBox(height: 20),
         GestureDetector(
-          onTap: () { setState(() => _captured = true); Future.delayed(200.ms, () { if (mounted) setState(() => _captured = false); }); snack(ctx, 'Screenshot saved! 📸'); },
+          onTap: () { setState(() => _captured = true); Future.delayed(200.ms, () { if (mounted) setState(() => _captured = false); }); snack(ctx, 'Snapshot taken! 📸'); },
           child: Container(width: 70, height: 70, decoration: BoxDecoration(color: C.white, shape: BoxShape.circle, border: Border.all(color: C.g300, width: 3)),
             child: const Center(child: Icon(Icons.camera_alt_rounded, color: C.primary, size: 30)))),
       ])))),
@@ -2707,37 +2736,8 @@ class _TBtn extends StatelessWidget {
       decoration: BoxDecoration(color: Colors.black.withOpacity(0.5), shape: BoxShape.circle),
       child: Icon(ic, color: C.white, size: 22))),
     const SizedBox(height: 4),
-    Text(label, style: GoogleFonts.poppins(color: C.white, fontSize: 10)),
+    Text(label, style: GoogleFonts.inter(color: C.white, fontSize: 10)),
   ]);
-}
-
-class _CamPainter extends CustomPainter {
-  @override void paint(Canvas canvas, Size size) {
-    canvas.drawRect(Offset.zero & size, Paint()..shader = const LinearGradient(
-      begin: Alignment.topCenter, end: Alignment.bottomCenter,
-      colors: [Color(0xFF0F172A), Color(0xFF1E293B), Color(0xFF0F172A)],
-    ).createShader(Offset.zero & size));
-    final cx = size.width / 2, cy = size.height * 0.45;
-    canvas.drawCircle(Offset(cx, cy - 160), 36, Paint()..color = const Color(0xFF8B6F47).withOpacity(0.7));
-    canvas.drawRRect(RRect.fromRectAndRadius(Rect.fromCenter(center: Offset(cx, cy), width: 130, height: 200), const Radius.circular(20)),
-      Paint()..color = const Color(0xFF6B5B45).withOpacity(0.6));
-    final dp = Paint()..color = C.blue.withOpacity(0.9);
-    for (final o in [Offset(cx,cy-180),Offset(cx-60,cy-120),Offset(cx+60,cy-120),Offset(cx-70,cy-60),Offset(cx+70,cy-60),Offset(cx,cy-60),Offset(cx-50,cy+60),Offset(cx+50,cy+60),Offset(cx-50,cy+160),Offset(cx+50,cy+160)])
-      canvas.drawCircle(o, 5, dp);
-    final lp = Paint()..color = C.blue.withOpacity(0.4)..strokeWidth = 2;
-    void ln(Offset a, Offset b) => canvas.drawLine(a, b, lp);
-    ln(Offset(cx,cy-180),Offset(cx,cy-60)); ln(Offset(cx,cy-120),Offset(cx-70,cy-60));
-    ln(Offset(cx,cy-120),Offset(cx+70,cy-60)); ln(Offset(cx,cy-60),Offset(cx-50,cy+60));
-    ln(Offset(cx,cy-60),Offset(cx+50,cy+60)); ln(Offset(cx-50,cy+60),Offset(cx-50,cy+160));
-    ln(Offset(cx+50,cy+60),Offset(cx+50,cy+160));
-    const m = 40.0, bl = 25.0;
-    final br = Paint()..color = C.blue..strokeWidth = 3..style = PaintingStyle.stroke;
-    for (final c in [Offset(m,m),Offset(size.width-m,m),Offset(m,size.height-m),Offset(size.width-m,size.height-m)]) {
-      final dx = c.dx < size.width/2 ? 1.0 : -1.0, dy = c.dy < size.height/2 ? 1.0 : -1.0;
-      canvas.drawPath(Path()..moveTo(c.dx,c.dy+dy*bl)..lineTo(c.dx,c.dy)..lineTo(c.dx+dx*bl,c.dy), br);
-    }
-  }
-  @override bool shouldRepaint(_CamPainter o) => false;
 }
 
 // ╔══════════════════════════════════════════════════════════╗
@@ -2800,21 +2800,21 @@ class _QRState extends ConsumerState<QrScannerScreen> with SingleTickerProviderS
         decoration: BoxDecoration(color: Colors.black54, shape: BoxShape.circle),
         child: const Icon(Icons.close, color: C.white, size: 20))),
       const SizedBox(width: 12),
-      Text('Rack Scanner', style: GoogleFonts.poppins(color: C.white, fontWeight: FontWeight.w700, fontSize: 16)),
+      Text('Rack Scanner', style: GoogleFonts.inter(color: C.white, fontWeight: FontWeight.w700, fontSize: 16)),
     ])))),
 
     Positioned(top: 120, left: 40, right: 40, child: Text(
       'Point camera at the QR code on any clothing rack',
-      style: GoogleFonts.poppins(color: Colors.white.withOpacity(0.8), fontSize: 14), textAlign: TextAlign.center)),
+      style: GoogleFonts.inter(color: Colors.white.withOpacity(0.8), fontSize: 14), textAlign: TextAlign.center)),
 
     if (_scanned && _scannedRack != null) Positioned.fill(child: Container(
       color: Colors.black.withOpacity(0.65),
       child: Center(child: Column(mainAxisSize: MainAxisSize.min, children: [
         const Icon(Icons.check_circle_rounded, color: C.success, size: 70).animate().scale(duration: 500.ms, curve: Curves.elasticOut),
         const SizedBox(height: 16),
-        Text('Rack Found!', style: GoogleFonts.poppins(color: C.white, fontWeight: FontWeight.w700, fontSize: 22)).animate().fadeIn(delay: 200.ms),
+        Text('Rack Found!', style: GoogleFonts.inter(color: C.white, fontWeight: FontWeight.w700, fontSize: 22)).animate().fadeIn(delay: 200.ms),
         const SizedBox(height: 6),
-        Text(kRackNames[_scannedRack]!, style: GoogleFonts.poppins(color: C.blue, fontSize: 16, fontWeight: FontWeight.w600)).animate().fadeIn(delay: 300.ms),
+        Text(kRackNames[_scannedRack]!, style: GoogleFonts.inter(color: C.blue, fontSize: 16, fontWeight: FontWeight.w600)).animate().fadeIn(delay: 300.ms),
         const SizedBox(height: 28),
         ElevatedButton.icon(
           onPressed: () => ctx.pushReplacement('/rack/$_scannedRack', extra: kRackNames[_scannedRack]),
@@ -2868,7 +2868,7 @@ class RackProductsScreen extends ConsumerWidget {
       appBar: AppBar(
         title: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           const Text('Rack Items', style: TextStyle(fontSize: 16)),
-          Text(rackName, style: GoogleFonts.poppins(fontSize: 11, color: C.blue, fontWeight: FontWeight.w500)),
+          Text(rackName, style: GoogleFonts.inter(fontSize: 11, color: C.blue, fontWeight: FontWeight.w500)),
         ]),
         backgroundColor: C.white,
         leading: IconButton(icon: const Icon(Icons.arrow_back_ios_new_rounded, size: 20), onPressed: () => ctx.pop()),
