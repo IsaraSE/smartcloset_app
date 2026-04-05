@@ -11,6 +11,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -2749,28 +2750,39 @@ class QrScannerScreen extends ConsumerStatefulWidget {
 }
 
 class _QRState extends ConsumerState<QrScannerScreen> with SingleTickerProviderStateMixin {
-  bool _scanning = true, _scanned = false;
+  bool _scanned = false;
   String? _scannedRack;
   late AnimationController _scanCtrl;
   late Animation<double> _scanAnim;
+  final MobileScannerController _cameraController = MobileScannerController();
 
   @override void initState() {
     super.initState();
     _scanCtrl = AnimationController(vsync: this, duration: const Duration(seconds: 2))..repeat();
     _scanAnim = Tween<double>(begin: 0, end: 1).animate(_scanCtrl);
   }
-  @override void dispose() { _scanCtrl.dispose(); super.dispose(); }
+  @override void dispose() { _scanCtrl.dispose(); _cameraController.dispose(); super.dispose(); }
 
-  void _simulateScan(String rackId) {
+  void _onDetect(BarcodeCapture capture) {
     if (_scanned) return;
-    setState(() { _scanned = true; _scanning = false; _scannedRack = rackId; });
-    HapticFeedback.heavyImpact();
+    final List<Barcode> barcodes = capture.barcodes;
+    for (final barcode in barcodes) {
+      if (barcode.rawValue != null) {
+        final rackId = barcode.rawValue!;
+        if (kRackNames.containsKey(rackId)) {
+          setState(() { _scanned = true; _scannedRack = rackId; });
+          HapticFeedback.heavyImpact();
+          return;
+        }
+      }
+    }
   }
 
   @override Widget build(BuildContext ctx) => Scaffold(backgroundColor: C.black, body: Stack(children: [
-    Positioned.fill(child: Container(decoration: const BoxDecoration(
-      gradient: LinearGradient(begin: Alignment.topCenter, end: Alignment.bottomCenter,
-        colors: [Color(0xFF0F172A), Color(0xFF1E293B)])))),
+    Positioned.fill(child: MobileScanner(
+      controller: _cameraController,
+      onDetect: _onDetect,
+    )),
 
     Positioned.fill(child: CustomPaint(painter: _QRFramePainter(_scanAnim))),
 
@@ -2785,17 +2797,6 @@ class _QRState extends ConsumerState<QrScannerScreen> with SingleTickerProviderS
     Positioned(top: 120, left: 40, right: 40, child: Text(
       'Point camera at the QR code on any clothing rack',
       style: GoogleFonts.poppins(color: Colors.white.withOpacity(0.8), fontSize: 14), textAlign: TextAlign.center)),
-
-    if (_scanning) Positioned(bottom: 160, left: 20, right: 20, child: Column(children: [
-      Text('Demo: Tap a rack to simulate scan', style: GoogleFonts.poppins(color: Colors.white.withOpacity(0.5), fontSize: 12), textAlign: TextAlign.center),
-      const SizedBox(height: 12),
-      Wrap(spacing: 10, runSpacing: 10, alignment: WrapAlignment.center, children: kRackNames.entries.map((e) => GestureDetector(
-        onTap: () => _simulateScan(e.key),
-        child: Container(padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-          decoration: BoxDecoration(color: C.blue.withOpacity(0.2), borderRadius: BorderRadius.circular(20), border: Border.all(color: C.blue.withOpacity(0.5))),
-          child: Text(e.value, style: GoogleFonts.poppins(color: C.white, fontSize: 11, fontWeight: FontWeight.w500))),
-      )).toList()),
-    ])),
 
     if (_scanned && _scannedRack != null) Positioned.fill(child: Container(
       color: Colors.black.withOpacity(0.65),
@@ -2812,7 +2813,7 @@ class _QRState extends ConsumerState<QrScannerScreen> with SingleTickerProviderS
           style: ElevatedButton.styleFrom(backgroundColor: C.blue, padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14), shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30))),
         ).animate().fadeIn(delay: 400.ms),
         const SizedBox(height: 12),
-        TextButton(onPressed: () { setState(() { _scanned = false; _scanning = true; _scannedRack = null; }); },
+        TextButton(onPressed: () { setState(() { _scanned = false; _scannedRack = null; }); },
           child: const Text('Scan Again', style: TextStyle(color: C.white))),
       ])),
     )),
