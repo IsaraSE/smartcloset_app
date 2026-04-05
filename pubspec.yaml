@@ -17,6 +17,7 @@ dependencies:
   flutter_animate: ^4.5.0
   google_fonts: ^6.1.0
   cupertino_icons: ^1.0.2
+  mobile_scanner: ^7.2.0
 
 dev_dependencies:
   flutter_test:
