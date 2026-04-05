@@ -2768,12 +2768,21 @@ class _QRState extends ConsumerState<QrScannerScreen> with SingleTickerProviderS
     final List<Barcode> barcodes = capture.barcodes;
     for (final barcode in barcodes) {
       if (barcode.rawValue != null) {
-        final rackId = barcode.rawValue!;
-        if (kRackNames.containsKey(rackId)) {
-          setState(() { _scanned = true; _scannedRack = rackId; });
-          HapticFeedback.heavyImpact();
-          return;
+        String rackId = barcode.rawValue!;
+        if (!kRackNames.containsKey(rackId)) {
+          if (!mounted) return;
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text('Demo: Unrecognized QR ($rackId). Using default rack!'),
+            behavior: SnackBarBehavior.floating,
+            duration: const Duration(seconds: 2),
+            backgroundColor: C.blue,
+          ));
+          rackId = kRackNames.keys.first;
         }
+        
+        setState(() { _scanned = true; _scannedRack = rackId; });
+        HapticFeedback.heavyImpact();
+        return;
       }
     }
   }
