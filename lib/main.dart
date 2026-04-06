@@ -966,7 +966,10 @@ class WishlistNotifier extends StateNotifier<List<Product>> {
 }
 
 final inWishlistProvider = Provider.family<bool, String>(
-  (ref, id) => ref.watch(wishlistProvider.notifier).has(id));
+  (ref, id) {
+    final items = ref.watch(wishlistProvider);
+    return items.any((x) => x.id == id);
+  });
 
 // ── Recently Viewed ────────────────────────────────────────
 final recentlyViewedProvider =
@@ -1377,6 +1380,79 @@ void snack(BuildContext ctx, String msg,
               textColor: C.gold, onPressed: onAction ?? () {})
           : null,
     ));
+
+// ── Animated Wishlist Heart Button ─────────────────────────
+class _WishBtn extends StatefulWidget {
+  final bool isWished;
+  final VoidCallback onTap;
+  final double size;
+  final bool shadow;
+
+  const _WishBtn({
+    required this.isWished,
+    required this.onTap,
+    this.size = 15,
+    this.shadow = false,
+  });
+
+  @override
+  State<_WishBtn> createState() => _WishBtnState();
+}
+
+class _WishBtnState extends State<_WishBtn>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _ctrl;
+  late Animation<double> _scale;
+
+  @override
+  void initState() {
+    super.initState();
+    _ctrl = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 300));
+    _scale = TweenSequence<double>([
+      TweenSequenceItem(tween: Tween(begin: 1.0, end: 1.35), weight: 50),
+      TweenSequenceItem(tween: Tween(begin: 1.35, end: 1.0), weight: 50),
+    ]).animate(CurvedAnimation(parent: _ctrl, curve: Curves.easeInOut));
+  }
+
+  @override
+  void didUpdateWidget(_WishBtn old) {
+    super.didUpdateWidget(old);
+    if (widget.isWished && !old.isWished) _ctrl.forward(from: 0);
+  }
+
+  @override
+  void dispose() {
+    _ctrl.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext ctx) => GestureDetector(
+    onTap: widget.onTap,
+    behavior: HitTestBehavior.opaque,
+    child: Container(
+      width: widget.size + 22,
+      height: widget.size + 22,
+      decoration: BoxDecoration(
+        color: C.white.withOpacity(0.92),
+        shape: BoxShape.circle,
+        boxShadow: widget.shadow
+            ? const [BoxShadow(color: C.shadowMd, blurRadius: 8)]
+            : [],
+      ),
+      child: Center(child: ScaleTransition(
+        scale: _scale,
+        child: Icon(
+          widget.isWished
+              ? Icons.favorite_rounded
+              : Icons.favorite_border_rounded,
+          color: widget.isWished ? C.gold : C.n400,
+          size: widget.size),
+      )),
+    ),
+  );
+}
 
 // ── Logo Widget ────────────────────────────────────────────
 class NoirLogo extends StatelessWidget {
@@ -2439,19 +2515,13 @@ class _ProdCard extends ConsumerWidget {
                 if (p.isNew) ...[const SizedBox(height: 4), const NewBadge()],
               ])),
             // Wishlist button
-            Positioned(top: 6, right: 6, child: GestureDetector(
-              onTap: () =>
-                  ref.read(wishlistProvider.notifier).toggle(p),
-              child: Container(
-                padding: const EdgeInsets.all(6),
-                decoration: BoxDecoration(
-                  color: C.white.withOpacity(0.92),
-                  shape: BoxShape.circle),
-                child: Icon(
-                  inWish
-                      ? Icons.favorite_rounded
-                      : Icons.favorite_border_rounded,
-                  color: inWish ? C.gold : C.n400, size: 15)),
+            Positioned(top: 6, right: 6, child: _WishBtn(
+              isWished: inWish,
+              onTap: () {
+                ref.read(wishlistProvider.notifier).toggle(p);
+                HapticFeedback.lightImpact();
+              },
+              size: 15,
             )),
           ]),
           // ── Info ─────────────────────────────────────────
@@ -2845,22 +2915,21 @@ class _PDState extends ConsumerState<ProductDetailScreen> {
                 child: const Icon(Icons.arrow_back_ios_new_rounded,
                     size: 17, color: C.ink))),
             actions: [
-              GestureDetector(
-                onTap: () =>
-                    ref.read(wishlistProvider.notifier).toggle(p),
-                child: Container(
-                  margin: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: C.white.withOpacity(0.92),
-                    shape: BoxShape.circle,
-                    boxShadow: const [BoxShadow(
-                        color: C.shadowMd, blurRadius: 8)]),
-                  child: Padding(
-                    padding: const EdgeInsets.all(7),
-                    child: Icon(
-                      inWish ? Icons.favorite_rounded
-                          : Icons.favorite_border_rounded,
-                      color: inWish ? C.gold : C.n500, size: 19)))),
+              Padding(
+                padding: const EdgeInsets.all(8),
+                child: _WishBtn(
+                  isWished: inWish,
+                  onTap: () {
+                    ref.read(wishlistProvider.notifier).toggle(p);
+                    HapticFeedback.lightImpact();
+                    snack(ctx,
+                      inWish ? 'Removed from wishlist' : 'Added to wishlist',
+                      action: inWish ? null : 'View',
+                      onAction: inWish ? null : () => ctx.go('/wishlist'));
+                  },
+                  size: 19,
+                  shadow: true,
+                )),
               const SizedBox(width: 4),
             ],
             flexibleSpace: FlexibleSpaceBar(
