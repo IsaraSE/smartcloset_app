@@ -27,16 +27,19 @@ The app completely rethinks the mobile shopping experience, moving away from gen
 - **🛍️ Complete E-Commerce Flow:** Fully mocked out end-to-end shopping experience featuring 28 curated luxury products, cart state management, checkout routing, and timeline-based order tracking.
 - **⚡ Reactive Performance:** Powered entirely by `Riverpod` for lightning-fast state management without prop-drilling, and `go_router` for deep linking and safe navigation transitions.
 
-## 📱 Screenshots
+## 🏆 Core App Functions & Workflows
 
-> **Note to Developer:** *Drop your app screenshots into an `assets/visuals/` folder and link them here to complete the professional look.*
+**1. Virtual AR Clothing Try-On**
+The hallmark feature of NOIR. Using the `camera` package, users can select any piece of clothing from the catalog and project it onto a live camera feed. This allows users to hold up their phone, point the camera at themselves in a mirror (or another person), and see exactly how the clothing maps to their body. Gestures like drag, pinch-to-zoom, and rotation give the user full spatial control over the virtual garment.
 
-<div align="center">
-  <img src="https://via.placeholder.com/250x500.png?text=Splash+Screen" width="200" style="margin-right: 15px;"/>
-  <img src="https://via.placeholder.com/250x500.png?text=Home+Feed" width="200" style="margin-right: 15px;"/>
-  <img src="https://via.placeholder.com/250x500.png?text=Live+AR+Camera" width="200" style="margin-right: 15px;"/>
-  <img src="https://via.placeholder.com/250x500.png?text=QR+Scanner" width="200"/>
-</div>
+**2. Physical-to-Digital QR Rack Scanning**
+Bridging the gap between the physical retail store and the digital app. Users can tap the QR icon to launch the live scanner (powered by `mobile_scanner`). By pointing the camera at a QR code located on a physical clothing rack in a NOIR retail store, the app instantly parses the ID and loads the digital product details, allowing the user to read details and add it directly to their virtual cart.
+
+**3. State-of-the-Art E-Commerce Pipeline**
+From discovery to checkout, NOIR provides a frictionless shopping loop. The app features a highly curated feed of clothing, shoes, and accessories. Once an item is added to the cart, the user proceeds to an integrated checkout experience that provides an itemized subtotal, and generates an interactive, timeline-based order receipt tracking the package from processing to delivery.
+
+**4. Persistent Authentication & Luxury Presentation**
+Upon launching the application, users are greeted by a breathtaking, animation-driven Splash Screen that fades into an elegant login portal. The entire system uses Riverpod to track the auth state, saving sessions flawlessly across app relaunches, ensuring the user is never kicked out of their premium shopping experience unintentionally.
 
 ---
 
