@@ -385,8 +385,8 @@ final kProducts = <Product>[
     description: 'Cozy cable-knit sweater in 100% merino wool. Dropped shoulders, ribbed cuffs and hem. The essential cold-weather layer.',
     price: 119.99, originalPrice: 165.00, category: 'Men', subCategory: 'Casual',
     images: [
-      'https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=700&q=85',
-      'https://images.unsplash.com/photo-1581655353564-df123a1eb820?w=700&q=85',
+      'https://images.unsplash.com/photo-1614975059251-992f11792571?w=700&q=85',
+      'https://images.unsplash.com/photo-1638718004498-c0e390e2e621?w=700&q=85',
     ],
     sizes: ['S','M','L','XL','XXL'], colors: ['Cream','Charcoal','Navy','Brown'],
     rating: 4.8, reviewCount: 312, soldCount: 740, isFeatured: true,
@@ -398,8 +398,8 @@ final kProducts = <Product>[
     description: 'An enduring wardrobe staple. Ribbed collar and cuffs, button front closure. Crafted from a soft wool blend for all-day comfort.',
     price: 99.99, originalPrice: 140.00, category: 'Men', subCategory: 'Casual',
     images: [
-      'https://images.unsplash.com/photo-1623479322729-28b25c16b011?w=700&q=85',
-      'https://images.unsplash.com/photo-1571945153237-4929e783af4a?w=700&q=85',
+      'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=700&q=85',
+      'https://images.unsplash.com/photo-1611312449408-fcece27cdbb7?w=700&q=85',
     ],
     sizes: ['S','M','L','XL'], colors: ['Brown','Black','Navy'],
     rating: 4.5, reviewCount: 178, soldCount: 510, isFeatured: true,
@@ -425,8 +425,8 @@ final kProducts = <Product>[
     description: 'The definitive streetwear staple. Heavyweight 400gsm fleece, kangaroo pocket, ribbed cuffs. An oversized silhouette built for comfort and style.',
     price: 119.99, originalPrice: 160.00, category: 'Men', subCategory: 'Streetwear',
     images: [
-      'https://images.unsplash.com/photo-1556821840-3a63f15732ce?w=700&q=85',
-      'https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=700&q=85',
+      'https://images.unsplash.com/photo-1556821840-3a63f95ab207?w=700&q=85',
+      'https://images.unsplash.com/photo-1578768079470-c7e47fa44905?w=700&q=85',
     ],
     sizes: ['S','M','L','XL','XXL'], colors: ['Black','Cream','Charcoal'],
     rating: 4.8, reviewCount: 792, soldCount: 2100, isNew: true, isFeatured: true,
@@ -478,8 +478,8 @@ final kProducts = <Product>[
     description: 'A cozy, oversized chunky-knit sweater in an 80/20 wool-cashmere blend. Dropped shoulders, ribbed trims. The ultimate in luxurious comfort.',
     price: 109.99, originalPrice: 155.00, category: 'Women', subCategory: 'Casual',
     images: [
-      'https://images.unsplash.com/photo-1434389677669-e08b4cda3a40?w=700&q=85',
       'https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=700&q=85',
+      'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=700&q=85',
     ],
     sizes: ['XS','S','M','L','XL'], colors: ['Cream','Dusty Rose','Sage'],
     rating: 4.8, reviewCount: 523, soldCount: 1290, isNew: true, isFeatured: true,
@@ -703,7 +703,7 @@ final kProducts = <Product>[
 final kBanners = <BannerData>[
   BannerData(
     id: 'b1',
-    imageUrl: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=85',
+    imageUrl: 'https://images.unsplash.com/photo-1509631179647-0177331693ae?w=900&q=85',
     title: 'New Season\nEditorial', subtitle: 'Curated looks for the season ahead',
     actionLabel: 'Explore Now', route: '/explore', tag: 'SS 2025',
   ),
@@ -2354,7 +2354,7 @@ class _EditorialBanner extends StatelessWidget {
     borderRadius: BorderRadius.circular(12),
     child: Stack(children: [
       CachedNetworkImage(
-        imageUrl: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?w=900&q=85',
+        imageUrl: 'https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=900&q=85',
         width: double.infinity, height: 160, fit: BoxFit.cover,
         placeholder: (c, u) => Container(height: 160, color: C.n200),
         errorWidget: (c, u, e) => Container(height: 160, color: C.n800),
