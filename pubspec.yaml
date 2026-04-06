@@ -1,4 +1,4 @@
-name: smartcloset_app
+name: aura_app
 description: StyleSphere – Premium Fashion Retail App
 publish_to: 'none'
 version: 1.0.0+1
@@ -17,6 +17,8 @@ dependencies:
   flutter_animate: ^4.5.0
   google_fonts: ^6.1.0
   cupertino_icons: ^1.0.2
+  mobile_scanner: ^7.2.0
+  camera: ^0.12.0+1
 
 dev_dependencies:
   flutter_test:
@@ -25,3 +27,5 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/images/

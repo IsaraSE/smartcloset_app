@@ -1,89 +1,136 @@
-# 👗 StyleSphere (SmartCloset App)
+<div align="center">
+  
+# N O I R
 
-<p align="center">
-  <img src="https://img.shields.io/badge/Flutter-02569B?style=for-the-badge&logo=flutter&logoColor=white" alt="Flutter" />
-  <img src="https://img.shields.io/badge/Dart-0175C2?style=for-the-badge&logo=dart&logoColor=white" alt="Dart" />
-  <img src="https://img.shields.io/badge/Riverpod-0082FB?style=for-the-badge&logo=dart&logoColor=white" alt="Riverpod" />
-</p>
+**A Premium E-Commerce & Virtual Try-On Fashion Experience**
 
-StyleSphere is a premium, modern e-commerce application built with Flutter. Designed with a luxurious deep burgundy aesthetic, the app offers a seamless shopping experience for apparel and accessories, featuring advanced features like AR Virtual Try-On previews and QR-based clothing rack scanning.
+[![Flutter](https://img.shields.io/badge/Flutter-3.x-02569B?logo=flutter)](https://flutter.dev)
+[![Dart](https://img.shields.io/badge/Dart-3.x-0175C2?logo=dart)](https://dart.dev)
+[![iOS](https://img.shields.io/badge/Platform-iOS-black?logo=apple)](#)
+[![Android](https://img.shields.io/badge/Platform-Android-3DDC84?logo=android)](#)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Firebase-orange?logo=firebase)](https://noir-premium-store.web.app)
 
-## ✨ Features
+### 🌐 [View Live Demo → noir-premium-store.web.app](https://noir-premium-store.web.app)
 
-- **💎 Premium UI/UX:** A rich, engaging design system utilizing a deep burgundy and rose gold palette with custom micro-animations and frosted glass (glassmorphism) effects.
-- **🚀 Seamless Onboarding:** A luxurious 3-page full-screen onboarding flow with engaging background imagery and elegant typography.
-- **🛍️ Comprehensive Shopping Experience:**
-  - Browse categorized catalogs (Men, Women, Kids, Accessories)
-  - Detailed product pages with image carousels, size selectors, color swatches, and reviews
-  - Persistent shopping cart and wishlist functionality
-- **📸 Virtual Try-On (AR Preview):** An interactive camera overlay simulating the placement of clothing items on a detected human body footprint.
-- **🔍 Rack Scanner (In-Store Mode):** A simulated QR Code scanner allowing users to scan physical store racks to instantly view corresponding digital inventory.
-- **🔒 Authentication Flow:** Beautifully designed mock login and registration screens.
-- **🗂️ Reactive Architecture:** Powered by `flutter_riverpod` for rock-solid reactive state management and `go_router` for structured declarative routing.
+</div>
 
-## 🛠️ Tech Stack & Dependencies
+---
 
-The project relies on industry-standard Flutter packages for performance and maintainability:
+## 🌟 Overview
 
-- **State Management:** `flutter_riverpod` (AsyncNotifier, StateProvider)
-- **Routing:** `go_router` (ShellRoute for bottom navigation)
-- **UI & Animations:** 
-  - `flutter_animate` (Chained declarative animations)
-  - `smooth_page_indicator` (Onboarding and image carousels)
-  - `google_fonts` (Playfair Display & Poppins font families)
-  - `shimmer` (Loading skeleton effects)
-- **Image Handling:** `cached_network_image` (Robust remote image caching)
+**NOIR** is a world-class, ultra-premium mobile application designed for luxury fashion retail. Blending high-end editorial aesthetics with cutting-edge mobile hardware capabilities, NOIR offers a seamless transition between the digital storefront and physical reality.
 
-## 🎨 Design System
+The app completely rethinks the mobile shopping experience, moving away from generic tech-blue designs into a sophisticated monochrome palette (Deep Black, Pure White, and Champagne Gold) backed by elegant typography seamlessly managed by Riverpod.
 
-The application utilizes a custom color palette (`class C`) designed for a high-end fashion aesthetic:
+## ✨ Key Features
 
-- **Primary:** Deep Wine (`#2D0A16`)
-- **Secondary:** Rich Rose (`#C8415B`)
-- **Accent:** Soft Blush (`#F5E6EA`)
-- **Typography:** `Playfair Display` (Headings/Display) & `Poppins` (Body/UI)
+- **📸 Live AR Virtual Try-On:** Utilizing advanced mobile camera integration, users can overlay and manipulate clothing in real-time over live camera feeds using intuitive pinch, scale, and rotate gestures.
+- **🏷️ Smart QR Rack Scanner:** Built for omnichannel retail, the live hardware scanner allows users to scan physical clothing racks in-store and instantly pull up their digital counterparts, complete with reviews, sizing, and stock.
+- **💎 Editorial UX/UI:** Breathtaking `Cormorant Garamond` headings paired with ultra-clean `DM Sans` typography, sleek frosted glass layouts, immersive parallax imagery, and custom animation controllers.
+- **🛍️ Complete E-Commerce Flow:** Fully mocked out end-to-end shopping experience featuring 28 curated luxury products, cart state management, checkout routing, and timeline-based order tracking.
+- **⚡ Reactive Performance:** Powered entirely by `Riverpod` for lightning-fast state management without prop-drilling, and `go_router` for deep linking and safe navigation transitions.
+
+## 🏆 Core App Functions & Workflows
+
+**1. Virtual AR Clothing Try-On**
+The hallmark feature of NOIR. Using the `camera` package, users can select any piece of clothing from the catalog and project it onto a live camera feed. This allows users to hold up their phone, point the camera at themselves in a mirror (or another person), and see exactly how the clothing maps to their body. Gestures like drag, pinch-to-zoom, and rotation give the user full spatial control over the virtual garment.
+
+**2. Physical-to-Digital QR Rack Scanning**
+Bridging the gap between the physical retail store and the digital app. Users can tap the QR icon to launch the live scanner (powered by `mobile_scanner`). By pointing the camera at a QR code located on a physical clothing rack in a NOIR retail store, the app instantly parses the ID and loads the digital product details, allowing the user to read details and add it directly to their virtual cart.
+
+**3. State-of-the-Art E-Commerce Pipeline**
+From discovery to checkout, NOIR provides a frictionless shopping loop. The app features a highly curated feed of clothing, shoes, and accessories. Once an item is added to the cart, the user proceeds to an integrated checkout experience that provides an itemized subtotal, and generates an interactive, timeline-based order receipt tracking the package from processing to delivery.
+
+**4. Persistent Authentication & Luxury Presentation**
+Upon launching the application, users are greeted by a breathtaking, animation-driven Splash Screen that fades into an elegant login portal. The entire system uses Riverpod to track the auth state, saving sessions flawlessly across app relaunches, ensuring the user is never kicked out of their premium shopping experience unintentionally.
+
+---
+
+## 🛠 Tech Stack
+
+*   **Framework:** Flutter
+*   **State Management:** `flutter_riverpod`
+*   **Routing:** `go_router`
+*   **Hardware/Sensors:** `camera` (AR feed), `mobile_scanner` (QR engine)
+*   **Animations:** `flutter_animate`, `smooth_page_indicator`
+*   **UI Helpers:** `google_fonts`, `cached_network_image`, `shimmer`
 
 ## 🚀 Getting Started
 
-### Prerequisites
+Follow these instructions to get the NOIR project up and running on your local machine.
 
-- [Flutter SDK](https://docs.flutter.dev/get-started/install) (v3.19.0 or higher recommended)
-- Dart SDK
-- An iOS Simulator, Android Emulator, or connected physical device
+### Prerequisites
+Make sure you have [Flutter](https://docs.flutter.dev/get-started/install) installed and running on your machine.
+```bash
+flutter doctor
+```
 
 ### Installation
 
-1. **Clone the repository:**
+1. **Clone the repository** (if you haven't already):
    ```bash
-   git clone https://github.com/yourusername/smartcloset_app.git
-   cd smartcloset_app
+   git clone https://github.com/yourusername/noir-app.git
+   cd noir-app
    ```
 
-2. **Install dependencies:**
+2. **Install Flutter Dependencies:**
    ```bash
    flutter pub get
    ```
 
-3. **Run the application:**
+3. **Install iOS Pods (macOS only):**
    ```bash
-   flutter run
+   cd ios
+   pod install
+   cd ..
    ```
 
-## 📁 Project Structure
+### Running the App
 
-Currently, the application logic is unified for rapid prototyping and demonstration. Key architectural segments within the codebase include:
+Because **NOIR** utilizes deep native hardware integration (Camera and Microphones for the AR and QR logic), **it is highly recommended to test on a physical device** rather than a simulator. 
 
-- **Theme & Tokens:** Color constants, gradients, and `ThemeData`.
-- **Models:** Data structures for `Product`, `Category`, `User`, `Order`, etc.
-- **Mock Data:** Extensive seeded catalogs utilizing high-quality Unsplash assets.
-- **Providers (Riverpod):** Logic for Auth, Cart, Wishlist, and Onboarding state tracking.
-- **Router (GoRouter):** Centralized navigation with redirect guards (Auth/Onboarding barriers).
-- **Screens:** Modular UI classes (Home, Detail, Scanner, Try-On, etc.).
-
-## 🤝 Contributing
-
-Contributions, issues, and feature requests are welcome! 
-Feel free to check the [issues page](https://github.com/yourusername/smartcloset_app/issues).
+*To build and run:*
+```bash
+flutter run
+```
 
 ---
-*Developed for the SmartCloset / StyleSphere initiative.*
+
+## 🔐 Hardware Permissions
+
+If you are modifying the camera logic, ensure your native permission files are kept updated:
+- **iOS:** `ios/Runner/Info.plist` utilizes `NSCameraUsageDescription` and `NSMicrophoneUsageDescription`.
+- **Android:** Ensure `android/app/src/main/AndroidManifest.xml` contains `<uses-permission android:name="android.permission.CAMERA" />`.
+
+---
+
+## 🌐 Web Deployment
+
+NOIR is live and hosted on **Firebase Hosting**. The web build is compiled from the Flutter source and deployed to a globally distributed CDN.
+
+| Property | Value |
+|---|---|
+| **Live URL** | [https://noir-premium-store.web.app](https://noir-premium-store.web.app) |
+| **Firebase Project** | `noir-premium-store` |
+| **Hosting Provider** | Firebase Hosting (Google) |
+| **Build Output** | `build/web/` |
+
+### Re-deploying After Changes
+
+Whenever you make changes to the app and want to push them live, run these two commands:
+
+```bash
+# Step 1: Rebuild the optimized web bundle
+flutter build web
+
+# Step 2: Push the new build to Firebase
+npx firebase-tools deploy --only hosting
+```
+
+> **Note:** The AR Try-On camera and QR Scanner features require native mobile hardware and will have limited functionality in the web browser version. For the full experience, run the app on a physical iOS or Android device.
+
+---
+
+<div align="center">
+  <p>Designed and Built with 🖤 for the Future of Retail</p>
+</div>
