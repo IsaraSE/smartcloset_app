@@ -385,8 +385,7 @@ final kProducts = <Product>[
     description: 'Cozy cable-knit sweater in 100% merino wool. Dropped shoulders, ribbed cuffs and hem. The essential cold-weather layer.',
     price: 119.99, originalPrice: 165.00, category: 'Men', subCategory: 'Casual',
     images: [
-      'https://images.unsplash.com/photo-1614975059251-992f11792571?w=700&q=85',
-      'https://images.unsplash.com/photo-1638718004498-c0e390e2e621?w=700&q=85',
+      'assets/images/cable_knit.png',
     ],
     sizes: ['S','M','L','XL','XXL'], colors: ['Cream','Charcoal','Navy','Brown'],
     rating: 4.8, reviewCount: 312, soldCount: 740, isFeatured: true,
@@ -425,8 +424,7 @@ final kProducts = <Product>[
     description: 'The definitive streetwear staple. Heavyweight 400gsm fleece, kangaroo pocket, ribbed cuffs. An oversized silhouette built for comfort and style.',
     price: 119.99, originalPrice: 160.00, category: 'Men', subCategory: 'Streetwear',
     images: [
-      'https://images.unsplash.com/photo-1556821840-3a63f95ab207?w=700&q=85',
-      'https://images.unsplash.com/photo-1578768079470-c7e47fa44905?w=700&q=85',
+      'assets/images/hoodie.png',
     ],
     sizes: ['S','M','L','XL','XXL'], colors: ['Black','Cream','Charcoal'],
     rating: 4.8, reviewCount: 792, soldCount: 2100, isNew: true, isFeatured: true,
@@ -478,8 +476,7 @@ final kProducts = <Product>[
     description: 'A cozy, oversized chunky-knit sweater in an 80/20 wool-cashmere blend. Dropped shoulders, ribbed trims. The ultimate in luxurious comfort.',
     price: 109.99, originalPrice: 155.00, category: 'Women', subCategory: 'Casual',
     images: [
-      'https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=700&q=85',
-      'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=700&q=85',
+      'assets/images/knit_sweater.png',
     ],
     sizes: ['XS','S','M','L','XL'], colors: ['Cream','Dusty Rose','Sage'],
     rating: 4.8, reviewCount: 523, soldCount: 1290, isNew: true, isFeatured: true,
@@ -1169,17 +1166,19 @@ class Img extends StatelessWidget {
   @override
   Widget build(BuildContext ctx) => ClipRRect(
     borderRadius: BorderRadius.circular(r),
-    child: CachedNetworkImage(
-      imageUrl: url, width: w, height: h, fit: fit,
-      fadeInDuration: const Duration(milliseconds: 300),
-      placeholder: (c, u) => Shimmer.fromColors(
-        baseColor: C.n200, highlightColor: C.n100,
-        child: Container(width: w, height: h, color: C.n200)),
-      errorWidget: (c, u, e) => Container(
-        width: w, height: h, color: C.n100,
-        child: const Center(child: Icon(
-            Icons.image_outlined, color: C.n300, size: 28))),
-    ),
+    child: url.startsWith('http') 
+      ? CachedNetworkImage(
+          imageUrl: url, width: w, height: h, fit: fit,
+          fadeInDuration: const Duration(milliseconds: 300),
+          placeholder: (c, u) => Shimmer.fromColors(
+            baseColor: C.n200, highlightColor: C.n100,
+            child: Container(width: w, height: h, color: C.n200)),
+          errorWidget: (c, u, e) => Container(
+            width: w, height: h, color: C.n100,
+            child: const Center(child: Icon(
+                Icons.image_outlined, color: C.n300, size: 28))),
+        )
+      : Image.asset(url, width: w, height: h, fit: fit),
   );
 }
 
@@ -2868,18 +2867,20 @@ class _PDState extends ConsumerState<ProductDetailScreen> {
                   onPageChanged: (i) => setState(() => _imgIdx = i),
                   itemBuilder: (_, i) => Container(
                     color: C.n50,
-                    child: CachedNetworkImage(
-                      imageUrl: p.images[i],
-                      fit: BoxFit.cover,
-                      width: double.infinity,
-                      height: size.height * 0.52,
-                      placeholder: (c, u) => Shimmer.fromColors(
-                        baseColor: C.n200, highlightColor: C.n100,
-                        child: Container(color: C.n200)),
-                      errorWidget: (c, u, e) => Container(
-                        color: C.n100,
-                        child: const Icon(
-                            Icons.image_outlined, size: 48, color: C.n300)))),
+                    child: p.images[i].startsWith('http')
+                      ? CachedNetworkImage(
+                          imageUrl: p.images[i],
+                          fit: BoxFit.cover,
+                          width: double.infinity,
+                          height: size.height * 0.52,
+                          placeholder: (c, u) => Shimmer.fromColors(
+                            baseColor: C.n200, highlightColor: C.n100,
+                            child: Container(color: C.n200)),
+                          errorWidget: (c, u, e) => Container(
+                            color: C.n100,
+                            child: const Icon(
+                                Icons.image_outlined, size: 48, color: C.n300)))
+                      : Image.asset(p.images[i], fit: BoxFit.cover, width: double.infinity, height: size.height * 0.52))),
                 ),
                 // Image counter
                 Positioned(bottom: 14, left: 0, right: 0,
