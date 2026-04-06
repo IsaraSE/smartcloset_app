@@ -8,6 +8,9 @@
 [![Dart](https://img.shields.io/badge/Dart-3.x-0175C2?logo=dart)](https://dart.dev)
 [![iOS](https://img.shields.io/badge/Platform-iOS-black?logo=apple)](#)
 [![Android](https://img.shields.io/badge/Platform-Android-3DDC84?logo=android)](#)
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Firebase-orange?logo=firebase)](https://noir-premium-store.web.app)
+
+### 🌐 [View Live Demo → noir-premium-store.web.app](https://noir-premium-store.web.app)
 
 </div>
 
@@ -98,6 +101,33 @@ flutter run
 If you are modifying the camera logic, ensure your native permission files are kept updated:
 - **iOS:** `ios/Runner/Info.plist` utilizes `NSCameraUsageDescription` and `NSMicrophoneUsageDescription`.
 - **Android:** Ensure `android/app/src/main/AndroidManifest.xml` contains `<uses-permission android:name="android.permission.CAMERA" />`.
+
+---
+
+## 🌐 Web Deployment
+
+NOIR is live and hosted on **Firebase Hosting**. The web build is compiled from the Flutter source and deployed to a globally distributed CDN.
+
+| Property | Value |
+|---|---|
+| **Live URL** | [https://noir-premium-store.web.app](https://noir-premium-store.web.app) |
+| **Firebase Project** | `noir-premium-store` |
+| **Hosting Provider** | Firebase Hosting (Google) |
+| **Build Output** | `build/web/` |
+
+### Re-deploying After Changes
+
+Whenever you make changes to the app and want to push them live, run these two commands:
+
+```bash
+# Step 1: Rebuild the optimized web bundle
+flutter build web
+
+# Step 2: Push the new build to Firebase
+npx firebase-tools deploy --only hosting
+```
+
+> **Note:** The AR Try-On camera and QR Scanner features require native mobile hardware and will have limited functionality in the web browser version. For the full experience, run the app on a physical iOS or Android device.
 
 ---
 
