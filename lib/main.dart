@@ -381,11 +381,12 @@ final kProducts = <Product>[
     details: {'Material':'97% Cotton, 3% Elastane','Fit':'Slim','Rise':'Mid','Care':'Machine Wash'},
   ),
   Product(
-    id: 'p05', name: 'Cable Knit Sweater', brand: 'Gucci',
-    description: 'Cozy cable-knit sweater in 100% merino wool. Dropped shoulders, ribbed cuffs and hem. The essential cold-weather layer.',
+    id: 'p05', name: 'Merino Cable Knit Sweater', brand: 'Gucci',
+    description: 'Timeless cable-knit sweater in 100% merino wool. Dropped shoulders, ribbed cuffs and hem deliver an elevated cold-weather layer you will reach for season after season.',
     price: 119.99, originalPrice: 165.00, category: 'Men', subCategory: 'Casual',
     images: [
-      'assets/images/cable_knit.png',
+      'https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?w=700&q=85',
+      'https://images.unsplash.com/photo-1611312449408-fcece27cdbb7?w=700&q=85',
     ],
     sizes: ['S','M','L','XL','XXL'], colors: ['Cream','Charcoal','Navy','Brown'],
     rating: 4.8, reviewCount: 312, soldCount: 740, isFeatured: true,
@@ -420,11 +421,12 @@ final kProducts = <Product>[
   ),
   // ── Men's Streetwear ──────────────────────────────────────
   Product(
-    id: 'p08', name: 'Oversized Hoodie', brand: 'Chanel',
-    description: 'The definitive streetwear staple. Heavyweight 400gsm fleece, kangaroo pocket, ribbed cuffs. An oversized silhouette built for comfort and style.',
+    id: 'p08', name: 'Premium Fleece Hoodie', brand: 'Chanel',
+    description: 'The definitive streetwear staple. Heavyweight 400gsm fleece, kangaroo pocket, ribbed cuffs. An oversized silhouette engineered for maximum comfort and effortless style.',
     price: 119.99, originalPrice: 160.00, category: 'Men', subCategory: 'Streetwear',
     images: [
-      'assets/images/hoodie.png',
+      'https://images.unsplash.com/photo-1556821840-3a63f15732ce?w=700&q=85',
+      'https://images.unsplash.com/photo-1542338347-4fff3276af78?w=700&q=85',
     ],
     sizes: ['S','M','L','XL','XXL'], colors: ['Black','Cream','Charcoal'],
     rating: 4.8, reviewCount: 792, soldCount: 2100, isNew: true, isFeatured: true,
@@ -472,11 +474,12 @@ final kProducts = <Product>[
     details: {'Material':'93% Cotton, 7% Elastane','Rise':'High','Fit':'Wide Leg','Care':'Machine Wash'},
   ),
   Product(
-    id: 'p12', name: 'Oversized Knit Sweater', brand: 'Dior',
-    description: 'A cozy, oversized chunky-knit sweater in an 80/20 wool-cashmere blend. Dropped shoulders, ribbed trims. The ultimate in luxurious comfort.',
+    id: 'p12', name: 'Chunky Wool Pullover', brand: 'Dior',
+    description: 'A luxuriously cozy chunky-knit pullover in an 80/20 wool-cashmere blend. Dropped shoulders with refined ribbed trims. The ultimate statement in soft, seasonal dressing.',
     price: 109.99, originalPrice: 155.00, category: 'Women', subCategory: 'Casual',
     images: [
-      'assets/images/knit_sweater.png',
+      'https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=700&q=85',
+      'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=700&q=85',
     ],
     sizes: ['XS','S','M','L','XL'], colors: ['Cream','Dusty Rose','Sage'],
     rating: 4.8, reviewCount: 523, soldCount: 1290, isNew: true, isFeatured: true,
