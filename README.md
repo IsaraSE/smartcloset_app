@@ -28,6 +28,8 @@ The app completely rethinks the mobile shopping experience, moving away from gen
 - **🏷️ Smart QR Rack Scanner:** Built for omnichannel retail, the live hardware scanner allows users to scan physical clothing racks in-store and instantly pull up their digital counterparts, complete with reviews, sizing, and stock.
 - **💎 Editorial UX/UI:** Breathtaking `Cormorant Garamond` headings paired with ultra-clean `DM Sans` typography, sleek frosted glass layouts, immersive parallax imagery, and custom animation controllers.
 - **🛍️ Complete E-Commerce Flow:** Fully mocked out end-to-end shopping experience featuring 28 curated luxury products, cart state management, checkout routing, and timeline-based order tracking.
+- **🇱🇰 Localized for LKR:** Seamless currency standardization across the entire application, featuring locally formatted Sri Lankan Rupee (LKR) pricing for a tailored regional experience.
+- **👤 Enhanced Profile Experience:** A professional-grade account management suite including dedicated modules for Addresses, Promo Codes, Notifications, and Help & Support.
 - **⚡ Reactive Performance:** Powered entirely by `Riverpod` for lightning-fast state management without prop-drilling, and `go_router` for deep linking and safe navigation transitions.
 
 ## 🏆 Core App Functions & Workflows
@@ -41,8 +43,8 @@ Bridging the gap between the physical retail store and the digital app. Users ca
 **3. State-of-the-Art E-Commerce Pipeline**
 From discovery to checkout, NOIR provides a frictionless shopping loop. The app features a highly curated feed of clothing, shoes, and accessories. Once an item is added to the cart, the user proceeds to an integrated checkout experience that provides an itemized subtotal, and generates an interactive, timeline-based order receipt tracking the package from processing to delivery.
 
-**4. Persistent Authentication & Luxury Presentation**
-Upon launching the application, users are greeted by a breathtaking, animation-driven Splash Screen that fades into an elegant login portal. The entire system uses Riverpod to track the auth state, saving sessions flawlessly across app relaunches, ensuring the user is never kicked out of their premium shopping experience unintentionally.
+**4. Persistent Authentication & Profile Management**
+Upon launching the application, users are greeted by a breathtaking, animation-driven Splash Screen that fades into an elegant login portal. The entire system uses Riverpod to track the auth state, saving sessions flawlessly across app relaunches. Once logged in, users gain access to a comprehensive profile dashboard allowing them to manage multiple shipping addresses, view active promo codes, and configure custom notifications.
 
 ---
 
