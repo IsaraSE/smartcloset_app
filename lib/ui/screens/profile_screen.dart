@@ -94,8 +94,10 @@ class ProfileScreen extends ConsumerWidget {
                   () => context.push('/orders')),
               _MenuItem(Icons.favorite_border_rounded, 'Saved Items',
                   () => context.go('/wishlist')),
-              _MenuItem(Icons.location_on_outlined, 'Addresses', () {}),
-              _MenuItem(Icons.local_offer_outlined, 'Promo Codes', () {}),
+              _MenuItem(Icons.location_on_outlined, 'Addresses',
+                  () => context.push('/addresses')),
+              _MenuItem(Icons.local_offer_outlined, 'Promo Codes',
+                  () => context.push('/promo-codes')),
             ]),
             const SizedBox(height: 14),
             _menuSection(context, 'Features', [
@@ -106,13 +108,15 @@ class ProfileScreen extends ConsumerWidget {
             ]),
             const SizedBox(height: 14),
             _menuSection(context, 'Account', [
-              _MenuItem(
-                  Icons.notifications_none_rounded, 'Notifications', () {}),
+              _MenuItem(Icons.notifications_none_rounded, 'Notifications',
+                  () => context.push('/notifications')),
               _MenuItem(Icons.dark_mode_outlined, 'Toggle Theme Mode', () {
                 ref.read(themeProvider.notifier).toggleMode();
               }),
-              _MenuItem(Icons.help_outline_rounded, 'Help & Support', () {}),
-              _MenuItem(Icons.info_outline_rounded, 'About NOIR', () {}),
+              _MenuItem(Icons.help_outline_rounded, 'Help & Support',
+                  () => context.push('/help')),
+              _MenuItem(Icons.info_outline_rounded, 'About NOIR',
+                  () => context.push('/about')),
             ]),
             const SizedBox(height: 14),
             Container(

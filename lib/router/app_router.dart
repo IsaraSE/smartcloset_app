@@ -18,6 +18,11 @@ import 'package:aura_app/ui/screens/checkout_screen.dart';
 import 'package:aura_app/ui/screens/order_success_screen.dart';
 import 'package:aura_app/ui/screens/orders_screen.dart';
 import 'package:aura_app/ui/screens/profile_screen.dart';
+import 'package:aura_app/ui/screens/profile/addresses_screen.dart';
+import 'package:aura_app/ui/screens/profile/promo_codes_screen.dart';
+import 'package:aura_app/ui/screens/profile/notifications_screen.dart';
+import 'package:aura_app/ui/screens/profile/help_support_screen.dart';
+import 'package:aura_app/ui/screens/profile/about_screen.dart';
 import 'package:aura_app/ui/screens/try_on_screen.dart';
 import 'package:aura_app/ui/screens/qr_scanner_screen.dart';
 import 'package:aura_app/ui/screens/rack_products_screen.dart';
@@ -115,6 +120,31 @@ final routerProvider = Provider<GoRouter>((ref) {
         parentNavigatorKey: _rootKey,
         pageBuilder: (c, s) =>
             _slideUp(s, OrderSuccessScreen(order: s.extra as AppOrder)),
+      ),
+      GoRoute(
+        path: '/addresses',
+        parentNavigatorKey: _rootKey,
+        pageBuilder: (c, s) => _slide(s, const AddressesScreen()),
+      ),
+      GoRoute(
+        path: '/promo-codes',
+        parentNavigatorKey: _rootKey,
+        pageBuilder: (c, s) => _slide(s, const PromoCodesScreen()),
+      ),
+      GoRoute(
+        path: '/notifications',
+        parentNavigatorKey: _rootKey,
+        pageBuilder: (c, s) => _slide(s, const NotificationsScreen()),
+      ),
+      GoRoute(
+        path: '/help',
+        parentNavigatorKey: _rootKey,
+        pageBuilder: (c, s) => _slide(s, const HelpSupportScreen()),
+      ),
+      GoRoute(
+        path: '/about',
+        parentNavigatorKey: _rootKey,
+        pageBuilder: (c, s) => _slide(s, const AboutScreen()),
       ),
     ],
   );
