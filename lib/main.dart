@@ -17,16 +17,23 @@ import 'package:flutter_animate/flutter_animate.dart';
 //  Brand: NOIR | Palette: Black / White / Champagne Gold
 // ============================================================
 
-void main() {
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:aura_app/app.dart';
+import 'package:aura_app/providers/theme_provider.dart';
+
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  final prefs = await SharedPreferences.getInstance();
+
   SystemChrome.setPreferredOrientations(const [
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
-  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    statusBarColor: Colors.transparent,
-    statusBarIconBrightness: Brightness.dark,
-    systemNavigationBarColor: Colors.white,
+  // The system UI overlay style will be dynamically controlled by ThemeData later
+  runApp(ProviderScope(
+    overrides: [
+      sharedPreferencesProvider.overrideWithValue(prefs),
+    ],
+    child: const NoirApp(),
   ));
-  runApp(const ProviderScope(child: NoirApp()));
 }
