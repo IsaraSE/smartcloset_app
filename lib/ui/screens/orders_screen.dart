@@ -7,6 +7,7 @@ import 'package:aura_app/core/theme/colors.dart';
 import 'package:aura_app/data/models/order.dart';
 import 'package:aura_app/providers/orders_provider.dart';
 import 'package:aura_app/ui/widgets/empty_view.dart';
+import 'package:aura_app/core/utils/currency_utils.dart';
 
 class OrdersScreen extends ConsumerWidget {
   const OrdersScreen({super.key});
@@ -107,7 +108,7 @@ class _OrderCard extends StatelessWidget {
           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
             Text('Total',
                 style: GoogleFonts.dmSans(fontSize: 14, color: context.colors.n600)),
-            Text('\$${o.total.toStringAsFixed(2)}',
+            Text(o.total.formatPrice(),
                 style: GoogleFonts.dmSans(
                     fontWeight: FontWeight.w700, fontSize: 16, color: context.colors.ink)),
           ]),

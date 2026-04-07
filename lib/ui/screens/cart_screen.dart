@@ -10,6 +10,7 @@ import 'package:aura_app/ui/widgets/shared_buttons.dart';
 import 'package:aura_app/ui/widgets/shared_image.dart';
 import 'package:aura_app/ui/widgets/summary_row.dart';
 import 'package:aura_app/ui/widgets/empty_view.dart';
+import 'package:aura_app/core/utils/currency_utils.dart';
 
 class CartScreen extends ConsumerStatefulWidget {
   const CartScreen({super.key});
@@ -133,16 +134,16 @@ class _CartState extends ConsumerState<CartScreen> {
                     child: const Text('Apply')),
               ]),
               const SizedBox(height: 16),
-              SumRow('Subtotal', '\$${sub.toStringAsFixed(2)}'),
+              SumRow('Subtotal', sub.formatPrice()),
               if (_discount > 0)
                 SumRow(
-                    'Discount (NOIR20)', '-\$${_discount.toStringAsFixed(2)}',
+                    'Discount (NOIR20)', '-${_discount.formatPrice()}',
                     valueColor: context.colors.success),
               SumRow('Shipping',
-                  ship == 0 ? 'FREE' : '\$${ship.toStringAsFixed(2)}',
+                  ship == 0 ? 'FREE' : ship.formatPrice(),
                   valueColor: ship == 0 ? context.colors.success : null),
               const Divider(height: 20),
-              SumRow('Total', '\$${tot.toStringAsFixed(2)}', bold: true),
+              SumRow('Total', tot.formatPrice(), bold: true),
               const SizedBox(height: 14),
               SafeArea(
                   child: Btn(
@@ -199,7 +200,7 @@ class _CartTile extends StatelessWidget {
                 Text('${item.selectedSize} · ${item.selectedColor}',
                     style: GoogleFonts.dmSans(fontSize: 11, color: context.colors.n500)),
                 const SizedBox(height: 6),
-                Text('\$${item.product.price.toStringAsFixed(2)}',
+                Text(item.product.price.formatPrice(),
                     style: GoogleFonts.dmSans(
                         fontSize: 15,
                         fontWeight: FontWeight.w700,

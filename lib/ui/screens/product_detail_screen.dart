@@ -13,6 +13,7 @@ import 'package:aura_app/providers/cart_provider.dart';
 import 'package:aura_app/providers/wishlist_provider.dart';
 import 'package:aura_app/ui/widgets/shared_buttons.dart';
 import 'package:aura_app/ui/widgets/badges.dart';
+import 'package:aura_app/core/utils/currency_utils.dart';
 
 class ProductDetailScreen extends ConsumerStatefulWidget {
   final Product? product;
@@ -171,14 +172,14 @@ class _PDState extends ConsumerState<ProductDetailScreen> {
 
               // Price row
               Row(crossAxisAlignment: CrossAxisAlignment.center, children: [
-                Text('\$${p.price.toStringAsFixed(2)}',
+                Text(p.price.formatPrice(),
                     style: GoogleFonts.dmSans(
                         fontSize: 24,
                         fontWeight: FontWeight.w700,
                         color: context.colors.ink)),
                 if (p.hasDiscount) ...[
                   const SizedBox(width: 10),
-                  Text('\$${p.originalPrice!.toStringAsFixed(2)}',
+                  Text(p.originalPrice!.formatPrice(),
                       style: GoogleFonts.dmSans(
                           fontSize: 14,
                           color: context.colors.n400,

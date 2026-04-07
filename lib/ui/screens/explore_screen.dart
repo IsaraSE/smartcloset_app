@@ -7,6 +7,7 @@ import 'package:aura_app/providers/filter_provider.dart';
 import 'package:aura_app/ui/widgets/shared_buttons.dart';
 import 'package:aura_app/ui/widgets/empty_view.dart';
 import 'package:aura_app/ui/widgets/product_card.dart';
+import 'package:aura_app/core/utils/currency_utils.dart';
 
 class ExploreScreen extends ConsumerStatefulWidget {
   const ExploreScreen({super.key});
@@ -309,17 +310,17 @@ class _FSState extends ConsumerState<_FilterSheet> {
                       color: context.colors.n700,
                       letterSpacing: 0.3)),
               RangeSlider(
-                  values: RangeValues(_f.minPrice ?? 0, _f.maxPrice ?? 500),
+                  values: RangeValues(_f.minPrice ?? 0, _f.maxPrice ?? 150000),
                   min: 0,
-                  max: 500,
+                  max: 150000,
                   activeColor: context.colors.ink,
                   inactiveColor: context.colors.n200,
                   onChanged: (v) => setState(() =>
                       _f = _f.copyWith(minPrice: v.start, maxPrice: v.end))),
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-                Text('\$${(_f.minPrice ?? 0).toInt()}',
+                Text((_f.minPrice ?? 0).formatPrice(),
                     style: GoogleFonts.dmSans(fontSize: 13, color: context.colors.n600)),
-                Text('\$${(_f.maxPrice ?? 500).toInt()}',
+                Text((_f.maxPrice ?? 150000).formatPrice(),
                     style: GoogleFonts.dmSans(fontSize: 13, color: context.colors.n600)),
               ]),
               const SizedBox(height: 24),

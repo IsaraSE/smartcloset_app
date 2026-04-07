@@ -45,7 +45,7 @@ class CartNotifier extends StateNotifier<List<CartItem>> {
   void clear() => state = [];
 
   double get subtotal => state.fold(0, (s, i) => s + i.total);
-  double get shipping => subtotal >= 100 ? 0 : 9.99;
+  double get shipping => subtotal >= 10000 ? 0 : 500;
   double get total => subtotal + shipping;
   int get count => state.fold(0, (s, i) => s + i.quantity);
 }

@@ -10,6 +10,8 @@ import 'package:aura_app/providers/recently_viewed_provider.dart';
 import 'package:aura_app/ui/widgets/shared_image.dart';
 import 'package:aura_app/ui/widgets/badges.dart';
 import 'package:aura_app/ui/widgets/shared_buttons.dart';
+import 'package:aura_app/core/utils/currency_utils.dart';
+
 class ProductCard extends ConsumerWidget {
   final Product p;
   final bool wide;
@@ -107,14 +109,14 @@ class ProductCard extends ConsumerWidget {
                       crossAxisAlignment: CrossAxisAlignment.baseline,
                       textBaseline: TextBaseline.alphabetic,
                       children: [
-                        Text('\$${p.price.toStringAsFixed(2)}',
+                        Text(p.price.formatPrice(),
                             style: GoogleFonts.dmSans(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w700,
                                 color: context.colors.ink)),
                         if (p.hasDiscount) ...[
                           const SizedBox(width: 5),
-                          Text('\$${p.originalPrice!.toStringAsFixed(2)}',
+                          Text(p.originalPrice!.formatPrice(),
                               style: GoogleFonts.dmSans(
                                   fontSize: 10,
                                   color: context.colors.n400,

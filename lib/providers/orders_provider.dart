@@ -14,9 +14,9 @@ class OrdersNotifier extends StateNotifier<List<AppOrder>> {
             id: 'o1',
             orderNumber: 'NR-2025-001',
             items: [],
-            subtotal: 329.98,
+            subtotal: 98995.0,
             shipping: 0,
-            total: 329.98,
+            total: 98995.0,
             address: const Address(
                 id: 'a1',
                 name: 'Home',
@@ -36,9 +36,9 @@ class OrdersNotifier extends StateNotifier<List<AppOrder>> {
             id: 'o2',
             orderNumber: 'NR-2025-002',
             items: [],
-            subtotal: 249.99,
+            subtotal: 74995.0,
             shipping: 0,
-            total: 249.99,
+            total: 74995.0,
             address: const Address(
                 id: 'a1',
                 name: 'Home',
@@ -63,7 +63,7 @@ class OrdersNotifier extends StateNotifier<List<AppOrder>> {
   }) async {
     await Future.delayed(const Duration(seconds: 2));
     final sub = items.fold<double>(0, (s, i) => s + i.total);
-    final ship = sub >= 100 ? 0.0 : 9.99;
+    final ship = sub >= 10000 ? 0.0 : 500.0;
     final order = AppOrder(
       id: 'o_${DateTime.now().millisecondsSinceEpoch}',
       orderNumber: 'NR-2025-${(state.length + 1).toString().padLeft(3, '0')}',

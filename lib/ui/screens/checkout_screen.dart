@@ -12,6 +12,7 @@ import 'package:aura_app/providers/orders_provider.dart';
 import 'package:aura_app/ui/widgets/shared_buttons.dart';
 import 'package:aura_app/ui/widgets/shared_image.dart';
 import 'package:aura_app/ui/widgets/summary_row.dart';
+import 'package:aura_app/core/utils/currency_utils.dart';
 
 class CheckoutScreen extends ConsumerStatefulWidget {
   const CheckoutScreen({super.key});
@@ -228,7 +229,7 @@ class _COState extends ConsumerState<CheckoutScreen> {
                             style: GoogleFonts.dmSans(
                                 fontSize: 12, color: context.colors.n500)),
                       ])),
-                  Text('\$${item.total.toStringAsFixed(2)}',
+                  Text(item.total.formatPrice(),
                       style: GoogleFonts.dmSans(
                           fontWeight: FontWeight.w700, fontSize: 14)),
                 ])))),
@@ -240,12 +241,12 @@ class _COState extends ConsumerState<CheckoutScreen> {
                 border: Border.all(color: context.colors.border),
                 boxShadow: [BoxShadow(color: context.colors.shadow, blurRadius: 6)]),
             child: Column(children: [
-              SumRow('Subtotal', '\$${sub.toStringAsFixed(2)}'),
+              SumRow('Subtotal', sub.formatPrice()),
               SumRow('Shipping',
-                  ship == 0 ? 'FREE' : '\$${ship.toStringAsFixed(2)}',
+                  ship == 0 ? 'FREE' : ship.formatPrice(),
                   valueColor: ship == 0 ? context.colors.success : null),
               const Divider(height: 16),
-              SumRow('Total', '\$${tot.toStringAsFixed(2)}', bold: true),
+              SumRow('Total', tot.formatPrice(), bold: true),
             ])),
         const SizedBox(height: 20),
         Row(children: [

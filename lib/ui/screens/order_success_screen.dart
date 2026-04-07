@@ -7,6 +7,7 @@ import 'package:aura_app/core/theme/colors.dart';
 import 'package:aura_app/data/models/order.dart';
 import 'package:aura_app/ui/widgets/summary_row.dart';
 import 'package:aura_app/ui/widgets/shared_buttons.dart';
+import 'package:aura_app/core/utils/currency_utils.dart';
 
 class OrderSuccessScreen extends StatelessWidget {
   final AppOrder order;
@@ -63,7 +64,7 @@ class OrderSuccessScreen extends StatelessWidget {
                                 '${order.estimatedDelivery?.day}/${order.estimatedDelivery?.month}/${order.estimatedDelivery?.year}'),
                             const Divider(height: 16),
                             SumRow(
-                                'Total', '\$${order.total.toStringAsFixed(2)}',
+                                'Total', order.total.formatPrice(),
                                 bold: true),
                           ])).animate().fadeIn(delay: 600.ms),
                       const SizedBox(height: 32),

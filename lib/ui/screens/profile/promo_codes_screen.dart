@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:aura_app/core/theme/colors.dart';
+import 'package:aura_app/core/utils/currency_utils.dart';
 
 class PromoCodesScreen extends StatelessWidget {
   const PromoCodesScreen({super.key});
@@ -156,13 +157,13 @@ class _CopyBtn extends StatelessWidget {
 final _kPromoCodes = [
   {
     'title': 'Welcome Offer',
-    'desc': 'Unlock 15% off your first purchase above \$100.',
+    'desc': 'Unlock 15% off your first purchase above ${5000.formatPrice()}.',
     'code': 'NOIRFIRST15',
     'type': 'welcome',
   },
   {
     'title': 'Summer 2025 Drop',
-    'desc': 'Get \$20 off on our new seasonal collection.',
+    'desc': 'Get ${1000.formatPrice()} off on our new seasonal collection.',
     'code': 'SUMMER25',
     'type': 'seasonal',
   },

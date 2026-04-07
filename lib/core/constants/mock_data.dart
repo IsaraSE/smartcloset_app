@@ -12,8 +12,8 @@ final kProducts = <Product>[
     brand: 'Ralph Lauren',
     description:
         'A timeless oxford shirt in premium 100% cotton. Button-down collar, slim fit, subtle texture. Pairs perfectly with chinos or tailored trousers for a smart-casual look.',
-    price: 79.99,
-    originalPrice: 120.00,
+    price: 23997.0,
+    originalPrice: 36000.0,
     category: 'Men',
     subCategory: 'Formal',
     images: [
@@ -41,8 +41,8 @@ final kProducts = <Product>[
     brand: 'Tommy Hilfiger',
     description:
         'Sophisticated wool-blend blazer with single-button closure, notch lapels, and structured shoulders for a sharp professional appearance.',
-    price: 249.99,
-    originalPrice: 380.00,
+    price: 74997.0,
+    originalPrice: 114000.0,
     category: 'Men',
     subCategory: 'Formal',
     images: [
@@ -70,8 +70,8 @@ final kProducts = <Product>[
     brand: 'Dior',
     description:
         'Impeccably cut dress trousers in a premium wool-stretch blend. Flat front, slim silhouette. The backbone of any formal wardrobe.',
-    price: 139.99,
-    originalPrice: 195.00,
+    price: 41997.0,
+    originalPrice: 58500.0,
     category: 'Men',
     subCategory: 'Formal',
     images: [
@@ -100,7 +100,7 @@ final kProducts = <Product>[
     brand: 'Polo Ralph Lauren',
     description:
         'Versatile chino in lightweight cotton-stretch. Moves with you through the workday and beyond. Available in classic seasonal colors.',
-    price: 89.99,
+    price: 26997.0,
     category: 'Men',
     subCategory: 'Casual',
     images: [
@@ -128,8 +128,8 @@ final kProducts = <Product>[
     brand: 'Gucci',
     description:
         'Timeless cable-knit sweater in 100% merino wool. Dropped shoulders, ribbed cuffs and hem deliver an elevated cold-weather layer you will reach for season after season.',
-    price: 119.99,
-    originalPrice: 165.00,
+    price: 35997.0,
+    originalPrice: 49500.0,
     category: 'Men',
     subCategory: 'Casual',
     images: [
@@ -157,8 +157,8 @@ final kProducts = <Product>[
     brand: 'Ralph Lauren',
     description:
         'An enduring wardrobe staple. Ribbed collar and cuffs, button front closure. Crafted from a soft wool blend for all-day comfort.',
-    price: 99.99,
-    originalPrice: 140.00,
+    price: 29997.0,
+    originalPrice: 42000.0,
     category: 'Men',
     subCategory: 'Casual',
     images: [
@@ -186,8 +186,8 @@ final kProducts = <Product>[
     brand: 'Tommy Hilfiger',
     description:
         'Relaxed linen overshirt — wear it open over a tee or buttoned as a light layer. Stone-washed for a naturally worn-in feel.',
-    price: 74.99,
-    originalPrice: 98.00,
+    price: 22497.0,
+    originalPrice: 29400.0,
     category: 'Men',
     subCategory: 'Casual',
     images: [
@@ -216,8 +216,8 @@ final kProducts = <Product>[
     brand: 'Chanel',
     description:
         'The definitive streetwear staple. Heavyweight 400gsm fleece, kangaroo pocket, ribbed cuffs. An oversized silhouette engineered for maximum comfort and effortless style.',
-    price: 119.99,
-    originalPrice: 160.00,
+    price: 35997.0,
+    originalPrice: 48000.0,
     category: 'Men',
     subCategory: 'Streetwear',
     images: [
@@ -246,8 +246,8 @@ final kProducts = <Product>[
     brand: 'Versace',
     description:
         'Technical cargo pants where function meets fashion. Multiple zip pockets, adjustable waistband, tapered leg silhouette. Water-resistant ripstop nylon.',
-    price: 149.99,
-    originalPrice: 200.00,
+    price: 44997.0,
+    originalPrice: 60000.0,
     category: 'Men',
     subCategory: 'Streetwear',
     images: [
@@ -275,8 +275,8 @@ final kProducts = <Product>[
     brand: 'Gucci',
     description:
         'Effortlessly feminine floral midi dress. V-neckline, flowing silhouette, adjustable tie waist. Crafted from lightweight viscose for all-day ease.',
-    price: 129.99,
-    originalPrice: 180.00,
+    price: 38997.0,
+    originalPrice: 54000.0,
     category: 'Women',
     subCategory: 'Casual',
     images: [
@@ -305,7 +305,7 @@ final kProducts = <Product>[
     brand: 'Calvin Klein',
     description:
         'A modern take on the wide-leg silhouette. Premium stretch denim, high-rise waist that flatters every body type. Finished with subtle hardware.',
-    price: 109.99,
+    price: 32997.0,
     category: 'Women',
     subCategory: 'Casual',
     images: [
@@ -332,8 +332,8 @@ final kProducts = <Product>[
     brand: 'Dior',
     description:
         'A luxuriously cozy chunky-knit pullover in an 80/20 wool-cashmere blend. Dropped shoulders with refined ribbed trims. The ultimate statement in soft, seasonal dressing.',
-    price: 109.99,
-    originalPrice: 155.00,
+    price: 32997.0,
+    originalPrice: 46500.0,
     category: 'Women',
     subCategory: 'Casual',
     images: [
@@ -362,8 +362,8 @@ final kProducts = <Product>[
     brand: 'Tommy Hilfiger',
     description:
         'Breezy linen blouse with subtle pintuck detailing and a relaxed drape. Perfect over jeans or tucked into a midi skirt.',
-    price: 64.99,
-    originalPrice: 89.00,
+    price: 19497.0,
+    originalPrice: 26700.0,
     category: 'Women',
     subCategory: 'Casual',
     images: [
@@ -392,8 +392,8 @@ final kProducts = <Product>[
     brand: 'Prada',
     description:
         'A power-dressing icon. Italian crepe, peak lapels, a defined waist, and single-button closure. Commands attention in every room.',
-    price: 219.99,
-    originalPrice: 320.00,
+    price: 65997.0,
+    originalPrice: 96000.0,
     category: 'Women',
     subCategory: 'Formal',
     images: [
@@ -421,8 +421,8 @@ final kProducts = <Product>[
     brand: 'Gucci',
     description:
         'Effortlessly chic bias-cut satin slip dress. Adjustable spaghetti straps, subtle sheen, fluid drape. A modern classic for evenings out.',
-    price: 99.99,
-    originalPrice: 150.00,
+    price: 29997.0,
+    originalPrice: 45000.0,
     category: 'Women',
     subCategory: 'Formal',
     images: [
@@ -449,8 +449,8 @@ final kProducts = <Product>[
     brand: 'Chanel',
     description:
         'A polished pencil midi skirt with a back kick pleat for ease of movement. Crafted from a luxe ponte fabric that holds its shape beautifully.',
-    price: 89.99,
-    originalPrice: 130.00,
+    price: 26997.0,
+    originalPrice: 39000.0,
     category: 'Women',
     subCategory: 'Formal',
     images: [
@@ -478,8 +478,8 @@ final kProducts = <Product>[
     brand: 'Versace',
     description:
         'The definitive statement piece. Premium vegan leather, silver-tone hardware, asymmetric zip closure. Pairs with everything from slip dresses to wide-leg jeans.',
-    price: 299.99,
-    originalPrice: 450.00,
+    price: 89997.0,
+    originalPrice: 135000.0,
     category: 'Women',
     subCategory: 'Streetwear',
     images: [
@@ -508,7 +508,7 @@ final kProducts = <Product>[
     brand: 'Versace',
     description:
         'Minimalist white leather sneakers with a cushioned memory-foam insole. Clean lines, signature back-tab, rubber outsole. Effortlessly versatile.',
-    price: 129.99,
+    price: 38997.0,
     category: 'Women',
     subCategory: 'Streetwear',
     images: [
@@ -537,8 +537,8 @@ final kProducts = <Product>[
     brand: 'Tommy Hilfiger',
     description:
         'Durable and adorable denim overalls with adjustable straps and reinforced knees. Built to keep up with every adventure.',
-    price: 49.99,
-    originalPrice: 70.00,
+    price: 14997.0,
+    originalPrice: 21000.0,
     category: 'Kids',
     subCategory: 'Casual',
     images: [
@@ -565,7 +565,7 @@ final kProducts = <Product>[
     brand: 'Ralph Lauren',
     description:
         'Fun graphic tee and matching pull-on shorts. Super-soft 100% cotton jersey. The perfect play set.',
-    price: 39.99,
+    price: 11997.0,
     category: 'Kids',
     subCategory: 'Casual',
     images: [
@@ -594,8 +594,8 @@ final kProducts = <Product>[
     brand: 'Chanel',
     description:
         'Spacious, elegant tote in full-grain vegetable-tanned leather. Gold-tone hardware, interior zip pocket, cotton canvas lining. Improves with age.',
-    price: 189.99,
-    originalPrice: 280.00,
+    price: 56997.0,
+    originalPrice: 84000.0,
     category: 'Accessories',
     subCategory: 'Bags',
     images: [
@@ -623,8 +623,8 @@ final kProducts = <Product>[
     brand: 'Prada',
     description:
         'Luxuriously soft merino wool scarf in a classic ribbed pattern. Extra-long for versatile styling — wrap, drape, or layer.',
-    price: 69.99,
-    originalPrice: 100.00,
+    price: 20997.0,
+    originalPrice: 30000.0,
     category: 'Accessories',
     subCategory: 'Scarves',
     images: [
@@ -651,8 +651,8 @@ final kProducts = <Product>[
     brand: 'Dior',
     description:
         'Swiss-movement timepiece with a brushed stainless case, sapphire crystal, and genuine leather strap. Understated luxury for the discerning wearer.',
-    price: 299.99,
-    originalPrice: 420.00,
+    price: 89997.0,
+    originalPrice: 126000.0,
     category: 'Accessories',
     subCategory: 'Watches',
     images: [
@@ -680,8 +680,8 @@ final kProducts = <Product>[
     brand: 'Gucci',
     description:
         'Sleek geometric frames with polarized UV400 lenses. Lightweight acetate, spring hinges. Effortless cool with all-day comfort.',
-    price: 149.99,
-    originalPrice: 210.00,
+    price: 44997.0,
+    originalPrice: 63000.0,
     category: 'Accessories',
     subCategory: 'Eyewear',
     images: [
@@ -708,8 +708,8 @@ final kProducts = <Product>[
     brand: 'Prada',
     description:
         'Hand-woven full-grain leather belt with a matte silver buckle. A masterclass in Italian craftsmanship. Fits waist 28–40".',
-    price: 79.99,
-    originalPrice: 115.00,
+    price: 23997.0,
+    originalPrice: 34500.0,
     category: 'Accessories',
     subCategory: 'Belts',
     images: [
@@ -736,7 +736,7 @@ final kProducts = <Product>[
     brand: 'Ralph Lauren',
     description:
         'Six-panel unstructured cap in premium canvas. Embroidered tonal logo, curved brim, adjustable back strap. The finishing touch.',
-    price: 44.99,
+    price: 13497.0,
     category: 'Accessories',
     subCategory: 'Hats',
     images: [
@@ -764,8 +764,8 @@ final kProducts = <Product>[
     brand: 'Versace',
     description:
         'Italian-crafted high-top boots in supple full-grain leather. Cushioned footbed, lug sole, YKK side zip for easy on-off. Built to last a decade.',
-    price: 349.99,
-    originalPrice: 480.00,
+    price: 104997.0,
+    originalPrice: 144000.0,
     category: 'Accessories',
     subCategory: 'Shoes',
     images: [
@@ -793,8 +793,8 @@ final kProducts = <Product>[
     brand: 'Chanel',
     description:
         'Compact yet capacious structured crossbody in pebbled leather. Adjustable chain strap, magnetic snap closure, suede-lined interior.',
-    price: 219.99,
-    originalPrice: 310.00,
+    price: 65997.0,
+    originalPrice: 93000.0,
     category: 'Accessories',
     subCategory: 'Bags',
     images: [
