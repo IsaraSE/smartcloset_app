@@ -48,14 +48,14 @@ class _RegState extends ConsumerState<RegisterScreen> {
   }
 
   @override
-  Widget build(BuildContext ctx) => Scaffold(
-        backgroundColor: C.white,
+  Widget build(BuildContext context) => Scaffold(
+        backgroundColor: context.colors.white,
         body: CustomScrollView(slivers: [
           SliverAppBar(
-            backgroundColor: C.white,
+            backgroundColor: context.colors.white,
             leading: IconButton(
                 icon: const Icon(Icons.arrow_back_ios_new_rounded, size: 18),
-                onPressed: () => ctx.pop()),
+                onPressed: () => context.pop()),
           ),
           SliverToBoxAdapter(
             child: Padding(
@@ -71,14 +71,14 @@ class _RegState extends ConsumerState<RegisterScreen> {
                                 style: GoogleFonts.cormorantGaramond(
                                     fontSize: 32,
                                     fontWeight: FontWeight.w700,
-                                    color: C.ink))
+                                    color: context.colors.ink))
                             .animate()
                             .fadeIn()
                             .slideX(begin: -0.15, end: 0),
                         const SizedBox(height: 6),
                         Text('Join NOIR and discover your style',
                                 style: GoogleFonts.dmSans(
-                                    fontSize: 14, color: C.n500))
+                                    fontSize: 14, color: context.colors.n500))
                             .animate()
                             .fadeIn(delay: 100.ms),
                         const SizedBox(height: 32),
@@ -132,7 +132,7 @@ class _RegState extends ConsumerState<RegisterScreen> {
                                         _hp
                                             ? Icons.visibility_off_outlined
                                             : Icons.visibility_outlined,
-                                        color: C.n400),
+                                        color: context.colors.n400),
                                     onPressed: () =>
                                         setState(() => _hp = !_hp))),
                             validator: (v) {
@@ -158,7 +158,7 @@ class _RegState extends ConsumerState<RegisterScreen> {
                                         _hc
                                             ? Icons.visibility_off_outlined
                                             : Icons.visibility_outlined,
-                                        color: C.n400),
+                                        color: context.colors.n400),
                                     onPressed: () =>
                                         setState(() => _hc = !_hc))),
                             validator: (v) {
@@ -178,18 +178,18 @@ class _RegState extends ConsumerState<RegisterScreen> {
                                   text: TextSpan(
                                       text: 'I agree to the ',
                                       style: GoogleFonts.dmSans(
-                                          fontSize: 13, color: C.n600),
-                                      children: const [
+                                          fontSize: 13, color: context.colors.n600),
+                                      children: [
                                 TextSpan(
                                     text: 'Terms of Service',
                                     style: TextStyle(
-                                        color: C.gold,
+                                        color: context.colors.gold,
                                         fontWeight: FontWeight.w600)),
-                                TextSpan(text: ' & '),
+                                const TextSpan(text: ' & '),
                                 TextSpan(
                                     text: 'Privacy Policy',
                                     style: TextStyle(
-                                        color: C.gold,
+                                        color: context.colors.gold,
                                         fontWeight: FontWeight.w600)),
                               ]))),
                         ]),
@@ -206,15 +206,15 @@ class _RegState extends ConsumerState<RegisterScreen> {
                                 text: TextSpan(
                           text: 'Already have an account? ',
                           style:
-                              GoogleFonts.dmSans(fontSize: 14, color: C.n500),
+                              GoogleFonts.dmSans(fontSize: 14, color: context.colors.n500),
                           children: [
                             WidgetSpan(
                                 child: GestureDetector(
-                              onTap: () => ctx.pop(),
+                              onTap: () => context.pop(),
                               child: Text('Sign In',
                                   style: GoogleFonts.dmSans(
                                       fontSize: 14,
-                                      color: C.gold,
+                                      color: context.colors.gold,
                                       fontWeight: FontWeight.w700)),
                             ))
                           ],

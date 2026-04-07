@@ -20,7 +20,7 @@ class EmptyView extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext ctx) => Center(
+  Widget build(BuildContext context) => Center(
         child: Padding(
             padding: const EdgeInsets.all(40),
             child:
@@ -28,18 +28,18 @@ class EmptyView extends StatelessWidget {
               Container(
                   width: 88,
                   height: 88,
-                  decoration: const BoxDecoration(
-                      color: C.n100, shape: BoxShape.circle),
-                  child: Icon(icon, size: 36, color: C.n300)),
+                  decoration: BoxDecoration(
+                      color: context.colors.n100, shape: BoxShape.circle),
+                  child: Icon(icon, size: 36, color: context.colors.n300)),
               const SizedBox(height: 20),
               Text(title,
                   style: GoogleFonts.cormorantGaramond(
-                      fontSize: 22, fontWeight: FontWeight.w600, color: C.ink),
+                      fontSize: 22, fontWeight: FontWeight.w600, color: context.colors.ink),
                   textAlign: TextAlign.center),
               const SizedBox(height: 8),
               Text(desc,
                   style: GoogleFonts.dmSans(
-                      fontSize: 14, color: C.n500, height: 1.5),
+                      fontSize: 14, color: context.colors.n500, height: 1.5),
                   textAlign: TextAlign.center),
               if (btnLabel != null && onBtn != null) ...[
                 const SizedBox(height: 28),

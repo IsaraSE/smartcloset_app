@@ -41,34 +41,34 @@ class _PDState extends ConsumerState<ProductDetailScreen> {
   }
 
   @override
-  Widget build(BuildContext ctx) {
+  Widget build(BuildContext context) {
     final p = widget.product;
     if (p == null) {
       return const Scaffold(body: Center(child: Text('Product not found')));
     }
     final inWish = ref.watch(inWishlistProvider(p.id));
-    final size = MediaQuery.of(ctx).size;
+    final size = MediaQuery.of(context).size;
 
     return Scaffold(
-      backgroundColor: C.white,
+      backgroundColor: context.colors.white,
       body: Stack(children: [
         CustomScrollView(physics: const BouncingScrollPhysics(), slivers: [
           SliverAppBar(
             expandedHeight: size.height * 0.52,
             pinned: true,
-            backgroundColor: C.white,
+            backgroundColor: context.colors.white,
             leading: GestureDetector(
-                onTap: () => ctx.pop(),
+                onTap: () => context.pop(),
                 child: Container(
                     margin: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
-                        color: C.white.withOpacity(0.92),
+                        color: context.colors.white.withOpacity(0.92),
                         shape: BoxShape.circle,
-                        boxShadow: const [
-                          BoxShadow(color: C.shadowMd, blurRadius: 8)
+                        boxShadow: [
+                          BoxShadow(color: context.colors.shadowMd, blurRadius: 8)
                         ]),
-                    child: const Icon(Icons.arrow_back_ios_new_rounded,
-                        size: 17, color: C.ink))),
+                    child: Icon(Icons.arrow_back_ios_new_rounded,
+                        size: 17, color: context.colors.ink))),
             actions: [
               Padding(
                   padding: const EdgeInsets.all(8),
@@ -78,12 +78,12 @@ class _PDState extends ConsumerState<ProductDetailScreen> {
                       ref.read(wishlistProvider.notifier).toggle(p);
                       HapticFeedback.lightImpact();
                       snack(
-                          ctx,
+                          context,
                           inWish
                               ? 'Removed from wishlist'
                               : 'Added to wishlist',
                           action: inWish ? null : 'View',
-                          onAction: inWish ? null : () => ctx.go('/wishlist'));
+                          onAction: inWish ? null : () => context.go('/wishlist'));
                     },
                     size: 19,
                     shadow: true,
@@ -97,7 +97,7 @@ class _PDState extends ConsumerState<ProductDetailScreen> {
                   itemCount: p.images.length,
                   onPageChanged: (i) => setState(() => _imgIdx = i),
                   itemBuilder: (_, i) => Container(
-                      color: C.n50,
+                      color: context.colors.n50,
                       child: p.images[i].startsWith('http')
                           ? CachedNetworkImage(
                               imageUrl: p.images[i],
@@ -105,13 +105,13 @@ class _PDState extends ConsumerState<ProductDetailScreen> {
                               width: double.infinity,
                               height: size.height * 0.52,
                               placeholder: (c, u) => Shimmer.fromColors(
-                                  baseColor: C.n200,
-                                  highlightColor: C.n100,
-                                  child: Container(color: C.n200)),
+                                  baseColor: context.colors.n200,
+                                  highlightColor: context.colors.n100,
+                                  child: Container(color: context.colors.n200)),
                               errorWidget: (c, u, e) => Container(
-                                  color: C.n100,
-                                  child: const Icon(Icons.image_outlined,
-                                      size: 48, color: C.n300)))
+                                  color: context.colors.n100,
+                                  child: Icon(Icons.image_outlined,
+                                      size: 48, color: context.colors.n300)))
                           : Image.asset(p.images[i],
                               fit: BoxFit.cover,
                               width: double.infinity,
@@ -131,7 +131,7 @@ class _PDState extends ConsumerState<ProductDetailScreen> {
                           borderRadius: BorderRadius.circular(20)),
                       child: Text('${_imgIdx + 1}/${p.images.length}',
                           style: GoogleFonts.dmSans(
-                              color: C.white,
+                              color: context.colors.white,
                               fontSize: 12,
                               fontWeight: FontWeight.w600)),
                     ))),
@@ -149,12 +149,12 @@ class _PDState extends ConsumerState<ProductDetailScreen> {
                     padding:
                         const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                     decoration: BoxDecoration(
-                        color: C.n100, borderRadius: BorderRadius.circular(4)),
+                        color: context.colors.n100, borderRadius: BorderRadius.circular(4)),
                     child: Text(p.brand.toUpperCase(),
                         style: GoogleFonts.dmSans(
                             fontSize: 10,
                             fontWeight: FontWeight.w700,
-                            color: C.n600,
+                            color: context.colors.n600,
                             letterSpacing: 1.2))),
                 Stars(rating: p.rating, count: p.reviewCount, sz: 13),
               ]),
@@ -165,7 +165,7 @@ class _PDState extends ConsumerState<ProductDetailScreen> {
                   style: GoogleFonts.cormorantGaramond(
                       fontSize: 26,
                       fontWeight: FontWeight.w700,
-                      color: C.ink,
+                      color: context.colors.ink,
                       height: 1.2)),
               const SizedBox(height: 12),
 
@@ -175,13 +175,13 @@ class _PDState extends ConsumerState<ProductDetailScreen> {
                     style: GoogleFonts.dmSans(
                         fontSize: 24,
                         fontWeight: FontWeight.w700,
-                        color: C.ink)),
+                        color: context.colors.ink)),
                 if (p.hasDiscount) ...[
                   const SizedBox(width: 10),
                   Text('\$${p.originalPrice!.toStringAsFixed(2)}',
                       style: GoogleFonts.dmSans(
                           fontSize: 14,
-                          color: C.n400,
+                          color: context.colors.n400,
                           decoration: TextDecoration.lineThrough)),
                   const SizedBox(width: 8),
                   SaleBadge(pct: p.discount),
@@ -189,7 +189,7 @@ class _PDState extends ConsumerState<ProductDetailScreen> {
                 const Spacer(),
                 if (p.soldCount > 0)
                   Text('${p.soldCount}+ sold',
-                      style: GoogleFonts.dmSans(fontSize: 12, color: C.n500)),
+                      style: GoogleFonts.dmSans(fontSize: 12, color: context.colors.n500)),
               ]),
               const SizedBox(height: 20),
               const Divider(),
@@ -203,7 +203,7 @@ class _PDState extends ConsumerState<ProductDetailScreen> {
                 Text('Size Guide',
                     style: GoogleFonts.dmSans(
                         fontSize: 12,
-                        color: C.gold,
+                        color: context.colors.gold,
                         fontWeight: FontWeight.w600)),
               ]),
               const SizedBox(height: 10),
@@ -218,10 +218,10 @@ class _PDState extends ConsumerState<ProductDetailScreen> {
                                 width: 46,
                                 height: 46,
                                 decoration: BoxDecoration(
-                                    color: _selSize == s ? C.ink : C.white,
+                                    color: _selSize == s ? context.colors.ink : context.colors.white,
                                     shape: BoxShape.circle,
                                     border: Border.all(
-                                        color: _selSize == s ? C.ink : C.n300,
+                                        color: _selSize == s ? context.colors.ink : context.colors.n300,
                                         width: _selSize == s ? 2 : 1)),
                                 child: Center(
                                     child: Text(s,
@@ -229,8 +229,8 @@ class _PDState extends ConsumerState<ProductDetailScreen> {
                                             fontSize: 12,
                                             fontWeight: FontWeight.w600,
                                             color: _selSize == s
-                                                ? C.white
-                                                : C.n700)))),
+                                                ? context.colors.white
+                                                : context.colors.n700)))),
                           ))
                       .toList()),
               const SizedBox(height: 20),
@@ -244,7 +244,7 @@ class _PDState extends ConsumerState<ProductDetailScreen> {
                   spacing: 12,
                   runSpacing: 10,
                   children: p.colors.map((c) {
-                    final col = colorMap[c] ?? C.n400;
+                    final col = colorMap[c] ?? context.colors.n400;
                     final sel = _selColor == c;
                     final isLight = col.computeLuminance() > 0.75;
                     return GestureDetector(
@@ -260,15 +260,15 @@ class _PDState extends ConsumerState<ProductDetailScreen> {
                                 shape: BoxShape.circle,
                                 border: Border.all(
                                     color: sel
-                                        ? C.gold
+                                        ? context.colors.gold
                                         : (isLight
-                                            ? C.n300
+                                            ? context.colors.n300
                                             : Colors.transparent),
                                     width: sel ? 2.5 : 1),
                                 boxShadow: sel
                                     ? [
                                         BoxShadow(
-                                            color: C.gold.withOpacity(0.4),
+                                            color: context.colors.gold.withOpacity(0.4),
                                             blurRadius: 8,
                                             spreadRadius: 1)
                                       ]
@@ -276,7 +276,7 @@ class _PDState extends ConsumerState<ProductDetailScreen> {
                               ),
                               child: sel
                                   ? Icon(Icons.check_rounded,
-                                      color: isLight ? C.ink : C.white,
+                                      color: isLight ? context.colors.ink : context.colors.white,
                                       size: 16)
                                   : null)),
                     );
@@ -292,7 +292,7 @@ class _PDState extends ConsumerState<ProductDetailScreen> {
               const SizedBox(height: 8),
               Text(p.description,
                   style: GoogleFonts.dmSans(
-                      fontSize: 14, color: C.n600, height: 1.7)),
+                      fontSize: 14, color: context.colors.n600, height: 1.7)),
               const SizedBox(height: 20),
 
               // Details
@@ -304,9 +304,9 @@ class _PDState extends ConsumerState<ProductDetailScreen> {
                 Container(
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
-                        color: C.n50,
+                        color: context.colors.n50,
                         borderRadius: BorderRadius.circular(8),
-                        border: Border.all(color: C.border)),
+                        border: Border.all(color: context.colors.border)),
                     child: Column(
                         children: p.details.entries
                             .map((e) => Padding(
@@ -318,11 +318,11 @@ class _PDState extends ConsumerState<ProductDetailScreen> {
                                             style: GoogleFonts.dmSans(
                                                 fontSize: 12,
                                                 fontWeight: FontWeight.w600,
-                                                color: C.n500))),
+                                                color: context.colors.n500))),
                                     Expanded(
                                         child: Text(e.value,
                                             style: GoogleFonts.dmSans(
-                                                fontSize: 12, color: C.ink))),
+                                                fontSize: 12, color: context.colors.ink))),
                                   ]),
                                 ))
                             .toList())),
@@ -333,17 +333,17 @@ class _PDState extends ConsumerState<ProductDetailScreen> {
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                    color: C.goldLight,
+                    color: context.colors.goldLight,
                     borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: C.gold.withOpacity(0.3))),
+                    border: Border.all(color: context.colors.gold.withOpacity(0.3))),
                 child: Row(children: [
                   Container(
                       width: 44,
                       height: 44,
-                      decoration: const BoxDecoration(
-                          color: C.gold, shape: BoxShape.circle),
-                      child: const Icon(Icons.camera_alt_rounded,
-                          color: C.white, size: 22)),
+                      decoration: BoxDecoration(
+                          color: context.colors.gold, shape: BoxShape.circle),
+                      child: Icon(Icons.camera_alt_rounded,
+                          color: context.colors.white, size: 22)),
                   const SizedBox(width: 12),
                   Expanded(
                       child: Column(
@@ -352,17 +352,17 @@ class _PDState extends ConsumerState<ProductDetailScreen> {
                         Text('Virtual Try-On',
                             style: GoogleFonts.dmSans(
                                 fontWeight: FontWeight.w700,
-                                color: C.ink,
+                                color: context.colors.ink,
                                 fontSize: 14)),
                         Text('See how it looks on you',
                             style: GoogleFonts.dmSans(
-                                color: C.goldDark, fontSize: 12)),
+                                color: context.colors.goldDark, fontSize: 12)),
                       ])),
                   ElevatedButton(
-                      onPressed: () => ctx.push('/try-on', extra: p),
+                      onPressed: () => context.push('/try-on', extra: p),
                       style: ElevatedButton.styleFrom(
-                          backgroundColor: C.gold,
-                          foregroundColor: C.white,
+                          backgroundColor: context.colors.gold,
+                          foregroundColor: context.colors.white,
                           padding: const EdgeInsets.symmetric(
                               horizontal: 14, vertical: 8),
                           shape: RoundedRectangleBorder(
@@ -384,8 +384,8 @@ class _PDState extends ConsumerState<ProductDetailScreen> {
             right: 0,
             child: Container(
               decoration: BoxDecoration(
-                color: C.white,
-                border: const Border(top: BorderSide(color: C.border)),
+                color: context.colors.white,
+                border: Border(top: BorderSide(color: context.colors.border)),
                 boxShadow: [
                   BoxShadow(
                       color: Colors.black.withOpacity(0.06),
@@ -419,7 +419,7 @@ class _PDState extends ConsumerState<ProductDetailScreen> {
                               style: GoogleFonts.dmSans(
                                   fontSize: 13,
                                   fontWeight: FontWeight.w600,
-                                  color: C.ink)),
+                                  color: context.colors.ink)),
                         ))),
                 const SizedBox(width: 12),
                 Expanded(
@@ -434,11 +434,11 @@ class _PDState extends ConsumerState<ProductDetailScreen> {
                             ref
                                 .read(cartProvider.notifier)
                                 .add(p, _selSize!, _selColor ?? p.colors.first);
-                            ctx.push('/checkout');
+                            context.push('/checkout');
                           },
                           style: ElevatedButton.styleFrom(
-                              backgroundColor: C.gold,
-                              foregroundColor: C.white,
+                              backgroundColor: context.colors.gold,
+                              foregroundColor: context.colors.white,
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(4)),
                               elevation: 0),

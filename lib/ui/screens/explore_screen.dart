@@ -25,39 +25,39 @@ class _ExploreState extends ConsumerState<ExploreScreen> {
   }
 
   @override
-  Widget build(BuildContext ctx) {
+  Widget build(BuildContext context) {
     final products = ref.watch(filteredProductsProvider);
     final filter = ref.watch(filterProvider);
 
     return Scaffold(
-      backgroundColor: C.canvas,
+      backgroundColor: context.colors.canvas,
       body: CustomScrollView(physics: const BouncingScrollPhysics(), slivers: [
         SliverAppBar(
           pinned: true,
           floating: true,
-          backgroundColor: C.white,
+          backgroundColor: context.colors.white,
           automaticallyImplyLeading: false,
           title: Text('Explore',
               style: GoogleFonts.cormorantGaramond(
-                  fontSize: 22, fontWeight: FontWeight.w700, color: C.ink)),
+                  fontSize: 22, fontWeight: FontWeight.w700, color: context.colors.ink)),
           actions: [
             PopupMenuButton<String>(
                 icon: const Icon(Icons.sort_rounded),
                 onSelected: (v) => ref
                     .read(filterProvider.notifier)
                     .update((s) => s.copyWith(sortBy: v)),
-                itemBuilder: (_) => const [
-                      PopupMenuItem(
+                itemBuilder: (_) => [
+                      const PopupMenuItem(
                           value: 'popularity', child: Text('Popularity')),
-                      PopupMenuItem(
+                      const PopupMenuItem(
                           value: 'price_low',
                           child: Text('Price: Low to High')),
-                      PopupMenuItem(
+                      const PopupMenuItem(
                           value: 'price_high',
                           child: Text('Price: High to Low')),
-                      PopupMenuItem(
+                      const PopupMenuItem(
                           value: 'newest', child: Text('Newest First')),
-                      PopupMenuItem(value: 'rating', child: Text('Top Rated')),
+                      const PopupMenuItem(value: 'rating', child: Text('Top Rated')),
                     ]),
           ],
           bottom: PreferredSize(
@@ -68,22 +68,22 @@ class _ExploreState extends ConsumerState<ExploreScreen> {
                 Expanded(
                     child: Container(
                   decoration: BoxDecoration(
-                      color: C.n100,
+                      color: context.colors.n100,
                       borderRadius: BorderRadius.circular(8),
-                      border: Border.all(color: C.border)),
+                      border: Border.all(color: context.colors.border)),
                   child: TextField(
                       controller: _sc,
                       onChanged: (q) => ref
                           .read(filterProvider.notifier)
                           .update(
                               (s) => s.copyWith(search: q.isEmpty ? null : q)),
-                      style: GoogleFonts.dmSans(fontSize: 14, color: C.ink),
+                      style: GoogleFonts.dmSans(fontSize: 14, color: context.colors.ink),
                       decoration: InputDecoration(
                         hintText: 'Search brands, styles...',
                         hintStyle:
-                            GoogleFonts.dmSans(fontSize: 14, color: C.n400),
-                        prefixIcon: const Icon(Icons.search_rounded,
-                            color: C.n400, size: 20),
+                            GoogleFonts.dmSans(fontSize: 14, color: context.colors.n400),
+                        prefixIcon: Icon(Icons.search_rounded,
+                            color: context.colors.n400, size: 20),
                         border: InputBorder.none,
                         enabledBorder: InputBorder.none,
                         focusedBorder: InputBorder.none,
@@ -92,8 +92,8 @@ class _ExploreState extends ConsumerState<ExploreScreen> {
                             horizontal: 12, vertical: 13),
                         suffixIcon: _sc.text.isNotEmpty
                             ? IconButton(
-                                icon: const Icon(Icons.clear,
-                                    size: 18, color: C.n400),
+                                icon: Icon(Icons.clear,
+                                    size: 18, color: context.colors.n400),
                                 onPressed: () {
                                   _sc.clear();
                                   ref.read(filterProvider.notifier).update(
@@ -105,17 +105,17 @@ class _ExploreState extends ConsumerState<ExploreScreen> {
                 )),
                 const SizedBox(width: 10),
                 GestureDetector(
-                  onTap: () => _showFilters(ctx),
+                  onTap: () => _showFilters(context),
                   child: AnimatedContainer(
                       duration: const Duration(milliseconds: 200),
                       padding: const EdgeInsets.all(11),
                       decoration: BoxDecoration(
-                          color: filter.hasFilters ? C.ink : C.white,
+                          color: filter.hasFilters ? context.colors.ink : context.colors.white,
                           borderRadius: BorderRadius.circular(8),
                           border: Border.all(
-                              color: filter.hasFilters ? C.ink : C.border)),
+                              color: filter.hasFilters ? context.colors.ink : context.colors.border)),
                       child: Icon(Icons.tune_rounded,
-                          color: filter.hasFilters ? C.white : C.n700,
+                          color: filter.hasFilters ? context.colors.white : context.colors.n700,
                           size: 21)),
                 ),
               ]),
@@ -149,7 +149,7 @@ class _ExploreState extends ConsumerState<ExploreScreen> {
             child: Padding(
           padding: const EdgeInsets.fromLTRB(16, 12, 16, 4),
           child: Text('${products.length} items',
-              style: GoogleFonts.dmSans(fontSize: 12, color: C.n500)),
+              style: GoogleFonts.dmSans(fontSize: 12, color: context.colors.n500)),
         )),
 
         products.isEmpty
@@ -181,8 +181,8 @@ class _ExploreState extends ConsumerState<ExploreScreen> {
 
   static const _cats = ['Men', 'Women', 'Kids', 'Accessories'];
 
-  void _showFilters(BuildContext ctx) => showModalBottomSheet(
-      context: ctx,
+  void _showFilters(BuildContext context) => showModalBottomSheet(
+      context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
       builder: (_) => const _FilterSheet());
@@ -196,22 +196,22 @@ class _CatChip extends StatelessWidget {
   const _CatChip(this.label, this.selected, this.onTap);
 
   @override
-  Widget build(BuildContext ctx) => GestureDetector(
+  Widget build(BuildContext context) => GestureDetector(
         onTap: onTap,
         child: AnimatedContainer(
             duration: const Duration(milliseconds: 200),
             margin: const EdgeInsets.only(right: 8),
             padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 8),
             decoration: BoxDecoration(
-              color: selected ? C.ink : C.white,
+              color: selected ? context.colors.ink : context.colors.white,
               borderRadius: BorderRadius.circular(20),
-              border: Border.all(color: selected ? C.ink : C.border),
+              border: Border.all(color: selected ? context.colors.ink : context.colors.border),
             ),
             child: Text(label,
                 style: GoogleFonts.dmSans(
                     fontSize: 13,
                     fontWeight: FontWeight.w500,
-                    color: selected ? C.white : C.n700))),
+                    color: selected ? context.colors.white : context.colors.n700))),
       );
 }
 
@@ -237,10 +237,10 @@ class _FSState extends ConsumerState<_FilterSheet> {
           : [..._f.sizes, s]));
 
   @override
-  Widget build(BuildContext ctx) => Container(
-        decoration: const BoxDecoration(
-            color: C.white,
-            borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
+  Widget build(BuildContext context) => Container(
+        decoration: BoxDecoration(
+            color: context.colors.white,
+            borderRadius: const BorderRadius.vertical(top: Radius.circular(20))),
         padding: const EdgeInsets.fromLTRB(24, 12, 24, 32),
         child: SingleChildScrollView(
             child: Column(
@@ -252,7 +252,7 @@ class _FSState extends ConsumerState<_FilterSheet> {
                       width: 36,
                       height: 4,
                       decoration: BoxDecoration(
-                          color: C.n200,
+                          color: context.colors.n200,
                           borderRadius: BorderRadius.circular(2)))),
               const SizedBox(height: 20),
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
@@ -263,14 +263,14 @@ class _FSState extends ConsumerState<_FilterSheet> {
                     onPressed: () => setState(() => _f = const PFilter()),
                     child: Text('Clear All',
                         style: GoogleFonts.dmSans(
-                            color: C.gold, fontWeight: FontWeight.w600))),
+                            color: context.colors.gold, fontWeight: FontWeight.w600))),
               ]),
               const SizedBox(height: 20),
               Text('Sizes',
                   style: GoogleFonts.dmSans(
                       fontSize: 13,
                       fontWeight: FontWeight.w600,
-                      color: C.n700,
+                      color: context.colors.n700,
                       letterSpacing: 0.3)),
               const SizedBox(height: 10),
               Wrap(
@@ -285,20 +285,20 @@ class _FSState extends ConsumerState<_FilterSheet> {
                                 height: 46,
                                 decoration: BoxDecoration(
                                     color:
-                                        _f.sizes.contains(s) ? C.ink : C.white,
+                                        _f.sizes.contains(s) ? context.colors.ink : context.colors.white,
                                     shape: BoxShape.circle,
                                     border: Border.all(
                                         color: _f.sizes.contains(s)
-                                            ? C.ink
-                                            : C.n300)),
+                                            ? context.colors.ink
+                                            : context.colors.n300)),
                                 child: Center(
                                     child: Text(s,
                                         style: GoogleFonts.dmSans(
                                             fontSize: 12,
                                             fontWeight: FontWeight.w600,
                                             color: _f.sizes.contains(s)
-                                                ? C.white
-                                                : C.ink)))),
+                                                ? context.colors.white
+                                                : context.colors.ink)))),
                           ))
                       .toList()),
               const SizedBox(height: 20),
@@ -306,28 +306,28 @@ class _FSState extends ConsumerState<_FilterSheet> {
                   style: GoogleFonts.dmSans(
                       fontSize: 13,
                       fontWeight: FontWeight.w600,
-                      color: C.n700,
+                      color: context.colors.n700,
                       letterSpacing: 0.3)),
               RangeSlider(
                   values: RangeValues(_f.minPrice ?? 0, _f.maxPrice ?? 500),
                   min: 0,
                   max: 500,
-                  activeColor: C.ink,
-                  inactiveColor: C.n200,
+                  activeColor: context.colors.ink,
+                  inactiveColor: context.colors.n200,
                   onChanged: (v) => setState(() =>
                       _f = _f.copyWith(minPrice: v.start, maxPrice: v.end))),
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
                 Text('\$${(_f.minPrice ?? 0).toInt()}',
-                    style: GoogleFonts.dmSans(fontSize: 13, color: C.n600)),
+                    style: GoogleFonts.dmSans(fontSize: 13, color: context.colors.n600)),
                 Text('\$${(_f.maxPrice ?? 500).toInt()}',
-                    style: GoogleFonts.dmSans(fontSize: 13, color: C.n600)),
+                    style: GoogleFonts.dmSans(fontSize: 13, color: context.colors.n600)),
               ]),
               const SizedBox(height: 24),
               Btn(
                   text: 'Apply Filters',
                   onPressed: () {
                     ref.read(filterProvider.notifier).state = _f;
-                    Navigator.pop(ctx);
+                    Navigator.pop(context);
                   }),
             ])),
       );

@@ -14,32 +14,32 @@ class RackProductsScreen extends ConsumerWidget {
   const RackProductsScreen({super.key, required this.rackId, this.extra});
 
   @override
-  Widget build(BuildContext ctx, WidgetRef ref) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final rackName =
         extra is String ? extra as String : kRackNames[rackId] ?? 'Rack';
     final ids = kRackMap[rackId] ?? [];
     final products = kProducts.where((p) => ids.contains(p.id)).toList();
 
     return Scaffold(
-      backgroundColor: C.canvas,
+      backgroundColor: context.colors.canvas,
       appBar: AppBar(
           title:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Text('Rack Items',
                 style: GoogleFonts.dmSans(
-                    fontSize: 16, fontWeight: FontWeight.w700, color: C.ink)),
+                    fontSize: 16, fontWeight: FontWeight.w700, color: context.colors.ink)),
             Text(rackName,
                 style: GoogleFonts.dmSans(
-                    fontSize: 11, color: C.gold, fontWeight: FontWeight.w500)),
+                    fontSize: 11, color: context.colors.gold, fontWeight: FontWeight.w500)),
           ]),
-          backgroundColor: C.white,
+          backgroundColor: context.colors.white,
           leading: IconButton(
               icon: const Icon(Icons.arrow_back_ios_new_rounded, size: 18),
-              onPressed: () => ctx.pop()),
+              onPressed: () => context.pop()),
           actions: [
             IconButton(
-                icon: const Icon(Icons.qr_code_scanner_rounded, color: C.gold),
-                onPressed: () => ctx.pushReplacement('/qr-scanner')),
+                icon: Icon(Icons.qr_code_scanner_rounded, color: context.colors.gold),
+                onPressed: () => context.pushReplacement('/qr-scanner')),
           ]),
       body: products.isEmpty
           ? const EmptyView(

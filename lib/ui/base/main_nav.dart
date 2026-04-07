@@ -20,8 +20,8 @@ class MainNav extends ConsumerWidget {
   }
 
   @override
-  Widget build(BuildContext ctx, WidgetRef ref) {
-    final loc = GoRouterState.of(ctx).matchedLocation;
+  Widget build(BuildContext context, WidgetRef ref) {
+    final loc = GoRouterState.of(context).matchedLocation;
     final cur = _idx(loc);
     final count = ref.watch(cartCountProvider);
 
@@ -29,8 +29,8 @@ class MainNav extends ConsumerWidget {
       body: child,
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
-          color: C.white,
-          border: const Border(top: BorderSide(color: C.border, width: 1)),
+          color: context.colors.white,
+          border: Border(top: BorderSide(color: context.colors.border, width: 1)),
           boxShadow: [
             BoxShadow(
                 color: Colors.black.withOpacity(0.04),
@@ -45,25 +45,25 @@ class MainNav extends ConsumerWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     _NavItem(Icons.home_outlined, Icons.home, 'Home', cur == 0,
-                        () => ctx.go('/'), null),
+                        () => context.go('/'), null),
                     _NavItem(Icons.grid_view_outlined, Icons.grid_view,
-                        'Explore', cur == 1, () => ctx.go('/explore'), null),
+                        'Explore', cur == 1, () => context.go('/explore'), null),
                     _NavItem(
                         Icons.shopping_bag_outlined,
                         Icons.shopping_bag,
                         'Cart',
                         cur == 2,
-                        () => ctx.go('/cart'),
+                        () => context.go('/cart'),
                         count > 0 ? count : null),
                     _NavItem(
                         Icons.favorite_border_rounded,
                         Icons.favorite_rounded,
                         'Saved',
                         cur == 3,
-                        () => ctx.go('/wishlist'),
+                        () => context.go('/wishlist'),
                         null),
                     _NavItem(Icons.person_outline_rounded, Icons.person_rounded,
-                        'Profile', cur == 4, () => ctx.go('/profile'), null),
+                        'Profile', cur == 4, () => context.go('/profile'), null),
                   ],
                 ))),
       ),
@@ -82,7 +82,7 @@ class _NavItem extends StatelessWidget {
       this.ic, this.ica, this.lbl, this.active, this.tap, this.badge);
 
   @override
-  Widget build(BuildContext ctx) => GestureDetector(
+  Widget build(BuildContext context) => GestureDetector(
         onTap: tap,
         behavior: HitTestBehavior.opaque,
         child: SizedBox(
@@ -92,20 +92,20 @@ class _NavItem extends StatelessWidget {
               children: [
                 Stack(clipBehavior: Clip.none, children: [
                   Icon(active ? ica : ic,
-                      size: 22, color: active ? C.ink : C.n400),
+                      size: 22, color: active ? context.colors.ink : context.colors.n400),
                   if (badge != null)
                     Positioned(
                         right: -6,
                         top: -6,
                         child: Container(
                           padding: const EdgeInsets.all(3),
-                          decoration: const BoxDecoration(
-                              color: C.gold, shape: BoxShape.circle),
+                          decoration: BoxDecoration(
+                              color: context.colors.gold, shape: BoxShape.circle),
                           constraints:
                               const BoxConstraints(minWidth: 16, minHeight: 16),
                           child: Text('$badge',
-                              style: const TextStyle(
-                                  color: C.white,
+                              style: TextStyle(
+                                  color: context.colors.white,
                                   fontSize: 8,
                                   fontWeight: FontWeight.w700),
                               textAlign: TextAlign.center),
@@ -116,14 +116,14 @@ class _NavItem extends StatelessWidget {
                     style: GoogleFonts.dmSans(
                         fontSize: 10,
                         fontWeight: active ? FontWeight.w600 : FontWeight.w400,
-                        color: active ? C.ink : C.n400)),
+                        color: active ? context.colors.ink : context.colors.n400)),
                 if (active)
                   Container(
                       margin: const EdgeInsets.only(top: 3),
                       width: 16,
                       height: 2,
                       decoration: BoxDecoration(
-                          color: C.gold,
+                          color: context.colors.gold,
                           borderRadius: BorderRadius.circular(1))),
               ],
             )),

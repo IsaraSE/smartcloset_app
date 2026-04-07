@@ -26,7 +26,7 @@ class _COState extends ConsumerState<CheckoutScreen> {
   static const _payments = ['Card Payment', 'Cash on Delivery'];
 
   @override
-  Widget build(BuildContext ctx) {
+  Widget build(BuildContext context) {
     final user = ref.watch(authProvider).valueOrNull;
     final items = ref.watch(cartProvider);
     final sub = ref.read(cartProvider.notifier).subtotal;
@@ -35,15 +35,15 @@ class _COState extends ConsumerState<CheckoutScreen> {
     final addr = user?.defaultAddress;
 
     return Scaffold(
-      backgroundColor: C.canvas,
+      backgroundColor: context.colors.canvas,
       appBar: AppBar(
           title: Text('Checkout',
               style: GoogleFonts.cormorantGaramond(
                   fontSize: 20, fontWeight: FontWeight.w700)),
-          backgroundColor: C.white,
+          backgroundColor: context.colors.white,
           leading: IconButton(
               icon: const Icon(Icons.arrow_back_ios_new_rounded, size: 18),
-              onPressed: () => ctx.pop())),
+              onPressed: () => context.pop())),
       body: SingleChildScrollView(
           padding: const EdgeInsets.all(20),
           physics: const BouncingScrollPhysics(),
@@ -62,38 +62,38 @@ class _COState extends ConsumerState<CheckoutScreen> {
                                 width: 28,
                                 height: 28,
                                 decoration: BoxDecoration(
-                                    color: _step >= e.key ? C.ink : C.n200,
+                                    color: _step >= e.key ? context.colors.ink : context.colors.n200,
                                     shape: BoxShape.circle),
                                 child: Center(
                                     child: _step > e.key
-                                        ? const Icon(Icons.check,
-                                            color: C.white, size: 14)
+                                        ? Icon(Icons.check,
+                                            color: context.colors.white, size: 14)
                                         : Text('${e.key + 1}',
                                             style: TextStyle(
                                                 color: _step >= e.key
-                                                    ? C.white
-                                                    : C.n500,
+                                                    ? context.colors.white
+                                                    : context.colors.n500,
                                                 fontSize: 12,
                                                 fontWeight: FontWeight.w700)))),
                             const SizedBox(height: 4),
                             Text(e.value,
                                 style: GoogleFonts.dmSans(
                                     fontSize: 10,
-                                    color: _step >= e.key ? C.ink : C.n400,
+                                    color: _step >= e.key ? context.colors.ink : context.colors.n400,
                                     fontWeight: FontWeight.w500)),
                           ])),
                           if (e.key < 2)
                             Expanded(
                                 child: Container(
                                     height: 1.5,
-                                    color: _step > e.key ? C.ink : C.n200)),
+                                    color: _step > e.key ? context.colors.ink : context.colors.n200)),
                         ])))
                     .toList()),
             const SizedBox(height: 28),
 
             if (_step == 0) ..._addressStep(addr),
-            if (_step == 1) ..._paymentStep(ctx),
-            if (_step == 2) ..._reviewStep(ctx, items, sub, ship, tot, addr),
+            if (_step == 1) ..._paymentStep(context),
+            if (_step == 2) ..._reviewStep(context, items, sub, ship, tot, addr),
           ])),
     );
   }
@@ -107,17 +107,17 @@ class _COState extends ConsumerState<CheckoutScreen> {
           Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                  color: C.white,
+                  color: context.colors.white,
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: C.gold, width: 1.5),
-                  boxShadow: const [BoxShadow(color: C.shadow, blurRadius: 6)]),
+                  border: Border.all(color: context.colors.gold, width: 1.5),
+                  boxShadow: [BoxShadow(color: context.colors.shadow, blurRadius: 6)]),
               child: Row(children: [
                 Container(
                     padding: const EdgeInsets.all(10),
-                    decoration: const BoxDecoration(
-                        color: C.goldLight, shape: BoxShape.circle),
-                    child: const Icon(Icons.location_on_outlined,
-                        color: C.gold, size: 20)),
+                    decoration: BoxDecoration(
+                        color: context.colors.goldLight, shape: BoxShape.circle),
+                    child: Icon(Icons.location_on_outlined,
+                        color: context.colors.gold, size: 20)),
                 const SizedBox(width: 12),
                 Expanded(
                     child: Column(
@@ -129,12 +129,12 @@ class _COState extends ConsumerState<CheckoutScreen> {
                       const SizedBox(height: 2),
                       Text(addr.full,
                           style: GoogleFonts.dmSans(
-                              fontSize: 12, color: C.n600, height: 1.5)),
+                              fontSize: 12, color: context.colors.n600, height: 1.5)),
                       Text(addr.phone,
                           style:
-                              GoogleFonts.dmSans(fontSize: 12, color: C.n500)),
+                              GoogleFonts.dmSans(fontSize: 12, color: context.colors.n500)),
                     ])),
-                const Icon(Icons.check_circle_rounded, color: C.gold),
+                Icon(Icons.check_circle_rounded, color: context.colors.gold),
               ])),
         const SizedBox(height: 28),
         Btn(
@@ -142,7 +142,7 @@ class _COState extends ConsumerState<CheckoutScreen> {
             onPressed: () => setState(() => _step = 1)),
       ];
 
-  List<Widget> _paymentStep(BuildContext ctx) => [
+  List<Widget> _paymentStep(BuildContext context) => [
         Text('Payment Method',
             style: GoogleFonts.cormorantGaramond(
                 fontSize: 22, fontWeight: FontWeight.w700)),
@@ -153,26 +153,26 @@ class _COState extends ConsumerState<CheckoutScreen> {
                 margin: const EdgeInsets.only(bottom: 12),
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                    color: C.white,
+                    color: context.colors.white,
                     borderRadius: BorderRadius.circular(8),
                     border: Border.all(
-                        color: _payment == e.key ? C.gold : C.border,
+                        color: _payment == e.key ? context.colors.gold : context.colors.border,
                         width: _payment == e.key ? 1.5 : 1),
-                    boxShadow: const [
-                      BoxShadow(color: C.shadow, blurRadius: 6)
+                    boxShadow: [
+                      BoxShadow(color: context.colors.shadow, blurRadius: 6)
                     ]),
                 child: Row(children: [
                   Icon(
                       _payment == e.key
                           ? Icons.radio_button_checked_rounded
                           : Icons.radio_button_unchecked_rounded,
-                      color: _payment == e.key ? C.gold : C.n400),
+                      color: _payment == e.key ? context.colors.gold : context.colors.n400),
                   const SizedBox(width: 12),
                   Icon(
                       e.key == 0
                           ? Icons.credit_card_rounded
                           : Icons.local_shipping_outlined,
-                      color: C.n700),
+                      color: context.colors.n700),
                   const SizedBox(width: 10),
                   Text(e.value,
                       style: GoogleFonts.dmSans(
@@ -192,7 +192,7 @@ class _COState extends ConsumerState<CheckoutScreen> {
         ]),
       ];
 
-  List<Widget> _reviewStep(BuildContext ctx, List<CartItem> items, double sub,
+  List<Widget> _reviewStep(BuildContext context, List<CartItem> items, double sub,
           double ship, double tot, Address? addr) =>
       [
         Text('Order Summary',
@@ -204,11 +204,11 @@ class _COState extends ConsumerState<CheckoutScreen> {
             child: Container(
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                    color: C.white,
+                    color: context.colors.white,
                     borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: C.border),
-                    boxShadow: const [
-                      BoxShadow(color: C.shadow, blurRadius: 6)
+                    border: Border.all(color: context.colors.border),
+                    boxShadow: [
+                      BoxShadow(color: context.colors.shadow, blurRadius: 6)
                     ]),
                 child: Row(children: [
                   ClipRRect(
@@ -226,7 +226,7 @@ class _COState extends ConsumerState<CheckoutScreen> {
                             overflow: TextOverflow.ellipsis),
                         Text('${item.selectedSize} × ${item.quantity}',
                             style: GoogleFonts.dmSans(
-                                fontSize: 12, color: C.n500)),
+                                fontSize: 12, color: context.colors.n500)),
                       ])),
                   Text('\$${item.total.toStringAsFixed(2)}',
                       style: GoogleFonts.dmSans(
@@ -235,15 +235,15 @@ class _COState extends ConsumerState<CheckoutScreen> {
         Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-                color: C.white,
+                color: context.colors.white,
                 borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: C.border),
-                boxShadow: const [BoxShadow(color: C.shadow, blurRadius: 6)]),
+                border: Border.all(color: context.colors.border),
+                boxShadow: [BoxShadow(color: context.colors.shadow, blurRadius: 6)]),
             child: Column(children: [
               SumRow('Subtotal', '\$${sub.toStringAsFixed(2)}'),
               SumRow('Shipping',
                   ship == 0 ? 'FREE' : '\$${ship.toStringAsFixed(2)}',
-                  valueColor: ship == 0 ? C.success : null),
+                  valueColor: ship == 0 ? context.colors.success : null),
               const Divider(height: 16),
               SumRow('Total', '\$${tot.toStringAsFixed(2)}', bold: true),
             ])),
@@ -258,7 +258,7 @@ class _COState extends ConsumerState<CheckoutScreen> {
               child: Btn(
                   text: 'Place Order',
                   loading: _placing,
-                  bg: C.gold,
+                  bg: context.colors.gold,
                   onPressed: () async {
                     setState(() => _placing = true);
                     if (addr == null) {
@@ -272,7 +272,7 @@ class _COState extends ConsumerState<CheckoutScreen> {
                     ref.read(cartProvider.notifier).clear();
                     setState(() => _placing = false);
                     if (mounted) {
-                      ctx.pushReplacement('/order-success', extra: order);
+                      context.pushReplacement('/order-success', extra: order);
                     }
                   })),
         ]),

@@ -9,25 +9,25 @@ class NoirLogo extends StatelessWidget {
   const NoirLogo({super.key, this.size = 36, this.dark = false});
 
   @override
-  Widget build(BuildContext ctx) =>
+  Widget build(BuildContext context) =>
       Row(mainAxisSize: MainAxisSize.min, children: [
         Container(
           width: size,
           height: size,
           decoration: BoxDecoration(
-              color: dark ? C.white : C.ink,
+              color: dark ? context.colors.white : context.colors.ink,
               borderRadius: BorderRadius.circular(size * 0.22)),
           child: Center(
               child: Text('N',
                   style: GoogleFonts.cormorantGaramond(
-                      color: dark ? C.ink : C.white,
+                      color: dark ? context.colors.ink : context.colors.white,
                       fontSize: size * 0.6,
                       fontWeight: FontWeight.w700))),
         ),
         const SizedBox(width: 10),
         Text('NOIR',
             style: GoogleFonts.dmSans(
-                color: dark ? C.white : C.ink,
+                color: dark ? context.colors.white : context.colors.ink,
                 fontWeight: FontWeight.w700,
                 fontSize: size * 0.47,
                 letterSpacing: 2)),

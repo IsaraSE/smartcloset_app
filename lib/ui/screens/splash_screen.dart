@@ -58,8 +58,8 @@ class _SplashState extends ConsumerState<SplashScreen>
   }
 
   @override
-  Widget build(BuildContext ctx) => Scaffold(
-        backgroundColor: C.ink,
+  Widget build(BuildContext context) => Scaffold(
+        backgroundColor: context.colors.ink,
         body: Center(
           child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
             // ── Logo ─────────────────────────────────────────────
@@ -72,11 +72,11 @@ class _SplashState extends ConsumerState<SplashScreen>
                     width: 80,
                     height: 80,
                     decoration: BoxDecoration(
-                      color: C.gold,
+                      color: context.colors.gold,
                       borderRadius: BorderRadius.circular(18),
                       boxShadow: [
                         BoxShadow(
-                            color: C.gold.withOpacity(0.4),
+                            color: context.colors.gold.withOpacity(0.4),
                             blurRadius: 32,
                             spreadRadius: 4)
                       ],
@@ -84,14 +84,14 @@ class _SplashState extends ConsumerState<SplashScreen>
                     child: Center(
                         child: Text('N',
                             style: GoogleFonts.cormorantGaramond(
-                                color: C.white,
+                                color: context.colors.white,
                                 fontSize: 46,
                                 fontWeight: FontWeight.w700))),
                   ),
                   const SizedBox(height: 18),
                   Text('NOIR',
                       style: GoogleFonts.dmSans(
-                          color: C.white,
+                          color: context.colors.white,
                           fontSize: 22,
                           fontWeight: FontWeight.w300,
                           letterSpacing: 10)),
@@ -104,7 +104,7 @@ class _SplashState extends ConsumerState<SplashScreen>
                 opacity: _taglineFade,
                 child: Text('Premium Fashion',
                     style: GoogleFonts.cormorantGaramond(
-                        color: C.gold.withOpacity(0.8),
+                        color: context.colors.gold.withOpacity(0.8),
                         fontSize: 14,
                         letterSpacing: 3,
                         fontStyle: FontStyle.italic))),
@@ -117,7 +117,7 @@ class _SplashState extends ConsumerState<SplashScreen>
                   height: 28,
                   child: CircularProgressIndicator(
                     strokeWidth: 1.5,
-                    valueColor: AlwaysStoppedAnimation(C.gold.withOpacity(0.7)),
+                    valueColor: AlwaysStoppedAnimation(context.colors.gold.withOpacity(0.7)),
                   ),
                 )),
           ]),

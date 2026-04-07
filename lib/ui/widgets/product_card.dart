@@ -17,22 +17,22 @@ class ProductCard extends ConsumerWidget {
   const ProductCard(this.p, {super.key, this.wide = false});
 
   @override
-  Widget build(BuildContext ctx, WidgetRef ref) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final inWish = ref.watch(inWishlistProvider(p.id));
 
     return GestureDetector(
       onTap: () {
         ref.read(recentlyViewedProvider.notifier).add(p);
-        ctx.push('/product/${p.id}', extra: p);
+        context.push('/product/${p.id}', extra: p);
       },
       child: Container(
         width: wide ? 165 : null,
         decoration: BoxDecoration(
-          color: C.white,
+          color: context.colors.white,
           borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: C.border),
-          boxShadow: const [
-            BoxShadow(color: C.shadowMd, blurRadius: 8, offset: Offset(0, 3))
+          border: Border.all(color: context.colors.border),
+          boxShadow: [
+            BoxShadow(color: context.colors.shadowMd, blurRadius: 8, offset: const Offset(0, 3))
           ],
         ),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -80,7 +80,7 @@ class ProductCard extends ConsumerWidget {
                   Text(p.brand,
                       style: GoogleFonts.dmSans(
                           fontSize: 10,
-                          color: C.n400,
+                          color: context.colors.n400,
                           fontWeight: FontWeight.w500,
                           letterSpacing: 0.3),
                       overflow: TextOverflow.ellipsis),
@@ -89,18 +89,18 @@ class ProductCard extends ConsumerWidget {
                       style: GoogleFonts.dmSans(
                           fontSize: 12,
                           fontWeight: FontWeight.w600,
-                          color: C.ink),
+                          color: context.colors.ink),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis),
                   const SizedBox(height: 4),
                   Row(children: [
-                    const Icon(Icons.star_rounded, color: C.gold, size: 11),
+                    Icon(Icons.star_rounded, color: context.colors.gold, size: 11),
                     const SizedBox(width: 2),
                     Text(p.rating.toStringAsFixed(1),
                         style: GoogleFonts.dmSans(
                             fontSize: 10,
                             fontWeight: FontWeight.w600,
-                            color: C.n700)),
+                            color: context.colors.n700)),
                   ]),
                   const Spacer(),
                   Row(
@@ -111,13 +111,13 @@ class ProductCard extends ConsumerWidget {
                             style: GoogleFonts.dmSans(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w700,
-                                color: C.ink)),
+                                color: context.colors.ink)),
                         if (p.hasDiscount) ...[
                           const SizedBox(width: 5),
                           Text('\$${p.originalPrice!.toStringAsFixed(2)}',
                               style: GoogleFonts.dmSans(
                                   fontSize: 10,
-                                  color: C.n400,
+                                  color: context.colors.n400,
                                   decoration: TextDecoration.lineThrough)),
                         ],
                       ]),

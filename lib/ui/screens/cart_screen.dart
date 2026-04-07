@@ -28,7 +28,7 @@ class _CartState extends ConsumerState<CartScreen> {
   }
 
   @override
-  Widget build(BuildContext ctx) {
+  Widget build(BuildContext context) {
     final items = ref.watch(cartProvider);
     final notifier = ref.read(cartProvider.notifier);
     final sub = notifier.subtotal;
@@ -37,7 +37,7 @@ class _CartState extends ConsumerState<CartScreen> {
 
     if (items.isEmpty) {
       return Scaffold(
-          backgroundColor: C.canvas,
+          backgroundColor: context.colors.canvas,
           appBar: AppBar(
               title: const Text('My Cart'), automaticallyImplyLeading: false),
           body: EmptyView(
@@ -45,16 +45,16 @@ class _CartState extends ConsumerState<CartScreen> {
               title: 'Your cart is empty',
               desc: "Browse our collection and add items you love.",
               btnLabel: 'Start Shopping',
-              onBtn: () => ctx.go('/explore')));
+              onBtn: () => context.go('/explore')));
     }
 
     return Scaffold(
-      backgroundColor: C.canvas,
+      backgroundColor: context.colors.canvas,
       appBar: AppBar(
           title: Text('My Cart (${items.length})',
               style: GoogleFonts.cormorantGaramond(
-                  fontSize: 20, fontWeight: FontWeight.w700, color: C.ink)),
-          backgroundColor: C.white,
+                  fontSize: 20, fontWeight: FontWeight.w700, color: context.colors.ink)),
+          backgroundColor: context.colors.white,
           automaticallyImplyLeading: false,
           actions: [
             TextButton(
@@ -63,7 +63,7 @@ class _CartState extends ConsumerState<CartScreen> {
                   setState(() => _discount = 0);
                 },
                 child: Text('Clear All',
-                    style: GoogleFonts.dmSans(color: C.error, fontSize: 13))),
+                    style: GoogleFonts.dmSans(color: context.colors.error, fontSize: 13))),
           ]),
       body: Column(children: [
         Expanded(
@@ -86,8 +86,8 @@ class _CartState extends ConsumerState<CartScreen> {
         Container(
             padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
             decoration: BoxDecoration(
-              color: C.white,
-              border: const Border(top: BorderSide(color: C.border)),
+              color: context.colors.white,
+              border: Border(top: BorderSide(color: context.colors.border)),
               boxShadow: [
                 BoxShadow(
                     color: Colors.black.withOpacity(0.05),
@@ -105,28 +105,28 @@ class _CartState extends ConsumerState<CartScreen> {
                   decoration: InputDecoration(
                       hintText: 'Promo code',
                       hintStyle:
-                          GoogleFonts.dmSans(color: C.n400, fontSize: 14),
+                          GoogleFonts.dmSans(color: context.colors.n400, fontSize: 14),
                       contentPadding: const EdgeInsets.symmetric(
                           horizontal: 14, vertical: 12),
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(color: C.border)),
+                          borderSide: BorderSide(color: context.colors.border)),
                       enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(color: C.border)),
+                          borderSide: BorderSide(color: context.colors.border)),
                       focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(4),
                           borderSide:
-                              const BorderSide(color: C.ink, width: 1.5))),
+                              BorderSide(color: context.colors.ink, width: 1.5))),
                 )),
                 const SizedBox(width: 10),
                 ElevatedButton(
                     onPressed: () {
                       if (_promoCtrl.text == 'NOIR20') {
                         setState(() => _discount = sub * 0.2);
-                        snack(ctx, '20% discount applied!');
+                        snack(context, '20% discount applied!');
                       } else {
-                        snack(ctx, 'Invalid promo code', err: true);
+                        snack(context, 'Invalid promo code', err: true);
                       }
                     },
                     child: const Text('Apply')),
@@ -136,17 +136,17 @@ class _CartState extends ConsumerState<CartScreen> {
               if (_discount > 0)
                 SumRow(
                     'Discount (NOIR20)', '-\$${_discount.toStringAsFixed(2)}',
-                    valueColor: C.success),
+                    valueColor: context.colors.success),
               SumRow('Shipping',
                   ship == 0 ? 'FREE' : '\$${ship.toStringAsFixed(2)}',
-                  valueColor: ship == 0 ? C.success : null),
+                  valueColor: ship == 0 ? context.colors.success : null),
               const Divider(height: 20),
               SumRow('Total', '\$${tot.toStringAsFixed(2)}', bold: true),
               const SizedBox(height: 14),
               SafeArea(
                   child: Btn(
                       text: 'Proceed to Checkout',
-                      onPressed: () => ctx.push('/checkout'))),
+                      onPressed: () => context.push('/checkout'))),
               const SizedBox(height: 8),
             ])),
       ]),
@@ -162,13 +162,13 @@ Widget SumRow(String label, String val,
         Text(label,
             style: GoogleFonts.dmSans(
                 fontSize: 14,
-                color: C.n600,
+                color: context.colors.n600,
                 fontWeight: bold ? FontWeight.w600 : FontWeight.w400)),
         Text(val,
             style: GoogleFonts.dmSans(
                 fontSize: 14,
                 fontWeight: bold ? FontWeight.w700 : FontWeight.w500,
-                color: valueColor ?? C.ink)),
+                color: valueColor ?? context.colors.ink)),
       ]),
     );
 
@@ -181,14 +181,14 @@ class _CartTile extends StatelessWidget {
       {required this.onRemove, required this.onQtyChange});
 
   @override
-  Widget build(BuildContext ctx) => Container(
+  Widget build(BuildContext context) => Container(
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          color: C.white,
+          color: context.colors.white,
           borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: C.border),
-          boxShadow: const [
-            BoxShadow(color: C.shadow, blurRadius: 6, offset: Offset(0, 2))
+          border: Border.all(color: context.colors.border),
+          boxShadow: [
+            BoxShadow(color: context.colors.shadow, blurRadius: 6, offset: const Offset(0, 2))
           ],
         ),
         child: Row(children: [
@@ -202,28 +202,28 @@ class _CartTile extends StatelessWidget {
                   children: [
                 Text(item.product.brand,
                     style: GoogleFonts.dmSans(
-                        fontSize: 10, color: C.n400, letterSpacing: 0.3)),
+                        fontSize: 10, color: context.colors.n400, letterSpacing: 0.3)),
                 Text(item.product.name,
                     style: GoogleFonts.dmSans(
                         fontSize: 13,
                         fontWeight: FontWeight.w600,
-                        color: C.ink),
+                        color: context.colors.ink),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis),
                 const SizedBox(height: 4),
                 Text('${item.selectedSize} · ${item.selectedColor}',
-                    style: GoogleFonts.dmSans(fontSize: 11, color: C.n500)),
+                    style: GoogleFonts.dmSans(fontSize: 11, color: context.colors.n500)),
                 const SizedBox(height: 6),
                 Text('\$${item.product.price.toStringAsFixed(2)}',
                     style: GoogleFonts.dmSans(
                         fontSize: 15,
                         fontWeight: FontWeight.w700,
-                        color: C.ink)),
+                        color: context.colors.ink)),
               ])),
           Column(children: [
             IconButton(
-                icon: const Icon(Icons.delete_outline_rounded,
-                    color: C.n300, size: 19),
+                icon: Icon(Icons.delete_outline_rounded,
+                    color: context.colors.n300, size: 19),
                 onPressed: onRemove,
                 padding: EdgeInsets.zero,
                 constraints: const BoxConstraints()),
@@ -249,12 +249,12 @@ class _QBtn extends StatelessWidget {
   const _QBtn(this.ic, this.onTap);
 
   @override
-  Widget build(BuildContext ctx) => GestureDetector(
+  Widget build(BuildContext context) => GestureDetector(
       onTap: onTap,
       child: Container(
           width: 28,
           height: 28,
           decoration: BoxDecoration(
-              color: C.n100, borderRadius: BorderRadius.circular(4)),
-          child: Icon(ic, size: 16, color: C.ink)));
+              color: context.colors.n100, borderRadius: BorderRadius.circular(4)),
+          child: Icon(ic, size: 16, color: context.colors.ink)));
 }

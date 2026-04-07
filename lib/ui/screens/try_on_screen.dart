@@ -67,16 +67,16 @@ class _TOState extends ConsumerState<TryOnScreen> {
   }
 
   @override
-  Widget build(BuildContext ctx) {
+  Widget build(BuildContext context) {
     final p = widget.product;
     return Scaffold(
-      backgroundColor: C.black,
+      backgroundColor: context.colors.black,
       body: Stack(children: [
         if (_cam != null && _cam!.value.isInitialized)
           Positioned.fill(child: CameraPreview(_cam!))
         else
-          const Positioned.fill(
-              child: Center(child: CircularProgressIndicator(color: C.gold))),
+          Positioned.fill(
+              child: Center(child: CircularProgressIndicator(color: context.colors.gold))),
 
         if (p != null)
           Positioned.fill(
@@ -114,19 +114,19 @@ class _TOState extends ConsumerState<TryOnScreen> {
                     padding: const EdgeInsets.all(16),
                     child: Row(children: [
                       GestureDetector(
-                          onTap: () => ctx.pop(),
+                          onTap: () => context.pop(),
                           child: Container(
                               padding: const EdgeInsets.all(8),
                               decoration: const BoxDecoration(
                                   color: Colors.black54,
                                   shape: BoxShape.circle),
-                              child: const Icon(Icons.close,
-                                  color: C.white, size: 20))),
+                              child: Icon(Icons.close,
+                                  color: context.colors.white, size: 20))),
                       const SizedBox(width: 12),
                       Expanded(
                           child: Text('AR Try-On',
                               style: GoogleFonts.dmSans(
-                                  color: C.white,
+                                  color: context.colors.white,
                                   fontWeight: FontWeight.w700,
                                   fontSize: 16))),
                       GestureDetector(
@@ -136,8 +136,8 @@ class _TOState extends ConsumerState<TryOnScreen> {
                               decoration: const BoxDecoration(
                                   color: Colors.black54,
                                   shape: BoxShape.circle),
-                              child: const Icon(Icons.cameraswitch_rounded,
-                                  color: C.white, size: 20))),
+                              child: Icon(Icons.cameraswitch_rounded,
+                                  color: context.colors.white, size: 20))),
                     ])))),
 
         // Hint
@@ -154,9 +154,9 @@ class _TOState extends ConsumerState<TryOnScreen> {
                         borderRadius: BorderRadius.circular(20)),
                     child: Text('Drag · Pinch to resize · Two-finger rotate',
                         style: GoogleFonts.dmSans(
-                            color: C.white, fontSize: 11))))),
+                            color: context.colors.white, fontSize: 11))))),
 
-        if (_captured) Positioned.fill(child: Container(color: C.white)),
+        if (_captured) Positioned.fill(child: Container(color: context.colors.white)),
 
         // Controls
         Positioned(
@@ -196,18 +196,18 @@ class _TOState extends ConsumerState<TryOnScreen> {
                                 () {
                               if (mounted) setState(() => _captured = false);
                             });
-                            snack(ctx, 'Snapshot captured! 📸');
+                            snack(context, 'Snapshot captured! 📸');
                           },
                           child: Container(
                               width: 68,
                               height: 68,
                               decoration: BoxDecoration(
-                                  color: C.white,
+                                  color: context.colors.white,
                                   shape: BoxShape.circle,
-                                  border: Border.all(color: C.n300, width: 3)),
-                              child: const Center(
+                                  border: Border.all(color: context.colors.n300, width: 3)),
+                              child: Center(
                                   child: Icon(Icons.camera_alt_rounded,
-                                      color: C.ink, size: 28)))),
+                                      color: context.colors.ink, size: 28)))),
                     ])))),
       ]),
     );
@@ -221,7 +221,7 @@ class _TBtn extends StatelessWidget {
   const _TBtn(this.ic, this.onTap, this.label);
 
   @override
-  Widget build(BuildContext ctx) =>
+  Widget build(BuildContext context) =>
       Column(mainAxisSize: MainAxisSize.min, children: [
         GestureDetector(
             onTap: onTap,
@@ -229,8 +229,8 @@ class _TBtn extends StatelessWidget {
                 padding: const EdgeInsets.all(12),
                 decoration: const BoxDecoration(
                     color: Colors.black54, shape: BoxShape.circle),
-                child: Icon(ic, color: C.white, size: 22))),
+                child: Icon(ic, color: context.colors.white, size: 22))),
         const SizedBox(height: 4),
-        Text(label, style: GoogleFonts.dmSans(color: C.white, fontSize: 10)),
+        Text(label, style: GoogleFonts.dmSans(color: context.colors.white, fontSize: 10)),
       ]);
 }

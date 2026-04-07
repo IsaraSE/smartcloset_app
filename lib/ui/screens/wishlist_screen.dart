@@ -12,15 +12,15 @@ class WishlistScreen extends ConsumerWidget {
   const WishlistScreen({super.key});
 
   @override
-  Widget build(BuildContext ctx, WidgetRef ref) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final items = ref.watch(wishlistProvider);
     return Scaffold(
-      backgroundColor: C.canvas,
+      backgroundColor: context.colors.canvas,
       appBar: AppBar(
           title: Text('Saved (${items.length})',
               style: GoogleFonts.cormorantGaramond(
                   fontSize: 20, fontWeight: FontWeight.w700)),
-          backgroundColor: C.white,
+          backgroundColor: context.colors.white,
           automaticallyImplyLeading: false),
       body: items.isEmpty
           ? EmptyView(
@@ -28,7 +28,7 @@ class WishlistScreen extends ConsumerWidget {
               title: 'Nothing saved yet',
               desc: 'Tap ♡ on any item to save it here.',
               btnLabel: 'Explore Now',
-              onBtn: () => ctx.go('/explore'))
+              onBtn: () => context.go('/explore'))
           : GridView.builder(
               padding: const EdgeInsets.all(16),
               physics: const BouncingScrollPhysics(),

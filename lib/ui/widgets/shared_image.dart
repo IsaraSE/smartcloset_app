@@ -14,7 +14,7 @@ class Img extends StatelessWidget {
       {super.key, this.w, this.h, this.fit = BoxFit.cover, this.r = 0});
 
   @override
-  Widget build(BuildContext ctx) => ClipRRect(
+  Widget build(BuildContext context) => ClipRRect(
         borderRadius: BorderRadius.circular(r),
         child: url.startsWith('http')
             ? CachedNetworkImage(
@@ -24,16 +24,16 @@ class Img extends StatelessWidget {
                 fit: fit,
                 fadeInDuration: const Duration(milliseconds: 300),
                 placeholder: (c, u) => Shimmer.fromColors(
-                    baseColor: C.n200,
-                    highlightColor: C.n100,
-                    child: Container(width: w, height: h, color: C.n200)),
+                    baseColor: context.colors.n200,
+                    highlightColor: context.colors.n100,
+                    child: Container(width: w, height: h, color: context.colors.n200)),
                 errorWidget: (c, u, e) => Container(
                     width: w,
                     height: h,
-                    color: C.n100,
-                    child: const Center(
+                    color: context.colors.n100,
+                    child: Center(
                         child: Icon(Icons.image_outlined,
-                            color: C.n300, size: 28))),
+                            color: context.colors.n300, size: 28))),
               )
             : Image.asset(url, width: w, height: h, fit: fit),
       );

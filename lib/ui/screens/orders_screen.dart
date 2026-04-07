@@ -12,16 +12,16 @@ class OrdersScreen extends ConsumerWidget {
   const OrdersScreen({super.key});
 
   @override
-  Widget build(BuildContext ctx, WidgetRef ref) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final orders = ref.watch(ordersProvider);
     return Scaffold(
-      backgroundColor: C.canvas,
+      backgroundColor: context.colors.canvas,
       appBar: AppBar(
           title: const Text('My Orders'),
-          backgroundColor: C.white,
+          backgroundColor: context.colors.white,
           leading: IconButton(
               icon: const Icon(Icons.arrow_back_ios_new_rounded, size: 18),
-              onPressed: () => ctx.pop())),
+              onPressed: () => context.pop())),
       body: orders.isEmpty
           ? const EmptyView(
               icon: Icons.receipt_long_outlined,
@@ -42,20 +42,20 @@ class _OrderCard extends StatelessWidget {
   const _OrderCard(this.o);
 
   @override
-  Widget build(BuildContext ctx) => Container(
+  Widget build(BuildContext context) => Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-            color: C.white,
+            color: context.colors.white,
             borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: C.border),
-            boxShadow: const [
-              BoxShadow(color: C.shadowMd, blurRadius: 8, offset: Offset(0, 3))
+            border: Border.all(color: context.colors.border),
+            boxShadow: [
+              BoxShadow(color: context.colors.shadowMd, blurRadius: 8, offset: const Offset(0, 3))
             ]),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
             Text(o.orderNumber,
                 style: GoogleFonts.dmSans(
-                    fontWeight: FontWeight.w700, fontSize: 14, color: C.ink)),
+                    fontWeight: FontWeight.w700, fontSize: 14, color: context.colors.ink)),
             Container(
                 padding:
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
@@ -70,7 +70,7 @@ class _OrderCard extends StatelessWidget {
           ]),
           const SizedBox(height: 6),
           Text('${o.createdAt.day}/${o.createdAt.month}/${o.createdAt.year}',
-              style: GoogleFonts.dmSans(fontSize: 12, color: C.n500)),
+              style: GoogleFonts.dmSans(fontSize: 12, color: context.colors.n500)),
           const SizedBox(height: 14),
           if (o.status != OrderStatus.cancelled) ...[
             Row(
@@ -82,15 +82,15 @@ class _OrderCard extends StatelessWidget {
                     width: 20,
                     height: 20,
                     decoration: BoxDecoration(
-                        color: active ? C.ink : C.n200, shape: BoxShape.circle),
+                        color: active ? context.colors.ink : context.colors.n200, shape: BoxShape.circle),
                     child: Center(
                         child: Icon(Icons.check,
-                            size: 12, color: active ? C.white : C.n400))),
+                            size: 12, color: active ? context.colors.white : context.colors.n400))),
                 if (i < 3)
                   Expanded(
                       child: Container(
                           height: 2,
-                          color: active && o.status.step > i ? C.ink : C.n200)),
+                          color: active && o.status.step > i ? context.colors.ink : context.colors.n200)),
               ]));
             })),
             const SizedBox(height: 5),
@@ -98,7 +98,7 @@ class _OrderCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: ['Placed', 'Processing', 'Shipped', 'Delivered']
                     .map((s) => Text(s,
-                        style: GoogleFonts.dmSans(fontSize: 9, color: C.n400)))
+                        style: GoogleFonts.dmSans(fontSize: 9, color: context.colors.n400)))
                     .toList()),
             const SizedBox(height: 14),
           ],
@@ -106,10 +106,10 @@ class _OrderCard extends StatelessWidget {
           const SizedBox(height: 8),
           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
             Text('Total',
-                style: GoogleFonts.dmSans(fontSize: 14, color: C.n600)),
+                style: GoogleFonts.dmSans(fontSize: 14, color: context.colors.n600)),
             Text('\$${o.total.toStringAsFixed(2)}',
                 style: GoogleFonts.dmSans(
-                    fontWeight: FontWeight.w700, fontSize: 16, color: C.ink)),
+                    fontWeight: FontWeight.w700, fontSize: 16, color: context.colors.ink)),
           ]),
         ]),
       );

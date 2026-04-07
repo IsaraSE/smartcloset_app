@@ -19,7 +19,7 @@ class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 
   @override
-  Widget build(BuildContext ctx, WidgetRef ref) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(authProvider).valueOrNull;
     final featured = kProducts.where((p) => p.isFeatured).toList();
     final newArrs = kProducts.where((p) => p.isNew).toList();
@@ -29,7 +29,7 @@ class HomeScreen extends ConsumerWidget {
         kProducts.where((p) => p.category == 'Accessories').toList();
 
     return Scaffold(
-      backgroundColor: C.canvas,
+      backgroundColor: context.colors.canvas,
       body: CustomScrollView(
         physics: const BouncingScrollPhysics(),
         slivers: [
@@ -37,17 +37,17 @@ class HomeScreen extends ConsumerWidget {
           SliverAppBar(
             pinned: true,
             floating: true,
-            backgroundColor: C.white,
+            backgroundColor: context.colors.white,
             automaticallyImplyLeading: false,
             title: const NoirLogo(size: 30),
             actions: [
               IconButton(
                   icon: const Icon(Icons.qr_code_scanner_rounded, size: 22),
-                  onPressed: () => ctx.push('/qr-scanner'),
+                  onPressed: () => context.push('/qr-scanner'),
                   tooltip: 'Rack Scanner'),
               IconButton(
                   icon: const Icon(Icons.search_rounded, size: 22),
-                  onPressed: () => ctx.go('/explore')),
+                  onPressed: () => context.go('/explore')),
               const SizedBox(width: 4),
             ],
           ),
@@ -61,13 +61,13 @@ class HomeScreen extends ConsumerWidget {
                   padding:
                       const EdgeInsets.symmetric(horizontal: 14, vertical: 11),
                   decoration: BoxDecoration(
-                    color: C.white,
-                    border: Border.all(color: C.border),
+                    color: context.colors.white,
+                    border: Border.all(color: context.colors.border),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Row(children: [
-                    const Icon(Icons.location_on_outlined,
-                        color: C.gold, size: 18),
+                    Icon(Icons.location_on_outlined,
+                        color: context.colors.gold, size: 18),
                     const SizedBox(width: 8),
                     Expanded(
                         child: Column(
@@ -76,24 +76,24 @@ class HomeScreen extends ConsumerWidget {
                           Text('Deliver to',
                               style: GoogleFonts.dmSans(
                                   fontSize: 10,
-                                  color: C.n400,
+                                  color: context.colors.n400,
                                   fontWeight: FontWeight.w500)),
                           Text(
                               user?.defaultAddress?.short ??
                                   'Set delivery address',
                               style: GoogleFonts.dmSans(
                                   fontSize: 12,
-                                  color: C.ink,
+                                  color: context.colors.ink,
                                   fontWeight: FontWeight.w600)),
                         ])),
                     Container(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 12, vertical: 5),
                       decoration: BoxDecoration(
-                          color: C.ink, borderRadius: BorderRadius.circular(4)),
+                          color: context.colors.ink, borderRadius: BorderRadius.circular(4)),
                       child: Text('Change',
                           style: GoogleFonts.dmSans(
-                              color: C.white,
+                              color: context.colors.white,
                               fontSize: 11,
                               fontWeight: FontWeight.w600)),
                     ),
@@ -110,7 +110,7 @@ class HomeScreen extends ConsumerWidget {
                 child: Column(children: [
                   SecHeader(
                       title: 'Shop by Category',
-                      onAll: () => ctx.go('/explore')),
+                      onAll: () => context.go('/explore')),
                   const SizedBox(height: 14),
                   Row(
                       children: kCategories
@@ -120,14 +120,14 @@ class HomeScreen extends ConsumerWidget {
                                     final catName = cat.name;
                                     ref.read(filterProvider.notifier).update(
                                         (s) => s.copyWith(category: catName));
-                                    ctx.go('/explore');
+                                    context.go('/explore');
                                   },
                                   child: Container(
                                     margin: const EdgeInsets.only(right: 10),
                                     height: 90,
                                     decoration: BoxDecoration(
                                       borderRadius: BorderRadius.circular(8),
-                                      border: Border.all(color: C.border),
+                                      border: Border.all(color: context.colors.border),
                                     ),
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(8),
@@ -151,7 +151,7 @@ class HomeScreen extends ConsumerWidget {
                                                       fontSize: 11,
                                                       fontWeight:
                                                           FontWeight.w600,
-                                                      color: C.white)),
+                                                      color: context.colors.white)),
                                             ])),
                                       ]),
                                     ),
@@ -168,7 +168,7 @@ class HomeScreen extends ConsumerWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       SecHeader(
-                          title: 'Featured', onAll: () => ctx.go('/explore')),
+                          title: 'Featured', onAll: () => context.go('/explore')),
                       const SizedBox(height: 14),
                       SizedBox(
                           height: 260,
@@ -192,7 +192,7 @@ class HomeScreen extends ConsumerWidget {
                     children: [
                       SecHeader(
                           title: 'New Arrivals',
-                          onAll: () => ctx.go('/explore')),
+                          onAll: () => context.go('/explore')),
                       const SizedBox(height: 14),
                       GridView.builder(
                         shrinkWrap: true,
@@ -221,7 +221,7 @@ class HomeScreen extends ConsumerWidget {
                             ref
                                 .read(filterProvider.notifier)
                                 .update((s) => s.copyWith(category: 'Men'));
-                            ctx.go('/explore');
+                            context.go('/explore');
                           }),
                       const SizedBox(height: 14),
                       SizedBox(
@@ -255,7 +255,7 @@ class HomeScreen extends ConsumerWidget {
                             ref
                                 .read(filterProvider.notifier)
                                 .update((s) => s.copyWith(category: 'Women'));
-                            ctx.go('/explore');
+                            context.go('/explore');
                           }),
                       const SizedBox(height: 14),
                       GridView.builder(
@@ -284,7 +284,7 @@ class HomeScreen extends ConsumerWidget {
                           onAll: () {
                             ref.read(filterProvider.notifier).update(
                                 (s) => s.copyWith(category: 'Accessories'));
-                            ctx.go('/explore');
+                            context.go('/explore');
                           }),
                       const SizedBox(height: 14),
                       SizedBox(
@@ -340,7 +340,7 @@ class _BSState extends State<_BannerSlider> {
   }
 
   @override
-  Widget build(BuildContext ctx) => Padding(
+  Widget build(BuildContext context) => Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(children: [
           SizedBox(
@@ -361,12 +361,12 @@ class _BSState extends State<_BannerSlider> {
                           width: double.infinity,
                           height: 195,
                           fit: BoxFit.cover,
-                          placeholder: (c, u) => Container(color: C.n200),
+                          placeholder: (c, u) => Container(color: context.colors.n200),
                           errorWidget: (c, u, e) => Container(
-                              color: C.n900,
-                              child: const Center(
+                              color: context.colors.n900,
+                              child: Center(
                                   child: Icon(Icons.image_outlined,
-                                      color: C.n600, size: 40))),
+                                      color: context.colors.n600, size: 40))),
                         ),
                         Container(
                             decoration:
@@ -381,11 +381,11 @@ class _BSState extends State<_BannerSlider> {
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 9, vertical: 3),
                                     decoration: BoxDecoration(
-                                        color: C.gold,
+                                        color: context.colors.gold,
                                         borderRadius: BorderRadius.circular(2)),
                                     child: Text(b.tag,
                                         style: GoogleFonts.dmSans(
-                                            color: C.white,
+                                            color: context.colors.white,
                                             fontSize: 9,
                                             fontWeight: FontWeight.w700,
                                             letterSpacing: 1.2)),
@@ -395,7 +395,7 @@ class _BSState extends State<_BannerSlider> {
                                       style: GoogleFonts.cormorantGaramond(
                                           fontSize: 26,
                                           fontWeight: FontWeight.w700,
-                                          color: C.white,
+                                          color: context.colors.white,
                                           height: 1.1)),
                                   const SizedBox(height: 5),
                                   Text(b.subtitle,
@@ -408,13 +408,13 @@ class _BSState extends State<_BannerSlider> {
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 16, vertical: 7),
                                     decoration: BoxDecoration(
-                                        color: C.white,
+                                        color: context.colors.white,
                                         borderRadius: BorderRadius.circular(4)),
                                     child: Text(b.actionLabel,
                                         style: GoogleFonts.dmSans(
                                             fontSize: 12,
                                             fontWeight: FontWeight.w700,
-                                            color: C.ink)),
+                                            color: context.colors.ink)),
                                   ),
                                 ])),
                       ]),
@@ -426,11 +426,11 @@ class _BSState extends State<_BannerSlider> {
           AnimatedSmoothIndicator(
               activeIndex: _cur,
               count: kBanners.length,
-              effect: const WormEffect(
+              effect: WormEffect(
                   dotHeight: 5,
                   dotWidth: 5,
-                  activeDotColor: C.gold,
-                  dotColor: C.n300,
+                  activeDotColor: context.colors.gold,
+                  dotColor: context.colors.n300,
                   spacing: 6)),
         ]),
       );
@@ -439,7 +439,7 @@ class _BSState extends State<_BannerSlider> {
 // ── Editorial Banner ───────────────────────────────────────
 class _EditorialBanner extends StatelessWidget {
   @override
-  Widget build(BuildContext ctx) => ClipRRect(
+  Widget build(BuildContext context) => ClipRRect(
         borderRadius: BorderRadius.circular(12),
         child: Stack(children: [
           CachedNetworkImage(
@@ -448,8 +448,8 @@ class _EditorialBanner extends StatelessWidget {
             width: double.infinity,
             height: 160,
             fit: BoxFit.cover,
-            placeholder: (c, u) => Container(height: 160, color: C.n200),
-            errorWidget: (c, u, e) => Container(height: 160, color: C.n800),
+            placeholder: (c, u) => Container(height: 160, color: context.colors.n200),
+            errorWidget: (c, u, e) => Container(height: 160, color: context.colors.n800),
           ),
           Container(height: 160, color: Colors.black.withOpacity(0.48)),
           Positioned.fill(
@@ -463,14 +463,14 @@ class _EditorialBanner extends StatelessWidget {
                       children: [
                     Text('NOIR Editorial',
                         style: GoogleFonts.dmSans(
-                            color: C.gold,
+                            color: context.colors.gold,
                             fontSize: 11,
                             fontWeight: FontWeight.w600,
                             letterSpacing: 1.5)),
                     const SizedBox(height: 6),
                     Text('Style Guide\nSS 2025',
                         style: GoogleFonts.cormorantGaramond(
-                            color: C.white,
+                            color: context.colors.white,
                             fontSize: 28,
                             fontWeight: FontWeight.w700,
                             height: 1.1)),
@@ -478,8 +478,8 @@ class _EditorialBanner extends StatelessWidget {
               ElevatedButton(
                   onPressed: () {},
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: C.gold,
-                      foregroundColor: C.white,
+                      backgroundColor: context.colors.gold,
+                      foregroundColor: context.colors.white,
                       padding: const EdgeInsets.symmetric(
                           horizontal: 18, vertical: 10),
                       shape: RoundedRectangleBorder(

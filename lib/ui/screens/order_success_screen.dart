@@ -12,8 +12,8 @@ class OrderSuccessScreen extends StatelessWidget {
   const OrderSuccessScreen({super.key, required this.order});
 
   @override
-  Widget build(BuildContext ctx) => Scaffold(
-        backgroundColor: C.white,
+  Widget build(BuildContext context) => Scaffold(
+        backgroundColor: context.colors.white,
         body: SafeArea(
             child: Padding(
                 padding: const EdgeInsets.all(32),
@@ -26,8 +26,8 @@ class OrderSuccessScreen extends StatelessWidget {
                               decoration: const BoxDecoration(
                                   color: Color(0xFFF0FDF4),
                                   shape: BoxShape.circle),
-                              child: const Icon(Icons.check_rounded,
-                                  color: C.success, size: 52))
+                              child: Icon(Icons.check_rounded,
+                                  color: context.colors.success, size: 52))
                           .animate()
                           .scale(
                               delay: 200.ms,
@@ -38,13 +38,13 @@ class OrderSuccessScreen extends StatelessWidget {
                               style: GoogleFonts.cormorantGaramond(
                                   fontSize: 32,
                                   fontWeight: FontWeight.w700,
-                                  color: C.ink))
+                                  color: context.colors.ink))
                           .animate()
                           .fadeIn(delay: 400.ms),
                       const SizedBox(height: 8),
                       Text('${order.orderNumber} has been confirmed.',
                               style: GoogleFonts.dmSans(
-                                  fontSize: 14, color: C.n600, height: 1.5),
+                                  fontSize: 14, color: context.colors.n600, height: 1.5),
                               textAlign: TextAlign.center)
                           .animate()
                           .fadeIn(delay: 500.ms),
@@ -52,9 +52,9 @@ class OrderSuccessScreen extends StatelessWidget {
                       Container(
                           padding: const EdgeInsets.all(20),
                           decoration: BoxDecoration(
-                              color: C.n50,
+                              color: context.colors.n50,
                               borderRadius: BorderRadius.circular(8),
-                              border: Border.all(color: C.border)),
+                              border: Border.all(color: context.colors.border)),
                           child: Column(children: [
                             SumRow('Order', order.orderNumber),
                             SumRow('Payment', order.paymentMethod),
@@ -68,13 +68,13 @@ class OrderSuccessScreen extends StatelessWidget {
                       const SizedBox(height: 32),
                       Btn(
                               text: 'Track My Order',
-                              onPressed: () => ctx.pushReplacement('/orders'))
+                              onPressed: () => context.pushReplacement('/orders'))
                           .animate()
                           .fadeIn(delay: 700.ms),
                       const SizedBox(height: 12),
                       OutBtn(
                               text: 'Continue Shopping',
-                              onPressed: () => ctx.go('/'))
+                              onPressed: () => context.go('/'))
                           .animate()
                           .fadeIn(delay: 800.ms),
                     ]))),

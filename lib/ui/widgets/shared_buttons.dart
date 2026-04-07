@@ -24,21 +24,21 @@ class Btn extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext ctx) => SizedBox(
+  Widget build(BuildContext context) => SizedBox(
         width: w ?? double.infinity,
         height: h,
         child: ElevatedButton(
           onPressed: loading ? null : onPressed,
           style: ElevatedButton.styleFrom(
-              backgroundColor: bg ?? C.ink,
-              foregroundColor: fg ?? C.white,
-              disabledBackgroundColor: C.n200),
+              backgroundColor: bg ?? context.colors.ink,
+              foregroundColor: fg ?? context.colors.white,
+              disabledBackgroundColor: context.colors.n200),
           child: loading
               ? SizedBox(
                   width: 20,
                   height: 20,
                   child: CircularProgressIndicator(
-                      strokeWidth: 2, color: fg ?? C.white))
+                      strokeWidth: 2, color: fg ?? context.colors.white))
               : Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                   if (icon != null) ...[
                     Icon(icon, size: 18),
@@ -58,8 +58,8 @@ class GoldBtn extends StatelessWidget {
   const GoldBtn({super.key, required this.text, this.onPressed, this.w});
 
   @override
-  Widget build(BuildContext ctx) =>
-      Btn(text: text, onPressed: onPressed, w: w, bg: C.gold, fg: C.white);
+  Widget build(BuildContext context) =>
+      Btn(text: text, onPressed: onPressed, w: w, bg: context.colors.gold, fg: context.colors.white);
 }
 
 class OutBtn extends StatelessWidget {
@@ -70,24 +70,24 @@ class OutBtn extends StatelessWidget {
   const OutBtn({super.key, required this.text, this.onPressed, this.w});
 
   @override
-  Widget build(BuildContext ctx) => SizedBox(
+  Widget build(BuildContext context) => SizedBox(
       width: w ?? double.infinity,
       height: 52,
       child: OutlinedButton(onPressed: onPressed, child: Text(text)));
 }
 
 /// Section header with optional "See All" link
-void snack(BuildContext ctx, String msg,
+void snack(BuildContext context, String msg,
         {bool err = false, String? action, VoidCallback? onAction}) =>
-    ScaffoldMessenger.of(ctx).showSnackBar(SnackBar(
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
       content: Text(msg),
-      backgroundColor: err ? C.error : C.ink,
+      backgroundColor: err ? context.colors.error : context.colors.ink,
       behavior: SnackBarBehavior.floating,
       margin: const EdgeInsets.all(16),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
       action: action != null
           ? SnackBarAction(
-              label: action, textColor: C.gold, onPressed: onAction ?? () {})
+              label: action, textColor: context.colors.gold, onPressed: onAction ?? () {})
           : null,
     ));
 
@@ -139,17 +139,17 @@ class WishBtnState extends State<WishBtn>
   }
 
   @override
-  Widget build(BuildContext ctx) => GestureDetector(
+  Widget build(BuildContext context) => GestureDetector(
         onTap: widget.onTap,
         behavior: HitTestBehavior.opaque,
         child: Container(
           width: widget.size + 22,
           height: widget.size + 22,
           decoration: BoxDecoration(
-            color: C.white.withOpacity(0.92),
+            color: context.colors.white.withOpacity(0.92),
             shape: BoxShape.circle,
             boxShadow: widget.shadow
-                ? const [BoxShadow(color: C.shadowMd, blurRadius: 8)]
+                ? [BoxShadow(color: context.colors.shadowMd, blurRadius: 8)]
                 : [],
           ),
           child: Center(
@@ -159,7 +159,7 @@ class WishBtnState extends State<WishBtn>
                 widget.isWished
                     ? Icons.favorite_rounded
                     : Icons.favorite_border_rounded,
-                color: widget.isWished ? C.gold : C.n400,
+                color: widget.isWished ? context.colors.gold : context.colors.n400,
                 size: widget.size),
           )),
         ),

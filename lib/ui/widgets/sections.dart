@@ -10,12 +10,12 @@ class SecHeader extends StatelessWidget {
   const SecHeader({super.key, required this.title, this.onAll});
 
   @override
-  Widget build(BuildContext ctx) => Row(
+  Widget build(BuildContext context) => Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(title,
               style: GoogleFonts.cormorantGaramond(
-                  fontSize: 22, fontWeight: FontWeight.w700, color: C.ink)),
+                  fontSize: 22, fontWeight: FontWeight.w700, color: context.colors.ink)),
           if (onAll != null)
             TextButton(
               onPressed: onAll,
@@ -26,7 +26,7 @@ class SecHeader extends StatelessWidget {
               child: Text('See All',
                   style: GoogleFonts.dmSans(
                       fontSize: 13,
-                      color: C.gold,
+                      color: context.colors.gold,
                       fontWeight: FontWeight.w600,
                       letterSpacing: 0.3)),
             ),

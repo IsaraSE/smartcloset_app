@@ -41,10 +41,10 @@ class _LoginState extends ConsumerState<LoginScreen> {
   }
 
   @override
-  Widget build(BuildContext ctx) {
-    final h = MediaQuery.of(ctx).size.height;
+  Widget build(BuildContext context) {
+    final h = MediaQuery.of(context).size.height;
     return Scaffold(
-      backgroundColor: C.ink,
+      backgroundColor: context.colors.ink,
       body: Stack(children: [
         // ── Fashion image half ──────────────────────────────
         Positioned(
@@ -59,8 +59,8 @@ class _LoginState extends ConsumerState<LoginScreen> {
               fit: BoxFit.cover,
               width: double.infinity,
               height: h * 0.45,
-              placeholder: (c, u) => Container(color: C.n800),
-              errorWidget: (c, u, e) => Container(color: C.n800),
+              placeholder: (c, u) => Container(color: context.colors.n800),
+              errorWidget: (c, u, e) => Container(color: context.colors.n800),
             ),
             // Dark overlay gradient
             Container(
@@ -71,14 +71,14 @@ class _LoginState extends ConsumerState<LoginScreen> {
                 colors: [
                   Colors.black.withOpacity(0.3),
                   Colors.black.withOpacity(0.0),
-                  C.ink,
+                  context.colors.ink,
                 ],
                 stops: const [0.0, 0.55, 1.0],
               ),
             )),
             // Logo top-left
             Positioned(
-              top: MediaQuery.of(ctx).padding.top + 20,
+              top: MediaQuery.of(context).padding.top + 20,
               left: 24,
               child: const NoirLogo(size: 32, dark: true)
                   .animate()
@@ -94,9 +94,9 @@ class _LoginState extends ConsumerState<LoginScreen> {
           right: 0,
           bottom: 0,
           child: Container(
-            decoration: const BoxDecoration(
-              color: C.white,
-              borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+            decoration: BoxDecoration(
+              color: context.colors.white,
+              borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
             ),
             child: SingleChildScrollView(
               padding: const EdgeInsets.fromLTRB(28, 32, 28, 40),
@@ -109,11 +109,11 @@ class _LoginState extends ConsumerState<LoginScreen> {
                           style: GoogleFonts.cormorantGaramond(
                               fontSize: 30,
                               fontWeight: FontWeight.w700,
-                              color: C.ink)),
+                              color: context.colors.ink)),
                       const SizedBox(height: 4),
                       Text('Sign in to continue',
                           style:
-                              GoogleFonts.dmSans(fontSize: 14, color: C.n500)),
+                              GoogleFonts.dmSans(fontSize: 14, color: context.colors.n500)),
                       const SizedBox(height: 28),
 
                       // Email
@@ -123,11 +123,11 @@ class _LoginState extends ConsumerState<LoginScreen> {
                         controller: _ec,
                         keyboardType: TextInputType.emailAddress,
                         textInputAction: TextInputAction.next,
-                        style: GoogleFonts.dmSans(fontSize: 14, color: C.ink),
-                        decoration: const InputDecoration(
+                        style: GoogleFonts.dmSans(fontSize: 14, color: context.colors.ink),
+                        decoration: InputDecoration(
                           hintText: 'your@email.com',
                           prefixIcon: Icon(Icons.email_outlined,
-                              size: 19, color: C.n400),
+                              size: 19, color: context.colors.n400),
                         ),
                         validator: (v) {
                           if (v == null || v.isEmpty) return 'Email required';
@@ -148,17 +148,17 @@ class _LoginState extends ConsumerState<LoginScreen> {
                         obscureText: _hide,
                         textInputAction: TextInputAction.done,
                         onFieldSubmitted: (_) => _login(),
-                        style: GoogleFonts.dmSans(fontSize: 14, color: C.ink),
+                        style: GoogleFonts.dmSans(fontSize: 14, color: context.colors.ink),
                         decoration: InputDecoration(
                           hintText: '••••••••',
-                          prefixIcon: const Icon(Icons.lock_outline,
-                              size: 19, color: C.n400),
+                          prefixIcon: Icon(Icons.lock_outline,
+                              size: 19, color: context.colors.n400),
                           suffixIcon: IconButton(
                               icon: Icon(
                                   _hide
                                       ? Icons.visibility_off_outlined
                                       : Icons.visibility_outlined,
-                                  color: C.n400,
+                                  color: context.colors.n400,
                                   size: 19),
                               onPressed: () => setState(() => _hide = !_hide)),
                         ),
@@ -179,7 +179,7 @@ class _LoginState extends ConsumerState<LoginScreen> {
                           child: TextButton(
                             onPressed: () {},
                             style: TextButton.styleFrom(
-                                foregroundColor: C.gold,
+                                foregroundColor: context.colors.gold,
                                 padding:
                                     const EdgeInsets.symmetric(vertical: 8)),
                             child: Text('Forgot password?',
@@ -201,7 +201,7 @@ class _LoginState extends ConsumerState<LoginScreen> {
                             padding: const EdgeInsets.symmetric(horizontal: 16),
                             child: Text('or',
                                 style: GoogleFonts.dmSans(
-                                    fontSize: 13, color: C.n400))),
+                                    fontSize: 13, color: context.colors.n400))),
                         const Expanded(child: Divider()),
                       ]),
                       const SizedBox(height: 20),
@@ -230,16 +230,16 @@ class _LoginState extends ConsumerState<LoginScreen> {
                                             Color(0xFFEA4335)
                                           ]),
                                           shape: BoxShape.circle),
-                                      child: const Center(
+                                      child: Center(
                                           child: Text('G',
                                               style: TextStyle(
-                                                  color: C.white,
+                                                  color: context.colors.white,
                                                   fontWeight: FontWeight.w800,
                                                   fontSize: 11)))),
                                   const SizedBox(width: 10),
                                   Text('Continue with Google',
                                       style: GoogleFonts.dmSans(
-                                          color: C.ink,
+                                          color: context.colors.ink,
                                           fontWeight: FontWeight.w500,
                                           fontSize: 14)),
                                 ]),
@@ -250,15 +250,15 @@ class _LoginState extends ConsumerState<LoginScreen> {
                           child: RichText(
                               text: TextSpan(
                         text: "Don't have an account? ",
-                        style: GoogleFonts.dmSans(fontSize: 14, color: C.n500),
+                        style: GoogleFonts.dmSans(fontSize: 14, color: context.colors.n500),
                         children: [
                           WidgetSpan(
                               child: GestureDetector(
-                            onTap: () => ctx.push('/register'),
+                            onTap: () => context.push('/register'),
                             child: Text('Create Account',
                                 style: GoogleFonts.dmSans(
                                     fontSize: 14,
-                                    color: C.gold,
+                                    color: context.colors.gold,
                                     fontWeight: FontWeight.w700)),
                           ))
                         ],
@@ -278,10 +278,10 @@ class FieldLabel extends StatelessWidget {
   const FieldLabel(this.text, {super.key});
 
   @override
-  Widget build(BuildContext ctx) => Text(text,
+  Widget build(BuildContext context) => Text(text,
       style: GoogleFonts.dmSans(
           fontSize: 12,
           fontWeight: FontWeight.w600,
-          color: C.n600,
+          color: context.colors.n600,
           letterSpacing: 0.3));
 }

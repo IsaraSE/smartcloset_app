@@ -11,16 +11,16 @@ class Stars extends StatelessWidget {
   const Stars({super.key, required this.rating, this.count = 0, this.sz = 13});
 
   @override
-  Widget build(BuildContext ctx) =>
+  Widget build(BuildContext context) =>
       Row(mainAxisSize: MainAxisSize.min, children: [
-        Icon(Icons.star_rounded, color: C.gold, size: sz),
+        Icon(Icons.star_rounded, color: context.colors.gold, size: sz),
         const SizedBox(width: 2),
         Text(rating.toStringAsFixed(1),
             style: GoogleFonts.dmSans(
-                fontSize: sz - 1, fontWeight: FontWeight.w600, color: C.n700)),
+                fontSize: sz - 1, fontWeight: FontWeight.w600, color: context.colors.n700)),
         if (count > 0)
           Text(' ($count)',
-              style: GoogleFonts.dmSans(fontSize: sz - 1, color: C.n400)),
+              style: GoogleFonts.dmSans(fontSize: sz - 1, color: context.colors.n400)),
       ]);
 }
 
@@ -29,13 +29,13 @@ class SaleBadge extends StatelessWidget {
   const SaleBadge({super.key, required this.pct});
 
   @override
-  Widget build(BuildContext ctx) => Container(
+  Widget build(BuildContext context) => Container(
         padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
         decoration: BoxDecoration(
-            color: C.gold, borderRadius: BorderRadius.circular(2)),
+            color: context.colors.gold, borderRadius: BorderRadius.circular(2)),
         child: Text('-${pct.toInt()}%',
             style: GoogleFonts.dmSans(
-                color: C.white, fontSize: 9, fontWeight: FontWeight.w700)),
+                color: context.colors.white, fontSize: 9, fontWeight: FontWeight.w700)),
       );
 }
 
@@ -43,13 +43,13 @@ class NewBadge extends StatelessWidget {
   const NewBadge({super.key});
 
   @override
-  Widget build(BuildContext ctx) => Container(
+  Widget build(BuildContext context) => Container(
         padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
         decoration:
-            BoxDecoration(color: C.ink, borderRadius: BorderRadius.circular(2)),
+            BoxDecoration(color: context.colors.ink, borderRadius: BorderRadius.circular(2)),
         child: Text('NEW',
             style: GoogleFonts.dmSans(
-                color: C.white,
+                color: context.colors.white,
                 fontSize: 9,
                 fontWeight: FontWeight.w700,
                 letterSpacing: 0.8)),

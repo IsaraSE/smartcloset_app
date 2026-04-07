@@ -49,7 +49,7 @@ class _QRState extends ConsumerState<QrScannerScreen>
           if (!mounted) return;
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
               content: Text('Demo: Using default rack for "$rackId"'),
-              backgroundColor: C.gold,
+              backgroundColor: context.colors.gold,
               behavior: SnackBarBehavior.floating,
               duration: const Duration(seconds: 2)));
           rackId = kRackNames.keys.first;
@@ -65,8 +65,8 @@ class _QRState extends ConsumerState<QrScannerScreen>
   }
 
   @override
-  Widget build(BuildContext ctx) => Scaffold(
-        backgroundColor: C.black,
+  Widget build(BuildContext context) => Scaffold(
+        backgroundColor: context.colors.black,
         body: Stack(children: [
           Positioned.fill(
               child: MobileScanner(controller: _camCtrl, onDetect: _onDetect)),
@@ -83,18 +83,18 @@ class _QRState extends ConsumerState<QrScannerScreen>
                       padding: const EdgeInsets.all(16),
                       child: Row(children: [
                         GestureDetector(
-                            onTap: () => ctx.pop(),
+                            onTap: () => context.pop(),
                             child: Container(
                                 padding: const EdgeInsets.all(8),
                                 decoration: const BoxDecoration(
                                     color: Colors.black54,
                                     shape: BoxShape.circle),
-                                child: const Icon(Icons.close,
-                                    color: C.white, size: 20))),
+                                child: Icon(Icons.close,
+                                    color: context.colors.white, size: 20))),
                         const SizedBox(width: 12),
                         Text('Rack Scanner',
                             style: GoogleFonts.dmSans(
-                                color: C.white,
+                                color: context.colors.white,
                                 fontWeight: FontWeight.w700,
                                 fontSize: 16)),
                       ])))),
@@ -115,14 +115,14 @@ class _QRState extends ConsumerState<QrScannerScreen>
               color: Colors.black.withOpacity(0.7),
               child: Center(
                   child: Column(mainAxisSize: MainAxisSize.min, children: [
-                const Icon(Icons.check_circle_rounded,
-                        color: C.success, size: 68)
+                Icon(Icons.check_circle_rounded,
+                        color: context.colors.success, size: 68)
                     .animate()
                     .scale(duration: 500.ms, curve: Curves.elasticOut),
                 const SizedBox(height: 16),
                 Text('Rack Found!',
                         style: GoogleFonts.cormorantGaramond(
-                            color: C.white,
+                            color: context.colors.white,
                             fontWeight: FontWeight.w700,
                             fontSize: 24))
                     .animate()
@@ -130,20 +130,20 @@ class _QRState extends ConsumerState<QrScannerScreen>
                 const SizedBox(height: 6),
                 Text(kRackNames[_scannedRack]!,
                         style: GoogleFonts.dmSans(
-                            color: C.gold,
+                            color: context.colors.gold,
                             fontSize: 16,
                             fontWeight: FontWeight.w600))
                     .animate()
                     .fadeIn(delay: 300.ms),
                 const SizedBox(height: 28),
                 ElevatedButton.icon(
-                        onPressed: () => ctx.pushReplacement(
+                        onPressed: () => context.pushReplacement(
                             '/rack/$_scannedRack',
                             extra: kRackNames[_scannedRack]),
                         icon: const Icon(Icons.grid_view_rounded),
                         label: const Text('View Rack Items'),
                         style: ElevatedButton.styleFrom(
-                            backgroundColor: C.gold,
+                            backgroundColor: context.colors.gold,
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 24, vertical: 14),
                             shape: RoundedRectangleBorder(
@@ -157,7 +157,7 @@ class _QRState extends ConsumerState<QrScannerScreen>
                           _scannedRack = null;
                         }),
                     child: Text('Scan Again',
-                        style: GoogleFonts.dmSans(color: C.white))),
+                        style: GoogleFonts.dmSans(color: context.colors.white))),
               ])),
             )),
         ]),
@@ -186,7 +186,7 @@ class _QRPainter extends CustomPainter {
 
     // Corner brackets
     final p = Paint()
-      ..color = C.gold
+      ..color = context.colors.gold
       ..strokeWidth = 3
       ..style = PaintingStyle.stroke;
     const l = s / 2, bl = 26.0;
@@ -212,7 +212,7 @@ class _QRPainter extends CustomPainter {
         Offset(cx - l + r + 4, scanY),
         Offset(cx + l - r - 4, scanY),
         Paint()
-          ..color = C.gold
+          ..color = context.colors.gold
           ..strokeWidth = 2);
   }
 

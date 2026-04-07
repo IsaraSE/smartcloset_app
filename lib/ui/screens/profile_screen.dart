@@ -12,13 +12,13 @@ class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({super.key});
 
   @override
-  Widget build(BuildContext ctx, WidgetRef ref) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final user = ref.watch(authProvider).valueOrNull;
     return Scaffold(
-      backgroundColor: C.canvas,
+      backgroundColor: context.colors.canvas,
       appBar: AppBar(
           title: const Text('Profile'),
-          backgroundColor: C.white,
+          backgroundColor: context.colors.white,
           automaticallyImplyLeading: false),
       body: SingleChildScrollView(
           padding: const EdgeInsets.all(16),
@@ -28,13 +28,13 @@ class ProfileScreen extends ConsumerWidget {
             Container(
                 padding: const EdgeInsets.all(22),
                 decoration: BoxDecoration(
-                    color: C.ink, borderRadius: BorderRadius.circular(12)),
+                    color: context.colors.ink, borderRadius: BorderRadius.circular(12)),
                 child: Row(children: [
                   Container(
                       width: 58,
                       height: 58,
-                      decoration: const BoxDecoration(
-                          color: C.gold, shape: BoxShape.circle),
+                      decoration: BoxDecoration(
+                          color: context.colors.gold, shape: BoxShape.circle),
                       child: Center(
                           child: Text(
                               user?.name.isNotEmpty == true
@@ -43,7 +43,7 @@ class ProfileScreen extends ConsumerWidget {
                               style: GoogleFonts.cormorantGaramond(
                                   fontSize: 28,
                                   fontWeight: FontWeight.w700,
-                                  color: C.white)))),
+                                  color: context.colors.white)))),
                   const SizedBox(width: 16),
                   Expanded(
                       child: Column(
@@ -53,7 +53,7 @@ class ProfileScreen extends ConsumerWidget {
                             style: GoogleFonts.cormorantGaramond(
                                 fontWeight: FontWeight.w700,
                                 fontSize: 20,
-                                color: C.white)),
+                                color: context.colors.white)),
                         Text(user?.email ?? '',
                             style: GoogleFonts.dmSans(
                                 fontSize: 12,
@@ -63,13 +63,13 @@ class ProfileScreen extends ConsumerWidget {
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 10, vertical: 4),
                             decoration: BoxDecoration(
-                                color: C.gold.withOpacity(0.2),
+                                color: context.colors.gold.withOpacity(0.2),
                                 borderRadius: BorderRadius.circular(20),
                                 border:
-                                    Border.all(color: C.gold.withOpacity(0.4))),
+                                    Border.all(color: context.colors.gold.withOpacity(0.4))),
                             child: Text('NOIR Member',
                                 style: GoogleFonts.dmSans(
-                                    color: C.gold,
+                                    color: context.colors.gold,
                                     fontSize: 11,
                                     fontWeight: FontWeight.w600))),
                       ])),
@@ -90,18 +90,18 @@ class ProfileScreen extends ConsumerWidget {
 
             _MenuSection('Shopping', [
               _MenuItem(Icons.receipt_long_outlined, 'My Orders',
-                  () => ctx.push('/orders')),
+                  () => context.push('/orders')),
               _MenuItem(Icons.favorite_border_rounded, 'Saved Items',
-                  () => ctx.go('/wishlist')),
+                  () => context.go('/wishlist')),
               _MenuItem(Icons.location_on_outlined, 'Addresses', () {}),
               _MenuItem(Icons.local_offer_outlined, 'Promo Codes', () {}),
             ]),
             const SizedBox(height: 14),
             _MenuSection('Features', [
               _MenuItem(Icons.camera_alt_outlined, 'Virtual Try-On',
-                  () => ctx.push('/try-on')),
+                  () => context.push('/try-on')),
               _MenuItem(Icons.qr_code_scanner_rounded, 'Rack Scanner',
-                  () => ctx.push('/qr-scanner')),
+                  () => context.push('/qr-scanner')),
             ]),
             const SizedBox(height: 14),
             _MenuSection('Account', [
@@ -113,17 +113,17 @@ class ProfileScreen extends ConsumerWidget {
             const SizedBox(height: 14),
             Container(
                 decoration: BoxDecoration(
-                    color: C.white,
+                    color: context.colors.white,
                     borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: C.border),
-                    boxShadow: const [
-                      BoxShadow(color: C.shadow, blurRadius: 6)
+                    border: Border.all(color: context.colors.border),
+                    boxShadow: [
+                      BoxShadow(color: context.colors.shadow, blurRadius: 6)
                     ]),
                 child: ListTile(
-                    leading: const Icon(Icons.logout_rounded, color: C.error),
+                    leading: Icon(Icons.logout_rounded, color: context.colors.error),
                     title: Text('Sign Out',
                         style: GoogleFonts.dmSans(
-                            color: C.error, fontWeight: FontWeight.w600)),
+                            color: context.colors.error, fontWeight: FontWeight.w600)),
                     onTap: () => ref.read(authProvider.notifier).signOut())),
             const SizedBox(height: 32),
           ])),
@@ -137,21 +137,21 @@ class _StatCard extends StatelessWidget {
   const _StatCard(this.label, this.val, this.ic);
 
   @override
-  Widget build(BuildContext ctx) => Expanded(
+  Widget build(BuildContext context) => Expanded(
       child: Container(
           padding: const EdgeInsets.all(14),
           decoration: BoxDecoration(
-              color: C.white,
+              color: context.colors.white,
               borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: C.border),
-              boxShadow: const [BoxShadow(color: C.shadow, blurRadius: 6)]),
+              border: Border.all(color: context.colors.border),
+              boxShadow: [BoxShadow(color: context.colors.shadow, blurRadius: 6)]),
           child: Column(children: [
-            Icon(ic, color: C.gold, size: 22),
+            Icon(ic, color: context.colors.gold, size: 22),
             const SizedBox(height: 6),
             Text(val,
                 style: GoogleFonts.cormorantGaramond(
-                    fontWeight: FontWeight.w700, fontSize: 20, color: C.ink)),
-            Text(label, style: GoogleFonts.dmSans(fontSize: 11, color: C.n500)),
+                    fontWeight: FontWeight.w700, fontSize: 20, color: context.colors.ink)),
+            Text(label, style: GoogleFonts.dmSans(fontSize: 11, color: context.colors.n500)),
           ])));
 }
 
@@ -163,14 +163,14 @@ Widget _MenuSection(String title, List<Widget> items) =>
               style: GoogleFonts.dmSans(
                   fontSize: 10,
                   fontWeight: FontWeight.w600,
-                  color: C.n400,
+                  color: context.colors.n400,
                   letterSpacing: 1))),
       Container(
           decoration: BoxDecoration(
-              color: C.white,
+              color: context.colors.white,
               borderRadius: BorderRadius.circular(8),
-              border: Border.all(color: C.border),
-              boxShadow: const [BoxShadow(color: C.shadow, blurRadius: 6)]),
+              border: Border.all(color: context.colors.border),
+              boxShadow: [BoxShadow(color: context.colors.shadow, blurRadius: 6)]),
           child: Column(
               children: items
                   .asMap()
@@ -190,16 +190,16 @@ class _MenuItem extends StatelessWidget {
   const _MenuItem(this.ic, this.label, this.onTap);
 
   @override
-  Widget build(BuildContext ctx) => ListTile(
+  Widget build(BuildContext context) => ListTile(
       leading: Container(
           width: 34,
           height: 34,
           decoration: BoxDecoration(
-              color: C.goldLight, borderRadius: BorderRadius.circular(8)),
-          child: Icon(ic, color: C.gold, size: 18)),
+              color: context.colors.goldLight, borderRadius: BorderRadius.circular(8)),
+          child: Icon(ic, color: context.colors.gold, size: 18)),
       title: Text(label,
           style: GoogleFonts.dmSans(fontSize: 14, fontWeight: FontWeight.w500)),
       trailing:
-          const Icon(Icons.chevron_right_rounded, color: C.n300, size: 20),
+          Icon(Icons.chevron_right_rounded, color: context.colors.n300, size: 20),
       onTap: onTap);
 }
