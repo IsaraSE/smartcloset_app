@@ -1,4 +1,4 @@
-import 'package:aura_app/data/models/address.dart';
+import 'package:noir_app/data/models/address.dart';
 
 class AppUser {
   final String id, name, email;

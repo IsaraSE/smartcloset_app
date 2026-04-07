@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:aura_app/data/models/user.dart';
-import 'package:aura_app/data/models/address.dart';
+import 'package:noir_app/data/models/user.dart';
+import 'package:noir_app/data/models/address.dart';
 
 final authProvider =
     AsyncNotifierProvider<AuthNotifier, AppUser?>(AuthNotifier.new);

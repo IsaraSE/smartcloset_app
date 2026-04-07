@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-import 'package:aura_app/data/models/product.dart';
-import 'package:aura_app/data/models/banner_category.dart';
+import 'package:noir_app/data/models/product.dart';
+import 'package:noir_app/data/models/banner_category.dart';
 
 final kProducts = <Product>[
   // ── Men's Formal ──────────────────────────────────────────

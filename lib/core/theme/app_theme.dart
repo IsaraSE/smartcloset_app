@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'package:aura_app/core/theme/colors.dart';
+import 'package:noir_app/core/theme/colors.dart';
 
 ThemeData buildTheme() => _build(AppColors.light(), Brightness.light);
 ThemeData buildDarkTheme() => _build(AppColors.dark(), Brightness.dark);

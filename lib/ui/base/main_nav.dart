@@ -3,8 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'package:aura_app/core/theme/colors.dart';
-import 'package:aura_app/providers/cart_provider.dart';
+import 'package:noir_app/core/theme/colors.dart';
+import 'package:noir_app/providers/cart_provider.dart';
 
 class MainNav extends ConsumerWidget {
   final Widget child;

@@ -1,4 +1,4 @@
-import 'package:aura_app/data/models/product.dart';
+import 'package:noir_app/data/models/product.dart';
 
 class CartItem {
   final String id, selectedSize, selectedColor;

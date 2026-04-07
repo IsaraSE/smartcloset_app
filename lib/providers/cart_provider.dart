@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:aura_app/data/models/product.dart';
-import 'package:aura_app/data/models/cart_item.dart';
+import 'package:noir_app/data/models/product.dart';
+import 'package:noir_app/data/models/cart_item.dart';
 
 final cartProvider =
     StateNotifierProvider<CartNotifier, List<CartItem>>((_) => CartNotifier());

@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:aura_app/data/models/cart_item.dart';
-import 'package:aura_app/data/models/address.dart';
-import 'package:aura_app/data/models/order.dart';
+import 'package:noir_app/data/models/cart_item.dart';
+import 'package:noir_app/data/models/address.dart';
+import 'package:noir_app/data/models/order.dart';
 
 final ordersProvider = StateNotifierProvider<OrdersNotifier, List<AppOrder>>(
     (_) => OrdersNotifier());

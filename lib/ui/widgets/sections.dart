@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'package:aura_app/core/theme/colors.dart';
+import 'package:noir_app/core/theme/colors.dart';
 
 class SecHeader extends StatelessWidget {
   final String title;

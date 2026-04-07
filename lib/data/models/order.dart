@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:aura_app/data/models/cart_item.dart';
-import 'package:aura_app/data/models/address.dart';
+import 'package:noir_app/data/models/cart_item.dart';
+import 'package:noir_app/data/models/address.dart';
 
 enum OrderStatus { placed, processing, shipped, delivered, cancelled }
 

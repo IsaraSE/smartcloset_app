@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:aura_app/data/models/product.dart';
+import 'package:noir_app/data/models/product.dart';
 
 final recentlyViewedProvider =
     StateNotifierProvider<RecentlyViewedNotifier, List<Product>>(

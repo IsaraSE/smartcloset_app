@@ -3,14 +3,14 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:aura_app/core/theme/colors.dart';
-import 'package:aura_app/data/models/product.dart';
-import 'package:aura_app/providers/wishlist_provider.dart';
-import 'package:aura_app/providers/recently_viewed_provider.dart';
-import 'package:aura_app/ui/widgets/shared_image.dart';
-import 'package:aura_app/ui/widgets/badges.dart';
-import 'package:aura_app/ui/widgets/shared_buttons.dart';
-import 'package:aura_app/core/utils/currency_utils.dart';
+import 'package:noir_app/core/theme/colors.dart';
+import 'package:noir_app/data/models/product.dart';
+import 'package:noir_app/providers/wishlist_provider.dart';
+import 'package:noir_app/providers/recently_viewed_provider.dart';
+import 'package:noir_app/ui/widgets/shared_image.dart';
+import 'package:noir_app/ui/widgets/badges.dart';
+import 'package:noir_app/ui/widgets/shared_buttons.dart';
+import 'package:noir_app/core/utils/currency_utils.dart';
 
 class ProductCard extends ConsumerWidget {
   final Product p;
