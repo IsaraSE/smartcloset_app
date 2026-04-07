@@ -136,7 +136,7 @@ class HomeScreen extends ConsumerWidget {
                                             w: double.infinity, h: 90),
                                         Container(
                                             color:
-                                                Colors.black.withOpacity(0.42)),
+                                                Colors.black.withValues(alpha: 0.42)),
                                         Center(
                                             child: Column(
                                                 mainAxisAlignment:
@@ -402,7 +402,7 @@ class _BSState extends State<_BannerSlider> {
                                       style: GoogleFonts.dmSans(
                                           fontSize: 12,
                                           color:
-                                              Colors.white.withOpacity(0.8))),
+                                              Colors.white.withValues(alpha: 0.8))),
                                   const SizedBox(height: 14),
                                   Container(
                                     padding: const EdgeInsets.symmetric(
@@ -451,7 +451,7 @@ class _EditorialBanner extends StatelessWidget {
             placeholder: (c, u) => Container(height: 160, color: context.colors.n200),
             errorWidget: (c, u, e) => Container(height: 160, color: context.colors.n800),
           ),
-          Container(height: 160, color: Colors.black.withOpacity(0.48)),
+          Container(height: 160, color: Colors.black.withValues(alpha: 0.48)),
           Positioned.fill(
               child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 20),

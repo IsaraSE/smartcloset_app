@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'package:aura_app/core/theme/colors.dart';
 
@@ -127,9 +128,9 @@ class WishBtnState extends State<WishBtn>
   }
 
   @override
-  void didUpdateWidget(WishBtn old) {
-    super.didUpdateWidget(old);
-    if (widget.isWished && !old.isWished) _ctrl.forward(from: 0);
+  void didUpdateWidget(WishBtn oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.isWished && !oldWidget.isWished) _ctrl.forward(from: 0);
   }
 
   @override
@@ -146,7 +147,7 @@ class WishBtnState extends State<WishBtn>
           width: widget.size + 22,
           height: widget.size + 22,
           decoration: BoxDecoration(
-            color: context.colors.white.withOpacity(0.92),
+            color: context.colors.white.withValues(alpha: 0.92),
             shape: BoxShape.circle,
             boxShadow: widget.shadow
                 ? [BoxShadow(color: context.colors.shadowMd, blurRadius: 8)]
@@ -167,3 +168,16 @@ class WishBtnState extends State<WishBtn>
 }
 
 // ── Logo Widget ────────────────────────────────────────────
+
+class FieldLabel extends StatelessWidget {
+  final String text;
+  const FieldLabel(this.text, {super.key});
+
+  @override
+  Widget build(BuildContext context) => Text(text,
+      style: GoogleFonts.dmSans(
+          fontSize: 12,
+          fontWeight: FontWeight.w600,
+          color: context.colors.n600,
+          letterSpacing: 0.3));
+}

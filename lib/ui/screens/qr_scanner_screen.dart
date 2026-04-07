@@ -71,7 +71,7 @@ class _QRState extends ConsumerState<QrScannerScreen>
           Positioned.fill(
               child: MobileScanner(controller: _camCtrl, onDetect: _onDetect)),
 
-          Positioned.fill(child: CustomPaint(painter: _QRPainter(_scanAnim))),
+          Positioned.fill(child: CustomPaint(painter: _QRPainter(_scanAnim, context.colors))),
 
           // Top bar
           Positioned(
@@ -105,14 +105,14 @@ class _QRState extends ConsumerState<QrScannerScreen>
               right: 0,
               child: Text('Point camera at the QR code on a clothing rack',
                   style: GoogleFonts.dmSans(
-                      color: Colors.white.withOpacity(0.75), fontSize: 13),
+                      color: Colors.white.withValues(alpha: 0.75), fontSize: 13),
                   textAlign: TextAlign.center)),
 
           // Result overlay
           if (_scanned && _scannedRack != null)
             Positioned.fill(
                 child: Container(
-              color: Colors.black.withOpacity(0.7),
+              color: Colors.black.withValues(alpha: 0.7),
               child: Center(
                   child: Column(mainAxisSize: MainAxisSize.min, children: [
                 Icon(Icons.check_circle_rounded,
@@ -166,7 +166,8 @@ class _QRState extends ConsumerState<QrScannerScreen>
 
 class _QRPainter extends CustomPainter {
   final Animation<double> anim;
-  _QRPainter(this.anim) : super(repaint: anim);
+  final AppColors colors;
+  _QRPainter(this.anim, this.colors) : super(repaint: anim);
 
   @override
   void paint(Canvas canvas, Size sz) {
@@ -182,11 +183,11 @@ class _QRPainter extends CustomPainter {
               ..addRRect(RRect.fromRectAndRadius(
                   Rect.fromCenter(center: Offset(cx, cy), width: s, height: s),
                   const Radius.circular(r)))),
-        Paint()..color = Colors.black.withOpacity(0.65));
+        Paint()..color = Colors.black.withValues(alpha: 0.65));
 
     // Corner brackets
     final p = Paint()
-      ..color = context.colors.gold
+      ..color = colors.gold
       ..strokeWidth = 3
       ..style = PaintingStyle.stroke;
     const l = s / 2, bl = 26.0;
@@ -212,7 +213,7 @@ class _QRPainter extends CustomPainter {
         Offset(cx - l + r + 4, scanY),
         Offset(cx + l - r - 4, scanY),
         Paint()
-          ..color = context.colors.gold
+          ..color = colors.gold
           ..strokeWidth = 2);
   }
 

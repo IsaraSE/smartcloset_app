@@ -8,6 +8,7 @@ import 'package:aura_app/data/models/cart_item.dart';
 import 'package:aura_app/providers/cart_provider.dart';
 import 'package:aura_app/ui/widgets/shared_buttons.dart';
 import 'package:aura_app/ui/widgets/shared_image.dart';
+import 'package:aura_app/ui/widgets/summary_row.dart';
 import 'package:aura_app/ui/widgets/empty_view.dart';
 
 class CartScreen extends ConsumerStatefulWidget {
@@ -90,7 +91,7 @@ class _CartState extends ConsumerState<CartScreen> {
               border: Border(top: BorderSide(color: context.colors.border)),
               boxShadow: [
                 BoxShadow(
-                    color: Colors.black.withOpacity(0.05),
+                    color: Colors.black.withValues(alpha: 0.05),
                     blurRadius: 12,
                     offset: const Offset(0, -4))
               ],
@@ -154,23 +155,7 @@ class _CartState extends ConsumerState<CartScreen> {
   }
 }
 
-Widget SumRow(String label, String val,
-        {Color? valueColor, bool bold = false}) =>
-    Padding(
-      padding: const EdgeInsets.symmetric(vertical: 5),
-      child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        Text(label,
-            style: GoogleFonts.dmSans(
-                fontSize: 14,
-                color: context.colors.n600,
-                fontWeight: bold ? FontWeight.w600 : FontWeight.w400)),
-        Text(val,
-            style: GoogleFonts.dmSans(
-                fontSize: 14,
-                fontWeight: bold ? FontWeight.w700 : FontWeight.w500,
-                color: valueColor ?? context.colors.ink)),
-      ]),
-    );
+// SumRow function removed and replaced by shared widget
 
 class _CartTile extends StatelessWidget {
   final CartItem item;

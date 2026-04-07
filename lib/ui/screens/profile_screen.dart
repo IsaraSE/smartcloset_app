@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:aura_app/core/theme/colors.dart';
+import 'package:aura_app/providers/theme_provider.dart';
 import 'package:aura_app/providers/auth_provider.dart';
 import 'package:aura_app/providers/wishlist_provider.dart';
 import 'package:aura_app/providers/orders_provider.dart';
@@ -57,16 +58,16 @@ class ProfileScreen extends ConsumerWidget {
                         Text(user?.email ?? '',
                             style: GoogleFonts.dmSans(
                                 fontSize: 12,
-                                color: Colors.white.withOpacity(0.6))),
+                                color: Colors.white.withValues(alpha: 0.6))),
                         const SizedBox(height: 8),
                         Container(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 10, vertical: 4),
                             decoration: BoxDecoration(
-                                color: context.colors.gold.withOpacity(0.2),
+                                color: context.colors.gold.withValues(alpha: 0.2),
                                 borderRadius: BorderRadius.circular(20),
                                 border:
-                                    Border.all(color: context.colors.gold.withOpacity(0.4))),
+                                    Border.all(color: context.colors.gold.withValues(alpha: 0.4))),
                             child: Text('NOIR Member',
                                 style: GoogleFonts.dmSans(
                                     color: context.colors.gold,
@@ -88,7 +89,7 @@ class ProfileScreen extends ConsumerWidget {
             ]),
             const SizedBox(height: 16),
 
-            _MenuSection('Shopping', [
+            _menuSection(context, 'Shopping', [
               _MenuItem(Icons.receipt_long_outlined, 'My Orders',
                   () => context.push('/orders')),
               _MenuItem(Icons.favorite_border_rounded, 'Saved Items',
@@ -97,16 +98,19 @@ class ProfileScreen extends ConsumerWidget {
               _MenuItem(Icons.local_offer_outlined, 'Promo Codes', () {}),
             ]),
             const SizedBox(height: 14),
-            _MenuSection('Features', [
+            _menuSection(context, 'Features', [
               _MenuItem(Icons.camera_alt_outlined, 'Virtual Try-On',
                   () => context.push('/try-on')),
               _MenuItem(Icons.qr_code_scanner_rounded, 'Rack Scanner',
                   () => context.push('/qr-scanner')),
             ]),
             const SizedBox(height: 14),
-            _MenuSection('Account', [
+            _menuSection(context, 'Account', [
               _MenuItem(
                   Icons.notifications_none_rounded, 'Notifications', () {}),
+              _MenuItem(Icons.dark_mode_outlined, 'Toggle Theme Mode', () {
+                ref.read(themeProvider.notifier).toggleMode();
+              }),
               _MenuItem(Icons.help_outline_rounded, 'Help & Support', () {}),
               _MenuItem(Icons.info_outline_rounded, 'About NOIR', () {}),
             ]),
@@ -155,7 +159,7 @@ class _StatCard extends StatelessWidget {
           ])));
 }
 
-Widget _MenuSection(String title, List<Widget> items) =>
+Widget _menuSection(BuildContext context, String title, List<Widget> items) =>
     Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       Padding(
           padding: const EdgeInsets.only(left: 4, bottom: 8),

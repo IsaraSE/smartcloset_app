@@ -69,8 +69,8 @@ class _LoginState extends ConsumerState<LoginScreen> {
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: [
-                  Colors.black.withOpacity(0.3),
-                  Colors.black.withOpacity(0.0),
+                  Colors.black.withValues(alpha: 0.3),
+                  Colors.black.withValues(alpha: 0.0),
                   context.colors.ink,
                 ],
                 stops: const [0.0, 0.55, 1.0],
@@ -273,15 +273,4 @@ class _LoginState extends ConsumerState<LoginScreen> {
   }
 }
 
-class FieldLabel extends StatelessWidget {
-  final String text;
-  const FieldLabel(this.text, {super.key});
-
-  @override
-  Widget build(BuildContext context) => Text(text,
-      style: GoogleFonts.dmSans(
-          fontSize: 12,
-          fontWeight: FontWeight.w600,
-          color: context.colors.n600,
-          letterSpacing: 0.3));
-}
+// FieldLabel moved to shared_buttons.dart

@@ -76,7 +76,7 @@ class _SplashState extends ConsumerState<SplashScreen>
                       borderRadius: BorderRadius.circular(18),
                       boxShadow: [
                         BoxShadow(
-                            color: context.colors.gold.withOpacity(0.4),
+                            color: context.colors.gold.withValues(alpha: 0.4),
                             blurRadius: 32,
                             spreadRadius: 4)
                       ],
@@ -104,7 +104,7 @@ class _SplashState extends ConsumerState<SplashScreen>
                 opacity: _taglineFade,
                 child: Text('Premium Fashion',
                     style: GoogleFonts.cormorantGaramond(
-                        color: context.colors.gold.withOpacity(0.8),
+                        color: context.colors.gold.withValues(alpha: 0.8),
                         fontSize: 14,
                         letterSpacing: 3,
                         fontStyle: FontStyle.italic))),
@@ -117,7 +117,7 @@ class _SplashState extends ConsumerState<SplashScreen>
                   height: 28,
                   child: CircularProgressIndicator(
                     strokeWidth: 1.5,
-                    valueColor: AlwaysStoppedAnimation(context.colors.gold.withOpacity(0.7)),
+                    valueColor: AlwaysStoppedAnimation(context.colors.gold.withValues(alpha: 0.7)),
                   ),
                 )),
           ]),

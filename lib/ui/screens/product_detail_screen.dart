@@ -62,7 +62,7 @@ class _PDState extends ConsumerState<ProductDetailScreen> {
                 child: Container(
                     margin: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
-                        color: context.colors.white.withOpacity(0.92),
+                        color: context.colors.white.withValues(alpha: 0.92),
                         shape: BoxShape.circle,
                         boxShadow: [
                           BoxShadow(color: context.colors.shadowMd, blurRadius: 8)
@@ -127,7 +127,7 @@ class _PDState extends ConsumerState<ProductDetailScreen> {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 12, vertical: 5),
                       decoration: BoxDecoration(
-                          color: Colors.black.withOpacity(0.4),
+                          color: Colors.black.withValues(alpha: 0.4),
                           borderRadius: BorderRadius.circular(20)),
                       child: Text('${_imgIdx + 1}/${p.images.length}',
                           style: GoogleFonts.dmSans(
@@ -268,7 +268,7 @@ class _PDState extends ConsumerState<ProductDetailScreen> {
                                 boxShadow: sel
                                     ? [
                                         BoxShadow(
-                                            color: context.colors.gold.withOpacity(0.4),
+                                            color: context.colors.gold.withValues(alpha: 0.4),
                                             blurRadius: 8,
                                             spreadRadius: 1)
                                       ]
@@ -335,7 +335,7 @@ class _PDState extends ConsumerState<ProductDetailScreen> {
                 decoration: BoxDecoration(
                     color: context.colors.goldLight,
                     borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: context.colors.gold.withOpacity(0.3))),
+                    border: Border.all(color: context.colors.gold.withValues(alpha: 0.3))),
                 child: Row(children: [
                   Container(
                       width: 44,
@@ -388,7 +388,7 @@ class _PDState extends ConsumerState<ProductDetailScreen> {
                 border: Border(top: BorderSide(color: context.colors.border)),
                 boxShadow: [
                   BoxShadow(
-                      color: Colors.black.withOpacity(0.06),
+                      color: Colors.black.withValues(alpha: 0.06),
                       blurRadius: 12,
                       offset: const Offset(0, -4))
                 ],

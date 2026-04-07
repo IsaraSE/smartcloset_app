@@ -5,6 +5,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 
 import 'package:aura_app/core/theme/colors.dart';
 import 'package:aura_app/data/models/order.dart';
+import 'package:aura_app/ui/widgets/summary_row.dart';
 import 'package:aura_app/ui/widgets/shared_buttons.dart';
 
 class OrderSuccessScreen extends StatelessWidget {

@@ -11,7 +11,7 @@ import 'package:aura_app/providers/cart_provider.dart';
 import 'package:aura_app/providers/orders_provider.dart';
 import 'package:aura_app/ui/widgets/shared_buttons.dart';
 import 'package:aura_app/ui/widgets/shared_image.dart';
-import 'package:aura_app/ui/screens/cart_screen.dart';
+import 'package:aura_app/ui/widgets/summary_row.dart';
 
 class CheckoutScreen extends ConsumerStatefulWidget {
   const CheckoutScreen({super.key});
@@ -265,15 +265,14 @@ class _COState extends ConsumerState<CheckoutScreen> {
                       setState(() => _placing = false);
                       return;
                     }
+                    final router = GoRouter.of(context);
                     final order = await ref.read(ordersProvider.notifier).place(
                         items: items,
                         address: addr,
                         payment: _payments[_payment]);
                     ref.read(cartProvider.notifier).clear();
                     setState(() => _placing = false);
-                    if (mounted) {
-                      context.pushReplacement('/order-success', extra: order);
-                    }
+                    router.pushReplacement('/order-success', extra: order);
                   })),
         ]),
       ];

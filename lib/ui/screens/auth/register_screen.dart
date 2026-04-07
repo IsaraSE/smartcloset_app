@@ -82,7 +82,7 @@ class _RegState extends ConsumerState<RegisterScreen> {
                             .animate()
                             .fadeIn(delay: 100.ms),
                         const SizedBox(height: 32),
-                        FieldLabel('Full Name'),
+                        const FieldLabel('Full Name'),
                         const SizedBox(height: 6),
                         TextFormField(
                             controller: _nc,
@@ -99,7 +99,7 @@ class _RegState extends ConsumerState<RegisterScreen> {
                               return null;
                             }),
                         const SizedBox(height: 16),
-                        FieldLabel('Email'),
+                        const FieldLabel('Email'),
                         const SizedBox(height: 6),
                         TextFormField(
                             controller: _ec,
@@ -117,7 +117,7 @@ class _RegState extends ConsumerState<RegisterScreen> {
                               return null;
                             }),
                         const SizedBox(height: 16),
-                        FieldLabel('Password'),
+                        const FieldLabel('Password'),
                         const SizedBox(height: 6),
                         TextFormField(
                             controller: _pc,
@@ -143,7 +143,7 @@ class _RegState extends ConsumerState<RegisterScreen> {
                               return null;
                             }),
                         const SizedBox(height: 16),
-                        FieldLabel('Confirm Password'),
+                        const FieldLabel('Confirm Password'),
                         const SizedBox(height: 6),
                         TextFormField(
                             controller: _cc,

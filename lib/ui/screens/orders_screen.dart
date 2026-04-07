@@ -60,7 +60,7 @@ class _OrderCard extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                 decoration: BoxDecoration(
-                    color: o.status.color.withOpacity(0.08),
+                    color: o.status.color.withValues(alpha: 0.08),
                     borderRadius: BorderRadius.circular(20)),
                 child: Text(o.status.label,
                     style: GoogleFonts.dmSans(
