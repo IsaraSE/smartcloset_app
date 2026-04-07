@@ -3,11 +3,11 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
-import 'package:aura_app/core/theme/colors.dart';
-import 'package:aura_app/data/models/order.dart';
-import 'package:aura_app/ui/widgets/summary_row.dart';
-import 'package:aura_app/ui/widgets/shared_buttons.dart';
-import 'package:aura_app/core/utils/currency_utils.dart';
+import 'package:noir_app/core/theme/colors.dart';
+import 'package:noir_app/data/models/order.dart';
+import 'package:noir_app/ui/widgets/summary_row.dart';
+import 'package:noir_app/ui/widgets/shared_buttons.dart';
+import 'package:noir_app/core/utils/currency_utils.dart';
 
 class OrderSuccessScreen extends StatelessWidget {
   final AppOrder order;

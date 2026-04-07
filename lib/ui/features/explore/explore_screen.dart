@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'package:aura_app/core/theme/colors.dart';
-import 'package:aura_app/providers/filter_provider.dart';
-import 'package:aura_app/ui/widgets/shared_buttons.dart';
-import 'package:aura_app/ui/widgets/empty_view.dart';
-import 'package:aura_app/ui/widgets/product_card.dart';
-import 'package:aura_app/core/utils/currency_utils.dart';
+import 'package:noir_app/core/theme/colors.dart';
+import 'package:noir_app/providers/filter_provider.dart';
+import 'package:noir_app/ui/widgets/shared_buttons.dart';
+import 'package:noir_app/ui/widgets/empty_view.dart';
+import 'package:noir_app/ui/widgets/product_card.dart';
+import 'package:noir_app/core/utils/currency_utils.dart';
 
 class ExploreScreen extends ConsumerStatefulWidget {
   const ExploreScreen({super.key});

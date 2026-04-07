@@ -3,11 +3,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'package:aura_app/core/theme/colors.dart';
-import 'package:aura_app/providers/theme_provider.dart';
-import 'package:aura_app/providers/auth_provider.dart';
-import 'package:aura_app/providers/wishlist_provider.dart';
-import 'package:aura_app/providers/orders_provider.dart';
+import 'package:noir_app/core/theme/colors.dart';
+import 'package:noir_app/providers/theme_provider.dart';
+import 'package:noir_app/providers/auth_provider.dart';
+import 'package:noir_app/providers/wishlist_provider.dart';
+import 'package:noir_app/providers/orders_provider.dart';
 
 class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({super.key});

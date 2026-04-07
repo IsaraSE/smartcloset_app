@@ -5,10 +5,10 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:camera/camera.dart';
 
-import 'package:aura_app/core/theme/colors.dart';
-import 'package:aura_app/data/models/product.dart';
-import 'package:aura_app/ui/widgets/shared_buttons.dart';
-import 'package:aura_app/ui/widgets/shared_image.dart';
+import 'package:noir_app/core/theme/colors.dart';
+import 'package:noir_app/data/models/product.dart';
+import 'package:noir_app/ui/widgets/shared_buttons.dart';
+import 'package:noir_app/ui/widgets/shared_image.dart';
 
 class TryOnScreen extends ConsumerStatefulWidget {
   final Product? product;

@@ -5,10 +5,10 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
-import 'package:aura_app/core/theme/colors.dart';
-import 'package:aura_app/providers/auth_provider.dart';
-import 'package:aura_app/ui/widgets/shared_buttons.dart';
-import 'package:aura_app/ui/widgets/brand.dart';
+import 'package:noir_app/core/theme/colors.dart';
+import 'package:noir_app/providers/auth_provider.dart';
+import 'package:noir_app/ui/widgets/shared_buttons.dart';
+import 'package:noir_app/ui/widgets/brand.dart';
 
 class RegisterScreen extends ConsumerStatefulWidget {
   const RegisterScreen({super.key});

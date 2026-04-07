@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'package:aura_app/core/theme/colors.dart';
-import 'package:aura_app/core/utils/currency_utils.dart';
+import 'package:noir_app/core/theme/colors.dart';
+import 'package:noir_app/core/utils/currency_utils.dart';
 
 class PromoCodesScreen extends StatelessWidget {
   const PromoCodesScreen({super.key});

@@ -6,14 +6,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:shimmer/shimmer.dart';
 
-import 'package:aura_app/core/theme/colors.dart';
-import 'package:aura_app/core/constants/mock_data.dart';
-import 'package:aura_app/data/models/product.dart';
-import 'package:aura_app/providers/cart_provider.dart';
-import 'package:aura_app/providers/wishlist_provider.dart';
-import 'package:aura_app/ui/widgets/shared_buttons.dart';
-import 'package:aura_app/ui/widgets/badges.dart';
-import 'package:aura_app/core/utils/currency_utils.dart';
+import 'package:noir_app/core/theme/colors.dart';
+import 'package:noir_app/core/constants/mock_data.dart';
+import 'package:noir_app/data/models/product.dart';
+import 'package:noir_app/providers/cart_provider.dart';
+import 'package:noir_app/providers/wishlist_provider.dart';
+import 'package:noir_app/ui/widgets/shared_buttons.dart';
+import 'package:noir_app/ui/widgets/badges.dart';
+import 'package:noir_app/core/utils/currency_utils.dart';
 
 class ProductDetailScreen extends ConsumerStatefulWidget {
   final Product? product;

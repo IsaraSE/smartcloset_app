@@ -3,10 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'package:aura_app/core/theme/colors.dart';
-import 'package:aura_app/core/constants/mock_data.dart';
-import 'package:aura_app/ui/widgets/empty_view.dart';
-import 'package:aura_app/ui/widgets/product_card.dart';
+import 'package:noir_app/core/theme/colors.dart';
+import 'package:noir_app/core/constants/mock_data.dart';
+import 'package:noir_app/ui/widgets/empty_view.dart';
+import 'package:noir_app/ui/widgets/product_card.dart';
 
 class RackProductsScreen extends ConsumerWidget {
   final String rackId;

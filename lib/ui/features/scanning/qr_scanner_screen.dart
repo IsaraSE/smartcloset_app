@@ -6,8 +6,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
-import 'package:aura_app/core/theme/colors.dart';
-import 'package:aura_app/core/constants/mock_data.dart';
+import 'package:noir_app/core/theme/colors.dart';
+import 'package:noir_app/core/constants/mock_data.dart';
 
 class QrScannerScreen extends ConsumerStatefulWidget {
   const QrScannerScreen({super.key});

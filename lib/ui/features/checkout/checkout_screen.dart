@@ -3,16 +3,16 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'package:aura_app/core/theme/colors.dart';
-import 'package:aura_app/data/models/cart_item.dart';
-import 'package:aura_app/data/models/address.dart';
-import 'package:aura_app/providers/auth_provider.dart';
-import 'package:aura_app/providers/cart_provider.dart';
-import 'package:aura_app/providers/orders_provider.dart';
-import 'package:aura_app/ui/widgets/shared_buttons.dart';
-import 'package:aura_app/ui/widgets/shared_image.dart';
-import 'package:aura_app/ui/widgets/summary_row.dart';
-import 'package:aura_app/core/utils/currency_utils.dart';
+import 'package:noir_app/core/theme/colors.dart';
+import 'package:noir_app/data/models/cart_item.dart';
+import 'package:noir_app/data/models/address.dart';
+import 'package:noir_app/providers/auth_provider.dart';
+import 'package:noir_app/providers/cart_provider.dart';
+import 'package:noir_app/providers/orders_provider.dart';
+import 'package:noir_app/ui/widgets/shared_buttons.dart';
+import 'package:noir_app/ui/widgets/shared_image.dart';
+import 'package:noir_app/ui/widgets/summary_row.dart';
+import 'package:noir_app/core/utils/currency_utils.dart';
 
 class CheckoutScreen extends ConsumerStatefulWidget {
   const CheckoutScreen({super.key});

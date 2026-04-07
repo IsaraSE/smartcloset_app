@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'package:aura_app/core/theme/colors.dart';
-import 'package:aura_app/providers/auth_provider.dart';
+import 'package:noir_app/core/theme/colors.dart';
+import 'package:noir_app/providers/auth_provider.dart';
 
 class AddressesScreen extends ConsumerWidget {
   const AddressesScreen({super.key});
