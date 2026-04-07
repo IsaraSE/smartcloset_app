@@ -59,7 +59,7 @@ class _SplashState extends ConsumerState<SplashScreen>
 
   @override
   Widget build(BuildContext context) => Scaffold(
-        backgroundColor: context.colors.ink,
+        backgroundColor: context.colors.canvas,
         body: Center(
           child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
             // ── Logo ─────────────────────────────────────────────
@@ -84,14 +84,14 @@ class _SplashState extends ConsumerState<SplashScreen>
                     child: Center(
                         child: Text('N',
                             style: GoogleFonts.cormorantGaramond(
-                                color: context.colors.white,
+                                color: context.colors.ink,
                                 fontSize: 46,
                                 fontWeight: FontWeight.w700))),
                   ),
                   const SizedBox(height: 18),
                   Text('NOIR',
                       style: GoogleFonts.dmSans(
-                          color: context.colors.white,
+                          color: context.colors.ink,
                           fontSize: 22,
                           fontWeight: FontWeight.w300,
                           letterSpacing: 10)),

@@ -16,10 +16,10 @@ class ThemeNotifier extends Notifier<ThemeMode> {
     if (savedMode != null) {
       return ThemeMode.values.firstWhere(
         (mode) => mode.toString() == savedMode,
-        orElse: () => ThemeMode.system,
+        orElse: () => ThemeMode.light,
       );
     }
-    return ThemeMode.system;
+    return ThemeMode.light;
   }
 
   void setTheme(ThemeMode mode) {

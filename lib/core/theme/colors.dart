@@ -78,7 +78,7 @@ class AppColors extends ThemeExtension<AppColors> {
 
   factory AppColors.light() => const AppColors(
     ink: Color(0xFF0A0A0A),
-    canvas: Color(0xFFFAFAFA),
+    canvas: Color(0xFFFFFFFF),
     white: Color(0xFFFFFFFF),
     black: Color(0xFF000000),
     gold: Color(0xFFC4A265),
